@@ -1,9 +1,5 @@
-# app/, DORMANT FastAPI backend
+# Local application
 
-**This solution does not require a request-time backend at the moment.** The product is static
-deterministic-replay (ADR-0054): the frontend loads the committed artifacts in `data/derived/` directly.
+`main.create_app` composes the released reflexmesh service with this repository's canonical artifact directory, checkpoint location and built frontend. It requires an explicit local token. Use `scripts/serve.py` to generate a session token and start the loopback server.
 
-Activate this lane ONLY on an ADR-0002 trigger (server-side processing of uploaded data, auth-gated private data,
-paid heavy compute). To activate: pin `requirements-api.txt`, install it, run `uvicorn app.main:app`. The
-endpoints serve the SAME committed artifacts read-only, a thin layer over `data/`, never a re-implementation of
-the engine.
+The API streams real workload events and decisions, exposes registered case/method capabilities, accepts bounded run requests and acknowledges cancellation. It serves the same built workbench so bearer requests remain same-origin. Static public deployments do not expose these executable routes.

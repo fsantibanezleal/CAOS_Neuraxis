@@ -1,0 +1,1060 @@
+{
+  "schema_version": 1,
+  "research_date": "2026-09-20",
+  "scope": "Evaluation, benchmark access, runtime engineering and interoperability for proposed CAOS_Neuraxis and reflexmesh",
+  "evidence_note": "Sources were inspected online. Labels describe accessed evidence, not successful reproduction. Gated task content was not accessed. Null year means undated living documentation; null DOI means not confirmed in this audit.",
+  "sources": [
+    {
+      "id": "E01",
+      "title": "ToolSandbox: A Stateful, Conversational, Interactive Evaluation Benchmark for LLM Tool Use Capabilities",
+      "year": 2024,
+      "url": "https://arxiv.org/html/2408.04682v1",
+      "doi": null,
+      "evidence_access": "full_text_primary",
+      "verified_on": "2026-09-20",
+      "claims_supported": [
+        "Stateful tool execution and intermediate/final milestone evaluation",
+        "Partial-order dependencies and simulated user interaction"
+      ],
+      "limitations": [
+        "Simulation does not establish native OS security or human performance"
+      ]
+    },
+    {
+      "id": "E02",
+      "title": "ToolSandbox official repository",
+      "year": 2024,
+      "url": "https://github.com/apple-aiml-research/ToolSandbox",
+      "doi": null,
+      "evidence_access": "official_repository",
+      "verified_on": "2026-09-20",
+      "claims_supported": [
+        "Python tool functions and execution context",
+        "Some search tools require RapidAPI credentials"
+      ],
+      "limitations": [
+        "Historical endpoint examples require live availability checks; benchmark was not executed"
+      ]
+    },
+    {
+      "id": "E03",
+      "title": "ToolSandbox license",
+      "year": 2024,
+      "url": "https://raw.githubusercontent.com/apple-aiml-research/ToolSandbox/main/LICENSE",
+      "doi": null,
+      "evidence_access": "license_full_text",
+      "verified_on": "2026-09-20",
+      "claims_supported": [
+        "Custom Apple license with subcomponent notice"
+      ],
+      "limitations": [
+        "Not MIT or Apache; dependency and asset rights remain separate"
+      ]
+    },
+    {
+      "id": "E04",
+      "title": "tau-bench original official repository",
+      "year": 2024,
+      "url": "https://github.com/sierra-research/tau-bench",
+      "doi": null,
+      "evidence_access": "official_repository",
+      "verified_on": "2026-09-20",
+      "claims_supported": [
+        "Original tool-agent-user benchmark repository"
+      ],
+      "limitations": [
+        "Must not conflate original tasks with current tau2 repository content"
+      ]
+    },
+    {
+      "id": "E05",
+      "title": "tau-bench original MIT license",
+      "year": 2024,
+      "url": "https://raw.githubusercontent.com/sierra-research/tau-bench/main/LICENSE",
+      "doi": null,
+      "evidence_access": "license_full_text",
+      "verified_on": "2026-09-20",
+      "claims_supported": [
+        "Original repository code is MIT"
+      ],
+      "limitations": [
+        "API/model terms are separate"
+      ]
+    },
+    {
+      "id": "E06",
+      "title": "tau2-Bench: Evaluating Conversational Agents in a Dual-Control Environment",
+      "year": 2025,
+      "url": "https://arxiv.org/html/2506.07982v1",
+      "doi": null,
+      "evidence_access": "full_text_primary",
+      "verified_on": "2026-09-20",
+      "claims_supported": [
+        "User and agent can affect environment state",
+        "Dual-control conversational benchmark"
+      ],
+      "limitations": [
+        "Simulator behavior and stochastic models affect scores"
+      ]
+    },
+    {
+      "id": "E07",
+      "title": "tau2-bench current official repository",
+      "year": 2026,
+      "url": "https://github.com/sierra-research/tau2-bench",
+      "doi": null,
+      "evidence_access": "official_repository",
+      "verified_on": "2026-09-20",
+      "claims_supported": [
+        "Current repository advertises tau3 additions",
+        "v1.0.1 banking grading change affects comparability",
+        "Core domains and base evaluation split"
+      ],
+      "limitations": [
+        "Moving main is not a pinned tau2 reproduction; no runs performed"
+      ]
+    },
+    {
+      "id": "E08",
+      "title": "tau2-bench MIT license",
+      "year": 2025,
+      "url": "https://raw.githubusercontent.com/sierra-research/tau2-bench/main/LICENSE",
+      "doi": null,
+      "evidence_access": "license_full_text",
+      "verified_on": "2026-09-20",
+      "claims_supported": [
+        "Current code repository is MIT"
+      ],
+      "limitations": [
+        "Optional data/provider rights require separate audit"
+      ]
+    },
+    {
+      "id": "E09",
+      "title": "BFCL V4 agentic evaluation methodology",
+      "year": 2025,
+      "url": "https://gorilla.cs.berkeley.edu/blogs/15_bfcl_v4_web_search.html",
+      "doi": null,
+      "evidence_access": "official_documentation",
+      "verified_on": "2026-09-20",
+      "claims_supported": [
+        "V4 covers agentic search, memory, and format sensitivity",
+        "Score category composition"
+      ],
+      "limitations": [
+        "Tool-call metrics are not completed-effect or security proof"
+      ]
+    },
+    {
+      "id": "E10",
+      "title": "Berkeley Function Calling Leaderboard",
+      "year": 2026,
+      "url": "https://gorilla.cs.berkeley.edu/leaderboard",
+      "doi": null,
+      "evidence_access": "official_documentation",
+      "verified_on": "2026-09-20",
+      "claims_supported": [
+        "Public V4 leaderboard and reproducibility version information"
+      ],
+      "limitations": [
+        "Scores depend on exact benchmark/model revision; no CAOS result obtained"
+      ]
+    },
+    {
+      "id": "E11",
+      "title": "Gorilla repository license",
+      "year": null,
+      "url": "https://raw.githubusercontent.com/ShishirPatil/gorilla/main/LICENSE",
+      "doi": null,
+      "evidence_access": "license_full_text",
+      "verified_on": "2026-09-20",
+      "claims_supported": [
+        "Repository Apache-2.0 license"
+      ],
+      "limitations": [
+        "Model/data subcomponents need their own applicable terms"
+      ]
+    },
+    {
+      "id": "E12",
+      "title": "BFCL public dataset card",
+      "year": 2024,
+      "url": "https://huggingface.co/datasets/gorilla-llm/Berkeley-Function-Calling-Leaderboard",
+      "doi": null,
+      "evidence_access": "dataset_card_public",
+      "verified_on": "2026-09-20",
+      "claims_supported": [
+        "Apache-2.0 dataset label",
+        "Card describes V1-V3 data handling"
+      ],
+      "limitations": [
+        "Card is older than V4; cannot substitute for V4 manifest"
+      ]
+    },
+    {
+      "id": "E13",
+      "title": "AgentDojo: A Dynamic Environment to Evaluate Prompt Injection Attacks and Defenses for LLM Agents",
+      "year": 2024,
+      "url": "https://arxiv.org/html/2406.13352v3",
+      "doi": null,
+      "evidence_access": "full_text_primary",
+      "verified_on": "2026-09-20",
+      "claims_supported": [
+        "Tool-mediated prompt-injection benchmark",
+        "Utility and attacker-success evaluation"
+      ],
+      "limitations": [
+        "Finite attacks do not prove universal defense"
+      ]
+    },
+    {
+      "id": "E14",
+      "title": "AgentDojo official repository",
+      "year": 2024,
+      "url": "https://github.com/ethz-spylab/agentdojo",
+      "doi": null,
+      "evidence_access": "official_repository",
+      "verified_on": "2026-09-20",
+      "claims_supported": [
+        "MIT code label",
+        "Executable benchmark and attack/defense integration"
+      ],
+      "limitations": [
+        "Version-specific package APIs; no benchmark execution here"
+      ]
+    },
+    {
+      "id": "E15",
+      "title": "BrowserGym official repository",
+      "year": 2024,
+      "url": "https://github.com/ServiceNow/BrowserGym",
+      "doi": null,
+      "evidence_access": "official_repository",
+      "verified_on": "2026-09-20",
+      "claims_supported": [
+        "Unified browser task environment",
+        "Playwright/browser and per-benchmark installation"
+      ],
+      "limitations": [
+        "Research infrastructure, not a consumer security sandbox"
+      ]
+    },
+    {
+      "id": "E16",
+      "title": "BrowserGym license",
+      "year": 2024,
+      "url": "https://raw.githubusercontent.com/ServiceNow/BrowserGym/main/LICENSE",
+      "doi": null,
+      "evidence_access": "license_full_text",
+      "verified_on": "2026-09-20",
+      "claims_supported": [
+        "Apache-2.0 code license"
+      ],
+      "limitations": [
+        "Bundled benchmark content may have separate terms"
+      ]
+    },
+    {
+      "id": "E17",
+      "title": "WebArena official repository",
+      "year": 2023,
+      "url": "https://github.com/web-arena-x/webarena",
+      "doi": null,
+      "evidence_access": "official_repository",
+      "verified_on": "2026-09-20",
+      "claims_supported": [
+        "Canonical self-hosted browser benchmark",
+        "AgentLab/BrowserGym integration recommendation"
+      ],
+      "limitations": [
+        "Scores depend on environment snapshots and evaluator version"
+      ]
+    },
+    {
+      "id": "E18",
+      "title": "WebArena license",
+      "year": null,
+      "url": "https://raw.githubusercontent.com/web-arena-x/webarena/main/LICENSE",
+      "doi": null,
+      "evidence_access": "license_full_text",
+      "verified_on": "2026-09-20",
+      "claims_supported": [
+        "Apache-2.0 repository license"
+      ],
+      "limitations": [
+        "Contained web applications/assets need separate license inventory"
+      ]
+    },
+    {
+      "id": "E19",
+      "title": "WebArena-Verified official repository",
+      "year": 2026,
+      "url": "https://github.com/ServiceNow/webarena-verified",
+      "doi": null,
+      "evidence_access": "official_repository",
+      "verified_on": "2026-09-20",
+      "claims_supported": [
+        "Curated versioned tasks and deterministic network-trace evaluators",
+        "Apache-2.0 repository label"
+      ],
+      "limitations": [
+        "Verified evaluator does not establish general policy safety"
+      ]
+    },
+    {
+      "id": "E20",
+      "title": "WebArena-Verified environment overview",
+      "year": 2026,
+      "url": "https://servicenow.github.io/webarena-verified/latest/environments/",
+      "doi": null,
+      "evidence_access": "official_documentation",
+      "verified_on": "2026-09-20",
+      "claims_supported": [
+        "Real browser service environment setup and optimized image options"
+      ],
+      "limitations": [
+        "Actual local memory/disk footprint not measured"
+      ]
+    },
+    {
+      "id": "E21",
+      "title": "WorkArena official README",
+      "year": 2024,
+      "url": "https://github.com/ServiceNow/WorkArena/blob/main/README.md",
+      "doi": null,
+      "evidence_access": "official_repository",
+      "verified_on": "2026-09-20",
+      "claims_supported": [
+        "ServiceNow tasks and compositional extension",
+        "Hosted instance access requires gated request"
+      ],
+      "limitations": [
+        "Instance access was not requested; terms and credentials not acquired"
+      ]
+    },
+    {
+      "id": "E22",
+      "title": "WorkArena license",
+      "year": 2024,
+      "url": "https://raw.githubusercontent.com/ServiceNow/WorkArena/main/LICENSE",
+      "doi": null,
+      "evidence_access": "license_full_text",
+      "verified_on": "2026-09-20",
+      "claims_supported": [
+        "Apache-2.0 code license"
+      ],
+      "limitations": [
+        "Does not grant hosted ServiceNow access"
+      ]
+    },
+    {
+      "id": "E23",
+      "title": "OSWorld original project page",
+      "year": 2024,
+      "url": "https://os-world.github.io/",
+      "doi": null,
+      "evidence_access": "official_project_page",
+      "verified_on": "2026-09-20",
+      "claims_supported": [
+        "369 original tasks; permitted 361-task evaluation excluding Google Drive cases",
+        "Legacy and Verified benchmark distinction"
+      ],
+      "limitations": [
+        "Latest V2 protocol is separate"
+      ]
+    },
+    {
+      "id": "E24",
+      "title": "OSWorld original repository",
+      "year": 2024,
+      "url": "https://github.com/xlang-ai/OSWorld",
+      "doi": null,
+      "evidence_access": "official_repository",
+      "verified_on": "2026-09-20",
+      "claims_supported": [
+        "Original computer-use environment and Apache-2.0 code label"
+      ],
+      "limitations": [
+        "No VM provisioned or benchmark executed"
+      ]
+    },
+    {
+      "id": "E25",
+      "title": "OSWorld V2 official README",
+      "year": 2026,
+      "url": "https://raw.githubusercontent.com/xlang-ai/OSWorld-V2/main/README.md",
+      "doi": null,
+      "evidence_access": "official_repository",
+      "verified_on": "2026-09-20",
+      "claims_supported": [
+        "osworld-v2.1 recommended as of 2026-09-16",
+        "Matching code/tasks/assets/websites/images required",
+        "Task classes and complete assets gated"
+      ],
+      "limitations": [
+        "Current access and execution not established; do not mix releases"
+      ]
+    },
+    {
+      "id": "E26",
+      "title": "OSWorld V2 code license",
+      "year": 2024,
+      "url": "https://raw.githubusercontent.com/xlang-ai/OSWorld-V2/main/LICENSE",
+      "doi": null,
+      "evidence_access": "license_full_text",
+      "verified_on": "2026-09-20",
+      "claims_supported": [
+        "Apache-2.0 repository code license"
+      ],
+      "limitations": [
+        "Does not establish all asset redistribution rights"
+      ]
+    },
+    {
+      "id": "E27",
+      "title": "OSWorld V2 gated task dataset card",
+      "year": 2026,
+      "url": "https://huggingface.co/datasets/xlangai/osworld_v2_tasks",
+      "doi": null,
+      "evidence_access": "dataset_card_public_gated_content",
+      "verified_on": "2026-09-20",
+      "claims_supported": [
+        "Task card Apache-2.0 label",
+        "Task files require accepting access conditions"
+      ],
+      "limitations": [
+        "Gated contents and conditions requiring login were not accessed"
+      ]
+    },
+    {
+      "id": "E28",
+      "title": "OSWorld V2 complete asset dataset card",
+      "year": 2026,
+      "url": "https://huggingface.co/datasets/xlangai/osworld_v2_assets_gated",
+      "doi": null,
+      "evidence_access": "dataset_card_public_gated_content",
+      "verified_on": "2026-09-20",
+      "claims_supported": [
+        "Separate gated complete asset source"
+      ],
+      "limitations": [
+        "No clear public license label observed; redistribution rights unresolved"
+      ]
+    },
+    {
+      "id": "E29",
+      "title": "OSWorld V2 provider setup",
+      "year": 2026,
+      "url": "https://raw.githubusercontent.com/xlang-ai/OSWorld-V2/main/docs/PROVIDER_SETUP.md",
+      "doi": null,
+      "evidence_access": "official_documentation",
+      "verified_on": "2026-09-20",
+      "claims_supported": [
+        "KVM recommended for Docker VM use",
+        "VM/cloud provider setup requirements"
+      ],
+      "limitations": [
+        "Generic provider code is not proof of compatible pinned images"
+      ]
+    },
+    {
+      "id": "E30",
+      "title": "SWE-bench dataset guide",
+      "year": null,
+      "url": "https://www.swebench.com/SWE-bench/guides/datasets/",
+      "doi": null,
+      "evidence_access": "official_documentation",
+      "verified_on": "2026-09-20",
+      "claims_supported": [
+        "Verified contains 500 expert-filtered instances"
+      ],
+      "limitations": [
+        "Patch-test success is not general tool-controller success"
+      ]
+    },
+    {
+      "id": "E31",
+      "title": "SWE-bench Docker setup",
+      "year": null,
+      "url": "https://www.swebench.com/SWE-bench/guides/docker_setup/",
+      "doi": null,
+      "evidence_access": "official_documentation",
+      "verified_on": "2026-09-20",
+      "claims_supported": [
+        "At least 120GB free disk and recommended 16GB+ RAM",
+        "Containerized evaluation and cache resource tradeoffs"
+      ],
+      "limitations": [
+        "Local capacity and full-run wall time were not measured"
+      ]
+    },
+    {
+      "id": "E32",
+      "title": "SWE-bench harness license",
+      "year": 2023,
+      "url": "https://raw.githubusercontent.com/SWE-bench/SWE-bench/main/LICENSE",
+      "doi": null,
+      "evidence_access": "license_full_text",
+      "verified_on": "2026-09-20",
+      "claims_supported": [
+        "MIT harness license"
+      ],
+      "limitations": [
+        "Underlying project/data/image terms remain separate"
+      ]
+    },
+    {
+      "id": "E33",
+      "title": "SWE-bench Verified dataset page",
+      "year": null,
+      "url": "https://huggingface.co/datasets/SWE-bench/SWE-bench_Verified",
+      "doi": null,
+      "evidence_access": "dataset_card_public",
+      "verified_on": "2026-09-20",
+      "claims_supported": [
+        "Public benchmark dataset identity"
+      ],
+      "limitations": [
+        "No license label exposed in inspected page; no inferred universal dataset license"
+      ]
+    },
+    {
+      "id": "E34",
+      "title": "Rust ownership guide",
+      "year": null,
+      "url": "https://doc.rust-lang.org/book/ch04-00-understanding-ownership.html",
+      "doi": null,
+      "evidence_access": "official_documentation",
+      "verified_on": "2026-09-20",
+      "claims_supported": [
+        "Ownership-based memory management without mandatory garbage collection"
+      ],
+      "limitations": [
+        "No semantic authorization or hard-real-time guarantee"
+      ]
+    },
+    {
+      "id": "E35",
+      "title": "A Guide to the Go Garbage Collector",
+      "year": null,
+      "url": "https://go.dev/doc/gc-guide",
+      "doi": null,
+      "evidence_access": "official_documentation",
+      "verified_on": "2026-09-20",
+      "claims_supported": [
+        "GC CPU/memory/latency tradeoffs"
+      ],
+      "limitations": [
+        "Does not supply comparative workload-specific Rust/Go results"
+      ]
+    },
+    {
+      "id": "E36",
+      "title": "Python threading documentation",
+      "year": null,
+      "url": "https://docs.python.org/3/library/threading.html",
+      "doi": null,
+      "evidence_access": "official_documentation",
+      "verified_on": "2026-09-20",
+      "claims_supported": [
+        "CPython threading and GIL/free-threading distinctions"
+      ],
+      "limitations": [
+        "Extension compatibility and target Python version must be tested"
+      ]
+    },
+    {
+      "id": "E37",
+      "title": "setuptools-rust documentation",
+      "year": null,
+      "url": "https://setuptools-rust.readthedocs.io/en/latest/",
+      "doi": null,
+      "evidence_access": "official_documentation",
+      "verified_on": "2026-09-20",
+      "claims_supported": [
+        "setuptools.build_meta with Rust/PyO3 extensions",
+        "Source inclusion and binary/extension packaging"
+      ],
+      "limitations": [
+        "Pinned build versions and clean OS wheels still require validation"
+      ]
+    },
+    {
+      "id": "E38",
+      "title": "PyO3 building and distribution guide",
+      "year": null,
+      "url": "https://pyo3.rs/main/building-and-distribution.html",
+      "doi": null,
+      "evidence_access": "official_documentation",
+      "verified_on": "2026-09-20",
+      "claims_supported": [
+        "Python ABI and wheel build options",
+        "Maturin and setuptools-rust support"
+      ],
+      "limitations": [
+        "Moving main includes newer abi3t information; match release tooling before adoption"
+      ]
+    },
+    {
+      "id": "E39",
+      "title": "PyO3 free-threading guide",
+      "year": null,
+      "url": "https://pyo3.rs/main/free-threading.html",
+      "doi": null,
+      "evidence_access": "official_documentation",
+      "verified_on": "2026-09-20",
+      "claims_supported": [
+        "Native extension obligations for free-threaded Python"
+      ],
+      "limitations": [
+        "Not automatic compatibility of all adapters/dependencies"
+      ]
+    },
+    {
+      "id": "E40",
+      "title": "Maturin official repository",
+      "year": null,
+      "url": "https://github.com/PyO3/maturin",
+      "doi": null,
+      "evidence_access": "official_repository",
+      "verified_on": "2026-09-20",
+      "claims_supported": [
+        "Rust/Python wheel and distribution tooling"
+      ],
+      "limitations": [
+        "Researched alternative only; CAOS backend convention favors setuptools"
+      ]
+    },
+    {
+      "id": "E41",
+      "title": "ONNX Runtime API index",
+      "year": null,
+      "url": "https://onnxruntime.ai/docs/api/",
+      "doi": null,
+      "evidence_access": "official_documentation",
+      "verified_on": "2026-09-20",
+      "claims_supported": [
+        "Official C/C++/Python APIs",
+        "Rust API explicitly labeled community"
+      ],
+      "limitations": [
+        "API list does not establish chosen model/operator/provider compatibility"
+      ]
+    },
+    {
+      "id": "E42",
+      "title": "ONNX Runtime C API guide",
+      "year": null,
+      "url": "https://onnxruntime.ai/docs/get-started/with-c.html",
+      "doi": null,
+      "evidence_access": "official_documentation",
+      "verified_on": "2026-09-20",
+      "claims_supported": [
+        "Official C API path for embedding inference"
+      ],
+      "limitations": [
+        "FFI ownership and binary dependencies need review"
+      ]
+    },
+    {
+      "id": "E43",
+      "title": "ONNX Runtime compatibility reference",
+      "year": null,
+      "url": "https://onnxruntime.ai/docs/reference/compatibility.html",
+      "doi": null,
+      "evidence_access": "official_documentation",
+      "verified_on": "2026-09-20",
+      "claims_supported": [
+        "Version/opset compatibility constraints"
+      ],
+      "limitations": [
+        "Successful export does not establish policy action equivalence"
+      ]
+    },
+    {
+      "id": "E44",
+      "title": "ort Rust binding repository",
+      "year": null,
+      "url": "https://github.com/pykeio/ort",
+      "doi": null,
+      "evidence_access": "official_repository",
+      "verified_on": "2026-09-20",
+      "claims_supported": [
+        "Community Rust binding for ONNX Runtime"
+      ],
+      "limitations": [
+        "Pin crate and native runtime independently; not an official Microsoft Rust SDK"
+      ]
+    },
+    {
+      "id": "E45",
+      "title": "Microsoft Windows Job Objects",
+      "year": null,
+      "url": "https://learn.microsoft.com/en-us/windows/win32/procthread/job-objects",
+      "doi": null,
+      "evidence_access": "official_documentation",
+      "verified_on": "2026-09-20",
+      "claims_supported": [
+        "Process grouping, limits, termination, breakaway and notification semantics"
+      ],
+      "limitations": [
+        "Job Objects alone are not a filesystem/network sandbox"
+      ]
+    },
+    {
+      "id": "E46",
+      "title": "Microsoft AppContainer isolation",
+      "year": 2025,
+      "url": "https://learn.microsoft.com/en-us/windows/win32/secauthz/appcontainer-isolation",
+      "doi": null,
+      "evidence_access": "official_documentation",
+      "verified_on": "2026-09-20",
+      "claims_supported": [
+        "Credential/file/network/process/window isolation according to granted access"
+      ],
+      "limitations": [
+        "Exact executable and broker compatibility not validated"
+      ]
+    },
+    {
+      "id": "E47",
+      "title": "Wasmtime security",
+      "year": null,
+      "url": "https://docs.wasmtime.dev/security.html",
+      "doi": null,
+      "evidence_access": "official_documentation",
+      "verified_on": "2026-09-20",
+      "claims_supported": [
+        "WASI filesystem capability model",
+        "Host/terminal security considerations"
+      ],
+      "limitations": [
+        "Applies to compatible Wasm guests; host imports remain trusted"
+      ]
+    },
+    {
+      "id": "E48",
+      "title": "Wasmtime interrupting execution",
+      "year": null,
+      "url": "https://docs.wasmtime.dev/examples-interrupting-wasm.html",
+      "doi": null,
+      "evidence_access": "official_documentation",
+      "verified_on": "2026-09-20",
+      "claims_supported": [
+        "Fuel versus epoch interruption"
+      ],
+      "limitations": [
+        "Instruction interruption is not remote effect rollback"
+      ]
+    },
+    {
+      "id": "E49",
+      "title": "Wasmtime Config API",
+      "year": null,
+      "url": "https://docs.wasmtime.dev/api/wasmtime/struct.Config.html",
+      "doi": null,
+      "evidence_access": "official_documentation",
+      "verified_on": "2026-09-20",
+      "claims_supported": [
+        "Fuel/epoch do not interrupt blocking host calls by themselves"
+      ],
+      "limitations": [
+        "Host I/O cancellation and limits still required"
+      ]
+    },
+    {
+      "id": "E50",
+      "title": "MCP protocol versioning",
+      "year": 2026,
+      "url": "https://modelcontextprotocol.io/docs/2026-07-28/learn/versioning",
+      "doi": null,
+      "evidence_access": "official_specification",
+      "verified_on": "2026-09-20",
+      "claims_supported": [
+        "2026-07-28 identified as current protocol",
+        "Per-request version handling"
+      ],
+      "limitations": [
+        "Moving specification can receive compatible updates; archive exact revision"
+      ]
+    },
+    {
+      "id": "E51",
+      "title": "MCP 2026-07-28 key changes",
+      "year": 2026,
+      "url": "https://modelcontextprotocol.io/specification/2026-07-28/changelog",
+      "doi": null,
+      "evidence_access": "official_specification",
+      "verified_on": "2026-09-20",
+      "claims_supported": [
+        "Stateless request model and server/discover",
+        "Tasks extension and Roots/Sampling/Logging deprecation",
+        "Transport lifecycle changes"
+      ],
+      "limitations": [
+        "Legacy SDK semantics differ and require separate adapter tests"
+      ]
+    },
+    {
+      "id": "E52",
+      "title": "MCP 2026-07-28 tools",
+      "year": 2026,
+      "url": "https://modelcontextprotocol.io/specification/2026-07-28/server/tools",
+      "doi": null,
+      "evidence_access": "official_specification",
+      "verified_on": "2026-09-20",
+      "claims_supported": [
+        "Annotations must be treated as untrusted absent trusted server",
+        "Schema/output/tool-name and header extension semantics"
+      ],
+      "limitations": [
+        "Typed shape is not action authority or verified effect"
+      ]
+    },
+    {
+      "id": "E53",
+      "title": "MCP 2026-07-28 cancellation",
+      "year": 2026,
+      "url": "https://modelcontextprotocol.io/specification/2026-07-28/basic/patterns/cancellation",
+      "doi": null,
+      "evidence_access": "official_specification",
+      "verified_on": "2026-09-20",
+      "claims_supported": [
+        "Transport-specific cancellation and race handling"
+      ],
+      "limitations": [
+        "Cancellation can be too late or impossible"
+      ]
+    },
+    {
+      "id": "E54",
+      "title": "MCP Tasks extension overview",
+      "year": 2026,
+      "url": "https://modelcontextprotocol.io/extensions/tasks/overview",
+      "doi": null,
+      "evidence_access": "official_specification",
+      "verified_on": "2026-09-20",
+      "claims_supported": [
+        "Durable task handles, polling, explicit capability support",
+        "Task cancellation is cooperative"
+      ],
+      "limitations": [
+        "Server support varies; acknowledgment is not proof of stopped effects"
+      ]
+    },
+    {
+      "id": "E55",
+      "title": "MCP security best practices",
+      "year": 2026,
+      "url": "https://modelcontextprotocol.io/docs/2026-07-28/tutorials/security/security_best_practices",
+      "doi": null,
+      "evidence_access": "official_documentation",
+      "verified_on": "2026-09-20",
+      "claims_supported": [
+        "Confused deputy, SSRF, state-handle and credential risks",
+        "Scope minimization and no token passthrough"
+      ],
+      "limitations": [
+        "Implementation guidance is not blanket protocol security guarantee"
+      ]
+    },
+    {
+      "id": "E56",
+      "title": "BehaviorTree.CPP reactive and asynchronous behaviors",
+      "year": null,
+      "url": "https://behaviortree.dev/docs/tutorial-basics/tutorial_04_sequence/",
+      "doi": null,
+      "evidence_access": "official_documentation",
+      "verified_on": "2026-09-20",
+      "claims_supported": [
+        "Reactive conditions, asynchronous nodes, halt behavior"
+      ],
+      "limitations": [
+        "Existing control structure; not novel learned arbitration"
+      ]
+    },
+    {
+      "id": "E57",
+      "title": "Temporal architecture",
+      "year": null,
+      "url": "https://raw.githubusercontent.com/temporalio/temporal/main/docs/architecture/README.md",
+      "doi": null,
+      "evidence_access": "official_repository",
+      "verified_on": "2026-09-20",
+      "claims_supported": [
+        "Deterministic workflows and side-effecting activities",
+        "Idempotency or nonretryable classification for activities"
+      ],
+      "limitations": [
+        "Durable orchestration does not infer intent or make effects reversible"
+      ]
+    },
+    {
+      "id": "E58",
+      "title": "LangGraph persistence",
+      "year": null,
+      "url": "https://docs.langchain.com/oss/python/langgraph/persistence",
+      "doi": null,
+      "evidence_access": "official_documentation",
+      "verified_on": "2026-09-20",
+      "claims_supported": [
+        "Checkpointers and stores serve different persistence scopes",
+        "MemorySaver does not survive restarts"
+      ],
+      "limitations": [
+        "Persistence is not exactly-once external effects"
+      ]
+    },
+    {
+      "id": "E59",
+      "title": "LangGraph interrupts",
+      "year": null,
+      "url": "https://docs.langchain.com/oss/python/langgraph/interrupts",
+      "doi": null,
+      "evidence_access": "official_documentation",
+      "verified_on": "2026-09-20",
+      "claims_supported": [
+        "Checkpointed interrupts and node replay on resume"
+      ],
+      "limitations": [
+        "Pre-interrupt side effects can repeat without correct design"
+      ]
+    },
+    {
+      "id": "E60",
+      "title": "GoEX: Perspectives and Designs Towards a Runtime for Autonomous LLM Applications",
+      "year": 2024,
+      "url": "https://arxiv.org/html/2404.06921v1",
+      "doi": "10.48550/arXiv.2404.06921",
+      "evidence_access": "full_text_primary",
+      "verified_on": "2026-09-20",
+      "claims_supported": [
+        "Post-facto validation, undo and damage confinement as runtime prior art"
+      ],
+      "limitations": [
+        "Perspective/runtime design; not universal effect reversibility or AGI"
+      ]
+    },
+    {
+      "id": "E61",
+      "title": "Requests source license",
+      "year": null,
+      "url": "https://raw.githubusercontent.com/psf/requests/main/LICENSE",
+      "doi": null,
+      "evidence_access": "license_full_text",
+      "verified_on": "2026-09-20",
+      "claims_supported": [
+        "Apache-2.0 for proposed real repository fixture"
+      ],
+      "limitations": [
+        "Exact task snapshot and file inventory not yet pinned"
+      ]
+    },
+    {
+      "id": "E62",
+      "title": "toml-test conformance suite",
+      "year": null,
+      "url": "https://github.com/toml-lang/toml-test",
+      "doi": null,
+      "evidence_access": "official_repository",
+      "verified_on": "2026-09-20",
+      "claims_supported": [
+        "Real parser conformance fixture corpus"
+      ],
+      "limitations": [
+        "Not a natural agent workflow dataset"
+      ]
+    },
+    {
+      "id": "E63",
+      "title": "toml-test license",
+      "year": null,
+      "url": "https://raw.githubusercontent.com/toml-lang/toml-test/main/LICENSE",
+      "doi": null,
+      "evidence_access": "license_full_text",
+      "verified_on": "2026-09-20",
+      "claims_supported": [
+        "MIT license"
+      ],
+      "limitations": [
+        "Freeze matching corpus snapshot"
+      ]
+    },
+    {
+      "id": "E64",
+      "title": "SQLite copyright",
+      "year": null,
+      "url": "https://sqlite.org/copyright.html",
+      "doi": null,
+      "evidence_access": "official_documentation",
+      "verified_on": "2026-09-20",
+      "claims_supported": [
+        "Public-domain statement for SQLite core"
+      ],
+      "limitations": [
+        "Extensions may have separate terms"
+      ]
+    },
+    {
+      "id": "E65",
+      "title": "PocketBase official repository",
+      "year": null,
+      "url": "https://github.com/pocketbase/pocketbase",
+      "doi": null,
+      "evidence_access": "official_repository",
+      "verified_on": "2026-09-20",
+      "claims_supported": [
+        "Real local SQLite/files/REST backend with MIT license",
+        "Pre-1.0 compatibility caveat"
+      ],
+      "limitations": [
+        "Not installed or measured; pin version before fixtures"
+      ]
+    },
+    {
+      "id": "E66",
+      "title": "Valkey XREADGROUP command",
+      "year": null,
+      "url": "https://valkey.io/commands/xreadgroup/",
+      "doi": null,
+      "evidence_access": "official_documentation",
+      "verified_on": "2026-09-20",
+      "claims_supported": [
+        "Stream consumer groups, pending entries, acknowledgment and recovery"
+      ],
+      "limitations": [
+        "Does not guarantee exactly-once application effects"
+      ]
+    },
+    {
+      "id": "E67",
+      "title": "Valkey COPYING",
+      "year": null,
+      "url": "https://github.com/valkey-io/valkey/blob/unstable/COPYING",
+      "doi": null,
+      "evidence_access": "license_full_text",
+      "verified_on": "2026-09-20",
+      "claims_supported": [
+        "BSD-3-Clause license"
+      ],
+      "limitations": [
+        "Moving unstable branch is not a release pin"
+      ]
+    },
+    {
+      "id": "E68",
+      "title": "PostgreSQL license",
+      "year": null,
+      "url": "https://www.postgresql.org/about/licence/",
+      "doi": null,
+      "evidence_access": "license_full_text",
+      "verified_on": "2026-09-20",
+      "claims_supported": [
+        "PostgreSQL License"
+      ],
+      "limitations": [
+        "Container dependencies require separate notice audit"
+      ]
+    }
+  ]
+}

@@ -1,8 +1,21 @@
-# Guides
+# Operation and reproduction
 
-- [00, instantiate a new product from the template](guides/00_instantiate.md)
-- [01, run the precompute pipeline](guides/01_precompute-pipeline.md)
-- [02, bring your own data](guides/02_bring-your-own-data.md)
-- [03, the GPU lane](guides/03_gpu-lane.md)
-- [04, run the API (only if `app/` is activated)](guides/04_run-the-api.md)
-- [05, the in-app Architecture / "How it works" modal (ADR-0058)](guides/05_architecture-modal.md)
+## Local execution
+
+Create an isolated Python environment with `scripts/setup.ps1` or `bash scripts/setup.sh`. Build the frontend using Node 24 and `npm ci`, then `npm run build` from `frontend/`. Start `python scripts/serve.py`. Keep the server on loopback. The printed session token belongs in the local workbench's connection field, never in a URL or committed configuration.
+
+Choose a case, method, variant and seed, connect to the local runtime, then run. The native lane limits the request to registered disposable workloads and a bounded step count. Inspect the timeline, candidates, resource revisions and observed effects. Cancellation requests are acknowledged immediately, but a running effect may remain uncertain until its receipt is reconciled. Terminal episodes can be exported and re-imported without executing tools.
+
+For general software workflows use reflexmesh's Runtime/Controller SDK or `reflexmesh workflow recipe.json --workspace workspace`. The caller registers tools and independent postconditions. A language model cannot expand capabilities by inventing a new tool name or command string.
+
+## Reproduce checkpoints and results
+
+Run `python data-pipeline/run.py all --model qwen3.5:4b` after explicitly installing the model in Ollama. This collects disjoint datasets, trains classical/recurrent/transition/RL policies, fits outcome-based routing gates, executes the complete held-out matrix and exports canonical results. It can take substantial time; source, model and split lineage are recorded and changed lineage prevents stale resume.
+
+Run individual stages when inspecting failures. Do not copy a partial evaluation directory over the canonical export. `scripts/check_artifacts.py` verifies all methods, cases, variants and seeds, identity/byte hashes, native receipts, held-out provenance and aggregate counts. Browser builds only consume these verified artifacts.
+
+GPU use is optional for training. A compatible official Torch/CUDA runtime must be explicitly installed and measured. Policy inference, planner inference and training can use different devices; record each separately. A GPU label or installed driver does not prove that a computation ran on GPU.
+
+## Import and extend
+
+Imported episodes require the versioned trace shape and remain labeled unverified-origin replay. They carry no executable authority. To add a live tool, implement a registered ToolSpec in the engine with argument validation, declared resources, current fingerprints and independent effect evidence. To add a case, provide a resettable real effect environment and verifier before extending the registry. To add a learned method, provide all train/checkpoint/infer/eval/export stages and compare on unchanged held-out cases.

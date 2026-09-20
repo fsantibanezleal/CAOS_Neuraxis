@@ -1,33 +1,27 @@
-"""DORMANT FastAPI app factory (ADR-0057). Serves the committed artifacts read-only (+ optionally the built SPA).
-Run only when the backend lane is activated:  uvicorn app.main:app --reload"""
+"""Neuraxis application composition using the separately distributed engine."""
+
 from __future__ import annotations
 
-from fastapi import FastAPI
-from fastapi.middleware.cors import CORSMiddleware
-from fastapi.middleware.gzip import GZipMiddleware
+import os
+from pathlib import Path
 
-from .config import Settings, origins
-from .routers import content
+from reflexmesh.planners import OllamaPlanner
+from reflexmesh.server import create_app as engine_app
+
+ROOT = Path(__file__).resolve().parents[1]
 
 
-def create_app() -> FastAPI:
-    s = Settings()
-    app = FastAPI(title="product (dormant API)", version="0.01.000")
-    app.add_middleware(GZipMiddleware, minimum_size=1024)
-    app.add_middleware(
-        CORSMiddleware,
-        allow_origins=origins(s) or ["*"],
-        allow_methods=["GET"],
-        allow_headers=["*"],
+def create_app():
+    token = os.environ.get("REFLEXMESH_LOCAL_TOKEN")
+    if not token:
+        raise RuntimeError(
+            "Set REFLEXMESH_LOCAL_TOKEN or start with scripts/serve.py for a fresh local session"
+        )
+    model = os.environ.get("NEURAXIS_MODEL")
+    return engine_app(
+        checkpoints=os.environ.get("NEURAXIS_CHECKPOINTS", ROOT / "models" / "checkpoints"),
+        artifacts=ROOT / "data" / "derived",
+        static=ROOT / "frontend" / "dist",
+        token=token,
+        planner=OllamaPlanner(model) if model else None,
     )
-    app.include_router(content.router)
-
-    @app.get("/health")
-    @app.get("/healthz")
-    def health() -> dict:
-        return {"status": "ok"}
-
-    return app
-
-
-app = create_app()
