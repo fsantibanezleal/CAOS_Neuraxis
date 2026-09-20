@@ -66,7 +66,7 @@ def test_failed_abstention_counts_but_success_without_receipts_is_rejected(tmp_p
         "method_id": "M01",
         "case_id": "C01",
         "variant": "nominal",
-        "seed": 20000,
+        "seed": 40000,
         "status": "failed",
         "provenance": {"split": "test", "truth": "actual predicate"},
         "metrics": {"task_success": 0, "native_receipts": 0},
@@ -75,12 +75,27 @@ def test_failed_abstention_counts_but_success_without_receipts_is_rejected(tmp_p
     }
 
     def write():
+        lineage = {
+            "source_sha256": {"runtime.py": "a" * 64},
+            "native_source_sha256": {"rust/core.rs": "b" * 64},
+            "checkpoint_sha256": {"M03.linear.json": "c" * 64},
+            "native_binary": {"sha256": "d" * 64},
+        }
+        signature = hashlib.sha256(json.dumps(lineage, sort_keys=True).encode()).hexdigest()
+        episode["provenance"]["lineage_signature"] = signature
+        (tmp_path / "lineage.json").write_text(json.dumps(lineage))
         raw = json.dumps(episode).encode()
         (tmp_path / "episode.json").write_bytes(raw)
         entry = {k: episode[k] for k in ("run_id", "method_id", "case_id", "variant", "seed", "status")}
         entry.update(path="episode.json", sha256=hashlib.sha256(raw).hexdigest())
         index = {
             "schema_version": 1,
+            "provenance": {
+                "lineage": lineage,
+                "lineage_signature": signature,
+                "split": "test",
+                "complete_method_ids": ["M01"],
+            },
             "methods": [{"id": "M01"}],
             "cases": [{"id": "C01"}],
             "episodes": [entry],
@@ -90,6 +105,18 @@ def test_failed_abstention_counts_but_success_without_receipts_is_rejected(tmp_p
 
     write()
     assert validator.validate(tmp_path, 1)["episodes"] == 1
+    episode["seed"] = 20000
+    write()
+    with pytest.raises(ValueError, match="held-out seed set"):
+        validator.validate(tmp_path, 1)
+    episode["seed"] = 40000
+    write()
+    lineage_path = tmp_path / "lineage.json"
+    changed_lineage = json.loads(lineage_path.read_text())
+    changed_lineage["source_sha256"]["runtime.py"] = "f" * 64
+    lineage_path.write_text(json.dumps(changed_lineage))
+    with pytest.raises(ValueError, match="lineage"):
+        validator.validate(tmp_path, 1)
     episode["status"] = "succeeded"
     episode["metrics"]["task_success"] = 1
     write()

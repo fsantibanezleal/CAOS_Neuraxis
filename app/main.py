@@ -24,4 +24,5 @@ def create_app():
         static=ROOT / "frontend" / "dist",
         token=token,
         planner=OllamaPlanner(model) if model else None,
+        workspace=os.environ.get("NEURAXIS_WORKSPACE"),
     )

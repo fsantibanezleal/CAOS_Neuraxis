@@ -5,6 +5,7 @@ from __future__ import annotations
 import argparse
 import hashlib
 import json
+import re
 import sys
 from collections import Counter
 from pathlib import Path
@@ -23,12 +24,37 @@ VARIANTS = {
 
 
 def validate(root: Path, required_seeds: int = 10) -> dict:
+    if type(required_seeds) is not int or not 1 <= required_seeds <= 10000:
+        raise ValueError("required seeds must be 1..10000")
     root = root.resolve()
     index = json.loads((root / "index.json").read_text(encoding="utf-8"))
     if index.get("schema_version") != 1:
         raise ValueError("unsupported index schema")
     if {m["id"] for m in index["methods"]} != METHODS or {c["id"] for c in index["cases"]} != CASES:
         raise ValueError("method/case registry is incomplete")
+    if not index["episodes"]:
+        raise ValueError("required complete method/case/variant/seed matrix is missing")
+    lineage = json.loads((root / "lineage.json").read_text(encoding="utf-8"))
+    signature = hashlib.sha256(json.dumps(lineage, sort_keys=True).encode()).hexdigest()
+    provenance = index.get("provenance", {})
+    if (
+        provenance.get("lineage") != lineage
+        or provenance.get("lineage_signature") != signature
+        or provenance.get("split") != "test"
+        or set(provenance.get("complete_method_ids", [])) != METHODS
+    ):
+        raise ValueError("canonical lineage binding is incomplete or inconsistent")
+    for name in ("source_sha256", "native_source_sha256", "checkpoint_sha256"):
+        hashes = lineage.get(name)
+        if (
+            not isinstance(hashes, dict)
+            or not hashes
+            or any(not isinstance(v, str) or not re.fullmatch(r"[0-9a-f]{64}", v) for v in hashes.values())
+        ):
+            raise ValueError("canonical lineage lacks executed source or fitted model digests")
+    if not re.fullmatch(r"[0-9a-f]{64}", lineage.get("native_binary", {}).get("sha256", "")):
+        raise ValueError("canonical lineage lacks native binary digest")
+    required_seed_ids = set(range(40000, 40000 + required_seeds))
     seen, cells, counts = set(), Counter(), Counter()
     for entry in index["episodes"]:
         relative = Path(entry["path"])
@@ -46,8 +72,12 @@ def validate(root: Path, required_seeds: int = 10) -> dict:
             raise ValueError("duplicate cell or episode identity drift")
         if identity[0] not in METHODS or identity[1] not in CASES or identity[2] not in VARIANTS:
             raise ValueError("unexpected matrix dimension")
+        if type(identity[3]) is not int or identity[3] not in required_seed_ids:
+            raise ValueError("episode does not use the declared held-out seed set")
         if episode["provenance"].get("split") != "test" or not episode.get("provenance", {}).get("truth"):
             raise ValueError("episode lacks held-out truth provenance")
+        if episode["provenance"].get("lineage_signature") != signature:
+            raise ValueError("episode lineage differs from frozen evaluation source/models")
         receipts = episode["metrics"].get("native_receipts")
         if episode["metrics"].get("task_success") not in {0, 1} or type(receipts) is not int or receipts < 0:
             raise ValueError("episode has invalid success or native receipt evidence")
@@ -66,7 +96,7 @@ def validate(root: Path, required_seeds: int = 10) -> dict:
         cells[identity[:3]] += 1
         counts[identity[0]] += 1
     expected = {(m, c, v) for m in METHODS for c in CASES for v in VARIANTS}
-    if set(cells) != expected or any(n < required_seeds for n in cells.values()):
+    if set(cells) != expected or any(n != required_seeds for n in cells.values()):
         raise ValueError("required complete method/case/variant/seed matrix is missing")
     aggregates = {a["method_id"]: a for a in index["aggregate_results"]}
     if set(aggregates) != METHODS or any(aggregates[m]["episodes"] != counts[m] for m in METHODS):

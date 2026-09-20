@@ -4,6 +4,7 @@ from __future__ import annotations
 
 import argparse
 import hashlib
+import importlib.util
 import json
 import shutil
 import subprocess
@@ -14,6 +15,10 @@ ROOT = Path(__file__).resolve().parents[1]
 
 
 def export(source: Path, destination: Path) -> dict:
+    spec = importlib.util.spec_from_file_location("artifact_checks", ROOT / "scripts" / "check_artifacts.py")
+    checks = importlib.util.module_from_spec(spec)
+    spec.loader.exec_module(checks)
+    checks.validate(source)
     index_path = source / "index.json"
     index = json.loads(index_path.read_text(encoding="utf-8"))
     if index.get("schema_version") != 1 or len(index.get("aggregate_results", [])) != 12:
