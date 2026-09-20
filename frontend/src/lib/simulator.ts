@@ -38,4 +38,3 @@ export function advanceSimulation(previous:Simulation):Simulation {
  e.metrics={success:e.status==='completed',decision_count:e.decisions.length,virtual_duration_ms:now,planner_calls:e.decisions.filter(x=>x.action==='delegate').length,denied_actions:e.decisions.filter(x=>x.status==='denied').length,unknown_outcomes:e.decisions.filter(x=>x.status==='unknown').length,host_effects:0};return s;
 }
 export function cancelSimulation(previous:Simulation):Simulation {const s=structuredClone(previous);if(['completed','failed','cancelled'].includes(s.episode.status))return s;s.episode.status='cancelled';s.episode.decisions.push({sequence:s.episode.decisions.length,timestamp_ms:s.episode.decisions.at(-1)?.timestamp_ms??0,event_kind:'cancel_request',action:'cancel',status:'cancelled',candidates:[],reason:'new admissions stopped; prior effects preserved',budget_remaining_ms:s.episode.decisions.at(-1)?.budget_remaining_ms});return s;}
-

@@ -6,7 +6,7 @@ export const CITATIONS: Citation[] = [
 {id:'daw2011',label:'Daw et al. 2011',citation:'Daw ND et al. Model-based influences on humans choices and striatal prediction errors. Neuron 69, 1204-1215 (2011).',doi:'10.1016/j.neuron.2011.02.027'},
 {id:'lee2014',label:'Lee et al. 2014',citation:'Lee SW, Shimojo S, O\'Doherty JP. Neural computations underlying arbitration between model-based and model-free learning. Neuron 81, 687-699 (2014).',doi:'10.1016/j.neuron.2013.11.028'},
 {id:'kool2016',label:'Kool et al. 2016',citation:'Kool W, Cushman FA, Gershman SJ. When does model-based control pay off? PLoS Computational Biology 12, e1005090 (2016).',doi:'10.1371/journal.pcbi.1005090'},
-{id:'heston2020',label:'Heston et al. 2020',citation:'Heston JB et al. Causal manipulation of subthalamic nucleus activity and surprise-induced slowing. eNeuro (2020).',doi:'10.1523/ENEURO.0159-20.2020'},
+{id:'heston2020',label:'Heston et al. 2020',citation:'Heston JB et al. Activation of Subthalamic Nucleus Stop Circuit Disrupts Cognitive Performance. eNeuro (2020).',doi:'10.1523/ENEURO.0159-20.2020'},
 {id:'tseng2007',label:'Tseng et al. 2007',citation:'Tseng YW et al. Sensory prediction errors drive cerebellum-dependent adaptation of reaching. Journal of Neurophysiology 98, 54-62 (2007).',doi:'10.1152/jn.00266.2007'},
 {id:'rao1999',label:'Rao and Ballard 1999',citation:'Rao RPN, Ballard DH. Predictive coding in the visual cortex: a functional interpretation of some extra-classical receptive-field effects. Nature Neuroscience 2, 79-87 (1999).',doi:'10.1038/4580'},
 {id:'mante2013',label:'Mante et al. 2013',citation:'Mante V et al. Context-dependent computation by recurrent dynamics in prefrontal cortex. Nature 503, 78-84 (2013).',doi:'10.1038/nature12742'},

@@ -119,12 +119,12 @@ h is recurrent state; o is the current observation; a and y are the previous act
 > ES: h es estado recurrente; o la observación actual; a e y la acción y resultado anteriores; phi es preprocesamiento causal; a* es acción demostrada; BC indica clonación de conducta. Se excluye estado oculto del evaluador.
 
 $$
-a_t=\arg\max_{a\in\mathcal A_t}\left[x_{t,a}^{\top}\widehat\theta_a+\alpha\sqrt{x_{t,a}^{\top}A_a^{-1}x_{t,a}}\right]
+a_t=\arg\max_{a\in\mathcal A_t}\left[x_{t,a}^{\top}\widehat\theta+\alpha\sqrt{x_{t,a}^{\top}A^{-1}x_{t,a}}\right]
 $$
 
-For disjoint LinUCB, x is the context-action feature vector, theta the fitted linear reward coefficient, A the regularized feature covariance, alpha the exploration coefficient and A_t the current admissible candidate set.
+This shared action-feature LinUCB uses a seeded 64-dimensional projection x, one fitted reward vector theta and one regularized covariance A across actions; alpha=0.2 controls exploration and A_t is the admissible set. Updates use only executed-action feedback.
 
-> ES: En LinUCB disjunto, x es el vector contextual, theta el coeficiente de recompensa, A la covarianza regularizada, alpha el coeficiente de exploración y A_t el conjunto admisible.
+> ES: LinUCB comparte una proyección de 64 dimensiones x, vector de recompensa theta y covarianza regularizada A entre acciones; alpha=0.2 controla exploración y A_t es el conjunto admisible. Solo se actualiza con acciones ejecutadas.
 
 $$
 L^{CLIP}=\mathbb E_t\left[\min\left(r_t\widehat A_t,\operatorname{clip}(r_t,1-\epsilon,1+\epsilon)\widehat A_t\right)\right]
