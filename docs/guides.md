@@ -2,7 +2,7 @@
 
 ## Local execution
 
-Create an isolated Python environment with `scripts/setup.ps1` or `bash scripts/setup.sh`. Build the frontend using Node 24 and `npm ci`, then `npm run build` from `frontend/`. Start `python scripts/serve.py`. Keep the server on loopback. The printed session token belongs in the local workbench's connection field, never in a URL or committed configuration.
+Create an isolated Python environment with `scripts/setup.ps1` or `bash scripts/setup.sh`. Setup installs the pinned engine and verified release checkpoints. For offline refitting, pass `-SkipModels` or `--skip-models` respectively. Build the frontend using Node 24 and `npm run build` from `frontend/`. Start `.venv/Scripts/python.exe scripts/serve.py` on Windows or `.venv/bin/python scripts/serve.py` on Linux/macOS from the repository root. Keep the server on loopback. The printed session token belongs in the local workbench's connection field, never in a URL or committed configuration.
 
 Choose a case, method, variant and seed, connect to the local runtime, then run. The native lane limits the request to registered disposable workloads and a bounded step count. Inspect the timeline, candidates, resource revisions and observed effects. Cancellation requests are acknowledged immediately, but a running effect may remain uncertain until its receipt is reconciled. Terminal episodes can be exported and re-imported without executing tools.
 

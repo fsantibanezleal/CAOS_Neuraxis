@@ -6,13 +6,15 @@ Neuraxis exposes live decisions, candidate scores, exact resource state, effects
 
 ## Run locally
 
-Install Python 3.12 and Node 24, then run `scripts/setup.ps1` on Windows or `bash scripts/setup.sh` on Linux/macOS. Build the frontend with `cd frontend && npm run build`. Start the local workbench with:
+Install Python 3.12 and Node 24, then run `scripts/setup.ps1` on Windows or `bash scripts/setup.sh` on Linux/macOS. Setup installs the pinned PyPI engine and hash-verified trained checkpoints from the matching project release. Build the frontend with `cd frontend && npm run build`. Activate `.venv` (`.venv/Scripts/Activate.ps1` on Windows or `source .venv/bin/activate` on Linux/macOS), return to the repository root and start the local workbench with:
 
 ```sh
 python scripts/serve.py --checkpoints models/checkpoints --model qwen3.5:4b
 ```
 
 The service prints a loopback URL and session token. Enter the token in the local workbench to run native methods. A configured Ollama model is required for slow-model methods; unavailable models are reported explicitly. Exported static workbench artifacts have no host-tool authority.
+
+To fit checkpoints yourself, setup accepts `-SkipModels` on Windows or `--skip-models` on Linux/macOS. Run the scientific stages below before selecting a learned method. For operator-owned files, add `--workspace /absolute/existing/directory`; the Workspace tab provides dependency recipes, effect verification, cancellation and reviewed recovery.
 
 The browser lane executes bounded virtual-workspace policies. The native lane executes real disposable files, child processes and local HTTP services through the engine's registered capabilities. Canonical and imported replay execute no effects. These lanes are identified throughout the interface.
 
