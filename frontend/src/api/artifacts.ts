@@ -8,8 +8,17 @@ async function getJSON(path: string) {
     throw new Error('Expected JSON evidence');
   return r.json();
 }
-export async function loadIndex(): Promise<ArtifactIndex> {
-  return getJSON(`${root}index.json`);
+let indexRequest: Promise<ArtifactIndex> | undefined;
+export function loadIndex(refresh = false): Promise<ArtifactIndex> {
+  if (refresh) indexRequest = undefined;
+  const request: Promise<ArtifactIndex> =
+    indexRequest ??
+    getJSON(`${root}index.json`).catch((error) => {
+      if (indexRequest === request) indexRequest = undefined;
+      throw error;
+    });
+  indexRequest = request;
+  return request;
 }
 export interface EpisodeReference {
   run_id: string;
@@ -149,7 +158,7 @@ export function useArtifacts() {
   useEffect(() => {
     let alive = true;
     setLoading(true);
-    loadIndex()
+    loadIndex(generation > 0)
       .then((v) => {
         if (alive) {
           setIndex(v);

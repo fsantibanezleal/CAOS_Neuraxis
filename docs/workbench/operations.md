@@ -18,6 +18,11 @@ findings or grant a model arbitrary computer access.
 5. Download the ZIP before closing or reloading the browser. It includes original
    inputs, structured outputs, accepted CSV rows and the execution journal. Delete
    the run to remove its hosted data immediately.
+6. Open **Session runs** to return to an earlier execution, inspect its own inputs,
+   download it or delete it. Changing the task does not discard hosted history.
+   If the service session expires, cached evidence remains downloadable as JSON;
+   explicitly starting again obtains fresh authority. An interrupted submission
+   is never retried automatically: refresh history to check whether it was accepted.
 
 The memory-only session capability survives route changes but not a full reload.
 Reloaded sessions cannot regain old runs. The service removes completed or orphaned
@@ -38,7 +43,7 @@ normalization. Binary files are outside the contract.
 | Python | AST syntax parsing | No execution, import, lint or semantic correctness claim |
 | JSON | Strict parse, rejecting duplicate keys and nonfinite values | No application-specific schema unless declared below |
 | TOML | Standard parser | No package installation or dependency resolution |
-| CSV | Shape, nonempty fields, duplicate `id` and matching foreign-key tables | No inferred scientific units, numeric ranges or missing external tables |
+| CSV | Shape, nonempty fields, duplicate `id`, scoped foreign keys and propagated rejection | Up to 256 columns and 20,000 records; no inferred units or numeric ranges |
 | `workflow.json` | Declared jobs, prerequisites and cycles, up to 256 jobs | No execution of commands in that file |
 | `release-manifest.json` | Relative file paths and lowercase SHA-256 values | Establishes byte identity, not authenticity or software safety |
 
@@ -46,11 +51,21 @@ A workflow has `{"jobs":[{"id":"build","depends_on":[]}]}`. A release manifest
 maps paths to SHA-256 strings. See the Inputs inspector for complete examples.
 For a foreign key such as `customer_id`, a corresponding `customers.csv` table with
 an `id` column must be present; absent relationships are not invented.
+Targets in the same directory take precedence; otherwise exactly one matching
+alias must exist. Missing tables produce an unchecked-reference warning and
+ambiguous targets quarantine affected records. References to rejected parents
+propagate through dependent tables. Duplicate IDs retain the first structurally
+valid record and quarantine later duplicates, so input order is significant.
+Separate `workflow.json` files have separate job namespaces.
 
 Data normalization preserves the original header and valid rows in input order.
 Invalid rows are quarantined with their line and reason. Accepted plus quarantined
 rows must equal the source row count. No attempt is made to guess a replacement
 identifier or silently repair malformed source.
+Extra fields remain in `extra_values`; physical start/end lines and record numbers
+are distinct, including quoted multiline fields and blank lines. The verifier
+checks rejected values as well as exact accepted rows. Warnings require attention;
+cancelled or incomplete execution cannot certify a passed delivery.
 
 ## Meaning of execution evidence
 

@@ -20,9 +20,17 @@ for (const viewport of sizes) for (const theme of ['light', 'dark']) for (const 
   }, { theme, lang });
   await page.goto(base);
   for (const route of routes) {
+    console.log(JSON.stringify({ route, viewport, theme, lang, phase: 'navigation' }));
     // Exercise navigation out of fixed mode, not only direct URL loads.
     await page.locator(`.site-header a[href="${route}"]`).click();
-    await page.locator(route === '/benchmark' ? '.nx-benchmark .nx-metrics' : '.nx-doc-section').waitFor();
+    try {
+      await expect(page).toHaveURL(new URL(route, base).href);
+      await page.locator(route === '/benchmark' ? '.nx-benchmark .nx-metrics' : '.nx-doc-section').waitFor();
+    } catch (error) {
+      await page.screenshot({ path: 'qa/layout-failure.png', fullPage: true });
+      console.log(JSON.stringify({ url: page.url(), text: (await page.locator('body').innerText()).slice(0, 1800) }));
+      throw error;
+    }
     await expect(page.locator('.app-shell')).not.toHaveClass(/fixed/);
     await expect.poll(() => page.evaluate(() => scrollY)).toBe(0);
     const before = await page.evaluate(() => ({ height: innerHeight, document: document.documentElement.scrollHeight, width: innerWidth, documentWidth: document.documentElement.scrollWidth }));

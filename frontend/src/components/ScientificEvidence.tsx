@@ -14,7 +14,7 @@ const groups: Record<string, string[]> = {
 };
 export function MethodEvidence({ section }: { section: string }) {
   const { lang } = useCopy();
-  const { index } = useArtifacts();
+  const { index, error } = useArtifacts();
   const records = (Array.isArray(index?.aggregate_results) ? index.aggregate_results : []) as {
     method_id: string;
     episodes: number;
@@ -24,7 +24,18 @@ export function MethodEvidence({ section }: { section: string }) {
     steps: number;
   }[];
   const rows = records.filter((r) => groups[section]?.includes(r.method_id));
-  if (!rows.length) return null;
+  if (!rows.length)
+    return (
+      <div className="science-measurement" role={error ? 'alert' : 'status'}>
+        {error
+          ? lang === 'en'
+            ? 'Measured evidence could not be loaded. Reload to retry.'
+            : 'No se pudo cargar la evidencia medida. Recargar para reintentar.'
+          : lang === 'en'
+            ? 'Loading measured evidence…'
+            : 'Cargando evidencia medida…'}
+      </div>
+    );
   return (
     <section className="science-measurement">
       <h3>

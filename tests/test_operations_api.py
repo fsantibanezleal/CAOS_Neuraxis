@@ -92,3 +92,59 @@ def test_expired_orphan_directory_removed(client):
     os.utime(orphan, (time.time() - 4000, time.time() - 4000))
     manager.collect()
     assert not orphan.exists()
+
+
+def completed(client, owner):
+    response = client.post(
+        "/operations-api/runs",
+        headers=owner,
+        json={"task": "source", "files": [{"path": "a.py", "content": "x=1\n"}]},
+    )
+    assert response.status_code == 200, response.text
+    key = response.json()["id"]
+    for _ in range(200):
+        run = client.get(f"/operations-api/runs/{key}", headers=owner).json()
+        if run["status"] not in {"queued", "running", "cancelling"}:
+            assert run["status"] == "succeeded"
+            return key
+        time.sleep(0.025)
+    pytest.fail("Operation did not finish")
+
+
+def test_owned_history_and_expiry(client):
+    owner, other = session(client), session(client)
+    first, second = completed(client, owner), completed(client, owner)
+    history = client.get("/operations-api/runs", headers=owner).json()["runs"]
+    assert [r["id"] for r in history] == [second, first]
+    assert "inputs" not in history[0]
+    assert history[0]["expires_at"] - history[0]["created_at"] == 3600
+    assert client.get("/operations-api/runs", headers=other).json()["runs"] == []
+    manager = client.app.state.operations
+    manager.runs[first]["created"] -= 4000
+    manager.runs[second]["created"] -= 4000
+    manager.sessions[owner["Authorization"].removeprefix("Bearer ")] -= 4000
+    assert client.get("/operations-api/runs", headers=owner).status_code == 401
+    assert not manager.runs
+    assert list(manager.root.iterdir()) == []
+
+
+def test_concurrent_delete_is_atomic(client):
+    from concurrent.futures import ThreadPoolExecutor
+
+    owner = session(client)
+    key = completed(client, owner)
+    with ThreadPoolExecutor(max_workers=6) as workers:
+        statuses = list(
+            workers.map(
+                lambda _: client.delete(f"/operations-api/runs/{key}", headers=owner).status_code, range(6)
+            )
+        )
+    assert sorted(statuses) == [200, 404, 404, 404, 404, 404]
+
+
+@pytest.mark.parametrize(
+    "value", [{"task": []}, {"task": {}}, {"variant": []}, {"seed": True}, {"seed": 1.5}, {"files": None}]
+)
+def test_non_scalar_admission_is_a_client_error(client, value):
+    assert client.post("/operations-api/runs", headers=session(client), json=value).status_code == 422
+    assert not client.app.state.operations.runs

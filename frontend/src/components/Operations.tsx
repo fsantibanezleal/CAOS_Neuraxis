@@ -21,14 +21,20 @@ import { localSession } from '../lib/session';
 import {
   activeRun,
   conditionLabels,
+  statusLabels,
+  findingLabels,
   ensureOperationSession,
   exportOperation,
   fileSummary,
   operationAPI,
+  operationOutcome,
+  OperationError,
+  saveCachedOperation,
   taskLabels,
   type InputFile,
   type OperationNode,
   type OperationRun,
+  type OperationSummary,
 } from '../lib/operations';
 import OperationGraph from './OperationGraph';
 
@@ -50,20 +56,59 @@ export default function Operations() {
   const [online, setOnline] = useState<boolean | null>(null);
   const [busy, setBusy] = useState(false);
   const [error, setError] = useState('');
+  const [unavailable, setUnavailable] = useState(Boolean(saved?.unavailable));
+  const [history, setHistory] = useState<OperationSummary[]>([]);
+  const [historyError, setHistoryError] = useState('');
   const [selected, setSelected] = useState('inventory');
   const [selectedFile, setSelectedFile] = useState('');
+  const [selectedLine, setSelectedLine] = useState<number | null>(null);
   const [query, setQuery] = useState('');
   const [resultView, setResultView] = useState('graph');
   const input = useRef<HTMLInputElement>(null);
   const folder = useRef<HTMLInputElement>(null);
-  const active = activeRun(run);
+  const sourceLine = useRef<HTMLSpanElement>(null);
+  const active = activeRun(run) && !unavailable;
+  const outcome = operationOutcome(run);
   const summary = fileSummary(files);
   const result = run?.result;
   const displayNodes = run?.nodes ?? nodes;
   const selectedNode = displayNodes.find((n) => n.id === selected) ?? displayNodes[0];
   useEffect(() => {
-    localSession.operations = { task, variant, seed, files, nodes, run, uploaded };
-  }, [task, variant, seed, files, nodes, run, uploaded]);
+    if (resultView === 'files' && selectedLine)
+      sourceLine.current?.scrollIntoView({ block: 'nearest' });
+  }, [selectedLine, selectedFile, resultView]);
+  useEffect(() => {
+    localSession.operations = { task, variant, seed, files, nodes, run, uploaded, unavailable };
+  }, [task, variant, seed, files, nodes, run, uploaded, unavailable]);
+  function handleError(e: unknown) {
+    if (e instanceof OperationError && [401, 404].includes(e.status)) {
+      setUnavailable(true);
+      setError(
+        c(
+          'This hosted run is no longer available. Its retention period or session ended. Cached evidence is kept here; refresh history or run your selected files in a new session.',
+          'Esta ejecución ya no está disponible. Terminó su retención o sesión. La evidencia en memoria se conserva; actualizar el historial o ejecutar los archivos en una sesión nueva.',
+        ),
+      );
+    } else setError(String(e));
+  }
+  async function refreshHistory() {
+    if (!localSession.operationToken) {
+      setHistory([]);
+      return;
+    }
+    try {
+      setHistory((await operationAPI('runs')).runs);
+      setHistoryError('');
+    } catch (e) {
+      if (e instanceof OperationError && e.status === 401) {
+        setHistory([]);
+        handleError(e);
+      } else setHistoryError(String(e));
+    }
+  }
+  useEffect(() => {
+    void refreshHistory();
+  }, [run?.id, run?.status]);
   useEffect(() => {
     let alive = true;
     void operationAPI('config')
@@ -78,13 +123,13 @@ export default function Operations() {
     };
   }, []);
   useEffect(() => {
-    if (uploaded || active) return;
+    if (run) return;
     let alive = true;
     setBusy(true);
     void operationAPI(`fixture?task=${task}&variant=${variant}&seed=${seed}`)
       .then((value) => {
         if (alive) {
-          setFiles(value.files);
+          if (!uploaded) setFiles(value.files);
           setNodes(value.nodes);
           setError('');
           setOnline(true);
@@ -102,7 +147,7 @@ export default function Operations() {
     return () => {
       alive = false;
     };
-  }, [task, variant, seed, uploaded]);
+  }, [task, variant, seed, uploaded, run?.id]);
   useEffect(() => {
     if (!active || !run) return;
     let alive = true,
@@ -118,7 +163,7 @@ export default function Operations() {
           }
         })
         .catch((e) => {
-          if (alive) setError(String(e));
+          if (alive) handleError(e);
         })
         .finally(() => {
           pending = false;
@@ -141,9 +186,13 @@ export default function Operations() {
         ...(uploaded ? { files } : {}),
       });
       setRun(value);
+      setUnavailable(false);
       setResultView('graph');
     } catch (e) {
-      setError(String(e));
+      handleError(e);
+      // A timed-out start may have been admitted. History is the authority;
+      // never retry an uncertain POST automatically.
+      await refreshHistory();
     } finally {
       setBusy(false);
     }
@@ -154,9 +203,33 @@ export default function Operations() {
     try {
       await operationAPI(`runs/${run.id}`, undefined, 'DELETE');
       setRun(null);
+      setUnavailable(false);
+      await refreshHistory();
       setError('');
     } catch (e) {
-      setError(String(e));
+      handleError(e);
+    } finally {
+      setBusy(false);
+    }
+  }
+  async function restoreRun(id: string) {
+    setBusy(true);
+    try {
+      const value: OperationRun = await operationAPI(`runs/${id}`);
+      setRun(value);
+      setTask(value.task as keyof typeof taskLabels);
+      setVariant(value.variant === 'uploaded' ? 'compound' : value.variant);
+      setSeed(value.seed);
+      setFiles(value.inputs);
+      setNodes(value.nodes);
+      setUploaded(value.variant === 'uploaded');
+      setSelectedLine(null);
+      setSelectedFile('');
+      setUnavailable(false);
+      setError('');
+    } catch (e) {
+      handleError(e);
+      await refreshHistory();
     } finally {
       setBusy(false);
     }
@@ -179,7 +252,9 @@ export default function Operations() {
       const incoming = await Promise.all(
         Array.from(chosen).map(async (f) => ({
           path: f.webkitRelativePath || f.name,
-          content: new TextDecoder('utf-8', { fatal: true }).decode(await f.arrayBuffer()),
+          content: new TextDecoder('utf-8', { fatal: true, ignoreBOM: true }).decode(
+            await f.arrayBuffer(),
+          ),
         })),
       );
       // A selected folder is a bundle root, not part of the analyzer-relative path.
@@ -192,6 +267,7 @@ export default function Operations() {
       setFiles(incoming);
       setUploaded(true);
       setRun(null);
+      setUnavailable(false);
       setSelectedFile(incoming[0]?.path ?? '');
       setResultView('files');
       setError('');
@@ -300,7 +376,7 @@ export default function Operations() {
                 value={seed}
                 disabled={active || busy}
                 onChange={(e) => {
-                  setSeed(Math.max(0, Math.min(99999, Number(e.target.value) || 0)));
+                  setSeed(Math.floor(Math.max(0, Math.min(99999, Number(e.target.value) || 0))));
                   setRun(null);
                 }}
               />
@@ -364,6 +440,43 @@ export default function Operations() {
             </p>
           </div>
         </div>
+        <details className="op-history">
+          <summary>
+            {c('Session runs', 'Ejecuciones de la sesión')} ({history.length})
+          </summary>
+          <button className="op-text-link" disabled={busy} onClick={() => void refreshHistory()}>
+            {c('Refresh history', 'Actualizar historial')}
+          </button>
+          {historyError && <p role="alert">{historyError}</p>}
+          {history.length ? (
+            history.map((item) => (
+              <button
+                key={item.id}
+                className="op-history-run"
+                aria-pressed={run?.id === item.id}
+                disabled={busy || (active && run?.id !== item.id)}
+                onClick={() => void restoreRun(item.id)}
+              >
+                <strong>{taskLabels[item.task][lang]}</strong>
+                <span>
+                  {new Date(item.created_at * 1000).toLocaleTimeString(lang)} ·{' '}
+                  {item.id.slice(0, 6)}
+                </span>
+                <span>
+                  {c(`${item.findings} findings`, `${item.findings} hallazgos`)} ·{' '}
+                  {statusLabels[item.status]?.[lang] ?? item.status}
+                </span>
+              </button>
+            ))
+          ) : (
+            <p>
+              {c(
+                'Runs remain accessible here for one hour within this session.',
+                'Las ejecuciones están disponibles aquí durante una hora dentro de esta sesión.',
+              )}
+            </p>
+          )}
+        </details>
         <div className={`op-service ${online ? 'online' : ''}`}>
           <i className="op-dot" />
           {online === null
@@ -387,17 +500,22 @@ export default function Operations() {
               )}
             </p>
           </div>
-          <span className="op-run-badge" data-state={run?.status ?? 'ready'}>
+          <span
+            className="op-run-badge"
+            data-state={unavailable && run ? 'unavailable' : (run?.status ?? 'ready')}
+          >
             {active ? <LoaderCircle size={15} className="op-spin" /> : <ShieldCheck size={15} />}{' '}
-            {run?.status === 'succeeded'
-              ? c('Analysis verified', 'Análisis verificado')
-              : run?.status === 'cancelled'
-                ? c('Cancelled', 'Cancelado')
-                : run?.status === 'failed'
-                  ? c('Execution failed', 'La ejecución falló')
-                  : active
-                    ? c('Executing tools', 'Ejecutando herramientas')
-                    : c('Ready to inspect', 'Listo para inspeccionar')}
+            {unavailable && run
+              ? c('Hosted run unavailable', 'Ejecución no disponible')
+              : run?.status === 'succeeded'
+                ? c('Analysis verified', 'Análisis verificado')
+                : run?.status === 'cancelled'
+                  ? c('Cancelled', 'Cancelado')
+                  : run?.status === 'failed'
+                    ? c('Execution failed', 'La ejecución falló')
+                    : active
+                      ? c('Executing tools', 'Ejecutando herramientas')
+                      : c('Ready to inspect', 'Listo para inspeccionar')}
           </span>
         </header>
         <div className="op-command-bar">
@@ -414,9 +532,7 @@ export default function Operations() {
             <button
               className="nx-button"
               onClick={() =>
-                void operationAPI(`runs/${run!.id}/cancel`, {})
-                  .then(setRun)
-                  .catch((e) => setError(String(e)))
+                void operationAPI(`runs/${run!.id}/cancel`, {}).then(setRun).catch(handleError)
               }
             >
               <Square size={14} />
@@ -427,15 +543,21 @@ export default function Operations() {
             <>
               <button
                 className="nx-button"
-                onClick={() => void exportOperation(run).catch((e) => setError(String(e)))}
+                onClick={() =>
+                  unavailable
+                    ? saveCachedOperation(run)
+                    : void exportOperation(run).catch(handleError)
+                }
               >
                 <Download size={15} />
-                {c('Download results', 'Descargar resultados')}
+                {unavailable
+                  ? c('Save cached evidence', 'Guardar evidencia en memoria')
+                  : c('Download results', 'Descargar resultados')}
               </button>
               <button
                 className="nx-button"
                 onClick={() => void removeRun()}
-                disabled={busy}
+                disabled={busy || unavailable}
                 aria-label={c('Delete this hosted run', 'Eliminar esta ejecución')}
               >
                 <Trash2 size={15} />
@@ -468,12 +590,14 @@ export default function Operations() {
             </span>
             <strong>
               {result
-                ? result.disposition === 'attention_required'
-                  ? c(
-                      `${result.findings.length} findings need attention`,
-                      `${result.findings.length} hallazgos requieren atención`,
-                    )
-                  : c('Completed checks passed', 'Comprobaciones superadas')
+                ? outcome === 'incomplete'
+                  ? c('Verification incomplete', 'Verificación incompleta')
+                  : outcome === 'attention'
+                    ? c(
+                        `${result.findings.length} findings need attention`,
+                        `${result.findings.length} hallazgos requieren atención`,
+                      )
+                    : c('Completed checks passed', 'Comprobaciones superadas')
                 : c(
                     'Findings + verified manifest + output evidence',
                     'Hallazgos + manifiesto verificado + evidencia',
@@ -586,12 +710,17 @@ export default function Operations() {
                     className="op-finding"
                     onClick={() => {
                       setSelectedFile(`input/${f.path}`);
+                      setSelectedLine(f.line);
                       setResultView('files');
                     }}
                   >
-                    <span className={`op-severity ${f.severity}`}>{f.severity}</span>
+                    <span className={`op-severity ${f.severity}`}>
+                      {f.severity === 'warning' ? c('Warning', 'Advertencia') : c('Error', 'Error')}
+                    </span>
                     <div>
-                      <strong>{f.code.replaceAll('_', ' ')}</strong>
+                      <strong>
+                        {findingLabels[f.code]?.[lang] ?? f.code.replaceAll('_', ' ')}
+                      </strong>
                       <code>
                         {f.path}
                         {f.line ? `:${f.line}` : ''}
@@ -656,7 +785,10 @@ export default function Operations() {
                     <button
                       key={f.path}
                       className={f.path === currentFile?.path ? 'selected' : ''}
-                      onClick={() => setSelectedFile(f.path)}
+                      onClick={() => {
+                        setSelectedFile(f.path);
+                        setSelectedLine(null);
+                      }}
                     >
                       <File size={13} />
                       <span>{f.path}</span>
@@ -675,7 +807,21 @@ export default function Operations() {
                 </span>
               </div>
               <pre tabIndex={0}>
-                {currentFile?.content ?? c('Select a file', 'Seleccionar un archivo')}
+                {currentFile
+                  ? currentFile.content.split('\n').map((line, i, lines) => (
+                      <span
+                        key={i}
+                        className={
+                          i + 1 === selectedLine ? 'op-source-line selected' : 'op-source-line'
+                        }
+                        data-line={i + 1}
+                        ref={i + 1 === selectedLine ? sourceLine : undefined}
+                      >
+                        {line}
+                        {i < lines.length - 1 ? '\n' : ''}
+                      </span>
+                    ))
+                  : c('Select a file', 'Seleccionar un archivo')}
               </pre>
             </div>
           </div>
