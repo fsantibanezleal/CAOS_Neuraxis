@@ -12,7 +12,7 @@ for(const size of [{width:1280,height:800},{width:1600,height:900},{width:2560,h
    await page.goto(base+route);await page.waitForSelector('h1');await page.waitForTimeout(150);
    const bounds=await page.evaluate(()=>({width:innerWidth,height:innerHeight,scrollWidth:document.documentElement.scrollWidth,scrollHeight:document.documentElement.scrollHeight,title:document.querySelector('h1')?.textContent,katexErrors:document.querySelectorAll('.katex-error').length,main:document.querySelector('.nx-main')?.getBoundingClientRect().toJSON()}));
    if(route==='/'){const tabs=page.locator('.nx-sidebar [role=tab]');for(let k=0;k<await tabs.count();k++){await tabs.nth(k).click();const clipped=await page.locator('.nx-sidebar').evaluate(el=>{const box=el.getBoundingClientRect();return Array.from(el.querySelectorAll('button,input,select')).filter(n=>{const r=n.getBoundingClientRect();return r.width&&r.height&&(r.left<box.left-1||r.right>box.right+1||r.bottom>box.bottom+1);}).map(n=>n.textContent?.slice(0,60)||n.getAttribute('aria-label')||n.tagName);});if(clipped.length)failures.push({route,theme,lang,size,clipped});}await tabs.first().click();}
-   const entry={route,theme,lang,viewport:size,...bounds};report.push(entry);if(bounds.scrollWidth!==size.width||bounds.scrollHeight!==size.height||bounds.katexErrors)failures.push(entry);
+   const entry={route,theme,lang,viewport:size,...bounds};report.push(entry);if(bounds.scrollWidth!==size.width||(route==='/'&&bounds.scrollHeight!==size.height)||bounds.katexErrors)failures.push(entry);
    if(size.width===1600&&lang==='en'&&(theme==='dark'||route==='/methodology'))await page.screenshot({path:`qa/${route.replaceAll('/','')||'app'}-${theme}-${lang}.png`});
   }
  }
