@@ -23,8 +23,13 @@ Implementation and local convergence (2026-09-24):
   tests passed. 36 Python tests pass; the POSIX atomic symlink test is Windows-skipped
   and passed on the Linux deployment host with all 10 installer tests. 21 frontend unit tests pass.
 - R-010: service configuration and API limits implemented and tested locally;
-  live resource measurements, release promotion and HTTPS browser checks are the
-  remaining deployment gates. CI billing is a separate external limitation.
+  the same-source static and native releases are deployed at
+  1fb6f7226ab8cfba88ee87fdf9031a0f48cc908f. Live HTTPS uploads, findings, verified CSV
+  bytes, ZIP export, session isolation and deletion passed in eight browser
+  language/theme/width combinations. First compound run peak memory was about
+  42 MiB under a 512 MiB service bound. CI billing remains a separate external
+  limitation; main run 35957971063 executed no job steps. All 296 scientific
+  tab views and 120 navigation/scrolling combinations also passed on live HTTPS.
 
 Machine-readable reports are under docs/validation/0.02.000. These are engineering
 checks, not user design acceptance or a claim of general intelligence.

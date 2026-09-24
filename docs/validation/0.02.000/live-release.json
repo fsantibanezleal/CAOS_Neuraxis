@@ -1,0 +1,32 @@
+{
+  "commit": "1fb6f7226ab8cfba88ee87fdf9031a0f48cc908f",
+  "version": "0.02.000",
+  "files": 14518,
+  "entry_assets_verified": [
+    "/assets/index-DkehuVXK.js",
+    "/assets/index-W03DS0Nl.css"
+  ],
+  "tls": {
+    "protocol": "TLSv1.3",
+    "expires": "Dec 23 00:44:59 2026 GMT",
+    "subject_alt_names": [
+      [
+        "DNS",
+        "neuraxis.ml.fasl-work.com"
+      ]
+    ]
+  },
+  "operation_coverage": {
+    "runs": 36,
+    "coverage": "3 tasks x 4 fault conditions x 3 seeds",
+    "verified": true
+  },
+  "service_memory_peak_after_browser_qa_bytes": 50360320,
+  "service_memory_limit_bytes": 536870912,
+  "hosted_ci": {
+    "run": 35957971063,
+    "conclusion": "failure",
+    "steps_executed": 0,
+    "reason": "The job was not started because recent account payments have failed or the spending limit needs to be increased."
+  }
+}
