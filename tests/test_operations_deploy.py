@@ -1,6 +1,8 @@
 import hashlib
 import importlib.util
 import io
+import json
+import os
 import tarfile
 from pathlib import Path
 
@@ -50,3 +52,51 @@ def test_operation_bundle_extracts_only_allowlisted_source(tmp_path):
     target.mkdir()
     assert installer.unpack(archive, hashlib.sha256(archive.read_bytes()).hexdigest(), target) == "a" * 40
     assert {p.relative_to(target).as_posix() for p in target.rglob("*") if p.is_file()} == installer.FILES
+
+
+@pytest.mark.skipif(os.name == "nt", reason="POSIX deployment symlinks and pwd")
+@pytest.mark.parametrize("healthy", [True, False])
+def test_release_dependencies_and_rollback_are_isolated(tmp_path, monkeypatch, healthy):
+    import pwd
+
+    base = tmp_path / "service"
+    previous = base / "releases" / "previous"
+    previous.mkdir(parents=True)
+    (previous / ".venv").mkdir()
+    (previous / ".venv" / "identity").write_text("original dependencies")
+    current = base / "current"
+    current.symlink_to(previous, target_is_directory=True)
+    unit, nginx = tmp_path / "unit", tmp_path / "nginx"
+    unit.write_text("old unit")
+    nginx.write_text("old nginx")
+    monkeypatch.setattr(installer, "BASE", base)
+    monkeypatch.setattr(installer, "SERVICE_UNIT", unit)
+    monkeypatch.setattr(installer, "NGINX_CONFIG", nginx)
+    monkeypatch.setattr(pwd, "getpwnam", lambda _: object())
+    calls = []
+    monkeypatch.setattr(installer, "run", lambda *args: calls.append(args))
+    monkeypatch.setattr(installer.subprocess, "check_output", lambda *a, **kw: "reflexmesh==0.1.0\n")
+    config = {"tasks": [1, 2, 3], "commit": "a" * 40 if healthy else "b" * 40}
+    monkeypatch.setattr(
+        installer.urllib.request, "urlopen", lambda *a, **kw: io.BytesIO(json.dumps(config).encode())
+    )
+    archive = tmp_path / "bundle.tar.gz"
+    with tarfile.open(archive, "w:gz") as bundle:
+        for name in sorted(installer.FILES):
+            raw = b"a" * 40 if name == "commit.txt" else b"new content"
+            member = tarfile.TarInfo(name)
+            member.size = len(raw)
+            bundle.addfile(member, io.BytesIO(raw))
+    digest = hashlib.sha256(archive.read_bytes()).hexdigest()
+    if healthy:
+        result = installer.install(archive, digest)
+        assert current.resolve() == Path(result["release"])
+        assert (current / "installed-requirements.txt").read_text() == "reflexmesh==0.1.0\n"
+    else:
+        with pytest.raises(ValueError, match="Incorrect operation service"):
+            installer.install(archive, digest)
+        assert current.resolve() == previous
+        assert unit.read_text() == "old unit" and nginx.read_text() == "old nginx"
+    venv_call = next(c for c in calls if c[:3] == ("python3", "-m", "venv"))
+    assert Path(venv_call[3]).parent.parent == base / "releases"
+    assert (previous / ".venv" / "identity").read_text() == "original dependencies"

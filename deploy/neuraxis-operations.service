@@ -6,7 +6,7 @@ After=network.target
 User=neuraxis-operations
 Group=neuraxis-operations
 WorkingDirectory=/opt/neuraxis-operations/current
-ExecStart=/opt/neuraxis-operations/venv/bin/python -m uvicorn app.operations_api:create_app --factory --host 127.0.0.1 --port 8174 --workers 1 --no-access-log
+ExecStart=/opt/neuraxis-operations/current/.venv/bin/python -m uvicorn app.operations_api:create_app --factory --host 127.0.0.1 --port 8174 --workers 1 --no-access-log
 Environment=NEURAXIS_OPERATIONS_HOST=neuraxis.ml.fasl-work.com
 Environment=NEURAXIS_OPERATIONS_ROOT=/var/lib/neuraxis-operations
 Environment=PYTHONDONTWRITEBYTECODE=1

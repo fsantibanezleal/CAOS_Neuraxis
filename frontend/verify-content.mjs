@@ -41,6 +41,8 @@ try {
           expect(await article.locator('p.measure .cite-inline').count()).toBeGreaterThan(0);
         }
         expect(await panel.locator('.katex-error').count()).toBe(0);
+        if (route === 'methodology' && !bibliography)
+          await expect(panel.locator('.science-measurement table tbody tr').first()).toBeVisible();
         const last = (await panel.locator('a[href]').count() ? panel : root).locator('a[href]').last();
         await last.focus();
         await expect(last).toBeInViewport();
@@ -51,7 +53,8 @@ try {
             overflow: document.documentElement.scrollWidth > innerWidth + 1 };
         });
         if (!geometry.centered || !geometry.capped || geometry.overflow) errors.push({ route, title, width, theme, lang, ...geometry });
-        await page.evaluate(() => scrollTo(0, 0));
+        await page.evaluate(() => scrollTo({ top: 0, behavior: 'instant' }));
+        await expect.poll(() => page.evaluate(() => scrollY)).toBe(0);
         await page.screenshot({ path: `qa/content-${route}-${i}-${width}-${theme}-${lang}.png`, fullPage: true });
         sections.push({ route, title, width, theme, lang, sourcesReachable: true, ...geometry });
       }

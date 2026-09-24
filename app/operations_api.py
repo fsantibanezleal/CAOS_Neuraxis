@@ -86,6 +86,7 @@ class Operations:
             return token
 
     def owner(self, request):
+        self.collect()
         token = request.headers.get("authorization", "").removeprefix("Bearer ")
         with self.lock:
             if token not in self.sessions:
@@ -99,6 +100,20 @@ class Operations:
             if run is None or not hmac.compare_digest(run["owner"], owner):
                 raise HTTPException(404, "Unknown operation")
             return run
+
+    def history(self, owner):
+        with self.lock:
+            return [
+                {
+                    **{k: run[k] for k in ("id", "task", "variant", "seed", "status")},
+                    "created_at": run["created_at"],
+                    "expires_at": run["created_at"] + self.ttl,
+                    "findings": len((run["result"] or {}).get("findings", [])),
+                    "disposition": (run["result"] or {}).get("disposition", "incomplete"),
+                }
+                for run in sorted(self.runs.values(), key=lambda r: r["created"], reverse=True)
+                if hmac.compare_digest(run["owner"], owner)
+            ]
 
     def start(self, owner, value):
         if set(value) - {"task", "variant", "seed", "files"}:
@@ -125,6 +140,7 @@ class Operations:
                 "id": key,
                 "owner": owner,
                 "created": time.monotonic(),
+                "created_at": time.time(),
                 "status": "queued",
                 "task": task,
                 "variant": "uploaded" if "files" in value else variant,
@@ -140,7 +156,12 @@ class Operations:
             self.starts.append(time.monotonic())
             thread = threading.Thread(target=self._execute, args=(run,), daemon=True)
             run["thread"] = thread
-            thread.start()
+            try:
+                thread.start()
+            except RuntimeError:
+                del self.runs[key]
+                self.starts.pop()
+                raise HTTPException(503, "Execution worker unavailable; retry later") from None
             return self.snapshot(run)
 
     def _execute(self, run):
@@ -184,6 +205,7 @@ class Operations:
                         k: run[k]
                         for k in (
                             "id",
+                            "created_at",
                             "status",
                             "task",
                             "variant",
@@ -203,8 +225,9 @@ class Operations:
             jobs = list(self.runs.values())
             for run in jobs:
                 run["cancel"].set()
+        deadline = time.monotonic() + 50
         for run in jobs:
-            run["thread"].join(timeout=50)
+            run["thread"].join(timeout=max(0, deadline - time.monotonic()))
 
 
 def create_app(root=None, host=None, prefix="/operations-api"):
@@ -263,9 +286,11 @@ def create_app(root=None, host=None, prefix="/operations-api"):
 
     @app.get(prefix + "/config")
     def config():
+        commit_file = Path(__file__).resolve().parents[1] / "commit.txt"
         return {
             "schema_version": 1,
             "engine": "reflexmesh 0.1.0",
+            "commit": commit_file.read_text().strip() if commit_file.is_file() else "local",
             "tasks": TASKS,
             "variants": VARIANTS,
             "max_files": 256,
@@ -290,20 +315,28 @@ def create_app(root=None, host=None, prefix="/operations-api"):
     async def start(request: Request):
         owner = manager.owner(request)
         try:
-            return manager.start(owner, await body(request))
+            value = await body(request)
+            return await asyncio.to_thread(manager.start, owner, value)
         except (ValueError, TypeError, UnicodeEncodeError):
             raise HTTPException(
                 422, "Invalid operation input; check names, counts and UTF-8 byte limits"
             ) from None
 
+    @app.get(prefix + "/runs")
+    def history(request: Request):
+        return {"runs": manager.history(manager.owner(request))}
+
     @app.get(prefix + "/runs/{run_id}")
     def snapshot(run_id: str, request: Request):
-        return manager.snapshot(manager.owned(run_id, manager.owner(request)))
+        owner = manager.owner(request)
+        with manager.lock:
+            return manager.snapshot(manager.owned(run_id, owner))
 
     @app.post(prefix + "/runs/{run_id}/cancel")
     def cancel(run_id: str, request: Request):
-        run = manager.owned(run_id, manager.owner(request))
+        owner = manager.owner(request)
         with manager.lock:
+            run = manager.owned(run_id, owner)
             if run["status"] in {"queued", "running", "cancelling"}:
                 run["cancel"].set()
                 run["status"] = "cancelling"
@@ -311,8 +344,9 @@ def create_app(root=None, host=None, prefix="/operations-api"):
 
     @app.delete(prefix + "/runs/{run_id}")
     def delete(run_id: str, request: Request):
-        run = manager.owned(run_id, manager.owner(request))
+        owner = manager.owner(request)
         with manager.lock:
+            run = manager.owned(run_id, owner)
             if run["status"] in {"queued", "running", "cancelling"}:
                 raise HTTPException(409, "Cancel and await completion before deletion")
             manager._remove(run)
@@ -321,8 +355,9 @@ def create_app(root=None, host=None, prefix="/operations-api"):
 
     @app.get(prefix + "/runs/{run_id}/export")
     def export(run_id: str, request: Request):
-        run = manager.owned(run_id, manager.owner(request))
-        snapshot = manager.snapshot(run)
+        owner = manager.owner(request)
+        with manager.lock:
+            snapshot = manager.snapshot(manager.owned(run_id, owner))
         if snapshot["status"] in {"queued", "running", "cancelling"}:
             raise HTTPException(409, "Wait for a terminal run")
         stream = io.BytesIO()

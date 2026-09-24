@@ -745,648 +745,897 @@
       "findings": [],
       "model_calls": 0,
       "originals_changed": false,
-      "scope": "Static source/config syntax, declared workflow graph, CSV shape/IDs/available foreign keys and declared SHA-256; uploaded code is never executed."
+      "scope": "Static source/config syntax, declared workflow graph, CSV shape/IDs/available foreign keys and declared SHA-256; uploaded code is never executed.",
+      "table_policy": "First structurally valid ID wins; later duplicates are rejected. References resolve to the same directory first, otherwise a unique table alias. Rejection propagates through references. Missing or ambiguous targets are explicit findings."
     },
     "tables": {
       "findings": [],
+      "relationships": [
+        {
+          "column": "customer_id",
+          "path": "data/orders.csv",
+          "status": "checked",
+          "target": "data/customers.csv"
+        }
+      ],
       "tables": {
         "data/customers.csv": {
           "accepted": [
             {
+              "end_line": 2,
+              "extra_values": [],
               "line": 2,
               "reasons": [],
+              "record": 1,
               "values": {
                 "id": "C000",
                 "name": "Customer 0"
               }
             },
             {
+              "end_line": 3,
+              "extra_values": [],
               "line": 3,
               "reasons": [],
+              "record": 2,
               "values": {
                 "id": "C001",
                 "name": "Customer 1"
               }
             },
             {
+              "end_line": 4,
+              "extra_values": [],
               "line": 4,
               "reasons": [],
+              "record": 3,
               "values": {
                 "id": "C002",
                 "name": "Customer 2"
               }
             },
             {
+              "end_line": 5,
+              "extra_values": [],
               "line": 5,
               "reasons": [],
+              "record": 4,
               "values": {
                 "id": "C003",
                 "name": "Customer 3"
               }
             },
             {
+              "end_line": 6,
+              "extra_values": [],
               "line": 6,
               "reasons": [],
+              "record": 5,
               "values": {
                 "id": "C004",
                 "name": "Customer 4"
               }
             },
             {
+              "end_line": 7,
+              "extra_values": [],
               "line": 7,
               "reasons": [],
+              "record": 6,
               "values": {
                 "id": "C005",
                 "name": "Customer 5"
               }
             },
             {
+              "end_line": 8,
+              "extra_values": [],
               "line": 8,
               "reasons": [],
+              "record": 7,
               "values": {
                 "id": "C006",
                 "name": "Customer 6"
               }
             },
             {
+              "end_line": 9,
+              "extra_values": [],
               "line": 9,
               "reasons": [],
+              "record": 8,
               "values": {
                 "id": "C007",
                 "name": "Customer 7"
               }
             },
             {
+              "end_line": 10,
+              "extra_values": [],
               "line": 10,
               "reasons": [],
+              "record": 9,
               "values": {
                 "id": "C008",
                 "name": "Customer 8"
               }
             },
             {
+              "end_line": 11,
+              "extra_values": [],
               "line": 11,
               "reasons": [],
+              "record": 10,
               "values": {
                 "id": "C009",
                 "name": "Customer 9"
               }
             },
             {
+              "end_line": 12,
+              "extra_values": [],
               "line": 12,
               "reasons": [],
+              "record": 11,
               "values": {
                 "id": "C010",
                 "name": "Customer 10"
               }
             },
             {
+              "end_line": 13,
+              "extra_values": [],
               "line": 13,
               "reasons": [],
+              "record": 12,
               "values": {
                 "id": "C011",
                 "name": "Customer 11"
               }
             },
             {
+              "end_line": 14,
+              "extra_values": [],
               "line": 14,
               "reasons": [],
+              "record": 13,
               "values": {
                 "id": "C012",
                 "name": "Customer 12"
               }
             },
             {
+              "end_line": 15,
+              "extra_values": [],
               "line": 15,
               "reasons": [],
+              "record": 14,
               "values": {
                 "id": "C013",
                 "name": "Customer 13"
               }
             },
             {
+              "end_line": 16,
+              "extra_values": [],
               "line": 16,
               "reasons": [],
+              "record": 15,
               "values": {
                 "id": "C014",
                 "name": "Customer 14"
               }
             },
             {
+              "end_line": 17,
+              "extra_values": [],
               "line": 17,
               "reasons": [],
+              "record": 16,
               "values": {
                 "id": "C015",
                 "name": "Customer 15"
               }
             },
             {
+              "end_line": 18,
+              "extra_values": [],
               "line": 18,
               "reasons": [],
+              "record": 17,
               "values": {
                 "id": "C016",
                 "name": "Customer 16"
               }
             },
             {
+              "end_line": 19,
+              "extra_values": [],
               "line": 19,
               "reasons": [],
+              "record": 18,
               "values": {
                 "id": "C017",
                 "name": "Customer 17"
               }
             },
             {
+              "end_line": 20,
+              "extra_values": [],
               "line": 20,
               "reasons": [],
+              "record": 19,
               "values": {
                 "id": "C018",
                 "name": "Customer 18"
               }
             },
             {
+              "end_line": 21,
+              "extra_values": [],
               "line": 21,
               "reasons": [],
+              "record": 20,
               "values": {
                 "id": "C019",
                 "name": "Customer 19"
               }
             },
             {
+              "end_line": 22,
+              "extra_values": [],
               "line": 22,
               "reasons": [],
+              "record": 21,
               "values": {
                 "id": "C020",
                 "name": "Customer 20"
               }
             },
             {
+              "end_line": 23,
+              "extra_values": [],
               "line": 23,
               "reasons": [],
+              "record": 22,
               "values": {
                 "id": "C021",
                 "name": "Customer 21"
               }
             },
             {
+              "end_line": 24,
+              "extra_values": [],
               "line": 24,
               "reasons": [],
+              "record": 23,
               "values": {
                 "id": "C022",
                 "name": "Customer 22"
               }
             },
             {
+              "end_line": 25,
+              "extra_values": [],
               "line": 25,
               "reasons": [],
+              "record": 24,
               "values": {
                 "id": "C023",
                 "name": "Customer 23"
               }
             },
             {
+              "end_line": 26,
+              "extra_values": [],
               "line": 26,
               "reasons": [],
+              "record": 25,
               "values": {
                 "id": "C024",
                 "name": "Customer 24"
               }
             },
             {
+              "end_line": 27,
+              "extra_values": [],
               "line": 27,
               "reasons": [],
+              "record": 26,
               "values": {
                 "id": "C025",
                 "name": "Customer 25"
               }
             },
             {
+              "end_line": 28,
+              "extra_values": [],
               "line": 28,
               "reasons": [],
+              "record": 27,
               "values": {
                 "id": "C026",
                 "name": "Customer 26"
               }
             },
             {
+              "end_line": 29,
+              "extra_values": [],
               "line": 29,
               "reasons": [],
+              "record": 28,
               "values": {
                 "id": "C027",
                 "name": "Customer 27"
               }
             },
             {
+              "end_line": 30,
+              "extra_values": [],
               "line": 30,
               "reasons": [],
+              "record": 29,
               "values": {
                 "id": "C028",
                 "name": "Customer 28"
               }
             },
             {
+              "end_line": 31,
+              "extra_values": [],
               "line": 31,
               "reasons": [],
+              "record": 30,
               "values": {
                 "id": "C029",
                 "name": "Customer 29"
               }
             },
             {
+              "end_line": 32,
+              "extra_values": [],
               "line": 32,
               "reasons": [],
+              "record": 31,
               "values": {
                 "id": "C030",
                 "name": "Customer 30"
               }
             },
             {
+              "end_line": 33,
+              "extra_values": [],
               "line": 33,
               "reasons": [],
+              "record": 32,
               "values": {
                 "id": "C031",
                 "name": "Customer 31"
               }
             },
             {
+              "end_line": 34,
+              "extra_values": [],
               "line": 34,
               "reasons": [],
+              "record": 33,
               "values": {
                 "id": "C032",
                 "name": "Customer 32"
               }
             },
             {
+              "end_line": 35,
+              "extra_values": [],
               "line": 35,
               "reasons": [],
+              "record": 34,
               "values": {
                 "id": "C033",
                 "name": "Customer 33"
               }
             },
             {
+              "end_line": 36,
+              "extra_values": [],
               "line": 36,
               "reasons": [],
+              "record": 35,
               "values": {
                 "id": "C034",
                 "name": "Customer 34"
               }
             },
             {
+              "end_line": 37,
+              "extra_values": [],
               "line": 37,
               "reasons": [],
+              "record": 36,
               "values": {
                 "id": "C035",
                 "name": "Customer 35"
               }
             },
             {
+              "end_line": 38,
+              "extra_values": [],
               "line": 38,
               "reasons": [],
+              "record": 37,
               "values": {
                 "id": "C036",
                 "name": "Customer 36"
               }
             },
             {
+              "end_line": 39,
+              "extra_values": [],
               "line": 39,
               "reasons": [],
+              "record": 38,
               "values": {
                 "id": "C037",
                 "name": "Customer 37"
               }
             },
             {
+              "end_line": 40,
+              "extra_values": [],
               "line": 40,
               "reasons": [],
+              "record": 39,
               "values": {
                 "id": "C038",
                 "name": "Customer 38"
               }
             },
             {
+              "end_line": 41,
+              "extra_values": [],
               "line": 41,
               "reasons": [],
+              "record": 40,
               "values": {
                 "id": "C039",
                 "name": "Customer 39"
               }
             },
             {
+              "end_line": 42,
+              "extra_values": [],
               "line": 42,
               "reasons": [],
+              "record": 41,
               "values": {
                 "id": "C040",
                 "name": "Customer 40"
               }
             },
             {
+              "end_line": 43,
+              "extra_values": [],
               "line": 43,
               "reasons": [],
+              "record": 42,
               "values": {
                 "id": "C041",
                 "name": "Customer 41"
               }
             },
             {
+              "end_line": 44,
+              "extra_values": [],
               "line": 44,
               "reasons": [],
+              "record": 43,
               "values": {
                 "id": "C042",
                 "name": "Customer 42"
               }
             },
             {
+              "end_line": 45,
+              "extra_values": [],
               "line": 45,
               "reasons": [],
+              "record": 44,
               "values": {
                 "id": "C043",
                 "name": "Customer 43"
               }
             },
             {
+              "end_line": 46,
+              "extra_values": [],
               "line": 46,
               "reasons": [],
+              "record": 45,
               "values": {
                 "id": "C044",
                 "name": "Customer 44"
               }
             },
             {
+              "end_line": 47,
+              "extra_values": [],
               "line": 47,
               "reasons": [],
+              "record": 46,
               "values": {
                 "id": "C045",
                 "name": "Customer 45"
               }
             },
             {
+              "end_line": 48,
+              "extra_values": [],
               "line": 48,
               "reasons": [],
+              "record": 47,
               "values": {
                 "id": "C046",
                 "name": "Customer 46"
               }
             },
             {
+              "end_line": 49,
+              "extra_values": [],
               "line": 49,
               "reasons": [],
+              "record": 48,
               "values": {
                 "id": "C047",
                 "name": "Customer 47"
               }
             },
             {
+              "end_line": 50,
+              "extra_values": [],
               "line": 50,
               "reasons": [],
+              "record": 49,
               "values": {
                 "id": "C048",
                 "name": "Customer 48"
               }
             },
             {
+              "end_line": 51,
+              "extra_values": [],
               "line": 51,
               "reasons": [],
+              "record": 50,
               "values": {
                 "id": "C049",
                 "name": "Customer 49"
               }
             },
             {
+              "end_line": 52,
+              "extra_values": [],
               "line": 52,
               "reasons": [],
+              "record": 51,
               "values": {
                 "id": "C050",
                 "name": "Customer 50"
               }
             },
             {
+              "end_line": 53,
+              "extra_values": [],
               "line": 53,
               "reasons": [],
+              "record": 52,
               "values": {
                 "id": "C051",
                 "name": "Customer 51"
               }
             },
             {
+              "end_line": 54,
+              "extra_values": [],
               "line": 54,
               "reasons": [],
+              "record": 53,
               "values": {
                 "id": "C052",
                 "name": "Customer 52"
               }
             },
             {
+              "end_line": 55,
+              "extra_values": [],
               "line": 55,
               "reasons": [],
+              "record": 54,
               "values": {
                 "id": "C053",
                 "name": "Customer 53"
               }
             },
             {
+              "end_line": 56,
+              "extra_values": [],
               "line": 56,
               "reasons": [],
+              "record": 55,
               "values": {
                 "id": "C054",
                 "name": "Customer 54"
               }
             },
             {
+              "end_line": 57,
+              "extra_values": [],
               "line": 57,
               "reasons": [],
+              "record": 56,
               "values": {
                 "id": "C055",
                 "name": "Customer 55"
               }
             },
             {
+              "end_line": 58,
+              "extra_values": [],
               "line": 58,
               "reasons": [],
+              "record": 57,
               "values": {
                 "id": "C056",
                 "name": "Customer 56"
               }
             },
             {
+              "end_line": 59,
+              "extra_values": [],
               "line": 59,
               "reasons": [],
+              "record": 58,
               "values": {
                 "id": "C057",
                 "name": "Customer 57"
               }
             },
             {
+              "end_line": 60,
+              "extra_values": [],
               "line": 60,
               "reasons": [],
+              "record": 59,
               "values": {
                 "id": "C058",
                 "name": "Customer 58"
               }
             },
             {
+              "end_line": 61,
+              "extra_values": [],
               "line": 61,
               "reasons": [],
+              "record": 60,
               "values": {
                 "id": "C059",
                 "name": "Customer 59"
               }
             },
             {
+              "end_line": 62,
+              "extra_values": [],
               "line": 62,
               "reasons": [],
+              "record": 61,
               "values": {
                 "id": "C060",
                 "name": "Customer 60"
               }
             },
             {
+              "end_line": 63,
+              "extra_values": [],
               "line": 63,
               "reasons": [],
+              "record": 62,
               "values": {
                 "id": "C061",
                 "name": "Customer 61"
               }
             },
             {
+              "end_line": 64,
+              "extra_values": [],
               "line": 64,
               "reasons": [],
+              "record": 63,
               "values": {
                 "id": "C062",
                 "name": "Customer 62"
               }
             },
             {
+              "end_line": 65,
+              "extra_values": [],
               "line": 65,
               "reasons": [],
+              "record": 64,
               "values": {
                 "id": "C063",
                 "name": "Customer 63"
               }
             },
             {
+              "end_line": 66,
+              "extra_values": [],
               "line": 66,
               "reasons": [],
+              "record": 65,
               "values": {
                 "id": "C064",
                 "name": "Customer 64"
               }
             },
             {
+              "end_line": 67,
+              "extra_values": [],
               "line": 67,
               "reasons": [],
+              "record": 66,
               "values": {
                 "id": "C065",
                 "name": "Customer 65"
               }
             },
             {
+              "end_line": 68,
+              "extra_values": [],
               "line": 68,
               "reasons": [],
+              "record": 67,
               "values": {
                 "id": "C066",
                 "name": "Customer 66"
               }
             },
             {
+              "end_line": 69,
+              "extra_values": [],
               "line": 69,
               "reasons": [],
+              "record": 68,
               "values": {
                 "id": "C067",
                 "name": "Customer 67"
               }
             },
             {
+              "end_line": 70,
+              "extra_values": [],
               "line": 70,
               "reasons": [],
+              "record": 69,
               "values": {
                 "id": "C068",
                 "name": "Customer 68"
               }
             },
             {
+              "end_line": 71,
+              "extra_values": [],
               "line": 71,
               "reasons": [],
+              "record": 70,
               "values": {
                 "id": "C069",
                 "name": "Customer 69"
               }
             },
             {
+              "end_line": 72,
+              "extra_values": [],
               "line": 72,
               "reasons": [],
+              "record": 71,
               "values": {
                 "id": "C070",
                 "name": "Customer 70"
               }
             },
             {
+              "end_line": 73,
+              "extra_values": [],
               "line": 73,
               "reasons": [],
+              "record": 72,
               "values": {
                 "id": "C071",
                 "name": "Customer 71"
               }
             },
             {
+              "end_line": 74,
+              "extra_values": [],
               "line": 74,
               "reasons": [],
+              "record": 73,
               "values": {
                 "id": "C072",
                 "name": "Customer 72"
               }
             },
             {
+              "end_line": 75,
+              "extra_values": [],
               "line": 75,
               "reasons": [],
+              "record": 74,
               "values": {
                 "id": "C073",
                 "name": "Customer 73"
               }
             },
             {
+              "end_line": 76,
+              "extra_values": [],
               "line": 76,
               "reasons": [],
+              "record": 75,
               "values": {
                 "id": "C074",
                 "name": "Customer 74"
               }
             },
             {
+              "end_line": 77,
+              "extra_values": [],
               "line": 77,
               "reasons": [],
+              "record": 76,
               "values": {
                 "id": "C075",
                 "name": "Customer 75"
               }
             },
             {
+              "end_line": 78,
+              "extra_values": [],
               "line": 78,
               "reasons": [],
+              "record": 77,
               "values": {
                 "id": "C076",
                 "name": "Customer 76"
               }
             },
             {
+              "end_line": 79,
+              "extra_values": [],
               "line": 79,
               "reasons": [],
+              "record": 78,
               "values": {
                 "id": "C077",
                 "name": "Customer 77"
               }
             },
             {
+              "end_line": 80,
+              "extra_values": [],
               "line": 80,
               "reasons": [],
+              "record": 79,
               "values": {
                 "id": "C078",
                 "name": "Customer 78"
               }
             },
             {
+              "end_line": 81,
+              "extra_values": [],
               "line": 81,
               "reasons": [],
+              "record": 80,
               "values": {
                 "id": "C079",
                 "name": "Customer 79"
@@ -1402,8 +1651,11 @@
         "data/orders.csv": {
           "accepted": [
             {
+              "end_line": 2,
+              "extra_values": [],
               "line": 2,
               "reasons": [],
+              "record": 1,
               "values": {
                 "customer_id": "C000",
                 "id": "O0000",
@@ -1411,8 +1663,11 @@
               }
             },
             {
+              "end_line": 3,
+              "extra_values": [],
               "line": 3,
               "reasons": [],
+              "record": 2,
               "values": {
                 "customer_id": "C001",
                 "id": "O0001",
@@ -1420,8 +1675,11 @@
               }
             },
             {
+              "end_line": 4,
+              "extra_values": [],
               "line": 4,
               "reasons": [],
+              "record": 3,
               "values": {
                 "customer_id": "C002",
                 "id": "O0002",
@@ -1429,8 +1687,11 @@
               }
             },
             {
+              "end_line": 5,
+              "extra_values": [],
               "line": 5,
               "reasons": [],
+              "record": 4,
               "values": {
                 "customer_id": "C003",
                 "id": "O0003",
@@ -1438,8 +1699,11 @@
               }
             },
             {
+              "end_line": 6,
+              "extra_values": [],
               "line": 6,
               "reasons": [],
+              "record": 5,
               "values": {
                 "customer_id": "C004",
                 "id": "O0004",
@@ -1447,8 +1711,11 @@
               }
             },
             {
+              "end_line": 7,
+              "extra_values": [],
               "line": 7,
               "reasons": [],
+              "record": 6,
               "values": {
                 "customer_id": "C005",
                 "id": "O0005",
@@ -1456,8 +1723,11 @@
               }
             },
             {
+              "end_line": 8,
+              "extra_values": [],
               "line": 8,
               "reasons": [],
+              "record": 7,
               "values": {
                 "customer_id": "C006",
                 "id": "O0006",
@@ -1465,8 +1735,11 @@
               }
             },
             {
+              "end_line": 9,
+              "extra_values": [],
               "line": 9,
               "reasons": [],
+              "record": 8,
               "values": {
                 "customer_id": "C007",
                 "id": "O0007",
@@ -1474,8 +1747,11 @@
               }
             },
             {
+              "end_line": 10,
+              "extra_values": [],
               "line": 10,
               "reasons": [],
+              "record": 9,
               "values": {
                 "customer_id": "C008",
                 "id": "O0008",
@@ -1483,8 +1759,11 @@
               }
             },
             {
+              "end_line": 11,
+              "extra_values": [],
               "line": 11,
               "reasons": [],
+              "record": 10,
               "values": {
                 "customer_id": "C009",
                 "id": "O0009",
@@ -1492,8 +1771,11 @@
               }
             },
             {
+              "end_line": 12,
+              "extra_values": [],
               "line": 12,
               "reasons": [],
+              "record": 11,
               "values": {
                 "customer_id": "C010",
                 "id": "O0010",
@@ -1501,8 +1783,11 @@
               }
             },
             {
+              "end_line": 13,
+              "extra_values": [],
               "line": 13,
               "reasons": [],
+              "record": 12,
               "values": {
                 "customer_id": "C011",
                 "id": "O0011",
@@ -1510,8 +1795,11 @@
               }
             },
             {
+              "end_line": 14,
+              "extra_values": [],
               "line": 14,
               "reasons": [],
+              "record": 13,
               "values": {
                 "customer_id": "C012",
                 "id": "O0012",
@@ -1519,8 +1807,11 @@
               }
             },
             {
+              "end_line": 15,
+              "extra_values": [],
               "line": 15,
               "reasons": [],
+              "record": 14,
               "values": {
                 "customer_id": "C013",
                 "id": "O0013",
@@ -1528,8 +1819,11 @@
               }
             },
             {
+              "end_line": 16,
+              "extra_values": [],
               "line": 16,
               "reasons": [],
+              "record": 15,
               "values": {
                 "customer_id": "C014",
                 "id": "O0014",
@@ -1537,8 +1831,11 @@
               }
             },
             {
+              "end_line": 17,
+              "extra_values": [],
               "line": 17,
               "reasons": [],
+              "record": 16,
               "values": {
                 "customer_id": "C015",
                 "id": "O0015",
@@ -1546,8 +1843,11 @@
               }
             },
             {
+              "end_line": 18,
+              "extra_values": [],
               "line": 18,
               "reasons": [],
+              "record": 17,
               "values": {
                 "customer_id": "C016",
                 "id": "O0016",
@@ -1555,8 +1855,11 @@
               }
             },
             {
+              "end_line": 19,
+              "extra_values": [],
               "line": 19,
               "reasons": [],
+              "record": 18,
               "values": {
                 "customer_id": "C017",
                 "id": "O0017",
@@ -1564,8 +1867,11 @@
               }
             },
             {
+              "end_line": 20,
+              "extra_values": [],
               "line": 20,
               "reasons": [],
+              "record": 19,
               "values": {
                 "customer_id": "C018",
                 "id": "O0018",
@@ -1573,8 +1879,11 @@
               }
             },
             {
+              "end_line": 21,
+              "extra_values": [],
               "line": 21,
               "reasons": [],
+              "record": 20,
               "values": {
                 "customer_id": "C019",
                 "id": "O0019",
@@ -1582,8 +1891,11 @@
               }
             },
             {
+              "end_line": 22,
+              "extra_values": [],
               "line": 22,
               "reasons": [],
+              "record": 21,
               "values": {
                 "customer_id": "C020",
                 "id": "O0020",
@@ -1591,8 +1903,11 @@
               }
             },
             {
+              "end_line": 23,
+              "extra_values": [],
               "line": 23,
               "reasons": [],
+              "record": 22,
               "values": {
                 "customer_id": "C021",
                 "id": "O0021",
@@ -1600,8 +1915,11 @@
               }
             },
             {
+              "end_line": 24,
+              "extra_values": [],
               "line": 24,
               "reasons": [],
+              "record": 23,
               "values": {
                 "customer_id": "C022",
                 "id": "O0022",
@@ -1609,8 +1927,11 @@
               }
             },
             {
+              "end_line": 25,
+              "extra_values": [],
               "line": 25,
               "reasons": [],
+              "record": 24,
               "values": {
                 "customer_id": "C023",
                 "id": "O0023",
@@ -1618,8 +1939,11 @@
               }
             },
             {
+              "end_line": 26,
+              "extra_values": [],
               "line": 26,
               "reasons": [],
+              "record": 25,
               "values": {
                 "customer_id": "C024",
                 "id": "O0024",
@@ -1627,8 +1951,11 @@
               }
             },
             {
+              "end_line": 27,
+              "extra_values": [],
               "line": 27,
               "reasons": [],
+              "record": 26,
               "values": {
                 "customer_id": "C025",
                 "id": "O0025",
@@ -1636,8 +1963,11 @@
               }
             },
             {
+              "end_line": 28,
+              "extra_values": [],
               "line": 28,
               "reasons": [],
+              "record": 27,
               "values": {
                 "customer_id": "C026",
                 "id": "O0026",
@@ -1645,8 +1975,11 @@
               }
             },
             {
+              "end_line": 29,
+              "extra_values": [],
               "line": 29,
               "reasons": [],
+              "record": 28,
               "values": {
                 "customer_id": "C027",
                 "id": "O0027",
@@ -1654,8 +1987,11 @@
               }
             },
             {
+              "end_line": 30,
+              "extra_values": [],
               "line": 30,
               "reasons": [],
+              "record": 29,
               "values": {
                 "customer_id": "C028",
                 "id": "O0028",
@@ -1663,8 +1999,11 @@
               }
             },
             {
+              "end_line": 31,
+              "extra_values": [],
               "line": 31,
               "reasons": [],
+              "record": 30,
               "values": {
                 "customer_id": "C029",
                 "id": "O0029",
@@ -1672,8 +2011,11 @@
               }
             },
             {
+              "end_line": 32,
+              "extra_values": [],
               "line": 32,
               "reasons": [],
+              "record": 31,
               "values": {
                 "customer_id": "C030",
                 "id": "O0030",
@@ -1681,8 +2023,11 @@
               }
             },
             {
+              "end_line": 33,
+              "extra_values": [],
               "line": 33,
               "reasons": [],
+              "record": 32,
               "values": {
                 "customer_id": "C031",
                 "id": "O0031",
@@ -1690,8 +2035,11 @@
               }
             },
             {
+              "end_line": 34,
+              "extra_values": [],
               "line": 34,
               "reasons": [],
+              "record": 33,
               "values": {
                 "customer_id": "C032",
                 "id": "O0032",
@@ -1699,8 +2047,11 @@
               }
             },
             {
+              "end_line": 35,
+              "extra_values": [],
               "line": 35,
               "reasons": [],
+              "record": 34,
               "values": {
                 "customer_id": "C033",
                 "id": "O0033",
@@ -1708,8 +2059,11 @@
               }
             },
             {
+              "end_line": 36,
+              "extra_values": [],
               "line": 36,
               "reasons": [],
+              "record": 35,
               "values": {
                 "customer_id": "C034",
                 "id": "O0034",
@@ -1717,8 +2071,11 @@
               }
             },
             {
+              "end_line": 37,
+              "extra_values": [],
               "line": 37,
               "reasons": [],
+              "record": 36,
               "values": {
                 "customer_id": "C035",
                 "id": "O0035",
@@ -1726,8 +2083,11 @@
               }
             },
             {
+              "end_line": 38,
+              "extra_values": [],
               "line": 38,
               "reasons": [],
+              "record": 37,
               "values": {
                 "customer_id": "C036",
                 "id": "O0036",
@@ -1735,8 +2095,11 @@
               }
             },
             {
+              "end_line": 39,
+              "extra_values": [],
               "line": 39,
               "reasons": [],
+              "record": 38,
               "values": {
                 "customer_id": "C037",
                 "id": "O0037",
@@ -1744,8 +2107,11 @@
               }
             },
             {
+              "end_line": 40,
+              "extra_values": [],
               "line": 40,
               "reasons": [],
+              "record": 39,
               "values": {
                 "customer_id": "C038",
                 "id": "O0038",
@@ -1753,8 +2119,11 @@
               }
             },
             {
+              "end_line": 41,
+              "extra_values": [],
               "line": 41,
               "reasons": [],
+              "record": 40,
               "values": {
                 "customer_id": "C039",
                 "id": "O0039",
@@ -1762,8 +2131,11 @@
               }
             },
             {
+              "end_line": 42,
+              "extra_values": [],
               "line": 42,
               "reasons": [],
+              "record": 41,
               "values": {
                 "customer_id": "C040",
                 "id": "O0040",
@@ -1771,8 +2143,11 @@
               }
             },
             {
+              "end_line": 43,
+              "extra_values": [],
               "line": 43,
               "reasons": [],
+              "record": 42,
               "values": {
                 "customer_id": "C041",
                 "id": "O0041",
@@ -1780,8 +2155,11 @@
               }
             },
             {
+              "end_line": 44,
+              "extra_values": [],
               "line": 44,
               "reasons": [],
+              "record": 43,
               "values": {
                 "customer_id": "C042",
                 "id": "O0042",
@@ -1789,8 +2167,11 @@
               }
             },
             {
+              "end_line": 45,
+              "extra_values": [],
               "line": 45,
               "reasons": [],
+              "record": 44,
               "values": {
                 "customer_id": "C043",
                 "id": "O0043",
@@ -1798,8 +2179,11 @@
               }
             },
             {
+              "end_line": 46,
+              "extra_values": [],
               "line": 46,
               "reasons": [],
+              "record": 45,
               "values": {
                 "customer_id": "C044",
                 "id": "O0044",
@@ -1807,8 +2191,11 @@
               }
             },
             {
+              "end_line": 47,
+              "extra_values": [],
               "line": 47,
               "reasons": [],
+              "record": 46,
               "values": {
                 "customer_id": "C045",
                 "id": "O0045",
@@ -1816,8 +2203,11 @@
               }
             },
             {
+              "end_line": 48,
+              "extra_values": [],
               "line": 48,
               "reasons": [],
+              "record": 47,
               "values": {
                 "customer_id": "C046",
                 "id": "O0046",
@@ -1825,8 +2215,11 @@
               }
             },
             {
+              "end_line": 49,
+              "extra_values": [],
               "line": 49,
               "reasons": [],
+              "record": 48,
               "values": {
                 "customer_id": "C047",
                 "id": "O0047",
@@ -1834,8 +2227,11 @@
               }
             },
             {
+              "end_line": 50,
+              "extra_values": [],
               "line": 50,
               "reasons": [],
+              "record": 49,
               "values": {
                 "customer_id": "C048",
                 "id": "O0048",
@@ -1843,8 +2239,11 @@
               }
             },
             {
+              "end_line": 51,
+              "extra_values": [],
               "line": 51,
               "reasons": [],
+              "record": 50,
               "values": {
                 "customer_id": "C049",
                 "id": "O0049",
@@ -1852,8 +2251,11 @@
               }
             },
             {
+              "end_line": 52,
+              "extra_values": [],
               "line": 52,
               "reasons": [],
+              "record": 51,
               "values": {
                 "customer_id": "C050",
                 "id": "O0050",
@@ -1861,8 +2263,11 @@
               }
             },
             {
+              "end_line": 53,
+              "extra_values": [],
               "line": 53,
               "reasons": [],
+              "record": 52,
               "values": {
                 "customer_id": "C051",
                 "id": "O0051",
@@ -1870,8 +2275,11 @@
               }
             },
             {
+              "end_line": 54,
+              "extra_values": [],
               "line": 54,
               "reasons": [],
+              "record": 53,
               "values": {
                 "customer_id": "C052",
                 "id": "O0052",
@@ -1879,8 +2287,11 @@
               }
             },
             {
+              "end_line": 55,
+              "extra_values": [],
               "line": 55,
               "reasons": [],
+              "record": 54,
               "values": {
                 "customer_id": "C053",
                 "id": "O0053",
@@ -1888,8 +2299,11 @@
               }
             },
             {
+              "end_line": 56,
+              "extra_values": [],
               "line": 56,
               "reasons": [],
+              "record": 55,
               "values": {
                 "customer_id": "C054",
                 "id": "O0054",
@@ -1897,8 +2311,11 @@
               }
             },
             {
+              "end_line": 57,
+              "extra_values": [],
               "line": 57,
               "reasons": [],
+              "record": 56,
               "values": {
                 "customer_id": "C055",
                 "id": "O0055",
@@ -1906,8 +2323,11 @@
               }
             },
             {
+              "end_line": 58,
+              "extra_values": [],
               "line": 58,
               "reasons": [],
+              "record": 57,
               "values": {
                 "customer_id": "C056",
                 "id": "O0056",
@@ -1915,8 +2335,11 @@
               }
             },
             {
+              "end_line": 59,
+              "extra_values": [],
               "line": 59,
               "reasons": [],
+              "record": 58,
               "values": {
                 "customer_id": "C057",
                 "id": "O0057",
@@ -1924,8 +2347,11 @@
               }
             },
             {
+              "end_line": 60,
+              "extra_values": [],
               "line": 60,
               "reasons": [],
+              "record": 59,
               "values": {
                 "customer_id": "C058",
                 "id": "O0058",
@@ -1933,8 +2359,11 @@
               }
             },
             {
+              "end_line": 61,
+              "extra_values": [],
               "line": 61,
               "reasons": [],
+              "record": 60,
               "values": {
                 "customer_id": "C059",
                 "id": "O0059",
@@ -1942,8 +2371,11 @@
               }
             },
             {
+              "end_line": 62,
+              "extra_values": [],
               "line": 62,
               "reasons": [],
+              "record": 61,
               "values": {
                 "customer_id": "C060",
                 "id": "O0060",
@@ -1951,8 +2383,11 @@
               }
             },
             {
+              "end_line": 63,
+              "extra_values": [],
               "line": 63,
               "reasons": [],
+              "record": 62,
               "values": {
                 "customer_id": "C061",
                 "id": "O0061",
@@ -1960,8 +2395,11 @@
               }
             },
             {
+              "end_line": 64,
+              "extra_values": [],
               "line": 64,
               "reasons": [],
+              "record": 63,
               "values": {
                 "customer_id": "C062",
                 "id": "O0062",
@@ -1969,8 +2407,11 @@
               }
             },
             {
+              "end_line": 65,
+              "extra_values": [],
               "line": 65,
               "reasons": [],
+              "record": 64,
               "values": {
                 "customer_id": "C063",
                 "id": "O0063",
@@ -1978,8 +2419,11 @@
               }
             },
             {
+              "end_line": 66,
+              "extra_values": [],
               "line": 66,
               "reasons": [],
+              "record": 65,
               "values": {
                 "customer_id": "C064",
                 "id": "O0064",
@@ -1987,8 +2431,11 @@
               }
             },
             {
+              "end_line": 67,
+              "extra_values": [],
               "line": 67,
               "reasons": [],
+              "record": 66,
               "values": {
                 "customer_id": "C065",
                 "id": "O0065",
@@ -1996,8 +2443,11 @@
               }
             },
             {
+              "end_line": 68,
+              "extra_values": [],
               "line": 68,
               "reasons": [],
+              "record": 67,
               "values": {
                 "customer_id": "C066",
                 "id": "O0066",
@@ -2005,8 +2455,11 @@
               }
             },
             {
+              "end_line": 69,
+              "extra_values": [],
               "line": 69,
               "reasons": [],
+              "record": 68,
               "values": {
                 "customer_id": "C067",
                 "id": "O0067",
@@ -2014,8 +2467,11 @@
               }
             },
             {
+              "end_line": 70,
+              "extra_values": [],
               "line": 70,
               "reasons": [],
+              "record": 69,
               "values": {
                 "customer_id": "C068",
                 "id": "O0068",
@@ -2023,8 +2479,11 @@
               }
             },
             {
+              "end_line": 71,
+              "extra_values": [],
               "line": 71,
               "reasons": [],
+              "record": 70,
               "values": {
                 "customer_id": "C069",
                 "id": "O0069",
@@ -2032,8 +2491,11 @@
               }
             },
             {
+              "end_line": 72,
+              "extra_values": [],
               "line": 72,
               "reasons": [],
+              "record": 71,
               "values": {
                 "customer_id": "C070",
                 "id": "O0070",
@@ -2041,8 +2503,11 @@
               }
             },
             {
+              "end_line": 73,
+              "extra_values": [],
               "line": 73,
               "reasons": [],
+              "record": 72,
               "values": {
                 "customer_id": "C071",
                 "id": "O0071",
@@ -2050,8 +2515,11 @@
               }
             },
             {
+              "end_line": 74,
+              "extra_values": [],
               "line": 74,
               "reasons": [],
+              "record": 73,
               "values": {
                 "customer_id": "C072",
                 "id": "O0072",
@@ -2059,8 +2527,11 @@
               }
             },
             {
+              "end_line": 75,
+              "extra_values": [],
               "line": 75,
               "reasons": [],
+              "record": 74,
               "values": {
                 "customer_id": "C073",
                 "id": "O0073",
@@ -2068,8 +2539,11 @@
               }
             },
             {
+              "end_line": 76,
+              "extra_values": [],
               "line": 76,
               "reasons": [],
+              "record": 75,
               "values": {
                 "customer_id": "C074",
                 "id": "O0074",
@@ -2077,8 +2551,11 @@
               }
             },
             {
+              "end_line": 77,
+              "extra_values": [],
               "line": 77,
               "reasons": [],
+              "record": 76,
               "values": {
                 "customer_id": "C075",
                 "id": "O0075",
@@ -2086,8 +2563,11 @@
               }
             },
             {
+              "end_line": 78,
+              "extra_values": [],
               "line": 78,
               "reasons": [],
+              "record": 77,
               "values": {
                 "customer_id": "C076",
                 "id": "O0076",
@@ -2095,8 +2575,11 @@
               }
             },
             {
+              "end_line": 79,
+              "extra_values": [],
               "line": 79,
               "reasons": [],
+              "record": 78,
               "values": {
                 "customer_id": "C077",
                 "id": "O0077",
@@ -2104,8 +2587,11 @@
               }
             },
             {
+              "end_line": 80,
+              "extra_values": [],
               "line": 80,
               "reasons": [],
+              "record": 79,
               "values": {
                 "customer_id": "C078",
                 "id": "O0078",
@@ -2113,8 +2599,11 @@
               }
             },
             {
+              "end_line": 81,
+              "extra_values": [],
               "line": 81,
               "reasons": [],
+              "record": 80,
               "values": {
                 "customer_id": "C079",
                 "id": "O0079",
@@ -2122,8 +2611,11 @@
               }
             },
             {
+              "end_line": 82,
+              "extra_values": [],
               "line": 82,
               "reasons": [],
+              "record": 81,
               "values": {
                 "customer_id": "C000",
                 "id": "O0080",
@@ -2131,8 +2623,11 @@
               }
             },
             {
+              "end_line": 83,
+              "extra_values": [],
               "line": 83,
               "reasons": [],
+              "record": 82,
               "values": {
                 "customer_id": "C001",
                 "id": "O0081",
@@ -2140,8 +2635,11 @@
               }
             },
             {
+              "end_line": 84,
+              "extra_values": [],
               "line": 84,
               "reasons": [],
+              "record": 83,
               "values": {
                 "customer_id": "C002",
                 "id": "O0082",
@@ -2149,8 +2647,11 @@
               }
             },
             {
+              "end_line": 85,
+              "extra_values": [],
               "line": 85,
               "reasons": [],
+              "record": 84,
               "values": {
                 "customer_id": "C003",
                 "id": "O0083",
@@ -2158,8 +2659,11 @@
               }
             },
             {
+              "end_line": 86,
+              "extra_values": [],
               "line": 86,
               "reasons": [],
+              "record": 85,
               "values": {
                 "customer_id": "C004",
                 "id": "O0084",
@@ -2167,8 +2671,11 @@
               }
             },
             {
+              "end_line": 87,
+              "extra_values": [],
               "line": 87,
               "reasons": [],
+              "record": 86,
               "values": {
                 "customer_id": "C005",
                 "id": "O0085",
@@ -2176,8 +2683,11 @@
               }
             },
             {
+              "end_line": 88,
+              "extra_values": [],
               "line": 88,
               "reasons": [],
+              "record": 87,
               "values": {
                 "customer_id": "C006",
                 "id": "O0086",
@@ -2185,8 +2695,11 @@
               }
             },
             {
+              "end_line": 89,
+              "extra_values": [],
               "line": 89,
               "reasons": [],
+              "record": 88,
               "values": {
                 "customer_id": "C007",
                 "id": "O0087",
@@ -2194,8 +2707,11 @@
               }
             },
             {
+              "end_line": 90,
+              "extra_values": [],
               "line": 90,
               "reasons": [],
+              "record": 89,
               "values": {
                 "customer_id": "C008",
                 "id": "O0088",
@@ -2203,8 +2719,11 @@
               }
             },
             {
+              "end_line": 91,
+              "extra_values": [],
               "line": 91,
               "reasons": [],
+              "record": 90,
               "values": {
                 "customer_id": "C009",
                 "id": "O0089",
@@ -2212,8 +2731,11 @@
               }
             },
             {
+              "end_line": 92,
+              "extra_values": [],
               "line": 92,
               "reasons": [],
+              "record": 91,
               "values": {
                 "customer_id": "C010",
                 "id": "O0090",
@@ -2221,8 +2743,11 @@
               }
             },
             {
+              "end_line": 93,
+              "extra_values": [],
               "line": 93,
               "reasons": [],
+              "record": 92,
               "values": {
                 "customer_id": "C011",
                 "id": "O0091",
@@ -2230,8 +2755,11 @@
               }
             },
             {
+              "end_line": 94,
+              "extra_values": [],
               "line": 94,
               "reasons": [],
+              "record": 93,
               "values": {
                 "customer_id": "C012",
                 "id": "O0092",
@@ -2239,8 +2767,11 @@
               }
             },
             {
+              "end_line": 95,
+              "extra_values": [],
               "line": 95,
               "reasons": [],
+              "record": 94,
               "values": {
                 "customer_id": "C013",
                 "id": "O0093",
@@ -2248,8 +2779,11 @@
               }
             },
             {
+              "end_line": 96,
+              "extra_values": [],
               "line": 96,
               "reasons": [],
+              "record": 95,
               "values": {
                 "customer_id": "C014",
                 "id": "O0094",
@@ -2257,8 +2791,11 @@
               }
             },
             {
+              "end_line": 97,
+              "extra_values": [],
               "line": 97,
               "reasons": [],
+              "record": 96,
               "values": {
                 "customer_id": "C015",
                 "id": "O0095",
@@ -2266,8 +2803,11 @@
               }
             },
             {
+              "end_line": 98,
+              "extra_values": [],
               "line": 98,
               "reasons": [],
+              "record": 97,
               "values": {
                 "customer_id": "C016",
                 "id": "O0096",
@@ -2275,8 +2815,11 @@
               }
             },
             {
+              "end_line": 99,
+              "extra_values": [],
               "line": 99,
               "reasons": [],
+              "record": 98,
               "values": {
                 "customer_id": "C017",
                 "id": "O0097",
@@ -2284,8 +2827,11 @@
               }
             },
             {
+              "end_line": 100,
+              "extra_values": [],
               "line": 100,
               "reasons": [],
+              "record": 99,
               "values": {
                 "customer_id": "C018",
                 "id": "O0098",
@@ -2293,8 +2839,11 @@
               }
             },
             {
+              "end_line": 101,
+              "extra_values": [],
               "line": 101,
               "reasons": [],
+              "record": 100,
               "values": {
                 "customer_id": "C019",
                 "id": "O0099",
@@ -2302,8 +2851,11 @@
               }
             },
             {
+              "end_line": 102,
+              "extra_values": [],
               "line": 102,
               "reasons": [],
+              "record": 101,
               "values": {
                 "customer_id": "C020",
                 "id": "O0100",
@@ -2311,8 +2863,11 @@
               }
             },
             {
+              "end_line": 103,
+              "extra_values": [],
               "line": 103,
               "reasons": [],
+              "record": 102,
               "values": {
                 "customer_id": "C021",
                 "id": "O0101",
@@ -2320,8 +2875,11 @@
               }
             },
             {
+              "end_line": 104,
+              "extra_values": [],
               "line": 104,
               "reasons": [],
+              "record": 103,
               "values": {
                 "customer_id": "C022",
                 "id": "O0102",
@@ -2329,8 +2887,11 @@
               }
             },
             {
+              "end_line": 105,
+              "extra_values": [],
               "line": 105,
               "reasons": [],
+              "record": 104,
               "values": {
                 "customer_id": "C023",
                 "id": "O0103",
@@ -2338,8 +2899,11 @@
               }
             },
             {
+              "end_line": 106,
+              "extra_values": [],
               "line": 106,
               "reasons": [],
+              "record": 105,
               "values": {
                 "customer_id": "C024",
                 "id": "O0104",
@@ -2347,8 +2911,11 @@
               }
             },
             {
+              "end_line": 107,
+              "extra_values": [],
               "line": 107,
               "reasons": [],
+              "record": 106,
               "values": {
                 "customer_id": "C025",
                 "id": "O0105",
@@ -2356,8 +2923,11 @@
               }
             },
             {
+              "end_line": 108,
+              "extra_values": [],
               "line": 108,
               "reasons": [],
+              "record": 107,
               "values": {
                 "customer_id": "C026",
                 "id": "O0106",
@@ -2365,8 +2935,11 @@
               }
             },
             {
+              "end_line": 109,
+              "extra_values": [],
               "line": 109,
               "reasons": [],
+              "record": 108,
               "values": {
                 "customer_id": "C027",
                 "id": "O0107",
@@ -2374,8 +2947,11 @@
               }
             },
             {
+              "end_line": 110,
+              "extra_values": [],
               "line": 110,
               "reasons": [],
+              "record": 109,
               "values": {
                 "customer_id": "C028",
                 "id": "O0108",
@@ -2383,8 +2959,11 @@
               }
             },
             {
+              "end_line": 111,
+              "extra_values": [],
               "line": 111,
               "reasons": [],
+              "record": 110,
               "values": {
                 "customer_id": "C029",
                 "id": "O0109",
@@ -2392,8 +2971,11 @@
               }
             },
             {
+              "end_line": 112,
+              "extra_values": [],
               "line": 112,
               "reasons": [],
+              "record": 111,
               "values": {
                 "customer_id": "C030",
                 "id": "O0110",
@@ -2401,8 +2983,11 @@
               }
             },
             {
+              "end_line": 113,
+              "extra_values": [],
               "line": 113,
               "reasons": [],
+              "record": 112,
               "values": {
                 "customer_id": "C031",
                 "id": "O0111",
@@ -2410,8 +2995,11 @@
               }
             },
             {
+              "end_line": 114,
+              "extra_values": [],
               "line": 114,
               "reasons": [],
+              "record": 113,
               "values": {
                 "customer_id": "C032",
                 "id": "O0112",
@@ -2419,8 +3007,11 @@
               }
             },
             {
+              "end_line": 115,
+              "extra_values": [],
               "line": 115,
               "reasons": [],
+              "record": 114,
               "values": {
                 "customer_id": "C033",
                 "id": "O0113",
@@ -2428,8 +3019,11 @@
               }
             },
             {
+              "end_line": 116,
+              "extra_values": [],
               "line": 116,
               "reasons": [],
+              "record": 115,
               "values": {
                 "customer_id": "C034",
                 "id": "O0114",
@@ -2437,8 +3031,11 @@
               }
             },
             {
+              "end_line": 117,
+              "extra_values": [],
               "line": 117,
               "reasons": [],
+              "record": 116,
               "values": {
                 "customer_id": "C035",
                 "id": "O0115",
@@ -2446,8 +3043,11 @@
               }
             },
             {
+              "end_line": 118,
+              "extra_values": [],
               "line": 118,
               "reasons": [],
+              "record": 117,
               "values": {
                 "customer_id": "C036",
                 "id": "O0116",
@@ -2455,8 +3055,11 @@
               }
             },
             {
+              "end_line": 119,
+              "extra_values": [],
               "line": 119,
               "reasons": [],
+              "record": 118,
               "values": {
                 "customer_id": "C037",
                 "id": "O0117",
@@ -2464,8 +3067,11 @@
               }
             },
             {
+              "end_line": 120,
+              "extra_values": [],
               "line": 120,
               "reasons": [],
+              "record": 119,
               "values": {
                 "customer_id": "C038",
                 "id": "O0118",
@@ -2473,8 +3079,11 @@
               }
             },
             {
+              "end_line": 121,
+              "extra_values": [],
               "line": 121,
               "reasons": [],
+              "record": 120,
               "values": {
                 "customer_id": "C039",
                 "id": "O0119",
@@ -2482,8 +3091,11 @@
               }
             },
             {
+              "end_line": 122,
+              "extra_values": [],
               "line": 122,
               "reasons": [],
+              "record": 121,
               "values": {
                 "customer_id": "C040",
                 "id": "O0120",
@@ -2491,8 +3103,11 @@
               }
             },
             {
+              "end_line": 123,
+              "extra_values": [],
               "line": 123,
               "reasons": [],
+              "record": 122,
               "values": {
                 "customer_id": "C041",
                 "id": "O0121",
@@ -2500,8 +3115,11 @@
               }
             },
             {
+              "end_line": 124,
+              "extra_values": [],
               "line": 124,
               "reasons": [],
+              "record": 123,
               "values": {
                 "customer_id": "C042",
                 "id": "O0122",
@@ -2509,8 +3127,11 @@
               }
             },
             {
+              "end_line": 125,
+              "extra_values": [],
               "line": 125,
               "reasons": [],
+              "record": 124,
               "values": {
                 "customer_id": "C043",
                 "id": "O0123",
@@ -2518,8 +3139,11 @@
               }
             },
             {
+              "end_line": 126,
+              "extra_values": [],
               "line": 126,
               "reasons": [],
+              "record": 125,
               "values": {
                 "customer_id": "C044",
                 "id": "O0124",
@@ -2527,8 +3151,11 @@
               }
             },
             {
+              "end_line": 127,
+              "extra_values": [],
               "line": 127,
               "reasons": [],
+              "record": 126,
               "values": {
                 "customer_id": "C045",
                 "id": "O0125",
@@ -2536,8 +3163,11 @@
               }
             },
             {
+              "end_line": 128,
+              "extra_values": [],
               "line": 128,
               "reasons": [],
+              "record": 127,
               "values": {
                 "customer_id": "C046",
                 "id": "O0126",
@@ -2545,8 +3175,11 @@
               }
             },
             {
+              "end_line": 129,
+              "extra_values": [],
               "line": 129,
               "reasons": [],
+              "record": 128,
               "values": {
                 "customer_id": "C047",
                 "id": "O0127",
@@ -2554,8 +3187,11 @@
               }
             },
             {
+              "end_line": 130,
+              "extra_values": [],
               "line": 130,
               "reasons": [],
+              "record": 129,
               "values": {
                 "customer_id": "C048",
                 "id": "O0128",
@@ -2563,8 +3199,11 @@
               }
             },
             {
+              "end_line": 131,
+              "extra_values": [],
               "line": 131,
               "reasons": [],
+              "record": 130,
               "values": {
                 "customer_id": "C049",
                 "id": "O0129",
@@ -2572,8 +3211,11 @@
               }
             },
             {
+              "end_line": 132,
+              "extra_values": [],
               "line": 132,
               "reasons": [],
+              "record": 131,
               "values": {
                 "customer_id": "C050",
                 "id": "O0130",
@@ -2581,8 +3223,11 @@
               }
             },
             {
+              "end_line": 133,
+              "extra_values": [],
               "line": 133,
               "reasons": [],
+              "record": 132,
               "values": {
                 "customer_id": "C051",
                 "id": "O0131",
@@ -2590,8 +3235,11 @@
               }
             },
             {
+              "end_line": 134,
+              "extra_values": [],
               "line": 134,
               "reasons": [],
+              "record": 133,
               "values": {
                 "customer_id": "C052",
                 "id": "O0132",
@@ -2599,8 +3247,11 @@
               }
             },
             {
+              "end_line": 135,
+              "extra_values": [],
               "line": 135,
               "reasons": [],
+              "record": 134,
               "values": {
                 "customer_id": "C053",
                 "id": "O0133",
@@ -2608,8 +3259,11 @@
               }
             },
             {
+              "end_line": 136,
+              "extra_values": [],
               "line": 136,
               "reasons": [],
+              "record": 135,
               "values": {
                 "customer_id": "C054",
                 "id": "O0134",
@@ -2617,8 +3271,11 @@
               }
             },
             {
+              "end_line": 137,
+              "extra_values": [],
               "line": 137,
               "reasons": [],
+              "record": 136,
               "values": {
                 "customer_id": "C055",
                 "id": "O0135",
@@ -2626,8 +3283,11 @@
               }
             },
             {
+              "end_line": 138,
+              "extra_values": [],
               "line": 138,
               "reasons": [],
+              "record": 137,
               "values": {
                 "customer_id": "C056",
                 "id": "O0136",
@@ -2635,8 +3295,11 @@
               }
             },
             {
+              "end_line": 139,
+              "extra_values": [],
               "line": 139,
               "reasons": [],
+              "record": 138,
               "values": {
                 "customer_id": "C057",
                 "id": "O0137",
@@ -2644,8 +3307,11 @@
               }
             },
             {
+              "end_line": 140,
+              "extra_values": [],
               "line": 140,
               "reasons": [],
+              "record": 139,
               "values": {
                 "customer_id": "C058",
                 "id": "O0138",
@@ -2653,8 +3319,11 @@
               }
             },
             {
+              "end_line": 141,
+              "extra_values": [],
               "line": 141,
               "reasons": [],
+              "record": 140,
               "values": {
                 "customer_id": "C059",
                 "id": "O0139",
@@ -2662,8 +3331,11 @@
               }
             },
             {
+              "end_line": 142,
+              "extra_values": [],
               "line": 142,
               "reasons": [],
+              "record": 141,
               "values": {
                 "customer_id": "C060",
                 "id": "O0140",
@@ -2671,8 +3343,11 @@
               }
             },
             {
+              "end_line": 143,
+              "extra_values": [],
               "line": 143,
               "reasons": [],
+              "record": 142,
               "values": {
                 "customer_id": "C061",
                 "id": "O0141",
@@ -2680,8 +3355,11 @@
               }
             },
             {
+              "end_line": 144,
+              "extra_values": [],
               "line": 144,
               "reasons": [],
+              "record": 143,
               "values": {
                 "customer_id": "C062",
                 "id": "O0142",
@@ -2689,8 +3367,11 @@
               }
             },
             {
+              "end_line": 145,
+              "extra_values": [],
               "line": 145,
               "reasons": [],
+              "record": 144,
               "values": {
                 "customer_id": "C063",
                 "id": "O0143",
@@ -2698,8 +3379,11 @@
               }
             },
             {
+              "end_line": 146,
+              "extra_values": [],
               "line": 146,
               "reasons": [],
+              "record": 145,
               "values": {
                 "customer_id": "C064",
                 "id": "O0144",
@@ -2707,8 +3391,11 @@
               }
             },
             {
+              "end_line": 147,
+              "extra_values": [],
               "line": 147,
               "reasons": [],
+              "record": 146,
               "values": {
                 "customer_id": "C065",
                 "id": "O0145",
@@ -2716,8 +3403,11 @@
               }
             },
             {
+              "end_line": 148,
+              "extra_values": [],
               "line": 148,
               "reasons": [],
+              "record": 147,
               "values": {
                 "customer_id": "C066",
                 "id": "O0146",
@@ -2725,8 +3415,11 @@
               }
             },
             {
+              "end_line": 149,
+              "extra_values": [],
               "line": 149,
               "reasons": [],
+              "record": 148,
               "values": {
                 "customer_id": "C067",
                 "id": "O0147",
@@ -2734,8 +3427,11 @@
               }
             },
             {
+              "end_line": 150,
+              "extra_values": [],
               "line": 150,
               "reasons": [],
+              "record": 149,
               "values": {
                 "customer_id": "C068",
                 "id": "O0148",
@@ -2743,8 +3439,11 @@
               }
             },
             {
+              "end_line": 151,
+              "extra_values": [],
               "line": 151,
               "reasons": [],
+              "record": 150,
               "values": {
                 "customer_id": "C069",
                 "id": "O0149",
@@ -2752,8 +3451,11 @@
               }
             },
             {
+              "end_line": 152,
+              "extra_values": [],
               "line": 152,
               "reasons": [],
+              "record": 151,
               "values": {
                 "customer_id": "C070",
                 "id": "O0150",
@@ -2761,8 +3463,11 @@
               }
             },
             {
+              "end_line": 153,
+              "extra_values": [],
               "line": 153,
               "reasons": [],
+              "record": 152,
               "values": {
                 "customer_id": "C071",
                 "id": "O0151",
@@ -2770,8 +3475,11 @@
               }
             },
             {
+              "end_line": 154,
+              "extra_values": [],
               "line": 154,
               "reasons": [],
+              "record": 153,
               "values": {
                 "customer_id": "C072",
                 "id": "O0152",
@@ -2779,8 +3487,11 @@
               }
             },
             {
+              "end_line": 155,
+              "extra_values": [],
               "line": 155,
               "reasons": [],
+              "record": 154,
               "values": {
                 "customer_id": "C073",
                 "id": "O0153",
@@ -2788,8 +3499,11 @@
               }
             },
             {
+              "end_line": 156,
+              "extra_values": [],
               "line": 156,
               "reasons": [],
+              "record": 155,
               "values": {
                 "customer_id": "C074",
                 "id": "O0154",
@@ -2797,8 +3511,11 @@
               }
             },
             {
+              "end_line": 157,
+              "extra_values": [],
               "line": 157,
               "reasons": [],
+              "record": 156,
               "values": {
                 "customer_id": "C075",
                 "id": "O0155",
@@ -2806,8 +3523,11 @@
               }
             },
             {
+              "end_line": 158,
+              "extra_values": [],
               "line": 158,
               "reasons": [],
+              "record": 157,
               "values": {
                 "customer_id": "C076",
                 "id": "O0156",
@@ -2815,8 +3535,11 @@
               }
             },
             {
+              "end_line": 159,
+              "extra_values": [],
               "line": 159,
               "reasons": [],
+              "record": 158,
               "values": {
                 "customer_id": "C077",
                 "id": "O0157",
@@ -2824,8 +3547,11 @@
               }
             },
             {
+              "end_line": 160,
+              "extra_values": [],
               "line": 160,
               "reasons": [],
+              "record": 159,
               "values": {
                 "customer_id": "C078",
                 "id": "O0158",
@@ -2833,8 +3559,11 @@
               }
             },
             {
+              "end_line": 161,
+              "extra_values": [],
               "line": 161,
               "reasons": [],
+              "record": 160,
               "values": {
                 "customer_id": "C079",
                 "id": "O0159",
@@ -2842,8 +3571,11 @@
               }
             },
             {
+              "end_line": 162,
+              "extra_values": [],
               "line": 162,
               "reasons": [],
+              "record": 161,
               "values": {
                 "customer_id": "C000",
                 "id": "O0160",
@@ -2851,8 +3583,11 @@
               }
             },
             {
+              "end_line": 163,
+              "extra_values": [],
               "line": 163,
               "reasons": [],
+              "record": 162,
               "values": {
                 "customer_id": "C001",
                 "id": "O0161",
@@ -2860,8 +3595,11 @@
               }
             },
             {
+              "end_line": 164,
+              "extra_values": [],
               "line": 164,
               "reasons": [],
+              "record": 163,
               "values": {
                 "customer_id": "C002",
                 "id": "O0162",
@@ -2869,8 +3607,11 @@
               }
             },
             {
+              "end_line": 165,
+              "extra_values": [],
               "line": 165,
               "reasons": [],
+              "record": 164,
               "values": {
                 "customer_id": "C003",
                 "id": "O0163",
@@ -2878,8 +3619,11 @@
               }
             },
             {
+              "end_line": 166,
+              "extra_values": [],
               "line": 166,
               "reasons": [],
+              "record": 165,
               "values": {
                 "customer_id": "C004",
                 "id": "O0164",
@@ -2887,8 +3631,11 @@
               }
             },
             {
+              "end_line": 167,
+              "extra_values": [],
               "line": 167,
               "reasons": [],
+              "record": 166,
               "values": {
                 "customer_id": "C005",
                 "id": "O0165",
@@ -2896,8 +3643,11 @@
               }
             },
             {
+              "end_line": 168,
+              "extra_values": [],
               "line": 168,
               "reasons": [],
+              "record": 167,
               "values": {
                 "customer_id": "C006",
                 "id": "O0166",
@@ -2905,8 +3655,11 @@
               }
             },
             {
+              "end_line": 169,
+              "extra_values": [],
               "line": 169,
               "reasons": [],
+              "record": 168,
               "values": {
                 "customer_id": "C007",
                 "id": "O0167",
@@ -2914,8 +3667,11 @@
               }
             },
             {
+              "end_line": 170,
+              "extra_values": [],
               "line": 170,
               "reasons": [],
+              "record": 169,
               "values": {
                 "customer_id": "C008",
                 "id": "O0168",
@@ -2923,8 +3679,11 @@
               }
             },
             {
+              "end_line": 171,
+              "extra_values": [],
               "line": 171,
               "reasons": [],
+              "record": 170,
               "values": {
                 "customer_id": "C009",
                 "id": "O0169",
@@ -2932,8 +3691,11 @@
               }
             },
             {
+              "end_line": 172,
+              "extra_values": [],
               "line": 172,
               "reasons": [],
+              "record": 171,
               "values": {
                 "customer_id": "C010",
                 "id": "O0170",
@@ -2941,8 +3703,11 @@
               }
             },
             {
+              "end_line": 173,
+              "extra_values": [],
               "line": 173,
               "reasons": [],
+              "record": 172,
               "values": {
                 "customer_id": "C011",
                 "id": "O0171",
@@ -2950,8 +3715,11 @@
               }
             },
             {
+              "end_line": 174,
+              "extra_values": [],
               "line": 174,
               "reasons": [],
+              "record": 173,
               "values": {
                 "customer_id": "C012",
                 "id": "O0172",
@@ -2959,8 +3727,11 @@
               }
             },
             {
+              "end_line": 175,
+              "extra_values": [],
               "line": 175,
               "reasons": [],
+              "record": 174,
               "values": {
                 "customer_id": "C013",
                 "id": "O0173",
@@ -2968,8 +3739,11 @@
               }
             },
             {
+              "end_line": 176,
+              "extra_values": [],
               "line": 176,
               "reasons": [],
+              "record": 175,
               "values": {
                 "customer_id": "C014",
                 "id": "O0174",
@@ -2977,8 +3751,11 @@
               }
             },
             {
+              "end_line": 177,
+              "extra_values": [],
               "line": 177,
               "reasons": [],
+              "record": 176,
               "values": {
                 "customer_id": "C015",
                 "id": "O0175",
@@ -2986,8 +3763,11 @@
               }
             },
             {
+              "end_line": 178,
+              "extra_values": [],
               "line": 178,
               "reasons": [],
+              "record": 177,
               "values": {
                 "customer_id": "C016",
                 "id": "O0176",
@@ -2995,8 +3775,11 @@
               }
             },
             {
+              "end_line": 179,
+              "extra_values": [],
               "line": 179,
               "reasons": [],
+              "record": 178,
               "values": {
                 "customer_id": "C017",
                 "id": "O0177",
@@ -3004,8 +3787,11 @@
               }
             },
             {
+              "end_line": 180,
+              "extra_values": [],
               "line": 180,
               "reasons": [],
+              "record": 179,
               "values": {
                 "customer_id": "C018",
                 "id": "O0178",
@@ -3013,8 +3799,11 @@
               }
             },
             {
+              "end_line": 181,
+              "extra_values": [],
               "line": 181,
               "reasons": [],
+              "record": 180,
               "values": {
                 "customer_id": "C019",
                 "id": "O0179",
@@ -3022,8 +3811,11 @@
               }
             },
             {
+              "end_line": 182,
+              "extra_values": [],
               "line": 182,
               "reasons": [],
+              "record": 181,
               "values": {
                 "customer_id": "C020",
                 "id": "O0180",
@@ -3031,8 +3823,11 @@
               }
             },
             {
+              "end_line": 183,
+              "extra_values": [],
               "line": 183,
               "reasons": [],
+              "record": 182,
               "values": {
                 "customer_id": "C021",
                 "id": "O0181",
@@ -3040,8 +3835,11 @@
               }
             },
             {
+              "end_line": 184,
+              "extra_values": [],
               "line": 184,
               "reasons": [],
+              "record": 183,
               "values": {
                 "customer_id": "C022",
                 "id": "O0182",
@@ -3049,8 +3847,11 @@
               }
             },
             {
+              "end_line": 185,
+              "extra_values": [],
               "line": 185,
               "reasons": [],
+              "record": 184,
               "values": {
                 "customer_id": "C023",
                 "id": "O0183",
@@ -3058,8 +3859,11 @@
               }
             },
             {
+              "end_line": 186,
+              "extra_values": [],
               "line": 186,
               "reasons": [],
+              "record": 185,
               "values": {
                 "customer_id": "C024",
                 "id": "O0184",
@@ -3067,8 +3871,11 @@
               }
             },
             {
+              "end_line": 187,
+              "extra_values": [],
               "line": 187,
               "reasons": [],
+              "record": 186,
               "values": {
                 "customer_id": "C025",
                 "id": "O0185",
@@ -3076,8 +3883,11 @@
               }
             },
             {
+              "end_line": 188,
+              "extra_values": [],
               "line": 188,
               "reasons": [],
+              "record": 187,
               "values": {
                 "customer_id": "C026",
                 "id": "O0186",
@@ -3085,8 +3895,11 @@
               }
             },
             {
+              "end_line": 189,
+              "extra_values": [],
               "line": 189,
               "reasons": [],
+              "record": 188,
               "values": {
                 "customer_id": "C027",
                 "id": "O0187",
@@ -3094,8 +3907,11 @@
               }
             },
             {
+              "end_line": 190,
+              "extra_values": [],
               "line": 190,
               "reasons": [],
+              "record": 189,
               "values": {
                 "customer_id": "C028",
                 "id": "O0188",
@@ -3103,8 +3919,11 @@
               }
             },
             {
+              "end_line": 191,
+              "extra_values": [],
               "line": 191,
               "reasons": [],
+              "record": 190,
               "values": {
                 "customer_id": "C029",
                 "id": "O0189",
@@ -3112,8 +3931,11 @@
               }
             },
             {
+              "end_line": 192,
+              "extra_values": [],
               "line": 192,
               "reasons": [],
+              "record": 191,
               "values": {
                 "customer_id": "C030",
                 "id": "O0190",
@@ -3121,8 +3943,11 @@
               }
             },
             {
+              "end_line": 193,
+              "extra_values": [],
               "line": 193,
               "reasons": [],
+              "record": 192,
               "values": {
                 "customer_id": "C031",
                 "id": "O0191",
@@ -3130,8 +3955,11 @@
               }
             },
             {
+              "end_line": 194,
+              "extra_values": [],
               "line": 194,
               "reasons": [],
+              "record": 193,
               "values": {
                 "customer_id": "C032",
                 "id": "O0192",
@@ -3139,8 +3967,11 @@
               }
             },
             {
+              "end_line": 195,
+              "extra_values": [],
               "line": 195,
               "reasons": [],
+              "record": 194,
               "values": {
                 "customer_id": "C033",
                 "id": "O0193",
@@ -3148,8 +3979,11 @@
               }
             },
             {
+              "end_line": 196,
+              "extra_values": [],
               "line": 196,
               "reasons": [],
+              "record": 195,
               "values": {
                 "customer_id": "C034",
                 "id": "O0194",
@@ -3157,8 +3991,11 @@
               }
             },
             {
+              "end_line": 197,
+              "extra_values": [],
               "line": 197,
               "reasons": [],
+              "record": 196,
               "values": {
                 "customer_id": "C035",
                 "id": "O0195",
@@ -3166,8 +4003,11 @@
               }
             },
             {
+              "end_line": 198,
+              "extra_values": [],
               "line": 198,
               "reasons": [],
+              "record": 197,
               "values": {
                 "customer_id": "C036",
                 "id": "O0196",
@@ -3175,8 +4015,11 @@
               }
             },
             {
+              "end_line": 199,
+              "extra_values": [],
               "line": 199,
               "reasons": [],
+              "record": 198,
               "values": {
                 "customer_id": "C037",
                 "id": "O0197",
@@ -3184,8 +4027,11 @@
               }
             },
             {
+              "end_line": 200,
+              "extra_values": [],
               "line": 200,
               "reasons": [],
+              "record": 199,
               "values": {
                 "customer_id": "C038",
                 "id": "O0198",
@@ -3193,8 +4039,11 @@
               }
             },
             {
+              "end_line": 201,
+              "extra_values": [],
               "line": 201,
               "reasons": [],
+              "record": 200,
               "values": {
                 "customer_id": "C039",
                 "id": "O0199",
@@ -3202,8 +4051,11 @@
               }
             },
             {
+              "end_line": 202,
+              "extra_values": [],
               "line": 202,
               "reasons": [],
+              "record": 201,
               "values": {
                 "customer_id": "C040",
                 "id": "O0200",
@@ -3211,8 +4063,11 @@
               }
             },
             {
+              "end_line": 203,
+              "extra_values": [],
               "line": 203,
               "reasons": [],
+              "record": 202,
               "values": {
                 "customer_id": "C041",
                 "id": "O0201",
@@ -3220,8 +4075,11 @@
               }
             },
             {
+              "end_line": 204,
+              "extra_values": [],
               "line": 204,
               "reasons": [],
+              "record": 203,
               "values": {
                 "customer_id": "C042",
                 "id": "O0202",
@@ -3229,8 +4087,11 @@
               }
             },
             {
+              "end_line": 205,
+              "extra_values": [],
               "line": 205,
               "reasons": [],
+              "record": 204,
               "values": {
                 "customer_id": "C043",
                 "id": "O0203",
@@ -3238,8 +4099,11 @@
               }
             },
             {
+              "end_line": 206,
+              "extra_values": [],
               "line": 206,
               "reasons": [],
+              "record": 205,
               "values": {
                 "customer_id": "C044",
                 "id": "O0204",
@@ -3247,8 +4111,11 @@
               }
             },
             {
+              "end_line": 207,
+              "extra_values": [],
               "line": 207,
               "reasons": [],
+              "record": 206,
               "values": {
                 "customer_id": "C045",
                 "id": "O0205",
@@ -3256,8 +4123,11 @@
               }
             },
             {
+              "end_line": 208,
+              "extra_values": [],
               "line": 208,
               "reasons": [],
+              "record": 207,
               "values": {
                 "customer_id": "C046",
                 "id": "O0206",
@@ -3265,8 +4135,11 @@
               }
             },
             {
+              "end_line": 209,
+              "extra_values": [],
               "line": 209,
               "reasons": [],
+              "record": 208,
               "values": {
                 "customer_id": "C047",
                 "id": "O0207",
@@ -3274,8 +4147,11 @@
               }
             },
             {
+              "end_line": 210,
+              "extra_values": [],
               "line": 210,
               "reasons": [],
+              "record": 209,
               "values": {
                 "customer_id": "C048",
                 "id": "O0208",
@@ -3283,8 +4159,11 @@
               }
             },
             {
+              "end_line": 211,
+              "extra_values": [],
               "line": 211,
               "reasons": [],
+              "record": 210,
               "values": {
                 "customer_id": "C049",
                 "id": "O0209",
@@ -3292,8 +4171,11 @@
               }
             },
             {
+              "end_line": 212,
+              "extra_values": [],
               "line": 212,
               "reasons": [],
+              "record": 211,
               "values": {
                 "customer_id": "C050",
                 "id": "O0210",
@@ -3301,8 +4183,11 @@
               }
             },
             {
+              "end_line": 213,
+              "extra_values": [],
               "line": 213,
               "reasons": [],
+              "record": 212,
               "values": {
                 "customer_id": "C051",
                 "id": "O0211",
@@ -3310,8 +4195,11 @@
               }
             },
             {
+              "end_line": 214,
+              "extra_values": [],
               "line": 214,
               "reasons": [],
+              "record": 213,
               "values": {
                 "customer_id": "C052",
                 "id": "O0212",
@@ -3319,8 +4207,11 @@
               }
             },
             {
+              "end_line": 215,
+              "extra_values": [],
               "line": 215,
               "reasons": [],
+              "record": 214,
               "values": {
                 "customer_id": "C053",
                 "id": "O0213",
@@ -3328,8 +4219,11 @@
               }
             },
             {
+              "end_line": 216,
+              "extra_values": [],
               "line": 216,
               "reasons": [],
+              "record": 215,
               "values": {
                 "customer_id": "C054",
                 "id": "O0214",
@@ -3337,8 +4231,11 @@
               }
             },
             {
+              "end_line": 217,
+              "extra_values": [],
               "line": 217,
               "reasons": [],
+              "record": 216,
               "values": {
                 "customer_id": "C055",
                 "id": "O0215",
@@ -3346,8 +4243,11 @@
               }
             },
             {
+              "end_line": 218,
+              "extra_values": [],
               "line": 218,
               "reasons": [],
+              "record": 217,
               "values": {
                 "customer_id": "C056",
                 "id": "O0216",
@@ -3355,8 +4255,11 @@
               }
             },
             {
+              "end_line": 219,
+              "extra_values": [],
               "line": 219,
               "reasons": [],
+              "record": 218,
               "values": {
                 "customer_id": "C057",
                 "id": "O0217",
@@ -3364,8 +4267,11 @@
               }
             },
             {
+              "end_line": 220,
+              "extra_values": [],
               "line": 220,
               "reasons": [],
+              "record": 219,
               "values": {
                 "customer_id": "C058",
                 "id": "O0218",
@@ -3373,8 +4279,11 @@
               }
             },
             {
+              "end_line": 221,
+              "extra_values": [],
               "line": 221,
               "reasons": [],
+              "record": 220,
               "values": {
                 "customer_id": "C059",
                 "id": "O0219",
@@ -3382,8 +4291,11 @@
               }
             },
             {
+              "end_line": 222,
+              "extra_values": [],
               "line": 222,
               "reasons": [],
+              "record": 221,
               "values": {
                 "customer_id": "C060",
                 "id": "O0220",
@@ -3391,8 +4303,11 @@
               }
             },
             {
+              "end_line": 223,
+              "extra_values": [],
               "line": 223,
               "reasons": [],
+              "record": 222,
               "values": {
                 "customer_id": "C061",
                 "id": "O0221",
@@ -3400,8 +4315,11 @@
               }
             },
             {
+              "end_line": 224,
+              "extra_values": [],
               "line": 224,
               "reasons": [],
+              "record": 223,
               "values": {
                 "customer_id": "C062",
                 "id": "O0222",
@@ -3409,8 +4327,11 @@
               }
             },
             {
+              "end_line": 225,
+              "extra_values": [],
               "line": 225,
               "reasons": [],
+              "record": 224,
               "values": {
                 "customer_id": "C063",
                 "id": "O0223",
@@ -3418,8 +4339,11 @@
               }
             },
             {
+              "end_line": 226,
+              "extra_values": [],
               "line": 226,
               "reasons": [],
+              "record": 225,
               "values": {
                 "customer_id": "C064",
                 "id": "O0224",
@@ -3427,8 +4351,11 @@
               }
             },
             {
+              "end_line": 227,
+              "extra_values": [],
               "line": 227,
               "reasons": [],
+              "record": 226,
               "values": {
                 "customer_id": "C065",
                 "id": "O0225",
@@ -3436,8 +4363,11 @@
               }
             },
             {
+              "end_line": 228,
+              "extra_values": [],
               "line": 228,
               "reasons": [],
+              "record": 227,
               "values": {
                 "customer_id": "C066",
                 "id": "O0226",
@@ -3445,8 +4375,11 @@
               }
             },
             {
+              "end_line": 229,
+              "extra_values": [],
               "line": 229,
               "reasons": [],
+              "record": 228,
               "values": {
                 "customer_id": "C067",
                 "id": "O0227",
@@ -3454,8 +4387,11 @@
               }
             },
             {
+              "end_line": 230,
+              "extra_values": [],
               "line": 230,
               "reasons": [],
+              "record": 229,
               "values": {
                 "customer_id": "C068",
                 "id": "O0228",
@@ -3463,8 +4399,11 @@
               }
             },
             {
+              "end_line": 231,
+              "extra_values": [],
               "line": 231,
               "reasons": [],
+              "record": 230,
               "values": {
                 "customer_id": "C069",
                 "id": "O0229",
@@ -3472,8 +4411,11 @@
               }
             },
             {
+              "end_line": 232,
+              "extra_values": [],
               "line": 232,
               "reasons": [],
+              "record": 231,
               "values": {
                 "customer_id": "C070",
                 "id": "O0230",
@@ -3481,8 +4423,11 @@
               }
             },
             {
+              "end_line": 233,
+              "extra_values": [],
               "line": 233,
               "reasons": [],
+              "record": 232,
               "values": {
                 "customer_id": "C071",
                 "id": "O0231",
@@ -3490,8 +4435,11 @@
               }
             },
             {
+              "end_line": 234,
+              "extra_values": [],
               "line": 234,
               "reasons": [],
+              "record": 233,
               "values": {
                 "customer_id": "C072",
                 "id": "O0232",
@@ -3499,8 +4447,11 @@
               }
             },
             {
+              "end_line": 235,
+              "extra_values": [],
               "line": 235,
               "reasons": [],
+              "record": 234,
               "values": {
                 "customer_id": "C073",
                 "id": "O0233",
@@ -3508,8 +4459,11 @@
               }
             },
             {
+              "end_line": 236,
+              "extra_values": [],
               "line": 236,
               "reasons": [],
+              "record": 235,
               "values": {
                 "customer_id": "C074",
                 "id": "O0234",
@@ -3517,8 +4471,11 @@
               }
             },
             {
+              "end_line": 237,
+              "extra_values": [],
               "line": 237,
               "reasons": [],
+              "record": 236,
               "values": {
                 "customer_id": "C075",
                 "id": "O0235",
@@ -3526,8 +4483,11 @@
               }
             },
             {
+              "end_line": 238,
+              "extra_values": [],
               "line": 238,
               "reasons": [],
+              "record": 237,
               "values": {
                 "customer_id": "C076",
                 "id": "O0236",
@@ -3535,8 +4495,11 @@
               }
             },
             {
+              "end_line": 239,
+              "extra_values": [],
               "line": 239,
               "reasons": [],
+              "record": 238,
               "values": {
                 "customer_id": "C077",
                 "id": "O0237",
@@ -3544,8 +4507,11 @@
               }
             },
             {
+              "end_line": 240,
+              "extra_values": [],
               "line": 240,
               "reasons": [],
+              "record": 239,
               "values": {
                 "customer_id": "C078",
                 "id": "O0238",
@@ -3553,8 +4519,11 @@
               }
             },
             {
+              "end_line": 241,
+              "extra_values": [],
               "line": 241,
               "reasons": [],
+              "record": 240,
               "values": {
                 "customer_id": "C079",
                 "id": "O0239",
@@ -3562,8 +4531,11 @@
               }
             },
             {
+              "end_line": 242,
+              "extra_values": [],
               "line": 242,
               "reasons": [],
+              "record": 241,
               "values": {
                 "customer_id": "C000",
                 "id": "O0240",
@@ -3571,8 +4543,11 @@
               }
             },
             {
+              "end_line": 243,
+              "extra_values": [],
               "line": 243,
               "reasons": [],
+              "record": 242,
               "values": {
                 "customer_id": "C001",
                 "id": "O0241",
@@ -3580,8 +4555,11 @@
               }
             },
             {
+              "end_line": 244,
+              "extra_values": [],
               "line": 244,
               "reasons": [],
+              "record": 243,
               "values": {
                 "customer_id": "C002",
                 "id": "O0242",
@@ -3589,8 +4567,11 @@
               }
             },
             {
+              "end_line": 245,
+              "extra_values": [],
               "line": 245,
               "reasons": [],
+              "record": 244,
               "values": {
                 "customer_id": "C003",
                 "id": "O0243",
@@ -3598,8 +4579,11 @@
               }
             },
             {
+              "end_line": 246,
+              "extra_values": [],
               "line": 246,
               "reasons": [],
+              "record": 245,
               "values": {
                 "customer_id": "C004",
                 "id": "O0244",
@@ -3607,8 +4591,11 @@
               }
             },
             {
+              "end_line": 247,
+              "extra_values": [],
               "line": 247,
               "reasons": [],
+              "record": 246,
               "values": {
                 "customer_id": "C005",
                 "id": "O0245",
@@ -3616,8 +4603,11 @@
               }
             },
             {
+              "end_line": 248,
+              "extra_values": [],
               "line": 248,
               "reasons": [],
+              "record": 247,
               "values": {
                 "customer_id": "C006",
                 "id": "O0246",
@@ -3625,8 +4615,11 @@
               }
             },
             {
+              "end_line": 249,
+              "extra_values": [],
               "line": 249,
               "reasons": [],
+              "record": 248,
               "values": {
                 "customer_id": "C007",
                 "id": "O0247",
@@ -3634,8 +4627,11 @@
               }
             },
             {
+              "end_line": 250,
+              "extra_values": [],
               "line": 250,
               "reasons": [],
+              "record": 249,
               "values": {
                 "customer_id": "C008",
                 "id": "O0248",
@@ -3643,8 +4639,11 @@
               }
             },
             {
+              "end_line": 251,
+              "extra_values": [],
               "line": 251,
               "reasons": [],
+              "record": 250,
               "values": {
                 "customer_id": "C009",
                 "id": "O0249",
@@ -3652,8 +4651,11 @@
               }
             },
             {
+              "end_line": 252,
+              "extra_values": [],
               "line": 252,
               "reasons": [],
+              "record": 251,
               "values": {
                 "customer_id": "C010",
                 "id": "O0250",
@@ -3661,8 +4663,11 @@
               }
             },
             {
+              "end_line": 253,
+              "extra_values": [],
               "line": 253,
               "reasons": [],
+              "record": 252,
               "values": {
                 "customer_id": "C011",
                 "id": "O0251",
@@ -3670,8 +4675,11 @@
               }
             },
             {
+              "end_line": 254,
+              "extra_values": [],
               "line": 254,
               "reasons": [],
+              "record": 253,
               "values": {
                 "customer_id": "C012",
                 "id": "O0252",
@@ -3679,8 +4687,11 @@
               }
             },
             {
+              "end_line": 255,
+              "extra_values": [],
               "line": 255,
               "reasons": [],
+              "record": 254,
               "values": {
                 "customer_id": "C013",
                 "id": "O0253",
@@ -3688,8 +4699,11 @@
               }
             },
             {
+              "end_line": 256,
+              "extra_values": [],
               "line": 256,
               "reasons": [],
+              "record": 255,
               "values": {
                 "customer_id": "C014",
                 "id": "O0254",
@@ -3697,8 +4711,11 @@
               }
             },
             {
+              "end_line": 257,
+              "extra_values": [],
               "line": 257,
               "reasons": [],
+              "record": 256,
               "values": {
                 "customer_id": "C015",
                 "id": "O0255",
@@ -3706,8 +4723,11 @@
               }
             },
             {
+              "end_line": 258,
+              "extra_values": [],
               "line": 258,
               "reasons": [],
+              "record": 257,
               "values": {
                 "customer_id": "C016",
                 "id": "O0256",
@@ -3715,8 +4735,11 @@
               }
             },
             {
+              "end_line": 259,
+              "extra_values": [],
               "line": 259,
               "reasons": [],
+              "record": 258,
               "values": {
                 "customer_id": "C017",
                 "id": "O0257",
@@ -3724,8 +4747,11 @@
               }
             },
             {
+              "end_line": 260,
+              "extra_values": [],
               "line": 260,
               "reasons": [],
+              "record": 259,
               "values": {
                 "customer_id": "C018",
                 "id": "O0258",
@@ -3733,8 +4759,11 @@
               }
             },
             {
+              "end_line": 261,
+              "extra_values": [],
               "line": 261,
               "reasons": [],
+              "record": 260,
               "values": {
                 "customer_id": "C019",
                 "id": "O0259",
@@ -3742,8 +4771,11 @@
               }
             },
             {
+              "end_line": 262,
+              "extra_values": [],
               "line": 262,
               "reasons": [],
+              "record": 261,
               "values": {
                 "customer_id": "C020",
                 "id": "O0260",
@@ -3751,8 +4783,11 @@
               }
             },
             {
+              "end_line": 263,
+              "extra_values": [],
               "line": 263,
               "reasons": [],
+              "record": 262,
               "values": {
                 "customer_id": "C021",
                 "id": "O0261",
@@ -3760,8 +4795,11 @@
               }
             },
             {
+              "end_line": 264,
+              "extra_values": [],
               "line": 264,
               "reasons": [],
+              "record": 263,
               "values": {
                 "customer_id": "C022",
                 "id": "O0262",
@@ -3769,8 +4807,11 @@
               }
             },
             {
+              "end_line": 265,
+              "extra_values": [],
               "line": 265,
               "reasons": [],
+              "record": 264,
               "values": {
                 "customer_id": "C023",
                 "id": "O0263",
@@ -3778,8 +4819,11 @@
               }
             },
             {
+              "end_line": 266,
+              "extra_values": [],
               "line": 266,
               "reasons": [],
+              "record": 265,
               "values": {
                 "customer_id": "C024",
                 "id": "O0264",
@@ -3787,8 +4831,11 @@
               }
             },
             {
+              "end_line": 267,
+              "extra_values": [],
               "line": 267,
               "reasons": [],
+              "record": 266,
               "values": {
                 "customer_id": "C025",
                 "id": "O0265",
@@ -3796,8 +4843,11 @@
               }
             },
             {
+              "end_line": 268,
+              "extra_values": [],
               "line": 268,
               "reasons": [],
+              "record": 267,
               "values": {
                 "customer_id": "C026",
                 "id": "O0266",
@@ -3805,8 +4855,11 @@
               }
             },
             {
+              "end_line": 269,
+              "extra_values": [],
               "line": 269,
               "reasons": [],
+              "record": 268,
               "values": {
                 "customer_id": "C027",
                 "id": "O0267",
@@ -3814,8 +4867,11 @@
               }
             },
             {
+              "end_line": 270,
+              "extra_values": [],
               "line": 270,
               "reasons": [],
+              "record": 269,
               "values": {
                 "customer_id": "C028",
                 "id": "O0268",
@@ -3823,8 +4879,11 @@
               }
             },
             {
+              "end_line": 271,
+              "extra_values": [],
               "line": 271,
               "reasons": [],
+              "record": 270,
               "values": {
                 "customer_id": "C029",
                 "id": "O0269",
@@ -3832,8 +4891,11 @@
               }
             },
             {
+              "end_line": 272,
+              "extra_values": [],
               "line": 272,
               "reasons": [],
+              "record": 271,
               "values": {
                 "customer_id": "C030",
                 "id": "O0270",
@@ -3841,8 +4903,11 @@
               }
             },
             {
+              "end_line": 273,
+              "extra_values": [],
               "line": 273,
               "reasons": [],
+              "record": 272,
               "values": {
                 "customer_id": "C031",
                 "id": "O0271",
@@ -3850,8 +4915,11 @@
               }
             },
             {
+              "end_line": 274,
+              "extra_values": [],
               "line": 274,
               "reasons": [],
+              "record": 273,
               "values": {
                 "customer_id": "C032",
                 "id": "O0272",
@@ -3859,8 +4927,11 @@
               }
             },
             {
+              "end_line": 275,
+              "extra_values": [],
               "line": 275,
               "reasons": [],
+              "record": 274,
               "values": {
                 "customer_id": "C033",
                 "id": "O0273",
@@ -3868,8 +4939,11 @@
               }
             },
             {
+              "end_line": 276,
+              "extra_values": [],
               "line": 276,
               "reasons": [],
+              "record": 275,
               "values": {
                 "customer_id": "C034",
                 "id": "O0274",
@@ -3877,8 +4951,11 @@
               }
             },
             {
+              "end_line": 277,
+              "extra_values": [],
               "line": 277,
               "reasons": [],
+              "record": 276,
               "values": {
                 "customer_id": "C035",
                 "id": "O0275",
@@ -3886,8 +4963,11 @@
               }
             },
             {
+              "end_line": 278,
+              "extra_values": [],
               "line": 278,
               "reasons": [],
+              "record": 277,
               "values": {
                 "customer_id": "C036",
                 "id": "O0276",
@@ -3895,8 +4975,11 @@
               }
             },
             {
+              "end_line": 279,
+              "extra_values": [],
               "line": 279,
               "reasons": [],
+              "record": 278,
               "values": {
                 "customer_id": "C037",
                 "id": "O0277",
@@ -3904,8 +4987,11 @@
               }
             },
             {
+              "end_line": 280,
+              "extra_values": [],
               "line": 280,
               "reasons": [],
+              "record": 279,
               "values": {
                 "customer_id": "C038",
                 "id": "O0278",
@@ -3913,8 +4999,11 @@
               }
             },
             {
+              "end_line": 281,
+              "extra_values": [],
               "line": 281,
               "reasons": [],
+              "record": 280,
               "values": {
                 "customer_id": "C039",
                 "id": "O0279",
@@ -3922,8 +5011,11 @@
               }
             },
             {
+              "end_line": 282,
+              "extra_values": [],
               "line": 282,
               "reasons": [],
+              "record": 281,
               "values": {
                 "customer_id": "C040",
                 "id": "O0280",
@@ -3931,8 +5023,11 @@
               }
             },
             {
+              "end_line": 283,
+              "extra_values": [],
               "line": 283,
               "reasons": [],
+              "record": 282,
               "values": {
                 "customer_id": "C041",
                 "id": "O0281",
@@ -3940,8 +5035,11 @@
               }
             },
             {
+              "end_line": 284,
+              "extra_values": [],
               "line": 284,
               "reasons": [],
+              "record": 283,
               "values": {
                 "customer_id": "C042",
                 "id": "O0282",
@@ -3949,8 +5047,11 @@
               }
             },
             {
+              "end_line": 285,
+              "extra_values": [],
               "line": 285,
               "reasons": [],
+              "record": 284,
               "values": {
                 "customer_id": "C043",
                 "id": "O0283",
@@ -3958,8 +5059,11 @@
               }
             },
             {
+              "end_line": 286,
+              "extra_values": [],
               "line": 286,
               "reasons": [],
+              "record": 285,
               "values": {
                 "customer_id": "C044",
                 "id": "O0284",
@@ -3967,8 +5071,11 @@
               }
             },
             {
+              "end_line": 287,
+              "extra_values": [],
               "line": 287,
               "reasons": [],
+              "record": 286,
               "values": {
                 "customer_id": "C045",
                 "id": "O0285",
@@ -3976,8 +5083,11 @@
               }
             },
             {
+              "end_line": 288,
+              "extra_values": [],
               "line": 288,
               "reasons": [],
+              "record": 287,
               "values": {
                 "customer_id": "C046",
                 "id": "O0286",
@@ -3985,8 +5095,11 @@
               }
             },
             {
+              "end_line": 289,
+              "extra_values": [],
               "line": 289,
               "reasons": [],
+              "record": 288,
               "values": {
                 "customer_id": "C047",
                 "id": "O0287",
@@ -3994,8 +5107,11 @@
               }
             },
             {
+              "end_line": 290,
+              "extra_values": [],
               "line": 290,
               "reasons": [],
+              "record": 289,
               "values": {
                 "customer_id": "C048",
                 "id": "O0288",
@@ -4003,8 +5119,11 @@
               }
             },
             {
+              "end_line": 291,
+              "extra_values": [],
               "line": 291,
               "reasons": [],
+              "record": 290,
               "values": {
                 "customer_id": "C049",
                 "id": "O0289",
@@ -4012,8 +5131,11 @@
               }
             },
             {
+              "end_line": 292,
+              "extra_values": [],
               "line": 292,
               "reasons": [],
+              "record": 291,
               "values": {
                 "customer_id": "C050",
                 "id": "O0290",
@@ -4021,8 +5143,11 @@
               }
             },
             {
+              "end_line": 293,
+              "extra_values": [],
               "line": 293,
               "reasons": [],
+              "record": 292,
               "values": {
                 "customer_id": "C051",
                 "id": "O0291",
@@ -4030,8 +5155,11 @@
               }
             },
             {
+              "end_line": 294,
+              "extra_values": [],
               "line": 294,
               "reasons": [],
+              "record": 293,
               "values": {
                 "customer_id": "C052",
                 "id": "O0292",
@@ -4039,8 +5167,11 @@
               }
             },
             {
+              "end_line": 295,
+              "extra_values": [],
               "line": 295,
               "reasons": [],
+              "record": 294,
               "values": {
                 "customer_id": "C053",
                 "id": "O0293",
@@ -4048,8 +5179,11 @@
               }
             },
             {
+              "end_line": 296,
+              "extra_values": [],
               "line": 296,
               "reasons": [],
+              "record": 295,
               "values": {
                 "customer_id": "C054",
                 "id": "O0294",
@@ -4057,8 +5191,11 @@
               }
             },
             {
+              "end_line": 297,
+              "extra_values": [],
               "line": 297,
               "reasons": [],
+              "record": 296,
               "values": {
                 "customer_id": "C055",
                 "id": "O0295",
@@ -4066,8 +5203,11 @@
               }
             },
             {
+              "end_line": 298,
+              "extra_values": [],
               "line": 298,
               "reasons": [],
+              "record": 297,
               "values": {
                 "customer_id": "C056",
                 "id": "O0296",
@@ -4075,8 +5215,11 @@
               }
             },
             {
+              "end_line": 299,
+              "extra_values": [],
               "line": 299,
               "reasons": [],
+              "record": 298,
               "values": {
                 "customer_id": "C057",
                 "id": "O0297",
@@ -4084,8 +5227,11 @@
               }
             },
             {
+              "end_line": 300,
+              "extra_values": [],
               "line": 300,
               "reasons": [],
+              "record": 299,
               "values": {
                 "customer_id": "C058",
                 "id": "O0298",
@@ -4093,8 +5239,11 @@
               }
             },
             {
+              "end_line": 301,
+              "extra_values": [],
               "line": 301,
               "reasons": [],
+              "record": 300,
               "values": {
                 "customer_id": "C059",
                 "id": "O0299",
@@ -4102,8 +5251,11 @@
               }
             },
             {
+              "end_line": 302,
+              "extra_values": [],
               "line": 302,
               "reasons": [],
+              "record": 301,
               "values": {
                 "customer_id": "C060",
                 "id": "O0300",
@@ -4111,8 +5263,11 @@
               }
             },
             {
+              "end_line": 303,
+              "extra_values": [],
               "line": 303,
               "reasons": [],
+              "record": 302,
               "values": {
                 "customer_id": "C061",
                 "id": "O0301",
@@ -4120,8 +5275,11 @@
               }
             },
             {
+              "end_line": 304,
+              "extra_values": [],
               "line": 304,
               "reasons": [],
+              "record": 303,
               "values": {
                 "customer_id": "C062",
                 "id": "O0302",
@@ -4129,8 +5287,11 @@
               }
             },
             {
+              "end_line": 305,
+              "extra_values": [],
               "line": 305,
               "reasons": [],
+              "record": 304,
               "values": {
                 "customer_id": "C063",
                 "id": "O0303",
@@ -4138,8 +5299,11 @@
               }
             },
             {
+              "end_line": 306,
+              "extra_values": [],
               "line": 306,
               "reasons": [],
+              "record": 305,
               "values": {
                 "customer_id": "C064",
                 "id": "O0304",
@@ -4147,8 +5311,11 @@
               }
             },
             {
+              "end_line": 307,
+              "extra_values": [],
               "line": 307,
               "reasons": [],
+              "record": 306,
               "values": {
                 "customer_id": "C065",
                 "id": "O0305",
@@ -4156,8 +5323,11 @@
               }
             },
             {
+              "end_line": 308,
+              "extra_values": [],
               "line": 308,
               "reasons": [],
+              "record": 307,
               "values": {
                 "customer_id": "C066",
                 "id": "O0306",
@@ -4165,8 +5335,11 @@
               }
             },
             {
+              "end_line": 309,
+              "extra_values": [],
               "line": 309,
               "reasons": [],
+              "record": 308,
               "values": {
                 "customer_id": "C067",
                 "id": "O0307",
@@ -4174,8 +5347,11 @@
               }
             },
             {
+              "end_line": 310,
+              "extra_values": [],
               "line": 310,
               "reasons": [],
+              "record": 309,
               "values": {
                 "customer_id": "C068",
                 "id": "O0308",
@@ -4183,8 +5359,11 @@
               }
             },
             {
+              "end_line": 311,
+              "extra_values": [],
               "line": 311,
               "reasons": [],
+              "record": 310,
               "values": {
                 "customer_id": "C069",
                 "id": "O0309",
@@ -4192,8 +5371,11 @@
               }
             },
             {
+              "end_line": 312,
+              "extra_values": [],
               "line": 312,
               "reasons": [],
+              "record": 311,
               "values": {
                 "customer_id": "C070",
                 "id": "O0310",
@@ -4201,8 +5383,11 @@
               }
             },
             {
+              "end_line": 313,
+              "extra_values": [],
               "line": 313,
               "reasons": [],
+              "record": 312,
               "values": {
                 "customer_id": "C071",
                 "id": "O0311",
@@ -4210,8 +5395,11 @@
               }
             },
             {
+              "end_line": 314,
+              "extra_values": [],
               "line": 314,
               "reasons": [],
+              "record": 313,
               "values": {
                 "customer_id": "C072",
                 "id": "O0312",
@@ -4219,8 +5407,11 @@
               }
             },
             {
+              "end_line": 315,
+              "extra_values": [],
               "line": 315,
               "reasons": [],
+              "record": 314,
               "values": {
                 "customer_id": "C073",
                 "id": "O0313",
@@ -4228,8 +5419,11 @@
               }
             },
             {
+              "end_line": 316,
+              "extra_values": [],
               "line": 316,
               "reasons": [],
+              "record": 315,
               "values": {
                 "customer_id": "C074",
                 "id": "O0314",
@@ -4237,8 +5431,11 @@
               }
             },
             {
+              "end_line": 317,
+              "extra_values": [],
               "line": 317,
               "reasons": [],
+              "record": 316,
               "values": {
                 "customer_id": "C075",
                 "id": "O0315",
@@ -4246,8 +5443,11 @@
               }
             },
             {
+              "end_line": 318,
+              "extra_values": [],
               "line": 318,
               "reasons": [],
+              "record": 317,
               "values": {
                 "customer_id": "C076",
                 "id": "O0316",
@@ -4255,8 +5455,11 @@
               }
             },
             {
+              "end_line": 319,
+              "extra_values": [],
               "line": 319,
               "reasons": [],
+              "record": 318,
               "values": {
                 "customer_id": "C077",
                 "id": "O0317",
@@ -4264,8 +5467,11 @@
               }
             },
             {
+              "end_line": 320,
+              "extra_values": [],
               "line": 320,
               "reasons": [],
+              "record": 319,
               "values": {
                 "customer_id": "C078",
                 "id": "O0318",
@@ -4273,8 +5479,11 @@
               }
             },
             {
+              "end_line": 321,
+              "extra_values": [],
               "line": 321,
               "reasons": [],
+              "record": 320,
               "values": {
                 "customer_id": "C079",
                 "id": "O0319",
@@ -4331,23 +5540,23 @@
         "reason": "prerequisites_verified; registered_read_transform_verify",
         "scores": {}
       },
-      "elapsed_ms": 191.94,
+      "elapsed_ms": 378.326,
       "goal_id": "inventory",
-      "intent_id": "095d90aaf8a649c29e4627cb02f193a2",
+      "intent_id": "ed3e405029c54ec38f8f49cd679ca9bf",
       "kind": "decision",
       "sequence": 1
     },
     {
-      "elapsed_ms": 346.368,
+      "elapsed_ms": 583.13,
       "kind": "tool_started",
       "node": "inventory",
       "sequence": 2
     },
     {
-      "elapsed_ms": 450.825,
+      "elapsed_ms": 748.252,
       "evidence": {
         "bytes": 9348,
-        "duration_ms": 104.451,
+        "duration_ms": 165.109,
         "findings": 0,
         "path": "output/inventory.json",
         "sha256": "530a19cc84fb4e64d1662ed102ab166f42997039650ef765c513bc69394d7b3b"
@@ -4357,7 +5566,7 @@
       "sequence": 3
     },
     {
-      "elapsed_ms": 470.082,
+      "elapsed_ms": 786.403,
       "error": null,
       "goal_id": "inventory",
       "kind": "goal_state",
@@ -4374,9 +5583,9 @@
         "reason": "prerequisites_verified; registered_read_transform_verify",
         "scores": {}
       },
-      "elapsed_ms": 550.844,
+      "elapsed_ms": 912.909,
       "goal_id": "tables",
-      "intent_id": "fb7ee8bf75604539a9ee486a7f1ec184",
+      "intent_id": "6bb7e414180c4415bcea3182017f498a",
       "kind": "decision",
       "sequence": 5
     },
@@ -4390,9 +5599,9 @@
         "reason": "prerequisites_verified; registered_read_transform_verify",
         "scores": {}
       },
-      "elapsed_ms": 561.835,
+      "elapsed_ms": 930.754,
       "goal_id": "integrity",
-      "intent_id": "64053804c09d4a0999d0754ae4e3c1e9",
+      "intent_id": "b84b212acd524b2c9508b1e0192c0a74",
       "kind": "decision",
       "sequence": 6
     },
@@ -4406,42 +5615,42 @@
         "reason": "prerequisites_verified; registered_read_transform_verify",
         "scores": {}
       },
-      "elapsed_ms": 572.11,
+      "elapsed_ms": 949.166,
       "goal_id": "manifest",
-      "intent_id": "8704612ea2244164afb24522fad4f073",
+      "intent_id": "240c8bfa37324a8a9fa1ec1ca467a71b",
       "kind": "decision",
       "sequence": 7
     },
     {
-      "elapsed_ms": 726.782,
+      "elapsed_ms": 1134.929,
       "kind": "tool_started",
       "node": "tables",
       "sequence": 8
     },
     {
-      "elapsed_ms": 809.655,
-      "kind": "tool_started",
-      "node": "integrity",
-      "sequence": 9
-    },
-    {
-      "elapsed_ms": 821.856,
+      "elapsed_ms": 1263.558,
       "evidence": {
-        "bytes": 74941,
-        "duration_ms": 95.068,
+        "bytes": 107516,
+        "duration_ms": 128.614,
         "findings": 0,
         "path": "output/tables.json",
-        "sha256": "ba8e7f88726f9930fe0d1d112d134207e7de9f0b4c54fbd73c8d0d7d22fd34b3"
+        "sha256": "6c5b00bd08d3b86120edb515d4112a319c7c29c411f7eca18ce10229f43eda62"
       },
       "kind": "tool_finished",
       "node": "tables",
+      "sequence": 9
+    },
+    {
+      "elapsed_ms": 1321.602,
+      "kind": "tool_started",
+      "node": "integrity",
       "sequence": 10
     },
     {
-      "elapsed_ms": 904.205,
+      "elapsed_ms": 1390.308,
       "evidence": {
         "bytes": 12681,
-        "duration_ms": 94.544,
+        "duration_ms": 68.696,
         "findings": 0,
         "path": "output/integrity.json",
         "sha256": "47722054f4bdfc462b8486bbd71b89a631440e4cd26b0408c89f6e66c0070d65"
@@ -4451,13 +5660,13 @@
       "sequence": 11
     },
     {
-      "elapsed_ms": 915.389,
+      "elapsed_ms": 1457.349,
       "kind": "tool_started",
       "node": "manifest",
       "sequence": 12
     },
     {
-      "elapsed_ms": 926.599,
+      "elapsed_ms": 1483.302,
       "error": null,
       "goal_id": "tables",
       "kind": "goal_state",
@@ -4465,10 +5674,10 @@
       "state": "succeeded"
     },
     {
-      "elapsed_ms": 943.154,
+      "elapsed_ms": 1501.226,
       "evidence": {
         "bytes": 5089,
-        "duration_ms": 27.759,
+        "duration_ms": 43.853,
         "findings": 0,
         "path": "output/manifest.json",
         "sha256": "355698186eea930d0905fe4079c565dc5550d9e0560d71ebf2a94e51ab3c9f42"
@@ -4478,7 +5687,7 @@
       "sequence": 14
     },
     {
-      "elapsed_ms": 945.39,
+      "elapsed_ms": 1552.28,
       "error": null,
       "goal_id": "integrity",
       "kind": "goal_state",
@@ -4486,7 +5695,7 @@
       "state": "succeeded"
     },
     {
-      "elapsed_ms": 960.366,
+      "elapsed_ms": 1578.781,
       "error": null,
       "goal_id": "manifest",
       "kind": "goal_state",
@@ -4503,23 +5712,23 @@
         "reason": "prerequisites_verified; registered_read_transform_verify",
         "scores": {}
       },
-      "elapsed_ms": 971.692,
+      "elapsed_ms": 1596.591,
       "goal_id": "normalize",
-      "intent_id": "b1d514808eed40aba195f957bec1cc11",
+      "intent_id": "0e7ab312ed90450a84449f9b4d20fab6",
       "kind": "decision",
       "sequence": 17
     },
     {
-      "elapsed_ms": 1066.045,
+      "elapsed_ms": 1820.393,
       "kind": "tool_started",
       "node": "normalize",
       "sequence": 18
     },
     {
-      "elapsed_ms": 1143.834,
+      "elapsed_ms": 1954.45,
       "evidence": {
         "bytes": 6242,
-        "duration_ms": 77.783,
+        "duration_ms": 134.053,
         "findings": 0,
         "path": "output/normalize.json",
         "sha256": "4a1ceca58f71f4d823f4579ef05b2f65c23981e4268bc355c9d47b36e317c31f"
@@ -4529,7 +5738,7 @@
       "sequence": 19
     },
     {
-      "elapsed_ms": 1157.908,
+      "elapsed_ms": 1987.307,
       "error": null,
       "goal_id": "normalize",
       "kind": "goal_state",
@@ -4546,33 +5755,33 @@
         "reason": "prerequisites_verified; registered_read_transform_verify",
         "scores": {}
       },
-      "elapsed_ms": 1197.345,
+      "elapsed_ms": 2054.585,
       "goal_id": "report",
-      "intent_id": "9f75dc0d0a3349ca88f4ee2a1fc4ac40",
+      "intent_id": "432c8129550f4e47892748f05be71f55",
       "kind": "decision",
       "sequence": 21
     },
     {
-      "elapsed_ms": 1307.669,
+      "elapsed_ms": 2282.316,
       "kind": "tool_started",
       "node": "report",
       "sequence": 22
     },
     {
-      "elapsed_ms": 1393.965,
+      "elapsed_ms": 2394.945,
       "evidence": {
-        "bytes": 462,
-        "duration_ms": 86.29,
+        "bytes": 721,
+        "duration_ms": 112.619,
         "findings": 0,
         "path": "output/report.json",
-        "sha256": "2187744af2c34ecaa813b75c5a7913aba636da36dfbc1c1b32badae4a3057198"
+        "sha256": "2022f3a033664043fc29ca94ab68f1778e15385671b71bfe94b223c76baf8f51"
       },
       "kind": "tool_finished",
       "node": "report",
       "sequence": 23
     },
     {
-      "elapsed_ms": 1408.299,
+      "elapsed_ms": 2412.465,
       "error": null,
       "goal_id": "report",
       "kind": "goal_state",
@@ -4589,23 +5798,23 @@
         "reason": "prerequisites_verified; registered_read_transform_verify",
         "scores": {}
       },
-      "elapsed_ms": 1452.3,
+      "elapsed_ms": 2512.46,
       "goal_id": "verify",
-      "intent_id": "96eac3bd798e4545b231f588d4bd69dc",
+      "intent_id": "d14e9aaa4f21486eb048a27e6bd480b7",
       "kind": "decision",
       "sequence": 25
     },
     {
-      "elapsed_ms": 1553.659,
+      "elapsed_ms": 2842.554,
       "kind": "tool_started",
       "node": "verify",
       "sequence": 26
     },
     {
-      "elapsed_ms": 1637.404,
+      "elapsed_ms": 2908.208,
       "evidence": {
         "bytes": 448,
-        "duration_ms": 83.738,
+        "duration_ms": 65.643,
         "findings": 0,
         "path": "output/verify.json",
         "sha256": "6fb494980a4a20a6ced120c893bb448b4e4280e7567bb59067261c93dea531a3"
@@ -4615,7 +5824,7 @@
       "sequence": 27
     },
     {
-      "elapsed_ms": 1649.003,
+      "elapsed_ms": 2921.935,
       "error": null,
       "goal_id": "verify",
       "kind": "goal_state",
@@ -4850,7 +6059,7 @@
     "model_calls": 0,
     "native_receipts": 7,
     "verified_nodes": 7,
-    "wall_ms": 1650.087
+    "wall_ms": 2923.938
   },
   "nodes": [
     {
@@ -4867,23 +6076,23 @@
             "reason": "prerequisites_verified; registered_read_transform_verify",
             "scores": {}
           },
-          "event_id": "e66ae989ddde4606b58deef436cbe647",
+          "event_id": "d4a51be294c34d06ab6c29b132880678",
           "kind": "decision",
           "revision": 0
         },
         {
           "kind": "effect",
           "receipt": {
-            "accepted_ms": 256,
+            "accepted_ms": 359,
             "cancellation_requested": false,
-            "expires_ms": 45256,
-            "finished_ms": 385,
+            "expires_ms": 45359,
+            "finished_ms": 543,
             "intent": {
               "action_id": "operation.inventory",
               "action_version": 1,
               "arguments": {},
               "idempotency_key": null,
-              "intent_id": "095d90aaf8a649c29e4627cb02f193a2",
+              "intent_id": "ed3e405029c54ec38f8f49cd679ca9bf",
               "resources": [
                 {
                   "access": "read",
@@ -4905,7 +6114,7 @@
               ],
               "evidence": {
                 "bytes": 9348,
-                "duration_ms": 104.451,
+                "duration_ms": 165.109,
                 "findings": 0,
                 "path": "output/inventory.json",
                 "sha256": "530a19cc84fb4e64d1662ed102ab166f42997039650ef765c513bc69394d7b3b"
@@ -4915,7 +6124,7 @@
               },
               "status": "completed_verified"
             },
-            "started_ms": 272,
+            "started_ms": 369,
             "status": "completed_verified"
           }
         }
@@ -4944,23 +6153,23 @@
             "reason": "prerequisites_verified; registered_read_transform_verify",
             "scores": {}
           },
-          "event_id": "e66ae989ddde4606b58deef436cbe647",
+          "event_id": "d4a51be294c34d06ab6c29b132880678",
           "kind": "decision",
           "revision": 1
         },
         {
           "kind": "effect",
           "receipt": {
-            "accepted_ms": 643,
+            "accepted_ms": 907,
             "cancellation_requested": false,
-            "expires_ms": 45643,
-            "finished_ms": 853,
+            "expires_ms": 45907,
+            "finished_ms": 1254,
             "intent": {
               "action_id": "operation.tables",
               "action_version": 1,
               "arguments": {},
               "idempotency_key": null,
-              "intent_id": "fb7ee8bf75604539a9ee486a7f1ec184",
+              "intent_id": "6bb7e414180c4415bcea3182017f498a",
               "resources": [
                 {
                   "access": "read",
@@ -4986,18 +6195,18 @@
                 "file:output/tables.json"
               ],
               "evidence": {
-                "bytes": 74941,
-                "duration_ms": 95.068,
+                "bytes": 107516,
+                "duration_ms": 128.614,
                 "findings": 0,
                 "path": "output/tables.json",
-                "sha256": "ba8e7f88726f9930fe0d1d112d134207e7de9f0b4c54fbd73c8d0d7d22fd34b3"
+                "sha256": "6c5b00bd08d3b86120edb515d4112a319c7c29c411f7eca18ce10229f43eda62"
               },
               "resource_fingerprints": {
-                "file:output/tables.json": "sha256:ba8e7f88726f9930fe0d1d112d134207e7de9f0b4c54fbd73c8d0d7d22fd34b3"
+                "file:output/tables.json": "sha256:6c5b00bd08d3b86120edb515d4112a319c7c29c411f7eca18ce10229f43eda62"
               },
               "status": "completed_verified"
             },
-            "started_ms": 656,
+            "started_ms": 919,
             "status": "completed_verified"
           }
         }
@@ -5026,23 +6235,23 @@
             "reason": "prerequisites_verified; registered_read_transform_verify",
             "scores": {}
           },
-          "event_id": "e66ae989ddde4606b58deef436cbe647",
+          "event_id": "d4a51be294c34d06ab6c29b132880678",
           "kind": "decision",
           "revision": 1
         },
         {
           "kind": "effect",
           "receipt": {
-            "accepted_ms": 730,
+            "accepted_ms": 1074,
             "cancellation_requested": false,
-            "expires_ms": 45730,
-            "finished_ms": 858,
+            "expires_ms": 46074,
+            "finished_ms": 1266,
             "intent": {
               "action_id": "operation.integrity",
               "action_version": 1,
               "arguments": {},
               "idempotency_key": null,
-              "intent_id": "64053804c09d4a0999d0754ae4e3c1e9",
+              "intent_id": "b84b212acd524b2c9508b1e0192c0a74",
               "resources": [
                 {
                   "access": "read",
@@ -5069,7 +6278,7 @@
               ],
               "evidence": {
                 "bytes": 12681,
-                "duration_ms": 94.544,
+                "duration_ms": 68.696,
                 "findings": 0,
                 "path": "output/integrity.json",
                 "sha256": "47722054f4bdfc462b8486bbd71b89a631440e4cd26b0408c89f6e66c0070d65"
@@ -5079,7 +6288,7 @@
               },
               "status": "completed_verified"
             },
-            "started_ms": 736,
+            "started_ms": 1107,
             "status": "completed_verified"
           }
         }
@@ -5108,23 +6317,23 @@
             "reason": "prerequisites_verified; registered_read_transform_verify",
             "scores": {}
           },
-          "event_id": "e66ae989ddde4606b58deef436cbe647",
+          "event_id": "d4a51be294c34d06ab6c29b132880678",
           "kind": "decision",
           "revision": 1
         },
         {
           "kind": "effect",
           "receipt": {
-            "accepted_ms": 983,
+            "accepted_ms": 1595,
             "cancellation_requested": false,
-            "expires_ms": 45983,
-            "finished_ms": 1078,
+            "expires_ms": 46595,
+            "finished_ms": 1761,
             "intent": {
               "action_id": "operation.normalize",
               "action_version": 1,
               "arguments": {},
               "idempotency_key": null,
-              "intent_id": "b1d514808eed40aba195f957bec1cc11",
+              "intent_id": "0e7ab312ed90450a84449f9b4d20fab6",
               "resources": [
                 {
                   "access": "read",
@@ -5151,7 +6360,7 @@
               ],
               "evidence": {
                 "bytes": 6242,
-                "duration_ms": 77.783,
+                "duration_ms": 134.053,
                 "findings": 0,
                 "path": "output/normalize.json",
                 "sha256": "4a1ceca58f71f4d823f4579ef05b2f65c23981e4268bc355c9d47b36e317c31f"
@@ -5161,7 +6370,7 @@
               },
               "status": "completed_verified"
             },
-            "started_ms": 989,
+            "started_ms": 1604,
             "status": "completed_verified"
           }
         }
@@ -5190,23 +6399,23 @@
             "reason": "prerequisites_verified; registered_read_transform_verify",
             "scores": {}
           },
-          "event_id": "e66ae989ddde4606b58deef436cbe647",
+          "event_id": "d4a51be294c34d06ab6c29b132880678",
           "kind": "decision",
           "revision": 1
         },
         {
           "kind": "effect",
           "receipt": {
-            "accepted_ms": 836,
+            "accepted_ms": 1236,
             "cancellation_requested": false,
-            "expires_ms": 45836,
-            "finished_ms": 878,
+            "expires_ms": 46236,
+            "finished_ms": 1343,
             "intent": {
               "action_id": "operation.manifest",
               "action_version": 1,
               "arguments": {},
               "idempotency_key": null,
-              "intent_id": "8704612ea2244164afb24522fad4f073",
+              "intent_id": "240c8bfa37324a8a9fa1ec1ca467a71b",
               "resources": [
                 {
                   "access": "read",
@@ -5233,7 +6442,7 @@
               ],
               "evidence": {
                 "bytes": 5089,
-                "duration_ms": 27.759,
+                "duration_ms": 43.853,
                 "findings": 0,
                 "path": "output/manifest.json",
                 "sha256": "355698186eea930d0905fe4079c565dc5550d9e0560d71ebf2a94e51ab3c9f42"
@@ -5243,7 +6452,7 @@
               },
               "status": "completed_verified"
             },
-            "started_ms": 841,
+            "started_ms": 1241,
             "status": "completed_verified"
           }
         }
@@ -5276,23 +6485,23 @@
             "reason": "prerequisites_verified; registered_read_transform_verify",
             "scores": {}
           },
-          "event_id": "e66ae989ddde4606b58deef436cbe647",
+          "event_id": "d4a51be294c34d06ab6c29b132880678",
           "kind": "decision",
           "revision": 5
         },
         {
           "kind": "effect",
           "receipt": {
-            "accepted_ms": 1234,
+            "accepted_ms": 2053,
             "cancellation_requested": false,
-            "expires_ms": 46234,
-            "finished_ms": 1331,
+            "expires_ms": 47053,
+            "finished_ms": 2192,
             "intent": {
               "action_id": "operation.report",
               "action_version": 1,
               "arguments": {},
               "idempotency_key": null,
-              "intent_id": "9f75dc0d0a3349ca88f4ee2a1fc4ac40",
+              "intent_id": "432c8129550f4e47892748f05be71f55",
               "resources": [
                 {
                   "access": "read",
@@ -5338,18 +6547,18 @@
                 "file:output/report.json"
               ],
               "evidence": {
-                "bytes": 462,
-                "duration_ms": 86.29,
+                "bytes": 721,
+                "duration_ms": 112.619,
                 "findings": 0,
                 "path": "output/report.json",
-                "sha256": "2187744af2c34ecaa813b75c5a7913aba636da36dfbc1c1b32badae4a3057198"
+                "sha256": "2022f3a033664043fc29ca94ab68f1778e15385671b71bfe94b223c76baf8f51"
               },
               "resource_fingerprints": {
-                "file:output/report.json": "sha256:2187744af2c34ecaa813b75c5a7913aba636da36dfbc1c1b32badae4a3057198"
+                "file:output/report.json": "sha256:2022f3a033664043fc29ca94ab68f1778e15385671b71bfe94b223c76baf8f51"
               },
               "status": "completed_verified"
             },
-            "started_ms": 1238,
+            "started_ms": 2067,
             "status": "completed_verified"
           }
         }
@@ -5378,23 +6587,23 @@
             "reason": "prerequisites_verified; registered_read_transform_verify",
             "scores": {}
           },
-          "event_id": "e66ae989ddde4606b58deef436cbe647",
+          "event_id": "d4a51be294c34d06ab6c29b132880678",
           "kind": "decision",
           "revision": 6
         },
         {
           "kind": "effect",
           "receipt": {
-            "accepted_ms": 1465,
+            "accepted_ms": 2574,
             "cancellation_requested": false,
-            "expires_ms": 46465,
-            "finished_ms": 1573,
+            "expires_ms": 47574,
+            "finished_ms": 2703,
             "intent": {
               "action_id": "operation.verify",
               "action_version": 1,
               "arguments": {},
               "idempotency_key": null,
-              "intent_id": "96eac3bd798e4545b231f588d4bd69dc",
+              "intent_id": "d14e9aaa4f21486eb048a27e6bd480b7",
               "resources": [
                 {
                   "access": "read",
@@ -5446,7 +6655,7 @@
               ],
               "evidence": {
                 "bytes": 448,
-                "duration_ms": 83.738,
+                "duration_ms": 65.643,
                 "findings": 0,
                 "path": "output/verify.json",
                 "sha256": "6fb494980a4a20a6ced120c893bb448b4e4280e7567bb59067261c93dea531a3"
@@ -5456,7 +6665,7 @@
               },
               "status": "completed_verified"
             },
-            "started_ms": 1479,
+            "started_ms": 2620,
             "status": "completed_verified"
           }
         }
