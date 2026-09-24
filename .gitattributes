@@ -1,3 +1,7 @@
 # LF in the repo for everything (keeps .sh + CI yaml correct on Linux); CRLF only for PowerShell on checkout.
 * text=auto eol=lf
 *.ps1 text eol=crlf
+
+# Canonical digests identify original bytes, including line endings.
+data/derived/** -text -diff
+docs/evaluation/*.json -text whitespace=cr-at-eol

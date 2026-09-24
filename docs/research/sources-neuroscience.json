@@ -1,0 +1,747 @@
+[
+  {
+    "id": "N01",
+    "title": "Fast logic?: Examining the time course assumption of dual process theory",
+    "authors": [
+      "Bence Bago",
+      "Wim De Neys"
+    ],
+    "year": 2017,
+    "doi": "10.1016/j.cognition.2016.10.014",
+    "url": "https://doi.org/10.1016/j.cognition.2016.10.014",
+    "evidence_access": "full_text_selected_sections",
+    "evidence_urls": [
+      "https://www.wdeneys.org/data/Fast_logic%20reprint.pdf"
+    ],
+    "evidence_type": "original_human_behavioral_experiments",
+    "sections_inspected": [
+      "Abstract",
+      "Two-response experimental design",
+      "General discussion"
+    ],
+    "claims_supported": [
+      "Initial deadline/load-constrained responses could be logically correct across four experiments.",
+      "Immediate processing is not necessarily an erroneous heuristic awaiting correction."
+    ],
+    "limitations": [
+      "Restricted reasoning tasks, not a universal model of human cognition.",
+      "Does not establish equivalence between human processes and LLM computation."
+    ],
+    "verified_on": "2026-09-20"
+  },
+  {
+    "id": "N02",
+    "title": "The Mythical Number Two",
+    "authors": [
+      "David E. Melnikoff",
+      "John A. Bargh"
+    ],
+    "year": 2018,
+    "doi": "10.1016/j.tics.2018.02.001",
+    "url": "https://doi.org/10.1016/j.tics.2018.02.001",
+    "evidence_access": "full_text_selected_sections",
+    "evidence_urls": [
+      "https://acmelab.yale.edu/sites/default/files/melnikoff_bargh_2018_mythical_number_2_0.pdf"
+    ],
+    "evidence_type": "opinion_critical_theoretical_article",
+    "sections_inspected": [
+      "Abstract",
+      "Origins of dual-process typology",
+      "Alignment and good/bad fallacy arguments"
+    ],
+    "claims_supported": [
+      "The article challenges alignment of efficiency, awareness, intentionality and controllability into two process types."
+    ],
+    "limitations": [
+      "Opinion/critical synthesis, not counted as an original empirical experiment.",
+      "Does not refute every task-specific dual-process model."
+    ],
+    "verified_on": "2026-09-20"
+  },
+  {
+    "id": "N03",
+    "title": "Uncertainty-based competition between prefrontal and dorsolateral striatal systems for behavioral control",
+    "authors": [
+      "Nathaniel D. Daw",
+      "Yael Niv",
+      "Peter Dayan"
+    ],
+    "year": 2005,
+    "doi": "10.1038/nn1560",
+    "url": "https://doi.org/10.1038/nn1560",
+    "evidence_access": "full_text_selected_sections",
+    "evidence_urls": [
+      "https://worthylab.org/wp-content/uploads/2020/12/dawetal_2005_uncertaintybasedcompetition.pdf",
+      "https://pubmed.ncbi.nlm.nih.gov/16286932/"
+    ],
+    "evidence_type": "original_computational_model",
+    "sections_inspected": [
+      "Uncertainty-based arbitration",
+      "Simulation results",
+      "Supplementary uncertainty approximation"
+    ],
+    "claims_supported": [
+      "Arbitration can compare estimated uncertainty of cached and model-based values.",
+      "Search approximation costs and learning efficiency can change which controller is favored."
+    ],
+    "limitations": [
+      "Normative model with approximate uncertainty rather than identification of a unique neural mechanism.",
+      "Original anatomical assignments are hypotheses.",
+      "Not a safety guarantee for selecting software actions."
+    ],
+    "verified_on": "2026-09-20"
+  },
+  {
+    "id": "N04",
+    "title": "Model-Based Influences on Humans' Choices and Striatal Prediction Errors",
+    "authors": [
+      "Nathaniel D. Daw",
+      "Samuel J. Gershman",
+      "Ben Seymour",
+      "Peter Dayan",
+      "Raymond J. Dolan"
+    ],
+    "year": 2011,
+    "doi": "10.1016/j.neuron.2011.02.027",
+    "url": "https://doi.org/10.1016/j.neuron.2011.02.027",
+    "evidence_access": "full_text_selected_sections",
+    "evidence_urls": [
+      "https://gershmanlab.com/pubs/Daw11.pdf"
+    ],
+    "evidence_type": "original_human_behavior_fmri_and_computational_model",
+    "sections_inspected": [
+      "Two-stage task",
+      "Neural estimates",
+      "Discussion"
+    ],
+    "claims_supported": [
+      "Choice behavior contained model-based and model-free influences.",
+      "Striatal BOLD prediction-error signals contained model-based information."
+    ],
+    "limitations": [
+      "BOLD is not direct dopamine recording.",
+      "Small task and fitted algorithm family do not uniquely identify all possible mechanisms.",
+      "The experiment did not show a trend toward progressive habit formation."
+    ],
+    "verified_on": "2026-09-20"
+  },
+  {
+    "id": "N05",
+    "title": "Neural Computations Underlying Arbitration between Model-Based and Model-free Learning",
+    "authors": [
+      "Sang Wan Lee",
+      "Shinsuke Shimojo",
+      "John P. O'Doherty"
+    ],
+    "year": 2014,
+    "doi": "10.1016/j.neuron.2013.11.028",
+    "url": "https://doi.org/10.1016/j.neuron.2013.11.028",
+    "evidence_access": "abstract_and_indexed_full_text_sections",
+    "evidence_urls": [
+      "https://pmc.ncbi.nlm.nih.gov/articles/PMC3968946/",
+      "https://olab.caltech.edu/publications.html"
+    ],
+    "evidence_type": "original_human_behavior_fmri_and_computational_model",
+    "sections_inspected": [
+      "Indexed summary",
+      "Indexed computational-model methods",
+      "Indexed reliability correlates and model comparisons"
+    ],
+    "claims_supported": [
+      "The model allocates control according to reliability estimated from prediction-error history.",
+      "Inferior lateral prefrontal and frontopolar activity covaried with reliability-related signals."
+    ],
+    "limitations": [
+      "Direct PMC access returned a verification page; complete methods and supplement were not read directly.",
+      "fMRI covariation and model comparison do not prove a universal arbiter.",
+      "Exact reproduction requires obtaining complete methods before implementation."
+    ],
+    "verified_on": "2026-09-20"
+  },
+  {
+    "id": "N06",
+    "title": "When Does Model-Based Control Pay Off?",
+    "authors": [
+      "Wouter Kool",
+      "Fiery A. Cushman",
+      "Samuel J. Gershman"
+    ],
+    "year": 2016,
+    "doi": "10.1371/journal.pcbi.1005090",
+    "url": "https://journals.plos.org/ploscompbiol/article?id=10.1371/journal.pcbi.1005090",
+    "evidence_access": "full_text_selected_sections",
+    "evidence_urls": [
+      "https://journals.plos.org/ploscompbiol/article?id=10.1371/journal.pcbi.1005090",
+      "https://github.com/wkool/tradeoffs"
+    ],
+    "evidence_type": "original_human_behavior_and_simulations",
+    "sections_inspected": [
+      "Abstract",
+      "Task methods",
+      "Monte Carlo analyses",
+      "Accuracy-demand results"
+    ],
+    "claims_supported": [
+      "Common two-step variants need not yield higher reward for greater model-based control.",
+      "The redesigned task induced a clearer tradeoff and greater model-based reliance."
+    ],
+    "limitations": [
+      "Conclusions concern the tested tasks and parameterization.",
+      "A benchmark can distinguish controllers without measuring value of additional computation.",
+      "Code repository link verified in paper; code was not executed."
+    ],
+    "verified_on": "2026-09-20"
+  },
+  {
+    "id": "N07",
+    "title": "Cortical and Subcortical Contributions to Stop Signal Response Inhibition: Role of the Subthalamic Nucleus",
+    "authors": [
+      "Adam R. Aron",
+      "Russell A. Poldrack"
+    ],
+    "year": 2006,
+    "doi": "10.1523/JNEUROSCI.4682-05.2006",
+    "url": "https://doi.org/10.1523/JNEUROSCI.4682-05.2006",
+    "evidence_access": "abstract_and_indexed_full_text_sections",
+    "evidence_urls": [
+      "https://pubmed.ncbi.nlm.nih.gov/16510720/",
+      "https://pmc.ncbi.nlm.nih.gov/articles/PMC6793670/"
+    ],
+    "evidence_type": "original_human_fmri",
+    "sections_inspected": [
+      "Primary abstract",
+      "Indexed introduction",
+      "Indexed discussion and imaging limitations"
+    ],
+    "claims_supported": [
+      "Stopping-related activity involved inferior frontal cortex and the vicinity of the subthalamic nucleus in two fMRI experiments.",
+      "Hyperdirect implementation was proposed for further investigation."
+    ],
+    "limitations": [
+      "Direct PMC access challenged; full paper was not directly read.",
+      "Activation does not establish necessity, sufficiency, or a unique anatomical pathway.",
+      "Spatial localization around STN was explicitly qualified by authors."
+    ],
+    "verified_on": "2026-09-20"
+  },
+  {
+    "id": "N08",
+    "title": "Surprise disrupts cognition via a fronto-basal ganglia suppressive mechanism",
+    "authors": [
+      "Jan R. Wessel",
+      "Ned Jenkinson",
+      "John-Stuart Brittain",
+      "Sarah H. E. M. Voets",
+      "Tipu Z. Aziz",
+      "Adam R. Aron"
+    ],
+    "year": 2016,
+    "doi": "10.1038/ncomms11195",
+    "url": "https://doi.org/10.1038/ncomms11195",
+    "evidence_access": "full_text_selected_sections",
+    "evidence_urls": [
+      "https://pure-oai.bham.ac.uk/ws/files/31763763/Wessel_et_al_Surprise_disrupts_cognition_Nature_Communications.pdf"
+    ],
+    "evidence_type": "original_human_behavior_eeg_and_intracranial_recording",
+    "sections_inspected": [
+      "Abstract",
+      "Discussion",
+      "Suppression versus attention interpretation"
+    ],
+    "claims_supported": [
+      "Unexpected events impaired working-memory performance and recruited stopping-associated signals.",
+      "Subthalamic recordings supplied convergent evidence in Parkinson's patients."
+    ],
+    "limitations": [
+      "Intracranial patient sample does not directly generalize to all populations.",
+      "Attention/detection and inhibition interpretations require care.",
+      "Does not prescribe globally stopping every surprising software event."
+    ],
+    "verified_on": "2026-09-20"
+  },
+  {
+    "id": "N09",
+    "title": "Activation of Subthalamic Nucleus Stop Circuit Disrupts Cognitive Performance",
+    "authors": [
+      "Jonathan Heston",
+      "Alexander Friedman",
+      "Mustafa Baqai",
+      "Nicholas Bavafa",
+      "Adam R. Aron",
+      "Thomas S. Hnasko"
+    ],
+    "year": 2020,
+    "doi": "10.1523/ENEURO.0159-20.2020",
+    "url": "https://doi.org/10.1523/ENEURO.0159-20.2020",
+    "evidence_access": "full_text_selected_sections",
+    "evidence_urls": [
+      "https://neurosciences.ucsd.edu/research/labs/hnasko/_files/Activation-of-Subthalamic-Nucleus-Stop-Circuit-Disrupts-Cognitive-Performance.pdf",
+      "https://escholarship.org/uc/item/9993r1p3"
+    ],
+    "evidence_type": "original_mouse_behavior_and_optogenetic_intervention",
+    "sections_inspected": [
+      "Abstract",
+      "Optogenetic results",
+      "Motor controls",
+      "Discussion"
+    ],
+    "claims_supported": [
+      "STN activation slowed responses and increased errors in delayed match-to-position.",
+      "STN inhibition attenuated surprise-related slowing without rescuing errors and itself impaired performance."
+    ],
+    "limitations": [
+      "Motor, task-engagement and memory contributions are not fully disentangled.",
+      "Mouse task does not validate a software cancellation architecture.",
+      "Fast interruption and preserved state must be evaluated independently."
+    ],
+    "verified_on": "2026-09-20"
+  },
+  {
+    "id": "N10",
+    "title": "Sensory Prediction Errors Drive Cerebellum-Dependent Adaptation of Reaching",
+    "authors": [
+      "Ya-Weng Tseng",
+      "Jorn Diedrichsen",
+      "John W. Krakauer",
+      "Reza Shadmehr",
+      "Amy J. Bastian"
+    ],
+    "year": 2007,
+    "doi": "10.1152/jn.00266.2007",
+    "url": "https://doi.org/10.1152/jn.00266.2007",
+    "evidence_access": "full_text_selected_sections",
+    "evidence_urls": [
+      "https://reprints.shadmehrlab.org/CerebellarLearning_JNP07.pdf",
+      "https://pubmed.ncbi.nlm.nih.gov/17507504/"
+    ],
+    "evidence_type": "original_human_motor_adaptation_patient_comparison",
+    "sections_inspected": [
+      "Abstract",
+      "Subjects and task",
+      "State-space method",
+      "Results"
+    ],
+    "claims_supported": [
+      "Comparing shooting and pointing conditions implicated sensory prediction error rather than the availability of online correction in the tested adaptation.",
+      "Seven cerebellar participants were impaired compared with seven matched controls."
+    ],
+    "limitations": [
+      "Small motor-adaptation sample.",
+      "Sensory prediction error is distinct from reward error or target error.",
+      "Transfer to software consequence prediction is an engineering analogy."
+    ],
+    "verified_on": "2026-09-20"
+  },
+  {
+    "id": "N11",
+    "title": "Predictive coding in the visual cortex: a functional interpretation of some extra-classical receptive-field effects",
+    "authors": [
+      "Rajesh P. N. Rao",
+      "Dana H. Ballard"
+    ],
+    "year": 1999,
+    "doi": "10.1038/4580",
+    "url": "https://doi.org/10.1038/4580",
+    "evidence_access": "full_text_selected_sections",
+    "evidence_urls": [
+      "https://www.ni.cmu.edu/~tai/microns_papers/rao_ballard.pdf",
+      "https://pubmed.ncbi.nlm.nih.gov/10195184/"
+    ],
+    "evidence_type": "original_computational_model",
+    "sections_inspected": [
+      "Abstract",
+      "Simulation discussion",
+      "Alternative recurrent accounts"
+    ],
+    "claims_supported": [
+      "A hierarchical prediction/residual model reproduced selected visual receptive-field effects.",
+      "The paper acknowledges alternative recurrent mechanisms."
+    ],
+    "limitations": [
+      "Not proof that all cortex implements predictive coding.",
+      "Does not establish active inference or goal selection by prediction error alone.",
+      "No general software or AGI performance result follows."
+    ],
+    "verified_on": "2026-09-20"
+  },
+  {
+    "id": "N12",
+    "title": "Context-dependent computation by recurrent dynamics in prefrontal cortex",
+    "authors": [
+      "Valerio Mante",
+      "David Sussillo",
+      "Krishna V. Shenoy",
+      "William T. Newsome"
+    ],
+    "year": 2013,
+    "doi": "10.1038/nature12742",
+    "url": "https://doi.org/10.1038/nature12742",
+    "evidence_access": "full_text_selected_sections",
+    "evidence_urls": [
+      "https://neurophysics.ucsd.edu/courses/physics_171/Newsome_line_decision.pdf"
+    ],
+    "evidence_type": "original_macaque_electrophysiology_and_recurrent_model",
+    "sections_inspected": [
+      "Abstract",
+      "Discussion",
+      "Methods summary"
+    ],
+    "claims_supported": [
+      "Population dynamics and a trained recurrent network accounted for context-dependent selection and integration.",
+      "Early exclusion of all irrelevant sensory input was not necessary in the proposed mechanism."
+    ],
+    "limitations": [
+      "Two monkeys; most units recorded across different sessions.",
+      "Model sufficiency does not establish exclusivity.",
+      "No direct validation for software task memory."
+    ],
+    "verified_on": "2026-09-20"
+  },
+  {
+    "id": "N13",
+    "title": "A hierarchy of intrinsic timescales across primate cortex",
+    "authors": [
+      "John D. Murray",
+      "Alberto Bernacchia",
+      "David J. Freedman",
+      "Ranulfo Romo",
+      "Jonathan D. Wallis",
+      "Xinying Cai",
+      "Camillo Padoa-Schioppa",
+      "Tatiana Pasternak",
+      "Hyojung Seo",
+      "Daeyeol Lee",
+      "Xiao-Jing Wang"
+    ],
+    "year": 2014,
+    "doi": "10.1038/nn.3862",
+    "url": "https://doi.org/10.1038/nn.3862",
+    "evidence_access": "full_text_selected_sections",
+    "evidence_urls": [
+      "https://johndmurray.org/papers/murray_2014_nn.pdf",
+      "https://pubmed.ncbi.nlm.nih.gov/25383900/"
+    ],
+    "evidence_type": "original_cross_dataset_primate_electrophysiology",
+    "sections_inspected": [
+      "Study overview",
+      "Autocorrelation methods",
+      "Supplementary single-neuron variability"
+    ],
+    "claims_supported": [
+      "Datasets from 26 monkeys and seven areas showed a hierarchical ordering of intrinsic timescales.",
+      "Association areas generally had longer timescales than sensory areas."
+    ],
+    "limitations": [
+      "Population autocorrelation timescale is not a fixed biological decision deadline.",
+      "Cross-dataset/task differences require caution.",
+      "Does not identify exactly two control timescales."
+    ],
+    "verified_on": "2026-09-20"
+  },
+  {
+    "id": "N14",
+    "title": "Interacting Adaptive Processes with Different Timescales Underlie Short-Term Motor Learning",
+    "authors": [
+      "Maurice A. Smith",
+      "Ali Ghazizadeh",
+      "Reza Shadmehr"
+    ],
+    "year": 2006,
+    "doi": "10.1371/journal.pbio.0040179",
+    "url": "https://journals.plos.org/plosbiology/article?id=10.1371/journal.pbio.0040179",
+    "evidence_access": "full_text_selected_sections",
+    "evidence_urls": [
+      "https://journals.plos.org/plosbiology/article?id=10.1371/journal.pbio.0040179"
+    ],
+    "evidence_type": "original_human_motor_adaptation_and_model",
+    "sections_inspected": [
+      "Abstract",
+      "Model comparison",
+      "Spontaneous-recovery predictions and results"
+    ],
+    "claims_supported": [
+      "A two-rate adaptation model distinguished error sensitivity and retention.",
+      "Spontaneous recovery was predicted and tested in reaching adaptation."
+    ],
+    "limitations": [
+      "Latent fitted processes do not identify two unique neural populations.",
+      "Learning timescales do not map directly to System 1 and System 2.",
+      "Does not imply a two-state model will suffice for software."
+    ],
+    "verified_on": "2026-09-20"
+  },
+  {
+    "id": "N15",
+    "title": "Why There Are Complementary Learning Systems in the Hippocampus and Neocortex: Insights From the Successes and Failures of Connectionist Models of Learning and Memory",
+    "authors": [
+      "James L. McClelland",
+      "Bruce L. McNaughton",
+      "Randall C. O'Reilly"
+    ],
+    "year": 1995,
+    "doi": "10.1037/0033-295X.102.3.419",
+    "url": "https://doi.org/10.1037/0033-295X.102.3.419",
+    "evidence_access": "full_text_selected_sections",
+    "evidence_urls": [
+      "https://web.stanford.edu/~jlmcc/papers/McCMcNaughtonOReilly95.pdf",
+      "https://web.stanford.edu/~jlmcc/papers/"
+    ],
+    "evidence_type": "original_computational_theory_and_simulations_with_empirical_synthesis",
+    "sections_inspected": [
+      "Abstract",
+      "Model motivation",
+      "Memory-system boundaries and limitations"
+    ],
+    "claims_supported": [
+      "Rapid episodic storage and gradual interleaved structural learning address competing learning demands.",
+      "Reinstatement/interleaving can reduce interference in the modeled systems."
+    ],
+    "limitations": [
+      "Simplified connectionist models and broad theoretical synthesis.",
+      "Not evidence that neocortex always learns every fact slowly.",
+      "Offline skill promotion is an engineering inference, not the paper's software result."
+    ],
+    "verified_on": "2026-09-20"
+  },
+  {
+    "id": "N16",
+    "title": "Prioritized memory access explains planning and hippocampal replay",
+    "authors": [
+      "Marcelo G. Mattar",
+      "Nathaniel D. Daw"
+    ],
+    "year": 2018,
+    "doi": "10.1038/s41593-018-0232-z",
+    "url": "https://doi.org/10.1038/s41593-018-0232-z",
+    "evidence_access": "full_text_selected_sections",
+    "evidence_urls": [
+      "https://www.princeton.edu/~ndaw/md18.pdf",
+      "https://github.com/marcelomattar/PrioritizedReplay"
+    ],
+    "evidence_type": "original_normative_computational_model",
+    "sections_inspected": [
+      "Introduction and scope",
+      "Gain and need derivation motivation",
+      "Navigation simulations",
+      "Indexed discussion"
+    ],
+    "claims_supported": [
+      "Expected benefit of a backup decomposes into gain and need in the proposed model.",
+      "Prioritized backups qualitatively reproduce selected replay phenomena."
+    ],
+    "limitations": [
+      "Not a demonstrated efficient algorithm for finding the optimal memory.",
+      "Simulated navigation does not establish the biological mechanism.",
+      "Code repository was located but not executed."
+    ],
+    "verified_on": "2026-09-20"
+  },
+  {
+    "id": "N17",
+    "title": "Uncertainty, Neuromodulation, and Attention",
+    "authors": [
+      "Angela J. Yu",
+      "Peter Dayan"
+    ],
+    "year": 2005,
+    "doi": "10.1016/j.neuron.2005.04.026",
+    "url": "https://doi.org/10.1016/j.neuron.2005.04.026",
+    "evidence_access": "full_text_selected_sections",
+    "evidence_urls": [
+      "https://www.gatsby.ucl.ac.uk/~dayan/papers/yud2005.pdf"
+    ],
+    "evidence_type": "original_computational_theory",
+    "sections_inspected": [
+      "Summary",
+      "Expected versus unexpected uncertainty",
+      "Discussion and competing neuromodulatory accounts"
+    ],
+    "claims_supported": [
+      "The framework distinguishes expected cue unreliability from unexpected context change.",
+      "It proposes roles for acetylcholine and norepinephrine in those computations."
+    ],
+    "limitations": [
+      "Neurotransmitter assignments are theoretical, not established one-to-one labels.",
+      "No direct software action-safety claim.",
+      "A single confidence score collapses distinctions that require separate evaluation."
+    ],
+    "verified_on": "2026-09-20"
+  },
+  {
+    "id": "N18",
+    "title": "Rational regulation of learning dynamics by pupil-linked arousal systems",
+    "authors": [
+      "Matthew R. Nassar",
+      "Katherine M. Rumsey",
+      "Robert C. Wilson",
+      "Kinjan Parikh",
+      "Benjamin Heasly",
+      "Joshua I. Gold"
+    ],
+    "year": 2012,
+    "doi": "10.1038/nn.3130",
+    "url": "https://doi.org/10.1038/nn.3130",
+    "evidence_access": "abstract_and_indexed_full_text_sections",
+    "evidence_urls": [
+      "https://pubmed.ncbi.nlm.nih.gov/22660479/",
+      "https://pmc.ncbi.nlm.nih.gov/articles/PMC3386464/",
+      "https://www.nature.com/articles/nn.3130"
+    ],
+    "evidence_type": "original_human_pupillometry_behavior_and_model",
+    "sections_inspected": [
+      "Primary abstract",
+      "Indexed behavior and discussion",
+      "Publisher metadata"
+    ],
+    "claims_supported": [
+      "Pupil measures covaried with modeled process instability, reliability and belief updating.",
+      "The paper reports an arousal manipulation influencing updating."
+    ],
+    "limitations": [
+      "Direct PMC access challenged; complete methods not directly read.",
+      "Pupil size is an indirect physiological measure.",
+      "Does not establish a unique chemical implementation of uncertainty."
+    ],
+    "verified_on": "2026-09-20"
+  },
+  {
+    "id": "N19",
+    "title": "A critical role for the right fronto-insular cortex in switching between central-executive and default-mode networks",
+    "authors": [
+      "Devarajan Sridharan",
+      "Daniel J. Levitin",
+      "Vinod Menon"
+    ],
+    "year": 2008,
+    "doi": "10.1073/pnas.0800005105",
+    "url": "https://doi.org/10.1073/pnas.0800005105",
+    "evidence_access": "abstract_and_indexed_full_text_sections",
+    "evidence_urls": [
+      "https://pmc.ncbi.nlm.nih.gov/articles/PMC2527952/",
+      "https://www.pnas.org/doi/10.1073/pnas.0800005105"
+    ],
+    "evidence_type": "original_human_fmri_network_analysis",
+    "sections_inspected": [
+      "Primary abstract",
+      "Indexed network/task introduction",
+      "Publisher metadata"
+    ],
+    "claims_supported": [
+      "Right fronto-insular activity was associated with switching-related network patterns across the reported experiments."
+    ],
+    "limitations": [
+      "Direct follow-up full-text reads failed or returned verification pages.",
+      "Directionality in observational BOLD is not equivalent to intervention causality.",
+      "No single-switch or LLM-to-default-mode identity follows."
+    ],
+    "verified_on": "2026-09-20"
+  },
+  {
+    "id": "N20",
+    "title": "A neuronal model of a global workspace in effortful cognitive tasks",
+    "authors": [
+      "Stanislas Dehaene",
+      "Michel Kerszberg",
+      "Jean-Pierre Changeux"
+    ],
+    "year": 1998,
+    "doi": "10.1073/pnas.95.24.14529",
+    "url": "https://doi.org/10.1073/pnas.95.24.14529",
+    "evidence_access": "full_text_selected_sections",
+    "evidence_urls": [
+      "https://www.ugr.es/~emadrid/dehaene%20etg.pdf",
+      "https://pubmed.ncbi.nlm.nih.gov/9826734/"
+    ],
+    "evidence_type": "original_computational_neural_model",
+    "sections_inspected": [
+      "Abstract",
+      "Theoretical premises",
+      "Workspace architecture and Stroop simulation rationale"
+    ],
+    "claims_supported": [
+      "The model coordinates specialized processors through a proposed global workspace.",
+      "Simulated recruitment varies with task acquisition, effort and errors."
+    ],
+    "limitations": [
+      "A computational proposal, not a demonstration of software consciousness.",
+      "Does not show a central software blackboard is a faithful cortical implementation.",
+      "Must not be used as an AGI criterion."
+    ],
+    "verified_on": "2026-09-20"
+  },
+  {
+    "id": "N21",
+    "title": "Adversarial testing of global neuronal workspace and integrated information theories of consciousness",
+    "authors": [
+      "Cogitate Consortium",
+      "Oscar Ferrante",
+      "Urszula Gorska-Klimowska",
+      "Simon Henin",
+      "and colleagues"
+    ],
+    "year": 2025,
+    "doi": "10.1038/s41586-025-08888-1",
+    "url": "https://doi.org/10.1038/s41586-025-08888-1",
+    "evidence_access": "abstract_and_indexed_full_text_sections",
+    "evidence_urls": [
+      "https://www.nature.com/articles/s41586-025-08888-1",
+      "https://pmc.ncbi.nlm.nih.gov/articles/PMC12137136/",
+      "https://www.arc-cogitate.com/"
+    ],
+    "evidence_type": "original_preregistered_multimodal_human_experiments",
+    "sections_inspected": [
+      "Primary indexed publisher report",
+      "Study-design and limitation excerpts",
+      "Project provenance"
+    ],
+    "claims_supported": [
+      "Preregistered multimodal experiments tested selected divergent predictions of GNW and IIT.",
+      "The published report supports some predictions while challenging aspects of both theories."
+    ],
+    "limitations": [
+      "Complete methods and supplements were not directly obtained in this pass.",
+      "Does not settle all versions of either theory.",
+      "Provides no validated consciousness or AGI assessment for software."
+    ],
+    "verified_on": "2026-09-20"
+  },
+  {
+    "id": "N22",
+    "title": "Prefrontal cortex as a meta-reinforcement learning system",
+    "authors": [
+      "Jane X. Wang",
+      "Zeb Kurth-Nelson",
+      "Dharshan Kumaran",
+      "Dhruva Tirumala",
+      "Hubert Soyer",
+      "Joel Z. Leibo",
+      "Demis Hassabis",
+      "Matthew Botvinick"
+    ],
+    "year": 2018,
+    "doi": "10.1038/s41593-018-0147-8",
+    "url": "https://doi.org/10.1038/s41593-018-0147-8",
+    "evidence_access": "full_text_selected_sections",
+    "evidence_urls": [
+      "https://web.stanford.edu/class/cs379c/archive/2018/calendar_invited_talks/lectures/04/26/papers/WangetalPRETEXT.pdf",
+      "https://www.nature.com/articles/s41593-018-0147-8",
+      "https://deepmind.google/blog/prefrontal-cortex-as-a-meta-reinforcement-learning-system/"
+    ],
+    "evidence_type": "original_computational_theory_and_recurrent_rl_simulations",
+    "sections_inspected": [
+      "Author manuscript introduction",
+      "Architecture and learning premises",
+      "Authors' experiment summary"
+    ],
+    "claims_supported": [
+      "Slow reinforcement learning across tasks can train recurrent dynamics for rapid within-task adaptation.",
+      "Within-task adaptation can occur without changing the trained weights."
+    ],
+    "limitations": [
+      "Institutional author manuscript was inspected; detailed version differences from final article were not audited.",
+      "Agreement with selected phenomena does not causally establish the full brain algorithm.",
+      "Transfer outside the training task distribution remains an independent software question."
+    ],
+    "verified_on": "2026-09-20"
+  }
+]

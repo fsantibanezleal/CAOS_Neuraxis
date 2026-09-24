@@ -1,0 +1,651 @@
+[
+  {
+    "id": "L01",
+    "title": "BehaviorTree.CPP: About",
+    "year": null,
+    "url": "https://www.behaviortree.dev/docs/intro/",
+    "doi": null,
+    "evidence_access": "official documentation opened; asynchronous-action and replay sections inspected",
+    "verified_on": "2026-09-20",
+    "claims_supported": [
+      "Behavior trees provide reactive hierarchical composition, asynchronous actions, and transition recording."
+    ],
+    "limitations": "Implementation documentation, not a comparative efficacy study. Version 4.8 shown at access."
+  },
+  {
+    "id": "L02",
+    "title": "Between MDPs and semi-MDPs: A framework for temporal abstraction in reinforcement learning",
+    "year": 1999,
+    "url": "https://www.sciencedirect.com/science/article/pii/S0004370299000521",
+    "doi": "10.1016/S0004-3702(99)00052-1",
+    "evidence_access": "publisher abstract and bibliographic record accessed",
+    "verified_on": "2026-09-20",
+    "claims_supported": [
+      "Options formalize temporally extended policies and their semi-Markov structure."
+    ],
+    "limitations": "No software-specific safety or sample-complexity result inferred."
+  },
+  {
+    "id": "L03",
+    "title": "A Reduction of Imitation Learning and Structured Prediction to No-Regret Online Learning",
+    "year": 2011,
+    "url": "https://proceedings.mlr.press/v15/ross11a.html",
+    "doi": null,
+    "evidence_access": "PMLR record and full paper PDF opened",
+    "verified_on": "2026-09-20",
+    "claims_supported": [
+      "DAgger collects labels on policy-induced states to address imitation distribution mismatch."
+    ],
+    "limitations": "Its guarantees depend on its online learning and expert assumptions; no product reproduction performed."
+  },
+  {
+    "id": "L04",
+    "title": "Policy Distillation",
+    "year": 2015,
+    "url": "https://arxiv.org/abs/1511.06295",
+    "doi": "10.48550/arXiv.1511.06295",
+    "evidence_access": "primary abstract and metadata accessed",
+    "verified_on": "2026-09-20",
+    "claims_supported": [
+      "Policies can be distilled into smaller networks and combined across tasks."
+    ],
+    "limitations": "Atari evidence; arbitrary software-control transfer remains a hypothesis."
+  },
+  {
+    "id": "L05",
+    "title": "Doubly Robust Policy Evaluation and Learning",
+    "year": 2011,
+    "url": "https://arxiv.org/abs/1103.4601",
+    "doi": "10.48550/arXiv.1103.4601",
+    "evidence_access": "primary abstract and metadata accessed; Microsoft Research primary record corroborated",
+    "verified_on": "2026-09-20",
+    "claims_supported": [
+      "Combines reward modeling and importance weighting for contextual-bandit policy evaluation."
+    ],
+    "limitations": "Robustness does not create support for actions missing from logs."
+  },
+  {
+    "id": "L06",
+    "title": "Conservative Q-Learning for Offline Reinforcement Learning",
+    "year": 2020,
+    "url": "https://arxiv.org/abs/2006.04779",
+    "doi": "10.48550/arXiv.2006.04779",
+    "evidence_access": "primary abstract and metadata inspected",
+    "verified_on": "2026-09-20",
+    "claims_supported": [
+      "Conservative value regularization addresses offline RL distribution shift."
+    ],
+    "limitations": "Theoretical bounds require paper assumptions; no universal deployment-safety claim."
+  },
+  {
+    "id": "L07",
+    "title": "Offline Reinforcement Learning with Implicit Q-Learning",
+    "year": 2021,
+    "url": "https://arxiv.org/abs/2110.06169",
+    "doi": "10.48550/arXiv.2110.06169",
+    "evidence_access": "primary abstract and metadata inspected",
+    "verified_on": "2026-09-20",
+    "claims_supported": [
+      "Expectile value learning and advantage-weighted behavior cloning avoid querying unseen actions during value learning."
+    ],
+    "limitations": "D4RL results do not establish reliability under unrestricted software state/action shift."
+  },
+  {
+    "id": "L08",
+    "title": "Mastering diverse control tasks through world models",
+    "year": 2025,
+    "url": "https://www.nature.com/articles/s41586-025-08744-2",
+    "doi": "10.1038/s41586-025-08744-2",
+    "evidence_access": "publisher article and bibliographic record accessed",
+    "verified_on": "2026-09-20",
+    "claims_supported": [
+      "Dreamer supplies primary evidence for learning control through latent world models."
+    ],
+    "limitations": "Different environments and training scale; no claim of reproducing Dreamer."
+  },
+  {
+    "id": "L09",
+    "title": "Learning to select computations",
+    "year": 2017,
+    "url": "https://arxiv.org/abs/1711.06892",
+    "doi": "10.48550/arXiv.1711.06892",
+    "evidence_access": "primary abstract and metadata accessed; author-hosted PDF located",
+    "verified_on": "2026-09-20",
+    "claims_supported": [
+      "Bayesian metalevel policy search addresses stopping and allocation of computation."
+    ],
+    "limitations": "2017 arXiv date used; method is not evidence of optimal metareasoning in every environment."
+  },
+  {
+    "id": "L10",
+    "title": "Consistent Estimators for Learning to Defer to an Expert",
+    "year": 2020,
+    "url": "https://proceedings.mlr.press/v119/mozannar20b.html",
+    "doi": null,
+    "evidence_access": "PMLR abstract and bibliographic record accessed",
+    "verified_on": "2026-09-20",
+    "claims_supported": [
+      "Joint classifier/rejector learning accounts for imperfect downstream experts."
+    ],
+    "limitations": "Consistency applies to the stated statistical formulation, not arbitrary agent orchestration."
+  },
+  {
+    "id": "L11",
+    "title": "Why Ask One When You Can Ask k? Learning-to-Defer to the Top-k Experts",
+    "year": 2026,
+    "url": "https://proceedings.iclr.cc/paper_files/paper/2026/hash/6dc129f0383f9fa270347bb09f0030d4-Abstract-Conference.html",
+    "doi": null,
+    "evidence_access": "official ICLR 2026 abstract opened",
+    "verified_on": "2026-09-20",
+    "claims_supported": [
+      "Studies top-k and adaptive expert-count deferral with consultation costs."
+    ],
+    "limitations": "Abstract-level review; detailed theorem assumptions and implementation not audited."
+  },
+  {
+    "id": "L12",
+    "title": "RouteLLM: Learning to Route LLMs with Preference Data",
+    "year": 2024,
+    "url": "https://arxiv.org/html/2406.18665v4",
+    "doi": "10.48550/arXiv.2406.18665",
+    "evidence_access": "primary full-text HTML inspected, including matrix factorization, distribution shift, and overhead sections",
+    "verified_on": "2026-09-20",
+    "claims_supported": [
+      "Preference-trained strong/weak model routing; domain-relevant augmentation affects results."
+    ],
+    "limitations": "2024 initial posting, 2025 revision; conversational benchmarks are not software action outcomes."
+  },
+  {
+    "id": "L13",
+    "title": "System-1.x: Learning to Balance Fast and Slow Planning with Language Models",
+    "year": 2024,
+    "url": "https://arxiv.org/abs/2407.14414",
+    "doi": "10.48550/arXiv.2407.14414",
+    "evidence_access": "primary abstract plus official ICLR 2025 record accessed",
+    "verified_on": "2026-09-20",
+    "claims_supported": [
+      "Controller balances direct planning and search through subgoal decomposition."
+    ],
+    "limitations": "Maze Navigation and Blocksworld scope; 2024 initial posting, ICLR 2025 publication."
+  },
+  {
+    "id": "L14",
+    "title": "Leveraging Dual Process Theory in Language Agent Framework for Real-time Simultaneous Human-AI Collaboration",
+    "year": 2025,
+    "url": "https://aclanthology.org/2025.acl-long.206/",
+    "doi": "10.18653/v1/2025.acl-long.206",
+    "evidence_access": "ACL primary record and 28-page paper PDF opened",
+    "verified_on": "2026-09-20",
+    "claims_supported": [
+      "DPT-Agent combines FSM/code policy with asynchronous LLM reflection for real-time collaboration."
+    ],
+    "limitations": "Published task setting differs from software control; adapted baseline must be labeled."
+  },
+  {
+    "id": "L15",
+    "title": "Do As I Can, Not As I Say: Grounding Language in Robotic Affordances",
+    "year": 2022,
+    "url": "https://arxiv.org/abs/2204.01691",
+    "doi": "10.48550/arXiv.2204.01691",
+    "evidence_access": "primary abstract and metadata accessed",
+    "verified_on": "2026-09-20",
+    "claims_supported": [
+      "SayCan combines language relevance with grounded skill feasibility."
+    ],
+    "limitations": "Robot skill-library setting, not unrestricted new-tool authority."
+  },
+  {
+    "id": "L16",
+    "title": "Voyager: An Open-Ended Embodied Agent with Large Language Models",
+    "year": 2023,
+    "url": "https://arxiv.org/abs/2305.16291",
+    "doi": "10.48550/arXiv.2305.16291",
+    "evidence_access": "primary abstract and metadata accessed",
+    "verified_on": "2026-09-20",
+    "claims_supported": [
+      "Reusable skills, curriculum, and execution-feedback learning in Minecraft."
+    ],
+    "limitations": "Generated-code and game-environment results are not live software safety guarantees."
+  },
+  {
+    "id": "L17",
+    "title": "On Calibration of Modern Neural Networks",
+    "year": 2017,
+    "url": "https://proceedings.mlr.press/v70/guo17a.html",
+    "doi": null,
+    "evidence_access": "PMLR primary abstract and metadata inspected",
+    "verified_on": "2026-09-20",
+    "claims_supported": [
+      "Neural classification scores can be miscalibrated; temperature scaling is evaluated."
+    ],
+    "limitations": "Calibration on one data distribution does not certify actions or long trajectories."
+  },
+  {
+    "id": "L18",
+    "title": "Conformal Risk Control",
+    "year": 2022,
+    "url": "https://arxiv.org/html/2208.02814v4",
+    "doi": "10.48550/arXiv.2208.02814",
+    "evidence_access": "primary full-text HTML inspected including Theorem 1 conditions",
+    "verified_on": "2026-09-20",
+    "claims_supported": [
+      "Expected loss control for a monotone bounded loss under stated conditions."
+    ],
+    "limitations": "2025 v4 inspected; not a per-action, arbitrary-shift, or selective-conditional-risk guarantee."
+  },
+  {
+    "id": "L19",
+    "title": "Conformal prediction beyond exchangeability",
+    "year": 2023,
+    "url": "https://arxiv.org/abs/2202.13415",
+    "doi": "10.1214/23-AOS2276",
+    "evidence_access": "primary abstract and author-hosted/publisher PDF records accessed",
+    "verified_on": "2026-09-20",
+    "claims_supported": [
+      "Studies nonexchangeable conformal inference and drift-related coverage degradation."
+    ],
+    "limitations": "Weighted methods do not promise exact coverage under unrestricted adversarial shift."
+  },
+  {
+    "id": "L20",
+    "title": "Overcoming catastrophic forgetting in neural networks",
+    "year": 2017,
+    "url": "https://arxiv.org/abs/1612.00796",
+    "doi": "10.1073/pnas.1611835114",
+    "evidence_access": "primary abstract and journal DOI metadata accessed",
+    "verified_on": "2026-09-20",
+    "claims_supported": [
+      "EWC slows changes to parameters important to prior tasks."
+    ],
+    "limitations": "Benchmarks do not establish safe autonomous online policy modification."
+  },
+  {
+    "id": "L21",
+    "title": "Learning Fast, Learning Slow: A General Continual Learning Method based on Complementary Learning System",
+    "year": 2022,
+    "url": "https://arxiv.org/abs/2201.12604",
+    "doi": "10.48550/arXiv.2201.12604",
+    "evidence_access": "primary abstract and metadata accessed",
+    "verified_on": "2026-09-20",
+    "claims_supported": [
+      "CLS-ER studies complementary semantic memories and episodic replay."
+    ],
+    "limitations": "Continual-learning benchmark evidence; no direct software-control validation."
+  },
+  {
+    "id": "L22",
+    "title": "Transformers are SSMs: Generalized Models and Efficient Algorithms Through Structured State Space Duality",
+    "year": 2024,
+    "url": "https://arxiv.org/abs/2405.21060",
+    "doi": "10.48550/arXiv.2405.21060",
+    "evidence_access": "primary abstract and full-text HTML opened",
+    "verified_on": "2026-09-20",
+    "claims_supported": [
+      "Mamba-2 links selective SSMs and attention and develops efficient structured layers."
+    ],
+    "limitations": "Kernel/workload speedups do not imply CPU batch-one event-controller speedups."
+  },
+  {
+    "id": "L23",
+    "title": "Mamba-3: Improved Sequence Modeling using State Space Principles",
+    "year": 2026,
+    "url": "https://arxiv.org/abs/2603.15569",
+    "doi": "10.48550/arXiv.2603.15569",
+    "evidence_access": "primary abstract and full-text HTML opened; ICLR 2026 noted in record",
+    "verified_on": "2026-09-20",
+    "claims_supported": [
+      "Inference-oriented recurrence, complex-valued state updates, and MIMO formulation are current adjacent methods."
+    ],
+    "limitations": "Reported results are not reproduced; no native Windows or small-controller latency claim."
+  },
+  {
+    "id": "L24",
+    "title": "RWKV-7 Goose with Expressive Dynamic State Evolution",
+    "year": 2025,
+    "url": "https://arxiv.org/abs/2503.14456",
+    "doi": "10.48550/arXiv.2503.14456",
+    "evidence_access": "primary full-text HTML inspected, including numerical-precision limitations",
+    "verified_on": "2026-09-20",
+    "claims_supported": [
+      "Recurrent state evolution and sequence-length-independent state memory; precision sensitivity is documented."
+    ],
+    "limitations": "Paper models are base models; fixed state size does not imply perfect retention."
+  },
+  {
+    "id": "L25",
+    "title": "Liquid Time-constant Networks",
+    "year": 2020,
+    "url": "https://arxiv.org/abs/2006.04439",
+    "doi": "10.48550/arXiv.2006.04439",
+    "evidence_access": "primary abstract and metadata inspected; AAAI 2021 acceptance shown",
+    "verified_on": "2026-09-20",
+    "claims_supported": [
+      "Adaptive continuous-time recurrent dynamics implemented through differential-equation solvers."
+    ],
+    "limitations": "Time-series results do not establish lower overhead than GRU for software events."
+  },
+  {
+    "id": "L26",
+    "title": "Closed-form continuous-time neural networks",
+    "year": 2022,
+    "url": "https://doi.org/10.1038/s42256-022-00556-7",
+    "doi": "10.1038/s42256-022-00556-7",
+    "evidence_access": "publisher record, primary preprint abstract, and author repository accessed",
+    "verified_on": "2026-09-20",
+    "claims_supported": [
+      "Approximate closed-form liquid dynamics reduce dependence on numerical ODE solvers."
+    ],
+    "limitations": "Relative gains against ODE models are not universal speed or capability claims."
+  },
+  {
+    "id": "L27",
+    "title": "snnTorch Documentation",
+    "year": null,
+    "url": "https://snntorch.readthedocs.io/en/latest/",
+    "doi": null,
+    "evidence_access": "official documentation inspected including PyTorch requirements and time-step example",
+    "verified_on": "2026-09-20",
+    "claims_supported": [
+      "Supports spiking-neuron models, surrogate gradients, and explicit temporal simulation."
+    ],
+    "limitations": "Documentation is not evidence of neuromorphic energy savings on commodity CPU/GPU."
+  },
+  {
+    "id": "L28",
+    "title": "Deep Reinforcement Learning at the Edge of the Statistical Precipice",
+    "year": 2021,
+    "url": "https://arxiv.org/abs/2108.13264",
+    "doi": "10.48550/arXiv.2108.13264",
+    "evidence_access": "primary abstract and author project page accessed",
+    "verified_on": "2026-09-20",
+    "claims_supported": [
+      "Few-run point estimates can mislead; uncertainty-aware aggregate evaluation is needed."
+    ],
+    "limitations": "Recommended statistics must match the actual task-cluster and seed structure."
+  },
+  {
+    "id": "L29",
+    "title": "Decoupling Planning and Control for Instructable Agents",
+    "year": 2026,
+    "url": "https://arxiv.org/abs/2608.26788",
+    "doi": null,
+    "evidence_access": "primary abstract and full-text HTML opened; record identifies COLM 2026",
+    "verified_on": "2026-09-20",
+    "claims_supported": [
+      "Instruct-to-Act trains fast world-model controllers conditioned on sparse language instructions."
+    ],
+    "limitations": "Embodied environments; arXiv DOI shown as pending registration, so DOI field intentionally null; no reproduction."
+  },
+  {
+    "id": "L30",
+    "title": "Learning Agent Routing From Early Experience",
+    "year": 2026,
+    "url": "https://arxiv.org/abs/2605.07180",
+    "doi": "10.48550/arXiv.2605.07180",
+    "evidence_access": "primary abstract and full-text HTML opened",
+    "verified_on": "2026-09-20",
+    "claims_supported": [
+      "BoundaryRouter uses paired seed experience and retrieval to route direct LLM versus agent execution."
+    ],
+    "limitations": "Author-reported RouteBench results; no independent replication or event-controller validation."
+  },
+  {
+    "id": "L31",
+    "title": "ODAR: Principled Adaptive Routing for LLM Reasoning via Active Inference",
+    "year": 2026,
+    "url": "https://arxiv.org/abs/2602.23681",
+    "doi": "10.48550/arXiv.2602.23681",
+    "evidence_access": "primary abstract and metadata inspected",
+    "verified_on": "2026-09-20",
+    "claims_supported": [
+      "Proposes fast/slow difficulty routing and free-energy-inspired answer selection."
+    ],
+    "limitations": "Abstract-level methodological review; headline performance claims not independently verified."
+  },
+  {
+    "id": "L32",
+    "title": "FARE: Fast-Slow Agentic Robotic Exploration",
+    "year": 2026,
+    "url": "https://arxiv.org/abs/2601.14681",
+    "doi": "10.48550/arXiv.2601.14681",
+    "evidence_access": "primary abstract and metadata accessed",
+    "verified_on": "2026-09-20",
+    "claims_supported": [
+      "LLM global guidance and fast local RL for robotic exploration."
+    ],
+    "limitations": "Robot results, including author-reported hardware validation, do not transfer to arbitrary software tasks."
+  },
+  {
+    "id": "L33",
+    "title": "Bridging Large-Model Reasoning and Real-Time Control via Agentic Fast-Slow Planning",
+    "year": 2026,
+    "url": "https://arxiv.org/abs/2604.01681",
+    "doi": "10.48550/arXiv.2604.01681",
+    "evidence_access": "primary abstract and metadata inspected",
+    "verified_on": "2026-09-20",
+    "claims_supported": [
+      "Separates perception, semantic directives, search, and MPC control."
+    ],
+    "limitations": "CARLA evaluation and author-reported results; no product reproduction."
+  },
+  {
+    "id": "L34",
+    "title": "Multi-Agent LLM Governance for Safe Two-Timescale Reinforcement Learning in SDN-IoT Defense",
+    "year": 2026,
+    "url": "https://arxiv.org/abs/2604.01127",
+    "doi": "10.48550/arXiv.2604.01127",
+    "evidence_access": "primary abstract and metadata accessed",
+    "verified_on": "2026-09-20",
+    "claims_supported": [
+      "Fast action-masked PPO and slower structured policy governance are prior art."
+    ],
+    "limitations": "Domain-specific author claims; no independent safety or efficacy validation."
+  },
+  {
+    "id": "L35",
+    "title": "Safe Reinforcement Learning via Shielding",
+    "year": 2017,
+    "url": "https://arxiv.org/abs/1708.08611",
+    "doi": "10.48550/arXiv.1708.08611",
+    "evidence_access": "primary abstract accessed; official AAAI paper located",
+    "verified_on": "2026-09-20",
+    "claims_supported": [
+      "Formal specifications can support pre-action or post-action shielding around RL."
+    ],
+    "limitations": "Guarantees depend on specification and abstraction; a schema check alone is not formal shielding."
+  },
+  {
+    "id": "L36",
+    "title": "Contextual Bandits: Vowpal Wabbit Python documentation",
+    "year": null,
+    "url": "https://vowpalwabbit.org/docs/vowpal_wabbit/python/9.0.1/tutorials/python_Contextual_bandits_and_Vowpal_Wabbit.html",
+    "doi": null,
+    "evidence_access": "official versioned documentation accessed",
+    "verified_on": "2026-09-20",
+    "claims_supported": [
+      "Context/action/probability/reward logging and action-dependent features for changing action sets."
+    ],
+    "limitations": "Version 9.0.1 tutorial; not a claim about latest package compatibility or LinUCB implementation."
+  },
+  {
+    "id": "L37",
+    "title": "state-spaces/mamba official repository",
+    "year": null,
+    "url": "https://github.com/state-spaces/mamba",
+    "doi": null,
+    "evidence_access": "official README inspected, including current installation and Mamba-3 sections",
+    "verified_on": "2026-09-20",
+    "claims_supported": [
+      "Current repository includes Mamba-3; Linux core requirements and opt-in CUDA extension are documented."
+    ],
+    "limitations": "Repository evolves; no execution, CPU support, or Windows compatibility was tested."
+  },
+  {
+    "id": "L38",
+    "title": "BlinkDL/RWKV-LM official repository",
+    "year": null,
+    "url": "https://github.com/BlinkDL/RWKV-LM",
+    "doi": null,
+    "evidence_access": "official README opened",
+    "verified_on": "2026-09-20",
+    "claims_supported": [
+      "Official implementation reference for RWKV experiments."
+    ],
+    "limitations": "No model downloaded or run; repository performance language is not independent validation."
+  },
+  {
+    "id": "L39",
+    "title": "lm-sys/RouteLLM official repository",
+    "year": null,
+    "url": "https://github.com/lm-sys/RouteLLM",
+    "doi": null,
+    "evidence_access": "official README opened",
+    "verified_on": "2026-09-20",
+    "claims_supported": [
+      "Official serving and evaluation implementation reference."
+    ],
+    "limitations": "No dependency installation or benchmark reproduction performed."
+  },
+  {
+    "id": "L40",
+    "title": "raminmh/CfC official repository",
+    "year": null,
+    "url": "https://github.com/raminmh/CfC",
+    "doi": null,
+    "evidence_access": "author README accessed",
+    "verified_on": "2026-09-20",
+    "claims_supported": [
+      "PyTorch and TensorFlow implementations of closed-form continuous-time models."
+    ],
+    "limitations": "Requirements listed by upstream are not a tested environment lock for this project."
+  },
+  {
+    "id": "L41",
+    "title": "A Contextual-Bandit Approach to Personalized News Article Recommendation",
+    "year": 2010,
+    "url": "https://arxiv.org/abs/1003.0146",
+    "doi": "10.1145/1772690.1772758",
+    "evidence_access": "primary abstract and journal/conference DOI record inspected",
+    "verified_on": "2026-09-20",
+    "claims_supported": [
+      "LinUCB contextual recommendation and evaluation using randomized logged traffic."
+    ],
+    "limitations": "Recommendation task; long-term software consequences require a sequential formulation."
+  },
+  {
+    "id": "L42",
+    "title": "Proximal Policy Optimization Algorithms",
+    "year": 2017,
+    "url": "https://arxiv.org/abs/1707.06347",
+    "doi": "10.48550/arXiv.1707.06347",
+    "evidence_access": "primary abstract and metadata inspected",
+    "verified_on": "2026-09-20",
+    "claims_supported": [
+      "On-policy interaction and surrogate-objective optimization form a practical RL baseline."
+    ],
+    "limitations": "Clipped objectives are not execution safety guarantees."
+  },
+  {
+    "id": "L43",
+    "title": "XGBoost: A Scalable Tree Boosting System",
+    "year": 2016,
+    "url": "https://arxiv.org/abs/1603.02754",
+    "doi": "10.48550/arXiv.1603.02754",
+    "evidence_access": "primary abstract and metadata accessed",
+    "verified_on": "2026-09-20",
+    "claims_supported": [
+      "Established gradient-tree-boosting baseline."
+    ],
+    "limitations": "No superior software-controller result presumed."
+  },
+  {
+    "id": "L44",
+    "title": "Learning Phrase Representations using RNN Encoder-Decoder for Statistical Machine Translation",
+    "year": 2014,
+    "url": "https://arxiv.org/abs/1406.1078",
+    "doi": "10.48550/arXiv.1406.1078",
+    "evidence_access": "primary abstract and metadata accessed",
+    "verified_on": "2026-09-20",
+    "claims_supported": [
+      "Historical gated recurrent unit reference."
+    ],
+    "limitations": "Machine translation origin; controller adaptation is proposed engineering."
+  },
+  {
+    "id": "L45",
+    "title": "scikit-learn LogisticRegression API",
+    "year": null,
+    "url": "https://scikit-learn.org/stable/modules/generated/sklearn.linear_model.LogisticRegression.html",
+    "doi": null,
+    "evidence_access": "official API documentation opened",
+    "verified_on": "2026-09-20",
+    "claims_supported": [
+      "Concrete engine for the logistic candidate scorer."
+    ],
+    "limitations": "Version 1.9.1 shown at access; no dependency installation or export test performed."
+  },
+  {
+    "id": "L46",
+    "title": "XGBoost Python API Reference",
+    "year": null,
+    "url": "https://xgboost.readthedocs.io/en/stable/python/python_api.html",
+    "doi": null,
+    "evidence_access": "official API documentation opened",
+    "verified_on": "2026-09-20",
+    "claims_supported": [
+      "Concrete classifier and ranker APIs for tabular baselines."
+    ],
+    "limitations": "Version 3.4.2 shown at access; ranking outputs need separate risk calibration."
+  },
+  {
+    "id": "L47",
+    "title": "PyTorch GRU API",
+    "year": null,
+    "url": "https://docs.pytorch.org/docs/2.14/generated/torch.nn.modules.rnn.GRU.html",
+    "doi": null,
+    "evidence_access": "official versioned API documentation opened after following stable redirect",
+    "verified_on": "2026-09-20",
+    "claims_supported": [
+      "Concrete recurrent engine for causal event-history modeling."
+    ],
+    "limitations": "PyTorch 2.14 documentation inspected; deployment/export compatibility untested."
+  },
+  {
+    "id": "L48",
+    "title": "Stable Baselines3-Contrib Maskable PPO",
+    "year": null,
+    "url": "https://sb3-contrib.readthedocs.io/en/master/modules/ppo_mask.html",
+    "doi": null,
+    "evidence_access": "official documentation inspected including limitations and evaluation requirements",
+    "verified_on": "2026-09-20",
+    "claims_supported": [
+      "MaskablePPO supports invalid-action masks; recurrent policies unsupported; mask-aware evaluation required."
+    ],
+    "limitations": "2.9.0 documentation shown at access; subprocess environments require internal action_masks."
+  },
+  {
+    "id": "L49",
+    "title": "A Closer Look at Invalid Action Masking in Policy Gradient Algorithms",
+    "year": 2022,
+    "url": "https://arxiv.org/abs/2006.14171",
+    "doi": "10.32473/flairs.v35i.130584",
+    "evidence_access": "primary abstract and publication metadata inspected",
+    "verified_on": "2026-09-20",
+    "claims_supported": [
+      "Theoretical and empirical analysis of invalid-action masking."
+    ],
+    "limitations": "Validity masks do not model every real-world hazard or authorization error."
+  },
+  {
+    "id": "L50",
+    "title": "Learning to select computations in recurrent neural circuits",
+    "year": 2026,
+    "url": "https://www.biorxiv.org/content/10.64898/2026.04.14.718499v1",
+    "doi": "10.64898/2026.04.14.718499",
+    "evidence_access": "discovery snippet only; primary page failed to open",
+    "verified_on": null,
+    "checked_on": "2026-09-20",
+    "claims_supported": [],
+    "limitations": "UNVERIFIED discovery lead, not counted as verified evidence or relied on for claims."
+  }
+]

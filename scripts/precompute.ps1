@@ -1,6 +1,7 @@
-# Run the offline pipeline (pass-through args). E.g.:  ./scripts/precompute.ps1 EX02_epidemic --seed 7
-$ErrorActionPreference = "Stop"
-Set-Location (Join-Path $PSScriptRoot "..")
-$vp = Join-Path ".venv-pipeline" "Scripts\python.exe"
-if (-not (Test-Path $vp)) { $vp = Join-Path ".venv-pipeline" "bin/python" }
-& python data-pipeline/run.py @args
+param([string]$Model = 'qwen3.5:4b')
+$ErrorActionPreference = 'Stop'
+Set-Location (Join-Path $PSScriptRoot '..')
+& .venv/Scripts/python.exe data-pipeline/run.py all --model $Model
+if ($LASTEXITCODE) { throw 'Scientific pipeline failed; canonical artifacts were not released' }
+& .venv/Scripts/python.exe scripts/check_artifacts.py
+if ($LASTEXITCODE) { throw 'Canonical artifact verification failed' }

@@ -1,20 +1,11 @@
-# Docs, the product wiki
+# Neuraxis documentation
 
-SimLab-style navigable wiki (ADR-0056), authored **as the product is built**, not at the end. The pipeline +
-its validation + these docs are the primary product; the web app is a projection of a validated subset.
+Read the [corrected scientific results](evaluation/corrected-results.md) for the full comparison and negative findings, and the [software design](design/SDD.md) for contracts and requirement gates.
 
-## Map
-- **[architecture/](architecture/)**, how the repo works: the frozen base, the two data contracts, determinism +
-  trace, the live/precompute gate, the staged pipeline, model evaluation, deploy.
-- **[frameworks/](frameworks/)**, one card per research-chosen engine/library (what/why · install · usage ·
-  applying). The deep research, made binding (each is pinned in a `requirements-*.txt`).
-- **[guides/](guides/)**, runnable how-tos: **instantiate the template**, run the precompute pipeline,
-  **bring your own data**, the GPU lane, run the API.
-- **[cases/](cases/)**, the CATEGORY taxonomy + the coverage matrix + one page per documented case.
+Start with [architecture](architecture.md) to understand the authority, learned state and asynchronous planning boundaries. [Guides](guides.md) cover local execution and reproduction. [Frameworks](frameworks.md) identifies each distinct scientific method; [cases](cases.md) defines actual effect truth and controlled fault variants.
 
-## Honesty + data policy
-- Numbers come from the calibrated engine / committed artifacts, never from a claim. The EXAMPLE engine (SIR) is
-  synthetic and clearly labelled; a real product states sources, licenses and what is real vs synthetic.
-- Public derived artifacts are committed (`data/derived/`); raw/private sources stay out of git (`data/raw/`,
-  vault) per ADR-0055. The two data contracts ([architecture/08_data-contracts.md](architecture/08_data-contracts.md))
-  govern raw→pipeline and pipeline→web.
+The [research dossiers](research/README.md) preserve the initial primary-source review and its evidence labels. Their historical research-only status describes that review pass. Current software behavior is documented in the architecture and code, while measured results live in the canonical artifact index with source/model/split hashes. A paper claim, implemented algorithm and reproduced experiment are distinct records.
+
+The interface contains six routes: App, Intro, Methodology, Implementation, Experiments and Benchmark. Content is bilingual and supports light/dark themes. It displays execution lane, raw decision evidence, calibration targets, unresolved outcomes, workload limitations and source citations. See the workbench and theory subdirectories for their linked explanations.
+
+The reusable engine's [runtime documentation](https://github.com/fsantibanezleal/reflexmesh/blob/main/docs/runtime.md) is authoritative for registered-tool contracts, native admission and recovery semantics.

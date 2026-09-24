@@ -1,27 +1,17 @@
-# Create BOTH venvs + install per-lane requirements + the editable package. Idempotent. No global installs.
-# .ps1 parity of setup.sh (Felipe runs PowerShell on Windows).
-$ErrorActionPreference = "Stop"
-Set-Location (Join-Path $PSScriptRoot "..")
-$py = if ($env:PYTHON) { $env:PYTHON } else { "python" }
-
-function Get-VenvPy($dir) {
-  $p = Join-Path $dir "Scripts\python.exe"
-  if (-not (Test-Path $p)) { $p = Join-Path $dir "bin/python" }
-  return $p
+param([switch]$SkipModels)
+$ErrorActionPreference = 'Stop'
+Set-Location (Join-Path $PSScriptRoot '..')
+if (-not (Test-Path '.venv/Scripts/python.exe')) { py -3.12 -m venv .venv }
+if ($LASTEXITCODE) { throw 'Python environment creation failed' }
+& .venv/Scripts/python.exe -m pip install -r requirements-api.txt -r requirements-dev.txt
+if ($LASTEXITCODE) { throw 'Dependency installation failed' }
+if (-not $SkipModels) {
+    $modelRelease = 'v' + (Get-Content VERSION -Raw).Trim()
+    & .venv/Scripts/python.exe -m reflexmesh.cli fetch-models --destination models/checkpoints --version $modelRelease
+    if ($LASTEXITCODE) { throw 'Verified model installation failed' }
 }
-
-Write-Host "[setup] .venv-pipeline (offline lane)..."
-if (-not (Test-Path ".venv-pipeline")) { & $py -m venv .venv-pipeline }
-$vp = Get-VenvPy ".venv-pipeline"
-& $vp -m pip install --upgrade pip -q
-& $vp -m pip install -q -r requirements-precompute.txt -r requirements-dev.txt
-Write-Host "[setup] .venv-pipeline ready."
-
-Write-Host "[setup] .venv (runtime/live-thin lane)..."
-if (-not (Test-Path ".venv")) { & $py -m venv .venv }
-$vr = Get-VenvPy ".venv"
-& $vr -m pip install --upgrade pip -q
-& $vr -m pip install -q -r requirements.txt
-Write-Host "[setup] .venv ready."
-
-Write-Host "[setup] done. Next:  ./scripts/precompute.ps1   then   ./scripts/dev.ps1"
+Push-Location frontend
+try { npm ci; if ($LASTEXITCODE) { throw 'Frontend dependency installation failed' } }
+finally { Pop-Location }
+Write-Output 'Setup complete. Build with: cd frontend; npm run build'
+Write-Output 'Start from the repository root: .venv/Scripts/python.exe scripts/serve.py'
