@@ -295,7 +295,7 @@ export default function Operations() {
   const currentFile =
     fileRows.find((f) => f.path === selectedFile) ??
     fileRows.find((f) => f.path === `input/${selectedFile}`) ??
-    fileRows[0];
+    (selectedFile ? undefined : fileRows[0]);
   const completed = displayNodes.filter((n) => n.state === 'succeeded').length;
   const progress = displayNodes.length ? Math.round((100 * completed) / displayNodes.length) : 0;
   return (
@@ -799,14 +799,16 @@ export default function Operations() {
             </aside>
             <div className="op-file-content">
               <div>
-                <strong>{currentFile?.path}</strong>
+                <strong>{currentFile?.path ?? selectedFile}</strong>
                 <span>
-                  {currentFile?.kind === 'output'
-                    ? c('Produced by this run', 'Producido por esta ejecución')
-                    : c('Original input', 'Entrada original')}
+                  {!currentFile && selectedFile
+                    ? c('File unavailable', 'Archivo no disponible')
+                    : currentFile?.kind === 'output'
+                      ? c('Produced by this run', 'Producido por esta ejecución')
+                      : c('Original input', 'Entrada original')}
                 </span>
               </div>
-              <pre tabIndex={0}>
+              <pre tabIndex={0} style={currentFile ? undefined : { whiteSpace: 'pre-wrap' }}>
                 {currentFile
                   ? currentFile.content.split('\n').map((line, i, lines) => (
                       <span
@@ -821,7 +823,12 @@ export default function Operations() {
                         {i < lines.length - 1 ? '\n' : ''}
                       </span>
                     ))
-                  : c('Select a file', 'Seleccionar un archivo')}
+                  : selectedFile
+                    ? c(
+                        'This path is absent from the current inputs and outputs. No substitute file is shown.',
+                        'Esta ruta no está entre las entradas ni las salidas actuales. No se muestra un archivo sustituto.',
+                      )
+                    : c('Select a file', 'Seleccionar un archivo')}
               </pre>
             </div>
           </div>

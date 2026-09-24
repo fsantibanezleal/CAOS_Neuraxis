@@ -1,0 +1,29 @@
+{
+  "base": "http://127.0.0.1:4180",
+  "checks": [
+    {
+      "width": 1600,
+      "lang": "en",
+      "absentPathPreserved": true,
+      "unrelatedBytesHidden": true
+    },
+    {
+      "width": 1600,
+      "lang": "es",
+      "absentPathPreserved": true,
+      "unrelatedBytesHidden": true
+    },
+    {
+      "width": 360,
+      "lang": "en",
+      "absentPathPreserved": true,
+      "unrelatedBytesHidden": true
+    },
+    {
+      "width": 360,
+      "lang": "es",
+      "absentPathPreserved": true,
+      "unrelatedBytesHidden": true
+    }
+  ]
+}
