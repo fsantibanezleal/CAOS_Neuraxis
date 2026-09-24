@@ -21,4 +21,6 @@ R-009 WHEN operation analysis changes, THE scientific corpus SHALL be regenerate
 Gate: scripts/check_operations.py
 R-010 WHEN scientific tabs share the frozen index, THE interface SHALL reuse the same loaded index, retry after network failure and visibly report evidence loading or failure.
 Gate: frontend/src/api/artifacts.test.ts
+R-011 IF a finding references a file absent from the input bundle, THEN THE inspector SHALL retain that path and explicitly show absence instead of another file's bytes.
+Gate: frontend/verify-missing-file.mjs
 ```
