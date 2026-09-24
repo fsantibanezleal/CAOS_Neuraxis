@@ -8,6 +8,7 @@ import tarfile
 from pathlib import Path
 
 from check_artifacts import validate
+from check_research import validate as validate_research
 
 ROOT = Path(__file__).resolve().parents[1]
 
@@ -17,6 +18,7 @@ def package(output: Path, build: Path | None = None):
     if not (build / "index.html").is_file() or not (build / "data" / "index.json").is_file():
         raise ValueError("static build requires the application and canonical evidence")
     coverage = validate(build / "data")
+    validate_research(build / "data")
     commit = subprocess.check_output(["git", "rev-parse", "HEAD"], cwd=ROOT, text=True).strip()
     files = []
     for path in sorted(build.rglob("*")):

@@ -658,7 +658,11 @@ export default function Workbench() {
           </div>
           <Tabs tabs={controls} ariaLabel={t.controls} />
           {!workspaceActive && (
-            <div className="nx-diagnosis" data-status={episode?.status}>
+            <div
+              className="nx-diagnosis"
+              data-status={episode?.status}
+              data-run-id={episode?.run_id}
+            >
               <div>
                 <b>{episode?.status ?? t.ready}</b>
                 <span>

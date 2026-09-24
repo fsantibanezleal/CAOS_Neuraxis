@@ -5,6 +5,7 @@ import { useArtifacts, episodeReferences, downloadJSON } from '../api/artifacts'
 import { useCopy } from '../i18n';
 import { METHODS, VARIANTS, VARIANT_IDS } from '../data/registry';
 import { format, Panel } from '../components/Instruments';
+import { ResearchResults } from '../components/ResearchResults';
 type Bin = { lower: number; upper: number; count: number; confidence: number; accuracy: number };
 interface Aggregate {
   method_id: string;
@@ -433,6 +434,11 @@ export default function Benchmark() {
               ariaLabel={t.evidence}
               tabs={[
                 { id: 'results', label: t.table, content: table },
+                {
+                  id: 'findings',
+                  label: lang === 'en' ? 'Findings' : 'Hallazgos',
+                  content: <ResearchResults />,
+                },
                 { id: 'robustness', label: t.robustness, content: robustness },
                 {
                   id: 'calibration',
