@@ -1,0 +1,286 @@
+{
+  "base": "https://neuraxis.ml.fasl-work.com",
+  "checks": [
+    {
+      "width": 1600,
+      "theme": "light",
+      "lang": "en",
+      "tab": 0,
+      "fullSizeKeyboardAccess": true
+    },
+    {
+      "width": 1600,
+      "theme": "light",
+      "lang": "en",
+      "tab": 1,
+      "fullSizeKeyboardAccess": true
+    },
+    {
+      "width": 1600,
+      "theme": "light",
+      "lang": "en",
+      "tab": 2,
+      "fullSizeKeyboardAccess": true
+    },
+    {
+      "width": 1600,
+      "theme": "light",
+      "lang": "en",
+      "tab": 3,
+      "fullSizeKeyboardAccess": true
+    },
+    {
+      "width": 1600,
+      "theme": "light",
+      "lang": "en",
+      "tab": 4,
+      "fullSizeKeyboardAccess": true
+    },
+    {
+      "width": 1600,
+      "theme": "light",
+      "lang": "es",
+      "tab": 0,
+      "fullSizeKeyboardAccess": true
+    },
+    {
+      "width": 1600,
+      "theme": "light",
+      "lang": "es",
+      "tab": 1,
+      "fullSizeKeyboardAccess": true
+    },
+    {
+      "width": 1600,
+      "theme": "light",
+      "lang": "es",
+      "tab": 2,
+      "fullSizeKeyboardAccess": true
+    },
+    {
+      "width": 1600,
+      "theme": "light",
+      "lang": "es",
+      "tab": 3,
+      "fullSizeKeyboardAccess": true
+    },
+    {
+      "width": 1600,
+      "theme": "light",
+      "lang": "es",
+      "tab": 4,
+      "fullSizeKeyboardAccess": true
+    },
+    {
+      "width": 1600,
+      "theme": "dark",
+      "lang": "en",
+      "tab": 0,
+      "fullSizeKeyboardAccess": true
+    },
+    {
+      "width": 1600,
+      "theme": "dark",
+      "lang": "en",
+      "tab": 1,
+      "fullSizeKeyboardAccess": true
+    },
+    {
+      "width": 1600,
+      "theme": "dark",
+      "lang": "en",
+      "tab": 2,
+      "fullSizeKeyboardAccess": true
+    },
+    {
+      "width": 1600,
+      "theme": "dark",
+      "lang": "en",
+      "tab": 3,
+      "fullSizeKeyboardAccess": true
+    },
+    {
+      "width": 1600,
+      "theme": "dark",
+      "lang": "en",
+      "tab": 4,
+      "fullSizeKeyboardAccess": true
+    },
+    {
+      "width": 1600,
+      "theme": "dark",
+      "lang": "es",
+      "tab": 0,
+      "fullSizeKeyboardAccess": true
+    },
+    {
+      "width": 1600,
+      "theme": "dark",
+      "lang": "es",
+      "tab": 1,
+      "fullSizeKeyboardAccess": true
+    },
+    {
+      "width": 1600,
+      "theme": "dark",
+      "lang": "es",
+      "tab": 2,
+      "fullSizeKeyboardAccess": true
+    },
+    {
+      "width": 1600,
+      "theme": "dark",
+      "lang": "es",
+      "tab": 3,
+      "fullSizeKeyboardAccess": true
+    },
+    {
+      "width": 1600,
+      "theme": "dark",
+      "lang": "es",
+      "tab": 4,
+      "fullSizeKeyboardAccess": true
+    },
+    {
+      "width": 360,
+      "theme": "light",
+      "lang": "en",
+      "tab": 0,
+      "fullSizeKeyboardAccess": true
+    },
+    {
+      "width": 360,
+      "theme": "light",
+      "lang": "en",
+      "tab": 1,
+      "fullSizeKeyboardAccess": true
+    },
+    {
+      "width": 360,
+      "theme": "light",
+      "lang": "en",
+      "tab": 2,
+      "fullSizeKeyboardAccess": true
+    },
+    {
+      "width": 360,
+      "theme": "light",
+      "lang": "en",
+      "tab": 3,
+      "fullSizeKeyboardAccess": true
+    },
+    {
+      "width": 360,
+      "theme": "light",
+      "lang": "en",
+      "tab": 4,
+      "fullSizeKeyboardAccess": true
+    },
+    {
+      "width": 360,
+      "theme": "light",
+      "lang": "es",
+      "tab": 0,
+      "fullSizeKeyboardAccess": true
+    },
+    {
+      "width": 360,
+      "theme": "light",
+      "lang": "es",
+      "tab": 1,
+      "fullSizeKeyboardAccess": true
+    },
+    {
+      "width": 360,
+      "theme": "light",
+      "lang": "es",
+      "tab": 2,
+      "fullSizeKeyboardAccess": true
+    },
+    {
+      "width": 360,
+      "theme": "light",
+      "lang": "es",
+      "tab": 3,
+      "fullSizeKeyboardAccess": true
+    },
+    {
+      "width": 360,
+      "theme": "light",
+      "lang": "es",
+      "tab": 4,
+      "fullSizeKeyboardAccess": true
+    },
+    {
+      "width": 360,
+      "theme": "dark",
+      "lang": "en",
+      "tab": 0,
+      "fullSizeKeyboardAccess": true
+    },
+    {
+      "width": 360,
+      "theme": "dark",
+      "lang": "en",
+      "tab": 1,
+      "fullSizeKeyboardAccess": true
+    },
+    {
+      "width": 360,
+      "theme": "dark",
+      "lang": "en",
+      "tab": 2,
+      "fullSizeKeyboardAccess": true
+    },
+    {
+      "width": 360,
+      "theme": "dark",
+      "lang": "en",
+      "tab": 3,
+      "fullSizeKeyboardAccess": true
+    },
+    {
+      "width": 360,
+      "theme": "dark",
+      "lang": "en",
+      "tab": 4,
+      "fullSizeKeyboardAccess": true
+    },
+    {
+      "width": 360,
+      "theme": "dark",
+      "lang": "es",
+      "tab": 0,
+      "fullSizeKeyboardAccess": true
+    },
+    {
+      "width": 360,
+      "theme": "dark",
+      "lang": "es",
+      "tab": 1,
+      "fullSizeKeyboardAccess": true
+    },
+    {
+      "width": 360,
+      "theme": "dark",
+      "lang": "es",
+      "tab": 2,
+      "fullSizeKeyboardAccess": true
+    },
+    {
+      "width": 360,
+      "theme": "dark",
+      "lang": "es",
+      "tab": 3,
+      "fullSizeKeyboardAccess": true
+    },
+    {
+      "width": 360,
+      "theme": "dark",
+      "lang": "es",
+      "tab": 4,
+      "fullSizeKeyboardAccess": true
+    }
+  ],
+  "errors": []
+}
