@@ -1,0 +1,45 @@
+{
+  "scope": "Local validation of user-directed reading layout correction; live verification follows promotion.",
+  "date": "2026-09-23",
+  "reports": {
+    "layout-report.json": {
+      "base": "http://127.0.0.1:4176",
+      "checks": 120,
+      "errors": []
+    },
+    "content-report.json": {
+      "base": "http://127.0.0.1:4176",
+      "sections": 200,
+      "errors": []
+    },
+    "browser-report.json": {
+      "base": "http://127.0.0.1:4176",
+      "checks": 72,
+      "failures": []
+    },
+    "phone-report.json": {
+      "report": 12,
+      "failures": []
+    },
+    "evidence-report.json": {
+      "base": "http://127.0.0.1:4176",
+      "canonical_verified": 240,
+      "findings": 4,
+      "page_errors": []
+    },
+    "results-review.json": {
+      "checks": 48,
+      "errors": []
+    }
+  },
+  "frontend_tests": 21,
+  "product_tests": {
+    "passed": 7,
+    "skipped": 1,
+    "skip_reason": "POSIX-specific installer test on Windows; actual Linux installation verified separately"
+  },
+  "limits": [
+    "Private hosted Actions remain blocked before execution by account billing.",
+    "Rendered review does not imply user design acceptance."
+  ]
+}

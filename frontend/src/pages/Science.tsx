@@ -8,7 +8,7 @@ export function ScientificDiagram({ section }: { section: ContentSection }) {
   return (
     <figure>
       <svg
-        className="nx-schematic"
+        className="nx-schematic nx-schematic-desktop"
         viewBox={`0 0 1000 ${leak ? 260 : 210}`}
         role="img"
         aria-label={section.figure[lang]}
@@ -91,6 +91,60 @@ export function ScientificDiagram({ section }: { section: ContentSection }) {
           </g>
         )}
       </svg>
+      <svg
+        className="nx-schematic nx-schematic-mobile"
+        viewBox={`0 0 360 ${section.nodes.length * 110 + 100}`}
+        role="img"
+        aria-label={section.figure[lang]}
+      >
+        {section.nodes.map((node, i) => (
+          <g key={i}>
+            {i > 0 && (
+              <path
+                d={`M180,${i * 110 - 4} v24 m-6,-6 l6,6 l6,-6`}
+                fill="none"
+                stroke="var(--color-accent)"
+                strokeWidth="2"
+              />
+            )}
+            <rect
+              x="20"
+              y={24 + i * 110}
+              width="320"
+              height="76"
+              rx="8"
+              fill={i === 2 ? 'var(--color-accent-soft)' : 'var(--color-surface-2)'}
+              stroke={i === 2 ? 'var(--color-accent)' : 'var(--color-border)'}
+            />
+            <text x="180" y={55 + i * 110} textAnchor="middle" fill="var(--color-fg)" fontSize="16">
+              {node[lang]}
+            </text>
+            <text
+              x="180"
+              y={81 + i * 110}
+              textAnchor="middle"
+              fill="var(--color-fg-subtle)"
+              fontSize="14"
+            >
+              {String(i + 1).padStart(2, '0')}
+            </text>
+          </g>
+        ))}
+        <text
+          x="180"
+          y={section.nodes.length * 110 + 25}
+          textAnchor="middle"
+          fill="var(--color-fg-subtle)"
+          fontSize="15"
+        >
+          <tspan x="180">{lang === 'es' ? 'Evidencia registrada' : 'Recorded evidence'}</tspan>
+          <tspan x="180" dy="24">
+            {lang === 'es'
+              ? 'Evaluar antes de cambiar la política'
+              : 'Evaluate before changing policy'}
+          </tspan>
+        </text>
+      </svg>
       <figcaption className="nx-figure-caption">{section.figure[lang]}</figcaption>
     </figure>
   );
@@ -99,13 +153,15 @@ export function SectionContent({ section }: { section: ContentSection }) {
   const { lang, t } = useCopy();
   const article = useRef<HTMLElement>(null);
   useEffect(() => {
-    article.current?.closest('.subtabpanels')?.scrollTo({ top: 0 });
+    if (article.current && article.current.getBoundingClientRect().top < 0) {
+      article.current.scrollIntoView({ block: 'start', behavior: 'instant' });
+    }
   }, [section.id]);
   return (
     <article ref={article} className="nx-doc-section">
       <h2>{section.title[lang]}</h2>
       {section.paragraphs.map((p, i) => (
-        <p key={i}>
+        <p key={i} className="measure">
           {p[lang]}{' '}
           {section.refs[i % section.refs.length] && (
             <Cite id={section.refs[i % section.refs.length]} />
