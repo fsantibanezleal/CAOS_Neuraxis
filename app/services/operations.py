@@ -11,10 +11,12 @@ import csv
 import hashlib
 import io
 import json
+import math
 import re
 import threading
 import time
 import tomllib
+from collections import defaultdict, deque
 from pathlib import Path, PurePosixPath
 
 from reflexmesh.contracts import Decision, Observation
@@ -193,7 +195,151 @@ def strict_json(text):
             output[k] = v
         return output
 
-    return json.loads(text, parse_constant=constant, object_pairs_hook=pairs)
+    def number(value):
+        parsed = float(value)
+        if not math.isfinite(parsed):
+            raise ValueError("JSON number exceeds finite range")
+        return parsed
+
+    value = json.loads(text, parse_float=number, parse_constant=constant, object_pairs_hook=pairs)
+    pending = [value]
+    while pending:
+        item = pending.pop()
+        if isinstance(item, str):
+            item.encode("utf8")  # Escaped lone surrogates are not portable UTF-8 text.
+        elif isinstance(item, dict):
+            pending.extend(item.keys())
+            pending.extend(item.values())
+        elif isinstance(item, list):
+            pending.extend(item)
+    return value
+
+
+def read_table(text):
+    reader = csv.reader(io.StringIO(text, newline=""), strict=True)
+    headers = next(reader, [])
+    if (
+        not headers
+        or len(headers) > 256
+        or any(not h.strip() for h in headers)
+        or len(set(headers)) != len(headers)
+    ):
+        raise ValueError("Expected 1..256 unique, nonblank column names")
+    records = []
+    while True:
+        line = reader.line_num + 1
+        raw = next(reader, None)
+        if raw is None:
+            break
+        if not raw:  # Empty physical lines are not CSV records.
+            continue
+        records.append(
+            {
+                "record": len(records) + 1,
+                "line": line,
+                "end_line": reader.line_num,
+                "values": {h: raw[i] if i < len(raw) else None for i, h in enumerate(headers)},
+                "extra_values": raw[len(headers) :],
+                "reasons": [],
+            }
+        )
+        if len(records) > 20000:
+            raise ValueError("Table exceeds 20,000 records")
+    return headers, records
+
+
+def analyze_tables(files, cancelled):
+    tables, findings = {}, []
+    for path, text in files.items():
+        if not path.lower().endswith(".csv"):
+            continue
+        try:
+            headers, records = read_table(text)
+            seen = set()
+            for row in records:
+                if row["extra_values"] or any(v is None or not v.strip() for v in row["values"].values()):
+                    row["reasons"].append("missing_or_extra_value")
+                key = row["values"].get("id")
+                if key is not None and key in seen:
+                    row["reasons"].append("duplicate_id")
+                if key is not None and not row["reasons"]:
+                    seen.add(key)
+            tables[path] = {"headers": headers, "rows": records}
+        except (csv.Error, ValueError) as exc:
+            findings.append(finding("invalid_table", path, str(exc)))
+
+    aliases = defaultdict(set)
+    for path, table in tables.items():
+        if "id" in table["headers"]:
+            stem = PurePosixPath(path).stem
+            aliases[stem].add(path)
+            aliases[stem.removesuffix("s")].add(path)
+    available = {
+        (path, row["values"].get("id"))
+        for path, table in tables.items()
+        for row in table["rows"]
+        if not row["reasons"]
+    }
+    reverse, invalid, relationships = defaultdict(list), deque(), []
+
+    def reject(path, row, code):
+        if code not in row["reasons"]:
+            was_valid = not row["reasons"]
+            row["reasons"].append(code)
+            if was_valid:
+                invalid.append((path, row))
+
+    for path, table in tables.items():
+        if cancelled.is_set():
+            raise InterruptedError("cancelled")
+        for col in table["headers"]:
+            if not col.endswith("_id"):
+                continue
+            candidates = aliases[col[:-3]]
+            local = {p for p in candidates if PurePosixPath(p).parent == PurePosixPath(path).parent}
+            targets = local or candidates
+            if len(targets) != 1:
+                code = "ambiguous_reference" if targets else "unchecked_reference"
+                findings.append(
+                    finding(
+                        code,
+                        path,
+                        f"Column {col}: expected one target table, found {len(targets)}",
+                        "warning",
+                    )
+                )
+                relationships.append({"path": path, "column": col, "target": None, "status": code})
+                if targets:
+                    for row in table["rows"]:
+                        reject(path, row, code)
+                continue
+            target = next(iter(targets))
+            relationships.append({"path": path, "column": col, "target": target, "status": "checked"})
+            for row in table["rows"]:
+                value = row["values"].get(col)
+                if value:
+                    reverse[(target, value)].append((path, row))
+                    if (target, value) not in available:
+                        reject(path, row, "unknown_reference")
+    # A rejected parent invalidates all dependents, including multi-table chains.
+    while invalid:
+        if cancelled.is_set():
+            raise InterruptedError("cancelled")
+        path, row = invalid.popleft()
+        key = (path, row["values"].get("id"))
+        available.discard(key)
+        for child_path, child in reverse[key]:
+            reject(child_path, child, "unknown_reference")
+    for path, table in tables.items():
+        records = table.pop("rows")
+        table["accepted"] = [r for r in records if not r["reasons"]]
+        table["rejected"] = [r for r in records if r["reasons"]]
+        for row in table["rejected"]:
+            for code in row["reasons"]:
+                findings.append(
+                    finding(code, path, f"Record {row['record']}: {code.replace('_', ' ')}", line=row["line"])
+                )
+    return {"tables": tables, "relationships": relationships, "findings": findings}
 
 
 def analyze(node, files, prior, cancelled):
@@ -236,60 +382,13 @@ def analyze(node, files, prior, cancelled):
                 checked.append({"path": path, "valid": False})
         return {"checked": checked, "findings": findings}
     if node == "tables":
-        tables = {}
-        for path, text in files.items():
-            if not path.lower().endswith(".csv"):
-                continue
-            try:
-                reader = csv.DictReader(io.StringIO(text), strict=True)
-                headers = reader.fieldnames or []
-                if not headers or any(not h for h in headers) or len(set(headers)) != len(headers):
-                    raise ValueError("Missing or duplicate column names")
-                rows = list(reader)
-                if len(rows) > 20000:
-                    raise ValueError("Table exceeds 20,000 records")
-                tables[path] = {"headers": headers, "rows": rows, "accepted": [], "rejected": []}
-            except (csv.Error, ValueError) as exc:
-                findings.append(finding("invalid_table", path, str(exc)))
-        lookup = {}
-        for path, table in tables.items():
-            if "id" in table["headers"]:
-                stem = PurePosixPath(path).stem
-                lookup[stem] = {row.get("id") for row in table["rows"]}
-                lookup[stem.removesuffix("s")] = lookup[stem]
-        for path, table in tables.items():
-            seen = set()
-            for line, row in enumerate(table["rows"], 2):
-                issues = []
-                if None in row or any(v is None or not str(v).strip() for v in row.values()):
-                    issues.append("missing_or_extra_value")
-                key = row.get("id")
-                if key is not None:
-                    if key in seen:
-                        issues.append("duplicate_id")
-                    seen.add(key)
-                for col, value in row.items():
-                    if (
-                        col
-                        and col.endswith("_id")
-                        and col[:-3] in lookup
-                        and value
-                        and value not in lookup[col[:-3]]
-                    ):
-                        issues.append("unknown_reference")
-                target = "rejected" if issues else "accepted"
-                table[target].append({"line": line, "values": row, "reasons": issues})
-                for code in issues:
-                    findings.append(
-                        finding(code, path, f"Record {line - 1}: {code.replace('_', ' ')}", line=line)
-                    )
-            del table["rows"]
-        return {"tables": tables, "findings": findings}
+        return analyze_tables(files, cancelled)
     if node == "dependencies":
-        jobs, graph_findings = {}, []
+        workflows, graph_findings = {}, []
         for path, text in files.items():
             if PurePosixPath(path).name != "workflow.json":
                 continue
+            jobs = {}
             try:
                 value = strict_json(text)
                 entries = value.get("jobs") if isinstance(value, dict) else None
@@ -299,7 +398,9 @@ def analyze(node, files, prior, cancelled):
                     if (
                         not isinstance(entry, dict)
                         or not isinstance(entry.get("id"), str)
+                        or not entry["id"].strip()
                         or not isinstance(entry.get("depends_on", []), list)
+                        or len(entry.get("depends_on", [])) > 256
                         or any(not isinstance(d, str) for d in entry.get("depends_on", []))
                         or entry["id"] in jobs
                     ):
@@ -328,7 +429,9 @@ def analyze(node, files, prior, cancelled):
                         del remaining[j]
             except (ValueError, RecursionError) as exc:
                 graph_findings.append(finding("invalid_workflow", path, str(exc)))
-        return {"jobs": jobs, "findings": graph_findings, "job_count": len(jobs)}
+            workflows[path] = jobs
+        jobs = {f"{path}::{job}": deps for path, items in workflows.items() for job, deps in items.items()}
+        return {"jobs": jobs, "workflows": workflows, "findings": graph_findings, "job_count": len(jobs)}
     if node == "integrity":
         checks = []
         text = files.get("release-manifest.json")
@@ -392,13 +495,12 @@ def analyze(node, files, prior, cancelled):
         return {
             "file_count": len(files),
             "findings": findings,
-            "disposition": "attention_required"
-            if any(f["severity"] == "error" for f in findings)
-            else "checks_passed",
+            "disposition": "attention_required" if findings else "checks_passed",
             "checks_performed": sorted(prior),
             "originals_changed": False,
             "model_calls": 0,
             "controller": "registered dependency policy / native reflexmesh",
+            "table_policy": "First structurally valid ID wins; later duplicates are rejected. References resolve to the same directory first, otherwise a unique table alias. Rejection propagates through references. Missing or ambiguous targets are explicit findings.",
             "scope": "Static source/config syntax, declared workflow graph, CSV shape/IDs/available foreign keys and declared SHA-256; uploaded code is never executed.",
         }
     if node == "verify":
@@ -416,13 +518,32 @@ def analyze(node, files, prior, cancelled):
             {"name": "report_covers_inputs", "passed": prior["report"]["file_count"] == len(files)},
         ]
         for path, output in prior.get("normalize", {}).get("outputs", {}).items():
-            source_rows = list(csv.DictReader(io.StringIO(files[path]), strict=True))
-            accepted = list(csv.DictReader(io.StringIO(output["content"]), strict=True))
+            source_headers, source_rows = read_table(files[path])
+            output_headers, accepted = read_table(output["content"])
             rejected = output["rejected"]
             accounted = len(accepted) + len(rejected) == len(source_rows)
-            selected = {r["line"] - 2 for r in rejected}
-            expected = [row for i, row in enumerate(source_rows) if i not in selected]
-            checks.append({"name": "row_conservation:" + path, "passed": accounted and accepted == expected})
+            selected = {r["record"] for r in rejected}
+            expected = [row["values"] for row in source_rows if row["record"] not in selected]
+            authentic_rejections = len(selected) == len(rejected) and all(
+                1 <= r["record"] <= len(source_rows)
+                and all(
+                    r[k] == source_rows[r["record"] - 1][k]
+                    for k in ("values", "extra_values", "line", "end_line")
+                )
+                for r in rejected
+            )
+            checks.append(
+                {
+                    "name": "row_conservation:" + path,
+                    "passed": accounted
+                    and authentic_rejections
+                    and source_headers == output_headers
+                    and output["accepted_rows"] == len(accepted)
+                    and output["rejected_rows"] == len(rejected)
+                    and all(not r["extra_values"] for r in accepted)
+                    and [r["values"] for r in accepted] == expected,
+                }
+            )
         return {"checks": checks, "passed": all(c["passed"] for c in checks), "findings": []}
     raise ValueError("Unknown registered analyzer")
 
@@ -580,7 +701,9 @@ def execute_operation(
             "schema_version": 1,
             "task": task,
             "status": "cancelled" if cancelled.is_set() else "succeeded" if success else "failed",
-            "disposition": report.get("disposition", "incomplete"),
+            "disposition": report.get("disposition", "incomplete")
+            if success and not cancelled.is_set()
+            else "incomplete",
             "nodes": nodes,
             "events": events,
             "inputs": inputs,

@@ -1,5 +1,13 @@
 # Changelog
 
+## 0.02.001 - 2026-09-24
+
+- Keep all session-owned runs selectable and deletable; recover expired sessions without replaying uncertain submissions. Preserve cached evidence and mark incomplete verification explicitly.
+- Handle extra CSV values and physical multiline locations, propagate rejected parent references, scope table/workflow names, and reject JSON numeric overflow.
+- Independently check quarantined row evidence, preserve original UTF-8 BOM bytes, and highlight selected finding lines.
+- Isolate deployment interpreters per release, pin the measured dependency set and require exact source-commit health checks.
+- Regenerate the 36 operation experiments from the corrected analyzer; preserve all 19,488 frozen controller episodes.
+
 ## 0.02.000 - 2026-09-24
 
 - Replace the default simulation with native source audit, CSV reconciliation and release-verification tasks on supplied files, including immutable inputs, findings, accepted outputs, receipts, cancellation, export and deletion.

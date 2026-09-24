@@ -25,6 +25,8 @@ FILES = {
     "commit.txt",
 }
 BASE = Path("/opt/neuraxis-operations")
+SERVICE_UNIT = Path("/etc/systemd/system/neuraxis-operations.service")
+NGINX_CONFIG = Path("/etc/nginx/sites-available/neuraxis")
 
 
 def unpack(archive, expected, directory):
@@ -89,9 +91,10 @@ def install(archive, digest):
             "/usr/sbin/nologin",
             "neuraxis-operations",
         )
-    venv = BASE / "venv"
-    if not (venv / "bin/python").exists():
-        run("python3", "-m", "venv", str(venv))
+    # Dependencies are immutable with the code. A failed install must never
+    # mutate the interpreter used by the active or rollback release.
+    venv = release / ".venv"
+    run("python3", "-m", "venv", str(venv))
     run(
         str(venv / "bin/python"),
         "-m",
@@ -101,10 +104,12 @@ def install(archive, digest):
         "-r",
         str(release / "requirements-operations.txt"),
     )
+    run(str(venv / "bin/python"), "-m", "pip", "check")
+    inventory = subprocess.check_output([str(venv / "bin/python"), "-m", "pip", "freeze"], text=True)
+    (release / "installed-requirements.txt").write_text(inventory)
     current = BASE / "current"
     previous = current.resolve() if current.is_symlink() else None
-    unit = Path("/etc/systemd/system/neuraxis-operations.service")
-    nginx = Path("/etc/nginx/sites-available/neuraxis")
+    unit, nginx = SERVICE_UNIT, NGINX_CONFIG
     old_unit = unit.read_bytes() if unit.exists() else None
     old_nginx = nginx.read_bytes()
     try:
@@ -120,7 +125,7 @@ def install(archive, digest):
                 )
                 with urllib.request.urlopen(request, timeout=2) as response:
                     config = json.load(response)
-                if len(config["tasks"]) != 3:
+                if len(config["tasks"]) != 3 or config.get("commit") != commit:
                     raise ValueError("Incorrect operation service")
                 break
             except OSError:
@@ -135,12 +140,16 @@ def install(archive, digest):
         nginx.write_bytes(old_nginx)
         if old_unit is not None:
             unit.write_bytes(old_unit)
+        else:
+            unit.unlink(missing_ok=True)
         if previous:
             switch(current, previous)
             run("systemctl", "daemon-reload")
             run("systemctl", "restart", "neuraxis-operations")
         else:
             run("systemctl", "stop", "neuraxis-operations")
+            current.unlink(missing_ok=True)
+            run("systemctl", "daemon-reload")
         run("nginx", "-t")
         run("systemctl", "reload", "nginx")
         raise

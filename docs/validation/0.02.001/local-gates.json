@@ -1,0 +1,42 @@
+{
+  "date": "2026-09-24",
+  "app_python": {
+    "passed": 55,
+    "windows_skipped": 3,
+    "reason": "POSIX deployment tests run separately on Linux"
+  },
+  "linux_deployment": {
+    "passed": 12,
+    "skipped": 0
+  },
+  "engine_python": {
+    "passed": 297,
+    "runtime_changes": false
+  },
+  "frontend_tests": 30,
+  "native_study_runs": 36,
+  "core_episodes": 14400,
+  "research_episodes": 19488,
+  "scientific_tab_views": 296,
+  "route_gesture_views": 120,
+  "history_recovery_views": 8,
+  "recovery_expiry": "Controlled HTTP 401 in browser; actual session retention and expiry checked in API tests",
+  "engine_main": "06f86921679635b6bc1d3fd2efde37bb633d7cd4",
+  "engine_hosted_ci": {
+    "run": 36006381417,
+    "status": "success"
+  },
+  "app_hosted_ci": "Billing prevents job execution; recheck after promotion",
+  "excluded_generated_paths": [
+    "frontend/qa/",
+    "frontend/dist/",
+    "frontend/public/data/",
+    "frontend/public/operations/",
+    ".runtime/",
+    "dist/"
+  ],
+  "protected_engine_paths": [
+    "artifacts/logs/",
+    "artifacts/training-provenance.json"
+  ]
+}
