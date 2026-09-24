@@ -1,6 +1,5 @@
 #!/usr/bin/env bash
-# Run the offline pipeline (pass-through args). E.g.:  ./scripts/precompute.sh EX02_epidemic --seed 7
 set -euo pipefail
 cd "$(dirname "$0")/.."
-VP=".venv-pipeline/bin/python"; [ -x "$VP" ] || VP=".venv-pipeline/Scripts/python.exe"
-"$VP" data-pipeline/run.py "$@"
+.venv/bin/python data-pipeline/run.py all --model "${NEURAXIS_MODEL:-qwen3.5:4b}"
+.venv/bin/python scripts/check_artifacts.py

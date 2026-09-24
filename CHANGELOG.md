@@ -1,16 +1,17 @@
 # Changelog
 
-All notable changes to this product. Format: `X.XX.XXX` (display), see `pipeline.__version__`. Keep `0.x`
-while on mock/synthetic data. Tag every release.
-
-## [0.01.000], 2026-06-20
+## Unreleased
 
 ### Added
-- Initial instantiation from the CAOS product-repo template (ADR-0057).
-- Offline `data-pipeline/` (`pipeline`): the two data contracts (ingestion + artifact), the named staged
-  pipeline (preprocess → feature_extraction → train → infer → evaluate → export), the seeded RNG, the compact
-  trace, the manifest, and the measured live-vs-precompute gate.
-- EXAMPLE engine: a deterministic SIR epidemic (numpy-only, Pyodide-safe), **replace with the product's
-  research-chosen SOTA engine**.
-- Cases-by-category registry (4 regimes + 1 degenerate control); a live-lane entrypoint (`live.py`); tests for
-  both contracts + pipeline determinism.
+
+- Complete bilingual scientific control workbench using the shared CAOS shell.
+- Separate reflexmesh package integration for native authority, registered effects, learned policies and asynchronous planner coordination.
+- Scientific stage orchestration, measured trace contracts and complete matrix validation.
+- Local authenticated execution API, explicit replay/browser/native lanes and provenance inspection.
+- Deep neuroscience, machine learning, reinforcement learning, systems and benchmark research documentation.
+
+## 0.01.000 - 2026-09-20
+
+### Added
+
+- Initial repository structure and implementation baseline. Release acceptance gates remain recorded separately.

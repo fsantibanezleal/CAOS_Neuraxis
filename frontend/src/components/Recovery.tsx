@@ -1,0 +1,431 @@
+import { useEffect, useState } from 'react';
+import { api, downloadJSON } from '../api/artifacts';
+import { useCopy } from '../i18n';
+import { Panel } from './Instruments';
+interface UnknownIntent {
+  intent_id: string;
+  action_id: string;
+  resources: unknown[];
+  status: string;
+  prior_evidence: unknown;
+  record_sha256: string;
+  recoverable_in_workbench?: boolean;
+}
+interface RecoveryState {
+  schema_version: 1;
+  unknown: UnknownIntent[];
+  journal_sequence: number;
+}
+interface Check {
+  path: string;
+  kind: 'sha256' | 'absent';
+  sha256: string;
+}
+const resourcesOf = (intent?: UnknownIntent) =>
+  (intent?.resources ?? []).map((r) =>
+    typeof r === 'string'
+      ? r
+      : r && typeof r === 'object'
+        ? String(
+            (r as Record<string, unknown>).resource_id ?? (r as Record<string, unknown>).id ?? '',
+          )
+        : String(r),
+  );
+export default function Recovery({ token, active }: { token: string; active: boolean }) {
+  const { lang, t } = useCopy();
+  const copy = (en: string, es: string) => (lang === 'en' ? en : es);
+  const [state, setState] = useState<RecoveryState | null>(null);
+  const [selected, setSelected] = useState('');
+  const [checks, setChecks] = useState<Check[]>([]);
+  const [resolution, setResolution] = useState('');
+  const [reviewed, setReviewed] = useState(false);
+  const [quiescent, setQuiescent] = useState(false);
+  const [note, setNote] = useState('');
+  const [busy, setBusy] = useState(false);
+  const [error, setError] = useState('');
+  const [result, setResult] = useState<Record<string, unknown> | null>(null);
+  const intent = state?.unknown.find((i) => i.intent_id === selected);
+  const validChecks =
+    checks.length > 0 &&
+    checks.every(
+      (c) =>
+        Boolean(c.path.trim()) && (c.kind === 'absent' || /^[a-f0-9]{64}$/i.test(c.sha256.trim())),
+    );
+  async function refresh() {
+    setBusy(true);
+    try {
+      const value = await api('workspace/recovery', token);
+      setState(value);
+      setSelected((prior) =>
+        value.unknown.some((i: UnknownIntent) => i.intent_id === prior)
+          ? prior
+          : (value.unknown[0]?.intent_id ?? ''),
+      );
+      setError('');
+    } catch (e) {
+      setError(String(e));
+    } finally {
+      setBusy(false);
+    }
+  }
+  useEffect(() => {
+    if (token && !active) void refresh();
+  }, [token, active]);
+  useEffect(() => {
+    setChecks(
+      resourcesOf(intent)
+        .filter((r) => r.startsWith('file:'))
+        .map((r) => ({ path: r.slice(5), kind: 'sha256', sha256: '' })),
+    );
+    setResolution('');
+    setReviewed(false);
+    setQuiescent(false);
+    setNote('');
+    if (intent) setResult(null);
+  }, [intent?.intent_id, intent?.record_sha256]);
+  function edit(index: number, values: Partial<Check>) {
+    setChecks((prior) => prior.map((c, i) => (i === index ? { ...c, ...values } : c)));
+    setReviewed(false);
+    setQuiescent(false);
+  }
+  async function reconcile() {
+    if (
+      !intent ||
+      !validChecks ||
+      !reviewed ||
+      !quiescent ||
+      note.trim().length < 10 ||
+      !resolution
+    )
+      return;
+    setBusy(true);
+    try {
+      const value = await api('workspace/reconcile', token, {
+        intent_id: intent.intent_id,
+        record_sha256: intent.record_sha256,
+        resolution,
+        checks: checks.map((c) =>
+          c.kind === 'absent'
+            ? { path: c.path.trim(), absent: true }
+            : { path: c.path.trim(), sha256: c.sha256.trim().toLowerCase() },
+        ),
+        reviewed_effects: true,
+        processes_quiescent: true,
+        note: note.trim(),
+      });
+      setResult(value);
+      setError('');
+      setState((prior) =>
+        prior
+          ? { ...prior, unknown: prior.unknown.filter((i) => i.intent_id !== intent.intent_id) }
+          : prior,
+      );
+      setSelected('');
+    } catch (e) {
+      setError(String(e));
+      setReviewed(false);
+      setQuiescent(false);
+    } finally {
+      setBusy(false);
+    }
+  }
+  return (
+    <>
+      <Panel title={copy('Inspect unknown effects', 'Inspeccionar efectos desconocidos')}>
+        <p>
+          {copy(
+            'A cancelled or interrupted effect may retain a resource lease until its outcome is independently reconciled. Inspect the exact intent and affected resources before authorizing recovery. Cancellation is not a rollback.',
+            'Un efecto cancelado o interrumpido puede conservar un recurso hasta conciliar su resultado de forma independiente. Inspeccionar la intención y recursos antes de autorizar recuperación. Cancelar no revierte efectos.',
+          )}
+        </p>
+        <div className="nx-inline-controls">
+          <button
+            className="nx-button"
+            disabled={busy || active || !token}
+            onClick={() => void refresh()}
+          >
+            {copy('Refresh unknown intents', 'Actualizar intenciones desconocidas')}
+          </button>
+          <button
+            className="nx-button"
+            disabled={!state}
+            onClick={() => state && downloadJSON(state, 'neuraxis-recovery-record.json')}
+          >
+            {copy('Export recovery evidence', 'Exportar evidencia de recuperación')}
+          </button>
+        </div>
+        <p className="nx-caption">
+          {copy('Journal sequence', 'Secuencia del diario')}: {state?.journal_sequence ?? '--'} ·{' '}
+          {copy('Unknown intents', 'Intenciones desconocidas')}: {state?.unknown.length ?? '--'}
+        </p>
+        {active && (
+          <p className="nx-caption">
+            {copy(
+              'Wait for the active worker to finish before inspecting recovery state.',
+              'Esperar al trabajador activo antes de inspeccionar recuperación.',
+            )}
+          </p>
+        )}
+        {error && (
+          <div className="nx-error" role="alert">
+            {error}
+          </div>
+        )}
+        {state?.unknown.length === 0 && (
+          <p>
+            {copy(
+              'No unresolved intents are reported by this workspace.',
+              'Este espacio no informa intenciones sin resolver.',
+            )}
+          </p>
+        )}
+        {Boolean(state?.unknown.length) && (
+          <label className="nx-control">
+            {copy('Unknown intent', 'Intención desconocida')}
+            <select
+              aria-label={copy('Unknown intent', 'Intenci\u00f3n desconocida')}
+              value={selected}
+              onChange={(e) => setSelected(e.target.value)}
+            >
+              {state?.unknown.map((i) => (
+                <option key={i.intent_id} value={i.intent_id}>
+                  {i.action_id} / {i.intent_id}
+                </option>
+              ))}
+            </select>
+          </label>
+        )}
+      </Panel>
+      {intent && (
+        <>
+          <Panel
+            title={copy(
+              'Intent, leases and prior evidence',
+              'Intención, recursos y evidencia previa',
+            )}
+          >
+            <div className="nx-hash-evidence">
+              <span>{copy('Intent', 'Intención')}</span>
+              <code>{intent.intent_id}</code>
+              <span>{t.status}</span>
+              <b>{intent.status}</b>
+              <span>{t.tools}</span>
+              <code>{intent.action_id}</code>
+              <span>{t.resource}</span>
+              <code>{resourcesOf(intent).join('\n')}</code>
+              <span>{copy('Record SHA-256', 'SHA-256 del registro')}</span>
+              <code>{intent.record_sha256}</code>
+            </div>
+            {intent.recoverable_in_workbench === false && (
+              <p className="nx-caption">
+                {copy(
+                  'This intent cannot be reconciled in the workbench: trustworthy process termination or a matching registered executable is missing. Inspect the record through the SDK; the retained lease remains in force.',
+                  'Esta intenci\u00f3n no se concilia en la interfaz: falta evidencia fiable de terminaci\u00f3n o un ejecutable registrado coincidente. Inspeccionar mediante SDK; el recurso permanece retenido.',
+                )}
+              </p>
+            )}
+            <details className="nx-evidence-detail">
+              <summary>{copy('Prior execution evidence', 'Evidencia de ejecución previa')}</summary>
+              <pre className="nx-code">{JSON.stringify(intent.prior_evidence, null, 2)}</pre>
+            </details>
+          </Panel>
+          {intent.recoverable_in_workbench !== false && (
+            <>
+              <Panel
+                title={copy(
+                  'Independent file postconditions',
+                  'Poscondiciones independientes de archivos',
+                )}
+              >
+                <p className="nx-caption">
+                  {copy(
+                    'Cover every leased file resource. Supply a known expected digest, or explicitly check absence. The server reads the current workspace and rejects mismatches or a changed intent record. Process termination and effects outside these checks require the separate review below.',
+                    'Cubrir cada archivo retenido. Indicar una huella esperada conocida o comprobar ausencia explícitamente. El servidor lee el espacio actual y rechaza discrepancias o un registro modificado. La terminación de procesos y efectos fuera de estas comprobaciones requieren revisión adicional.',
+                  )}
+                </p>
+                {checks.map((c, i) => (
+                  <div className="nx-recovery-check" key={i}>
+                    <label className="nx-control">
+                      {copy('Relative path', 'Ruta relativa')}
+                      <input value={c.path} onChange={(e) => edit(i, { path: e.target.value })} />
+                    </label>
+                    <label className="nx-control">
+                      {copy('Predicate', 'Predicado')}
+                      <select
+                        aria-label={copy('Predicate', 'Predicado')}
+                        value={c.kind}
+                        onChange={(e) => edit(i, { kind: e.target.value as Check['kind'] })}
+                      >
+                        <option value="sha256">SHA-256</option>
+                        <option value="absent">{copy('File is absent', 'Archivo ausente')}</option>
+                      </select>
+                    </label>
+                    <label className="nx-control">
+                      {copy('Expected SHA-256', 'SHA-256 esperado')}
+                      <input
+                        disabled={c.kind === 'absent'}
+                        value={c.sha256}
+                        onChange={(e) => edit(i, { sha256: e.target.value })}
+                        spellCheck={false}
+                      />
+                    </label>
+                    <button
+                      className="nx-button"
+                      onClick={() => {
+                        setChecks((prior) => prior.filter((_, j) => j !== i));
+                        setReviewed(false);
+                        setQuiescent(false);
+                      }}
+                    >
+                      {copy('Remove', 'Quitar')}
+                    </button>
+                  </div>
+                ))}
+                <button
+                  className="nx-button"
+                  onClick={() => {
+                    setChecks((prior) => [...prior, { path: '', kind: 'sha256', sha256: '' }]);
+                    setReviewed(false);
+                    setQuiescent(false);
+                  }}
+                >
+                  {copy('Add file check', 'Agregar comprobación')}
+                </button>
+              </Panel>
+              <Panel title={copy('Review and reconcile', 'Revisar y conciliar')}>
+                <label className="nx-control">
+                  {copy('Evidence-supported resolution', 'Resolución respaldada por evidencia')}
+                  <select
+                    value={resolution}
+                    onChange={(e) => {
+                      setResolution(e.target.value);
+                      setReviewed(false);
+                      setQuiescent(false);
+                    }}
+                  >
+                    <option value="">{copy('Choose a resolution', 'Elegir resolución')}</option>
+                    <option value="completed_verified">
+                      {copy(
+                        'Declared effect completed and verified',
+                        'Efecto declarado completado y verificado',
+                      )}
+                    </option>
+                    <option value="failed_verified">
+                      {copy(
+                        'Declared effect failed and outcome verified',
+                        'Efecto declarado fallido y resultado verificado',
+                      )}
+                    </option>
+                  </select>
+                </label>
+                <label className="nx-control">
+                  {copy(
+                    'Inspection note (10–2000 characters)',
+                    'Nota de inspección (10–2000 caracteres)',
+                  )}
+                  <textarea
+                    rows={3}
+                    maxLength={2000}
+                    value={note}
+                    onChange={(e) => setNote(e.target.value)}
+                  />
+                </label>
+                <label className="nx-attestation">
+                  <input
+                    type="checkbox"
+                    checked={reviewed}
+                    onChange={(e) => setReviewed(e.target.checked)}
+                  />
+                  <span>
+                    {copy(
+                      'I reviewed the affected resources and residual effects, including effects outside the listed file predicates.',
+                      'Revisé recursos y efectos residuales, incluidos efectos fuera de los predicados indicados.',
+                    )}
+                  </span>
+                </label>
+                <label className="nx-attestation">
+                  <input
+                    type="checkbox"
+                    checked={quiescent}
+                    onChange={(e) => setQuiescent(e.target.checked)}
+                  />
+                  <span>
+                    {copy(
+                      'I verified that the affected processes are quiescent and cannot continue the disputed effect.',
+                      'Verifiqué que los procesos afectados están detenidos y no pueden continuar el efecto incierto.',
+                    )}
+                  </span>
+                </label>
+                <button
+                  className="nx-button nx-primary"
+                  disabled={
+                    busy ||
+                    active ||
+                    !resolution ||
+                    !validChecks ||
+                    !reviewed ||
+                    !quiescent ||
+                    note.trim().length < 10
+                  }
+                  onClick={() => void reconcile()}
+                >
+                  {copy('Verify evidence and reconcile', 'Verificar evidencia y conciliar')}
+                </button>
+                <p className="nx-caption">
+                  {copy(
+                    'Reconciliation records an evidenced outcome and may release retained resources; it does not undo effects. A crashed process without trustworthy termination evidence may require SDK-level recovery and remains blocked here.',
+                    'La conciliación registra un resultado respaldado y puede liberar recursos; no revierte efectos. Un proceso sin evidencia fiable de terminación puede requerir recuperación mediante SDK y permanece bloqueado aquí.',
+                  )}
+                </p>
+              </Panel>
+            </>
+          )}
+        </>
+      )}
+      {result && (
+        <Panel title={copy('Reconciliation receipt', 'Recibo de conciliación')}>
+          <div className="nx-readout">
+            <span>
+              {t.status}:{' '}
+              <b>{String((result.result as Record<string, unknown>)?.status ?? '--')}</b>
+            </span>
+            <span>
+              {copy('Journal sequence', 'Secuencia del diario')}:{' '}
+              <b>{String(result.journal_sequence ?? '--')}</b>
+            </span>
+          </div>
+          <div className="nx-table-scroll">
+            <table className="nx-table">
+              <thead>
+                <tr>
+                  <th>{t.resource}</th>
+                  <th>{copy('Verified observation', 'Observaci\u00f3n verificada')}</th>
+                </tr>
+              </thead>
+              <tbody>
+                {Object.entries((result.verified_checks ?? {}) as Record<string, unknown>).map(
+                  ([path, value]) => (
+                    <tr key={path}>
+                      <td>
+                        <code>{path}</code>
+                      </td>
+                      <td>
+                        <code>{String(value)}</code>
+                      </td>
+                    </tr>
+                  ),
+                )}
+              </tbody>
+            </table>
+          </div>
+          <details className="nx-evidence-detail">
+            <summary>
+              {copy('Complete reconciliation record', 'Registro completo de conciliaci\u00f3n')}
+            </summary>
+            <pre className="nx-code">{JSON.stringify(result, null, 2)}</pre>
+          </details>
+        </Panel>
+      )}
+    </>
+  );
+}

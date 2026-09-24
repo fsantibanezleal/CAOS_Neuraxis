@@ -1,0 +1,11 @@
+import { readFileSync,writeFileSync,mkdirSync } from 'node:fs';
+import { fileURLToPath } from 'node:url';
+import vm from 'node:vm';
+import ts from 'typescript';
+const source=fileURLToPath(new URL('./src/data/',import.meta.url));
+const destination=fileURLToPath(new URL('../docs/theory/',import.meta.url));mkdirSync(destination,{recursive:true});
+function load(name){const code=ts.transpileModule(readFileSync(`${source}/${name}.ts`,'utf8'),{compilerOptions:{module:ts.ModuleKind.CommonJS,target:ts.ScriptTarget.ES2022}}).outputText;const exports={};vm.runInNewContext(code,{exports,require:(name)=>{if(name!=='./registry')throw Error('Unexpected content dependency');return {bi:(en,es)=>({en,es})};}});return exports;}
+const references=load('citations').CITATIONS;
+const pages=['introduction','methodology','implementation','experiments'];
+const index=['# Theory and experimental methods','','The same authored scientific content powers the bilingual application and these reviewable documents. Mathematical definitions, evidence limits and source links are preserved. Measured values remain in canonical artifacts rather than copied into prose.',''];
+for(const [i,name] of pages.entries()){const page=load(name)[name];const file=`0${i+1}_${name}.md`;index.push(`- [${page.title.en}](${file})`);const lines=[`# ${page.title.en}`, '',page.lede.en,'',`> ES: ${page.lede.es}`,''];for(const s of page.sections){lines.push(`## ${s.title.en}`,'',`*ES: ${s.title.es}*`,'');for(const p of s.paragraphs)lines.push(p.en,'',`> ES: ${p.es}`,'');for(const eq of s.equations)lines.push('$$',eq.tex,'$$','',eq.caption.en,'',`> ES: ${eq.caption.es}`,'');if(s.symbols)for(const x of s.symbols)lines.push(`- ${x.en} / ${x.es}`);if(s.steps)for(const[j,x]of s.steps.entries())lines.push(`${j+1}. ${x.en} / ${x.es}`);if(s.table){lines.push('',`| ${s.table.headers.map(x=>x.en).join(' | ')} |`,`| ${s.table.headers.map(()=>'---').join(' | ')} |`);for(const row of s.table.rows)lines.push(`| ${row.map(x=>x.en).join(' | ')} |`);}lines.push('','**Evidence limit:** '+s.limit.en,'',`> ES: ${s.limit.es}`,'',s.refs.map(id=>{const r=references.find(r=>r.id===id);return `[${r.label}](${r.doi?'https://doi.org/'+r.doi:r.url})`;}).join('; '),'');}writeFileSync(`${destination}/${file}`,lines.join('\n'));}writeFileSync(`${destination}/theory.md`,index.join('\n')+'\n');
