@@ -16,8 +16,8 @@ export const introduction: ContentPage = {
           'La automatización opera en un mundo cambiante. Un archivo cambia tras leerse, un proceso termina durante planificación, una escritura remota vence tras confirmarse y dos agentes compiten por recursos. Elegir una acción desde el último mensaje es solo parte de la tarea. El controlador retiene efectos pendientes, aplica versiones, detiene admisiones al cancelar y distingue consecuencias verificadas de afirmaciones plausibles.',
         ),
         b(
-          'The workbench serves engineers investigating bounded software agents, researchers evaluating computation allocation and operators inspecting reproducible executions. It is organized around one selected scenario: control the virtual environment, run or step a policy, introduce an observed fault and inspect the outcome. Native executions use a separately authenticated local runtime with configured capabilities. Canonical episodes preserve actual measured software runs; their replay cannot execute the recorded effects again.',
-          'El banco sirve a ingenieros de agentes acotados, investigadores de asignación de cómputo y operadores de ejecuciones reproducibles. Se organiza en un caso: controlar el entorno virtual, ejecutar por pasos, introducir fallos y examinar resultados. Las ejecuciones nativas usan motor local autenticado y capacidades configuradas. Los episodios canónicos preservan ejecuciones medidas y reproducirlos nunca repite sus efectos.',
+          'The application starts with work that produces inspectable deliverables: audit a source workspace, reconcile a tabular delivery, or verify a release bundle. Supply UTF-8 files or inspect the owned compound workload before running it. The controller executes registered analyzers through the native broker, coordinates dependent stages, and produces actionable findings, preserved input bytes, accepted records and a SHA-256 manifest. A completed investigation may correctly identify a broken delivery; success of the analysis is separate from acceptance of the input. The Investigations view compares actual recorded controllers under matching task conditions, including failed outcomes.',
+          'La aplicación comienza con trabajo que produce entregables inspeccionables: auditar un proyecto, conciliar datos tabulares o verificar una entrega. Proporcionar archivos UTF-8 o inspeccionar la carga propia antes de ejecutarla. El controlador ejecuta analizadores registrados mediante el núcleo nativo, coordina dependencias y produce hallazgos, entradas conservadas, registros aceptados y un manifiesto SHA-256. Una investigación completada puede identificar correctamente una entrega defectuosa; el éxito del análisis se separa de la aceptación de la entrada. Investigaciones compara controladores realmente ejecutados bajo condiciones emparejadas, incluidos fallos.',
         ),
         b(
           'The twenty task families cover document routing, indexing, data validation, recovery, retry, ambiguous writes, cancellation, resource pressure, dependencies, contention, delegation, deadlines, malformed proposals, hostile observations, missing evidence, new registered tools, event order, drift and crash recovery. They are engineered tasks with explicit truth conditions. Their value is that success can be independently checked. Their limitation is that passing them does not establish general performance on arbitrary applications or human workflows.',
@@ -35,8 +35,8 @@ export const introduction: ContentPage = {
       ],
       refs: ['lu2024', 'typesafe2026'],
       limit: b(
-        "The hosted browser controls a virtual workspace. It does not acquire access to arbitrary files, processes or accounts on the viewer's computer.",
-        'El navegador alojado controla un espacio virtual. No adquiere acceso a archivos, procesos ni cuentas arbitrarias del equipo.',
+        'Hosted tasks process only the text files explicitly submitted to a bounded native service. Arbitrary code execution and access to the viewer’s filesystem are not granted. Broader local workflows require an operator-configured authenticated runtime.',
+        'Las tareas alojadas procesan solo archivos de texto enviados explícitamente a un servicio nativo acotado. No conceden ejecución arbitraria ni acceso al sistema de archivos del visitante. Los flujos locales amplios requieren un motor autenticado configurado por el operador.',
       ),
       nodes: [
         b('Goal + observations', 'Objetivo + observaciones'),
@@ -171,35 +171,35 @@ export const introduction: ContentPage = {
       title: b('End-to-end workflow', 'Flujo completo'),
       paragraphs: [
         b(
-          'Start with a scenario and a policy whose lane is explicit. In the browser, only faithfully implemented exact controllers operate the virtual workspace. Native and canonical lanes expose trained policies without replacing their weights with similarly named heuristics. Parameters alter the live environment: latency changes virtual action duration, reliability changes observed failures, noise changes refresh demand, concurrency introduces contention, and the deadline limits admitted work. The acceptance threshold controls the exact-policy refresh condition rather than pretending to calibrate a probability.',
-          'Elegir caso y política con modo explícito. Solo controladores exactos implementados operan el espacio virtual del navegador. Modos nativos y canónicos exponen políticas entrenadas sin sustituir pesos por heurísticas. Parámetros alteran duración, fallos, observaciones, contención y plazos. El umbral controla actualización de evidencia en la política exacta sin aparentar calibración probabilística.',
+          'Choose a concrete task and inspect its inputs. The compound release bundle contains 32 Python modules, 16 JSON configurations, 400 initial CSV records, 18 declared jobs and a release manifest. Clean, corrupt, conflicting and combined conditions alter the actual bytes; findings are computed from those bytes, not looked up from a condition label. A release investigation has nine dependency-ordered stages. Independent checks run when their prerequisites have succeeded, while report assembly waits for every relevant analyzer. Cancelling stops new admissions and retains effects already recorded. Uploaded source is parsed as text and never executed.',
+          'Elegir una tarea concreta e inspeccionar sus entradas. La entrega compuesta contiene 32 módulos Python, 16 configuraciones JSON, 400 registros CSV iniciales, 18 tareas declaradas y un manifiesto. Las condiciones válida, dañada, conflictiva y combinada modifican bytes reales; los hallazgos se calculan con esos bytes, no con una etiqueta. La investigación tiene nueve etapas ordenadas por dependencias. Comprobaciones independientes se ejecutan al cumplir prerrequisitos, mientras el informe espera a todos los analizadores. Cancelar detiene nuevas admisiones y conserva efectos registrados. El código enviado se analiza como texto y nunca se ejecuta.',
         ),
         b(
-          'Use the decision cursor to align events, resource versions, candidate scores and predicted effects. Missing quantities are visibly absent. A resource graph can show the snapshot recorded at the selected decision; an imported file is treated as untrusted evidence and cannot dispatch actions. Export preserves the episode, parameters and provenance so another analyst can inspect the same sequence. A canonical replay changes only the display cursor; a new native run is a distinct execution with a new identity.',
-          'El cursor alinea eventos, versiones, candidatos y efectos. Los valores ausentes permanecen visibles como ausencias. El grafo muestra la instantánea registrada; archivos importados son evidencia no confiable sin ejecución. Exportar conserva episodio, parámetros y procedencia. La reproducción canónica solo cambia el cursor; ejecutar nativamente crea una identidad nueva.',
+          'Inspect a finding to open the relevant original file, select an execution node to inspect its verified artifact, and download the result bundle to retain inputs, reports and accepted data. The source audit checks Python syntax, strict JSON and TOML; it does not claim to run a repository’s test suite. CSV reconciliation checks shape, identifiers and foreign keys when a matching input table is present. Release verification compares supplied files with declared digests. For controller research, switch to Investigations: select the same case, condition and seed for two methods, then compare their actual outcomes, actions and planner work. Missing evidence remains absent.',
+          'Inspeccionar un hallazgo abre el archivo original; seleccionar un nodo muestra su artefacto verificado; descargar conserva entradas, informes y datos aceptados. La auditoría comprueba sintaxis Python, JSON estricto y TOML; no afirma ejecutar las pruebas de un repositorio. La conciliación CSV comprueba estructura, identificadores y claves externas cuando existe una tabla correspondiente. La verificación compara archivos y huellas declaradas. Para investigación, abrir Investigaciones: elegir caso, condición y semilla iguales para dos métodos y comparar resultados, acciones y trabajo del planificador reales. La evidencia ausente permanece ausente.',
         ),
       ],
       equations: [],
       steps: [
         b(
-          'Choose the case, method, execution lane, variant and seed.',
-          'Elegir caso, método, modo, variante y semilla.',
+          'Choose a useful task and inspect the selected input files.',
+          'Elegir una tarea útil e inspeccionar los archivos seleccionados.',
         ),
         b(
-          'Inspect the goal and configured authority before a native run.',
-          'Inspeccionar objetivo y autoridad antes de ejecutar nativamente.',
+          'Review the task’s declared checks and expected deliverables.',
+          'Revisar comprobaciones declaradas y entregables esperados.',
         ),
         b(
-          'Run or step, then intervene with a fault or cancellation.',
-          'Ejecutar o avanzar e intervenir con fallo o cancelación.',
+          'Execute the task and follow its real dependencies; cancel if needed.',
+          'Ejecutar y seguir dependencias reales; cancelar si es necesario.',
         ),
         b(
           'Inspect admission, execution and verified outcome as separate records.',
           'Inspeccionar admisión, ejecución y resultado como registros separados.',
         ),
         b(
-          'Compare a paired canonical method and export the evidence.',
-          'Comparar método canónico emparejado y exportar evidencia.',
+          'Download results; use matched investigations to study controller behavior.',
+          'Descargar resultados; usar investigaciones emparejadas para estudiar controladores.',
         ),
       ],
       refs: ['lu2024', 'behaviortree2026'],

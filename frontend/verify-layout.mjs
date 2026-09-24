@@ -57,10 +57,9 @@ for (const viewport of sizes) for (const theme of ['light', 'dark']) for (const 
     checks.push({ route, viewport, theme, lang, documentFlow: true, finalSourceVisible: true, ...before });
   }
   await page.locator('.site-header .nav-link[href="/"]').click();
-  await expect(page.locator('.nx-layout')).toBeVisible();
+  await expect(page.locator('.op-layout')).toBeVisible();
   await expect.poll(() => page.evaluate(() => scrollY)).toBe(0);
-  if (viewport.width >= 761) await expect(page.locator('.app-shell')).toHaveClass(/fixed/);
-  else await expect(page.locator('.app-shell')).not.toHaveClass(/fixed/);
+  await expect(page.locator('.app-shell')).not.toHaveClass(/fixed/);
   await page.close();
 }
 await browser.close();

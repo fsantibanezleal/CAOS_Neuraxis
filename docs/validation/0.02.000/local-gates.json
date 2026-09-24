@@ -1,0 +1,26 @@
+{
+  "date": "2026-09-24",
+  "python": {
+    "passed": 36,
+    "windows_skipped": 1,
+    "reason": "POSIX symlink test"
+  },
+  "linux_deployment_tests": {
+    "passed": 10,
+    "skipped": 0,
+    "python": "3.12.3"
+  },
+  "frontend_tests": 21,
+  "production_dependency_vulnerabilities": 0,
+  "native_study_runs": 36,
+  "canonical_core_episodes": 14400,
+  "research_episodes": 19488,
+  "content_views": 296,
+  "route_gesture_views": 120,
+  "matched_investigation_views": 48,
+  "desktop_route_views": 72,
+  "benchmark_views": 56,
+  "mobile_control_views": 12,
+  "operation_upload_export_delete_views": 8,
+  "hosted_ci": "not a pass; account billing blocker previously observed; recheck on promotion"
+}

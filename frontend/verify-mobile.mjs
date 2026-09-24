@@ -9,7 +9,7 @@ for(const size of [{width:360,height:800},{width:390,height:844},{width:430,heig
  page.on('pageerror',e=>errors.push(e.message));
  await page.goto(base);
  await page.evaluate(({theme,lang})=>{localStorage.setItem('caos.theme',theme);localStorage.setItem('caos.lang',lang);},{theme,lang});
- await page.reload();
+ await page.reload();await page.getByRole('tab',{name:/Engine & local workspace|Motor y espacio local/}).click();
  const toggle=page.locator('.nx-mobile-switch button');
  await toggle.click();
  for(let i=0;i<4;i++) {

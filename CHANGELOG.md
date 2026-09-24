@@ -1,5 +1,13 @@
 # Changelog
 
+## 0.02.000 - 2026-09-24
+
+- Replace the default simulation with native source audit, CSV reconciliation and release-verification tasks on supplied files, including immutable inputs, findings, accepted outputs, receipts, cancellation, export and deletion.
+- Add bounded session-owned operation service, reproducible systemd/nginx deployment and local composition without account credentials.
+- Add matched controller investigations and a separate 36-run compound operation study with checked hashes and independent output verification.
+- Rebuild scientific navigation with shared tabs, explicit paragraph citations, section bibliographies, measured method outcomes and distinct implementation figures.
+- Restore centered shell width, vertical document flow and active workbench mode after route navigation. Preserve the frozen scientific results and negative findings.
+
 ## Unreleased
 
 ### Added

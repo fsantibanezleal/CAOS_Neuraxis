@@ -48,6 +48,26 @@ def test_artifact_validator_rejects_empty_or_incomplete_matrix(tmp_path):
         validator.validate(tmp_path)
 
 
+def test_local_composition_routes_both_authority_domains(monkeypatch, tmp_path):
+    monkeypatch.setenv("REFLEXMESH_LOCAL_TOKEN", "integration-token-with-more-than-24-characters")
+    monkeypatch.setenv("NEURAXIS_OPERATIONS_ROOT", str(tmp_path))
+    monkeypatch.setenv("NEURAXIS_PORT", "8151")
+    app = module(ROOT / "app" / "main.py")
+    with TestClient(app.create_app(), base_url="http://127.0.0.1:8151") as client:
+        assert len(client.get("/api/config").json()["methods"]) == 12
+        assert len(client.get("/operations-api/config").json()["tasks"]) == 3
+        response = client.post("/operations-api/session", headers={"X-Neuraxis-Client": "operations-v1"})
+        assert response.status_code == 200
+        assert (
+            client.post(
+                "/api/run",
+                json={"case_id": "C01", "method_id": "M01"},
+                headers={"Authorization": "Bearer " + response.json()["token"]},
+            ).status_code
+            == 401
+        )
+
+
 def test_product_has_no_installable_engine():
     import tomllib
 

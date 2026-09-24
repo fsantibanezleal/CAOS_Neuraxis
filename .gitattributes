@@ -4,4 +4,5 @@
 
 # Canonical digests identify original bytes, including line endings.
 data/derived/** -text -diff
+data/operations/** -text -diff
 docs/evaluation/*.json -text whitespace=cr-at-eol

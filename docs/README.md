@@ -2,6 +2,8 @@
 
 Read the [corrected scientific results](evaluation/corrected-results.md) for the full comparison and negative findings, and the [software design](design/SDD.md) for contracts and requirement gates.
 
+Use [operational tasks](workbench/operations.md) for the default real-file workflows and [the rebuild research](research/06-operational-rebuild.md) for their evidence boundaries.
+
 Start with [architecture](architecture.md) to understand the authority, learned state and asynchronous planning boundaries. [Guides](guides.md) cover local execution and reproduction. [Frameworks](frameworks.md) identifies each distinct scientific method; [cases](cases.md) defines actual effect truth and controlled fault variants.
 
 The [research dossiers](research/README.md) preserve the initial primary-source review and its evidence labels. Their historical research-only status describes that review pass. Current software behavior is documented in the architecture and code, while measured results live in the canonical artifact index with source/model/split hashes. A paper claim, implemented algorithm and reproduced experiment are distinct records.

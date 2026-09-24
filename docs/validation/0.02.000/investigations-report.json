@@ -1,0 +1,342 @@
+{
+  "base": "http://127.0.0.1:4180",
+  "checks": [
+    {
+      "width": 1600,
+      "theme": "light",
+      "lang": "en",
+      "method": "M01",
+      "matched": true
+    },
+    {
+      "width": 1600,
+      "theme": "light",
+      "lang": "en",
+      "method": "M03",
+      "matched": true
+    },
+    {
+      "width": 1600,
+      "theme": "light",
+      "lang": "en",
+      "method": "M05",
+      "matched": true
+    },
+    {
+      "width": 1600,
+      "theme": "light",
+      "lang": "en",
+      "method": "M07",
+      "matched": true
+    },
+    {
+      "width": 1600,
+      "theme": "light",
+      "lang": "en",
+      "method": "M09",
+      "matched": true
+    },
+    {
+      "width": 1600,
+      "theme": "light",
+      "lang": "en",
+      "method": "M12",
+      "matched": true
+    },
+    {
+      "width": 1600,
+      "theme": "light",
+      "lang": "es",
+      "method": "M01",
+      "matched": true
+    },
+    {
+      "width": 1600,
+      "theme": "light",
+      "lang": "es",
+      "method": "M03",
+      "matched": true
+    },
+    {
+      "width": 1600,
+      "theme": "light",
+      "lang": "es",
+      "method": "M05",
+      "matched": true
+    },
+    {
+      "width": 1600,
+      "theme": "light",
+      "lang": "es",
+      "method": "M07",
+      "matched": true
+    },
+    {
+      "width": 1600,
+      "theme": "light",
+      "lang": "es",
+      "method": "M09",
+      "matched": true
+    },
+    {
+      "width": 1600,
+      "theme": "light",
+      "lang": "es",
+      "method": "M12",
+      "matched": true
+    },
+    {
+      "width": 1600,
+      "theme": "dark",
+      "lang": "en",
+      "method": "M01",
+      "matched": true
+    },
+    {
+      "width": 1600,
+      "theme": "dark",
+      "lang": "en",
+      "method": "M03",
+      "matched": true
+    },
+    {
+      "width": 1600,
+      "theme": "dark",
+      "lang": "en",
+      "method": "M05",
+      "matched": true
+    },
+    {
+      "width": 1600,
+      "theme": "dark",
+      "lang": "en",
+      "method": "M07",
+      "matched": true
+    },
+    {
+      "width": 1600,
+      "theme": "dark",
+      "lang": "en",
+      "method": "M09",
+      "matched": true
+    },
+    {
+      "width": 1600,
+      "theme": "dark",
+      "lang": "en",
+      "method": "M12",
+      "matched": true
+    },
+    {
+      "width": 1600,
+      "theme": "dark",
+      "lang": "es",
+      "method": "M01",
+      "matched": true
+    },
+    {
+      "width": 1600,
+      "theme": "dark",
+      "lang": "es",
+      "method": "M03",
+      "matched": true
+    },
+    {
+      "width": 1600,
+      "theme": "dark",
+      "lang": "es",
+      "method": "M05",
+      "matched": true
+    },
+    {
+      "width": 1600,
+      "theme": "dark",
+      "lang": "es",
+      "method": "M07",
+      "matched": true
+    },
+    {
+      "width": 1600,
+      "theme": "dark",
+      "lang": "es",
+      "method": "M09",
+      "matched": true
+    },
+    {
+      "width": 1600,
+      "theme": "dark",
+      "lang": "es",
+      "method": "M12",
+      "matched": true
+    },
+    {
+      "width": 360,
+      "theme": "light",
+      "lang": "en",
+      "method": "M01",
+      "matched": true
+    },
+    {
+      "width": 360,
+      "theme": "light",
+      "lang": "en",
+      "method": "M03",
+      "matched": true
+    },
+    {
+      "width": 360,
+      "theme": "light",
+      "lang": "en",
+      "method": "M05",
+      "matched": true
+    },
+    {
+      "width": 360,
+      "theme": "light",
+      "lang": "en",
+      "method": "M07",
+      "matched": true
+    },
+    {
+      "width": 360,
+      "theme": "light",
+      "lang": "en",
+      "method": "M09",
+      "matched": true
+    },
+    {
+      "width": 360,
+      "theme": "light",
+      "lang": "en",
+      "method": "M12",
+      "matched": true
+    },
+    {
+      "width": 360,
+      "theme": "light",
+      "lang": "es",
+      "method": "M01",
+      "matched": true
+    },
+    {
+      "width": 360,
+      "theme": "light",
+      "lang": "es",
+      "method": "M03",
+      "matched": true
+    },
+    {
+      "width": 360,
+      "theme": "light",
+      "lang": "es",
+      "method": "M05",
+      "matched": true
+    },
+    {
+      "width": 360,
+      "theme": "light",
+      "lang": "es",
+      "method": "M07",
+      "matched": true
+    },
+    {
+      "width": 360,
+      "theme": "light",
+      "lang": "es",
+      "method": "M09",
+      "matched": true
+    },
+    {
+      "width": 360,
+      "theme": "light",
+      "lang": "es",
+      "method": "M12",
+      "matched": true
+    },
+    {
+      "width": 360,
+      "theme": "dark",
+      "lang": "en",
+      "method": "M01",
+      "matched": true
+    },
+    {
+      "width": 360,
+      "theme": "dark",
+      "lang": "en",
+      "method": "M03",
+      "matched": true
+    },
+    {
+      "width": 360,
+      "theme": "dark",
+      "lang": "en",
+      "method": "M05",
+      "matched": true
+    },
+    {
+      "width": 360,
+      "theme": "dark",
+      "lang": "en",
+      "method": "M07",
+      "matched": true
+    },
+    {
+      "width": 360,
+      "theme": "dark",
+      "lang": "en",
+      "method": "M09",
+      "matched": true
+    },
+    {
+      "width": 360,
+      "theme": "dark",
+      "lang": "en",
+      "method": "M12",
+      "matched": true
+    },
+    {
+      "width": 360,
+      "theme": "dark",
+      "lang": "es",
+      "method": "M01",
+      "matched": true
+    },
+    {
+      "width": 360,
+      "theme": "dark",
+      "lang": "es",
+      "method": "M03",
+      "matched": true
+    },
+    {
+      "width": 360,
+      "theme": "dark",
+      "lang": "es",
+      "method": "M05",
+      "matched": true
+    },
+    {
+      "width": 360,
+      "theme": "dark",
+      "lang": "es",
+      "method": "M07",
+      "matched": true
+    },
+    {
+      "width": 360,
+      "theme": "dark",
+      "lang": "es",
+      "method": "M09",
+      "matched": true
+    },
+    {
+      "width": 360,
+      "theme": "dark",
+      "lang": "es",
+      "method": "M12",
+      "matched": true
+    }
+  ],
+  "errors": []
+}
