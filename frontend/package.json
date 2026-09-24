@@ -9,7 +9,9 @@
     "prebuild": "node copy-data.mjs",
     "build": "tsc --noEmit && vite build",
     "preview": "vite preview",
-    "test": "vitest run"
+    "test": "vitest run",
+    "format": "prettier --write \"src/**/*.{ts,tsx}\" vite.config.ts",
+    "format:check": "prettier --check \"src/**/*.{ts,tsx}\" vite.config.ts"
   },
   "dependencies": {
     "@fasl-work/caos-app-shell": "^0.6.8",
@@ -29,6 +31,7 @@
     "@types/react": "^19.0.0",
     "@types/react-dom": "^19.0.0",
     "@vitejs/plugin-react": "6.1.1",
+    "prettier": "3.9.8",
     "typescript": "^5.7.2",
     "vite": "8.3.0",
     "vitest": "5.0.1"

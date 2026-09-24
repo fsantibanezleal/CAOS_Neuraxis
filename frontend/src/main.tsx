@@ -10,4 +10,9 @@ import './neuraxis.css';
 applyTheme(readTheme());
 
 const el = document.getElementById('root');
-if (el) createRoot(el).render(<StrictMode><App /></StrictMode>);
+if (el)
+  createRoot(el).render(
+    <StrictMode>
+      <App />
+    </StrictMode>,
+  );

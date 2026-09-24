@@ -1,0 +1,150 @@
+{
+  "schema_version": 1,
+  "method": "M01 actual execution of each page first Python example under installed wheel",
+  "environment_source_revision": "81af4cfb5d356c8ae19ae0d06e36131a01843c6f",
+  "wheel_sha256": "1d70fe29e83f9cae1898ee68634626c8551fa55ffb6ca2864ac0a315d1023c87",
+  "all_local_links_resolve": true,
+  "cases": [
+    {
+      "case": "01",
+      "page": "01-workspace-document-routing.md",
+      "markdown_sha256": "07476f12d8edb321bc557ae66331649101687fdf6350eabec488da185a93188f",
+      "example_passed": true,
+      "elapsed_ms": 145.24499996332452
+    },
+    {
+      "case": "02",
+      "page": "02-incremental-file-indexing.md",
+      "markdown_sha256": "125532d6de7749778981932635bcee51a630d59d4db9e699e547d60a9a381284",
+      "example_passed": true,
+      "elapsed_ms": 105.74309999356046
+    },
+    {
+      "case": "03",
+      "page": "03-data-validation-and-quarantine.md",
+      "markdown_sha256": "a6de9e4215ee467362b24b8d25360b296e02bf66f6cc12b973768328cba659ec",
+      "example_passed": true,
+      "elapsed_ms": 300.97460001707077
+    },
+    {
+      "case": "04",
+      "page": "04-build-and-test-recovery.md",
+      "markdown_sha256": "f69300e0dbb30cf197c39ae479d8a1f64be2d63fab7bc3647bc44ed09a5e7854",
+      "example_passed": true,
+      "elapsed_ms": 170.82030000165105
+    },
+    {
+      "case": "05",
+      "page": "05-transient-http-retry.md",
+      "markdown_sha256": "ec326327e0e726eaec0bc42d230c40e7be5d0a84f6b3c1c7f92b2f29c297ea0e",
+      "example_passed": true,
+      "elapsed_ms": 136.71719998819754
+    },
+    {
+      "case": "06",
+      "page": "06-ambiguous-write-reconciliation.md",
+      "markdown_sha256": "6d83e490213755c5b75daaa9750a78a230d09255bdc8af28e8d9e90a3dcbbd88",
+      "example_passed": true,
+      "elapsed_ms": 106.3268999569118
+    },
+    {
+      "case": "07",
+      "page": "07-long-job-cancellation.md",
+      "markdown_sha256": "ca29cdb7d2355a1d767d017fe56ccc23975b3b9ec44d4a2c94cb6c1dc031b47b",
+      "example_passed": true,
+      "elapsed_ms": 95.7848000107333
+    },
+    {
+      "case": "08",
+      "page": "08-process-restart.md",
+      "markdown_sha256": "4fa9eca22cfd28a996ba3dbe4c9c041d794277a95e7a7133ead94f0411f96608",
+      "example_passed": true,
+      "elapsed_ms": 239.5702000358142
+    },
+    {
+      "case": "09",
+      "page": "09-bounded-storage-pressure.md",
+      "markdown_sha256": "2821061e65256c97e4dc4ca79cc3e6a3953f367856d3d7680fac5f0b6fd3611e",
+      "example_passed": true,
+      "elapsed_ms": 113.09050000272691
+    },
+    {
+      "case": "10",
+      "page": "10-dependency-ordered-workflow.md",
+      "markdown_sha256": "c66853b40f9d94c881de4309d371d87d26155d4f81cc421a7461ec70fc9c347e",
+      "example_passed": true,
+      "elapsed_ms": 128.12639999901876
+    },
+    {
+      "case": "11",
+      "page": "11-concurrent-file-revision.md",
+      "markdown_sha256": "2980790c3d7b04a57bf92c8a15440cb7ad61c8c7531af033d6705975893e1aed",
+      "example_passed": true,
+      "elapsed_ms": 122.20350001007318
+    },
+    {
+      "case": "12",
+      "page": "12-agent-job-collection.md",
+      "markdown_sha256": "f7ea9bc80c85baf5c96f5ab3b234c32c2c26e08909ca51096d9bb9bb480a9d99",
+      "example_passed": true,
+      "elapsed_ms": 177.92899999767542
+    },
+    {
+      "case": "13",
+      "page": "13-planner-deadline-pressure.md",
+      "markdown_sha256": "f0ddea56f68e050f290fd7c8b5d05321032a803bad1d17d95beafcac2fdc26c0",
+      "example_passed": true,
+      "elapsed_ms": 104.87460001604632
+    },
+    {
+      "case": "14",
+      "page": "14-unsupported-planner-argument.md",
+      "markdown_sha256": "776cb648522755af192e0b505fc3ddf0cded400156d007ee6222102e87304547",
+      "example_passed": true,
+      "elapsed_ms": 98.21150003699586
+    },
+    {
+      "case": "15",
+      "page": "15-untrusted-tool-text.md",
+      "markdown_sha256": "c2ed6f4d3ce61d2b08eaf6b5efffe5a4a69622eaa54175ef9a70bd61b1789db4",
+      "example_passed": true,
+      "elapsed_ms": 107.61070001171902
+    },
+    {
+      "case": "16",
+      "page": "16-missing-evidence.md",
+      "markdown_sha256": "711db2a0eef7a99c287ea115f7821d6fdf5e06c10cfb8d306a08d6c0f7f3ef59",
+      "example_passed": true,
+      "elapsed_ms": 110.32219999469817
+    },
+    {
+      "case": "17",
+      "page": "17-novel-registered-capability.md",
+      "markdown_sha256": "b80c1a85077c3432733bae48e984764a2adfe65b8ec5358de6ceca402108b3f0",
+      "example_passed": true,
+      "elapsed_ms": 78.84640002157539
+    },
+    {
+      "case": "18",
+      "page": "18-observation-ordering.md",
+      "markdown_sha256": "be937319c60c21f258d1fed3d920e00fc4c9180fb7e1bcd640c633c73ad1a952",
+      "example_passed": true,
+      "elapsed_ms": 116.75710004055873
+    },
+    {
+      "case": "19",
+      "page": "19-reliability-drift.md",
+      "markdown_sha256": "7d30319b04f79b5fe2cc61a1fd9a4de538233c4a8843705adcefc414b2c3e921",
+      "example_passed": true,
+      "elapsed_ms": 210.01569996587932
+    },
+    {
+      "case": "20",
+      "page": "20-crash-recovery.md",
+      "markdown_sha256": "53ecb1fc0a1cfa60acc92a7ac0a61f315e6269d8406a96a294830e05a7b86712",
+      "example_passed": true,
+      "elapsed_ms": 398.66989996517077
+    }
+  ],
+  "limitations": "Documentation example validation only; timings are not isolated benchmarks. Local API procedure is covered separately by service tests."
+}
