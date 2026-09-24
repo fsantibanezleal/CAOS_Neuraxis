@@ -1,0 +1,15 @@
+{
+  "native_run": {
+    "status": "succeeded",
+    "steps": 1,
+    "native_receipts": 1
+  },
+  "cancellation": {
+    "run_id": "d80d442cd3a24446bf56e802b3f3cb30",
+    "status": "cancelling",
+    "cancellation_requested": true,
+    "rollback_claimed": false
+  },
+  "unauthenticated_status": 401,
+  "page_errors": []
+}

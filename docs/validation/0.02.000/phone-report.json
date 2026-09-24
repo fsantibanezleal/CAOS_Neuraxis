@@ -1,0 +1,125 @@
+{
+  "report": [
+    {
+      "size": {
+        "width": 360,
+        "height": 800
+      },
+      "theme": "light",
+      "lang": "en",
+      "fields": 2,
+      "errors": []
+    },
+    {
+      "size": {
+        "width": 360,
+        "height": 800
+      },
+      "theme": "light",
+      "lang": "es",
+      "fields": 2,
+      "errors": []
+    },
+    {
+      "size": {
+        "width": 360,
+        "height": 800
+      },
+      "theme": "dark",
+      "lang": "en",
+      "fields": 2,
+      "errors": []
+    },
+    {
+      "size": {
+        "width": 360,
+        "height": 800
+      },
+      "theme": "dark",
+      "lang": "es",
+      "fields": 2,
+      "errors": []
+    },
+    {
+      "size": {
+        "width": 390,
+        "height": 844
+      },
+      "theme": "light",
+      "lang": "en",
+      "fields": 2,
+      "errors": []
+    },
+    {
+      "size": {
+        "width": 390,
+        "height": 844
+      },
+      "theme": "light",
+      "lang": "es",
+      "fields": 2,
+      "errors": []
+    },
+    {
+      "size": {
+        "width": 390,
+        "height": 844
+      },
+      "theme": "dark",
+      "lang": "en",
+      "fields": 2,
+      "errors": []
+    },
+    {
+      "size": {
+        "width": 390,
+        "height": 844
+      },
+      "theme": "dark",
+      "lang": "es",
+      "fields": 2,
+      "errors": []
+    },
+    {
+      "size": {
+        "width": 430,
+        "height": 932
+      },
+      "theme": "light",
+      "lang": "en",
+      "fields": 2,
+      "errors": []
+    },
+    {
+      "size": {
+        "width": 430,
+        "height": 932
+      },
+      "theme": "light",
+      "lang": "es",
+      "fields": 2,
+      "errors": []
+    },
+    {
+      "size": {
+        "width": 430,
+        "height": 932
+      },
+      "theme": "dark",
+      "lang": "en",
+      "fields": 2,
+      "errors": []
+    },
+    {
+      "size": {
+        "width": 430,
+        "height": 932
+      },
+      "theme": "dark",
+      "lang": "es",
+      "fields": 2,
+      "errors": []
+    }
+  ],
+  "failures": []
+}

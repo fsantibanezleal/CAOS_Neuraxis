@@ -1,0 +1,33 @@
+[Unit]
+Description=Neuraxis bounded native file operations
+After=network.target
+
+[Service]
+User=neuraxis-operations
+Group=neuraxis-operations
+WorkingDirectory=/opt/neuraxis-operations/current
+ExecStart=/opt/neuraxis-operations/venv/bin/python -m uvicorn app.operations_api:create_app --factory --host 127.0.0.1 --port 8174 --workers 1 --no-access-log
+Environment=NEURAXIS_OPERATIONS_HOST=neuraxis.ml.fasl-work.com
+Environment=NEURAXIS_OPERATIONS_ROOT=/var/lib/neuraxis-operations
+Environment=PYTHONDONTWRITEBYTECODE=1
+StateDirectory=neuraxis-operations
+UMask=0077
+Restart=on-failure
+RestartSec=3
+TimeoutStopSec=110
+MemoryMax=512M
+CPUQuota=100%
+TasksMax=32
+NoNewPrivileges=true
+PrivateTmp=true
+ProtectSystem=strict
+ProtectHome=true
+ProtectKernelTunables=true
+ProtectKernelModules=true
+ProtectControlGroups=true
+RestrictSUIDSGID=true
+RestrictAddressFamilies=AF_UNIX AF_INET AF_INET6
+ReadWritePaths=/var/lib/neuraxis-operations
+
+[Install]
+WantedBy=multi-user.target

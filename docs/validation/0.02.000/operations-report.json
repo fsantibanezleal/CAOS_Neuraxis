@@ -1,0 +1,94 @@
+{
+  "base": "http://127.0.0.1:4180",
+  "checks": [
+    {
+      "width": 1600,
+      "theme": "light",
+      "lang": "en",
+      "ownedFindings": 10,
+      "userFindings": 3,
+      "normalizedData": true,
+      "export": true,
+      "delete": true,
+      "overflow": false
+    },
+    {
+      "width": 1600,
+      "theme": "light",
+      "lang": "es",
+      "ownedFindings": 10,
+      "userFindings": 3,
+      "normalizedData": true,
+      "export": true,
+      "delete": true,
+      "overflow": false
+    },
+    {
+      "width": 1600,
+      "theme": "dark",
+      "lang": "en",
+      "ownedFindings": 10,
+      "userFindings": 3,
+      "normalizedData": true,
+      "export": true,
+      "delete": true,
+      "overflow": false
+    },
+    {
+      "width": 1600,
+      "theme": "dark",
+      "lang": "es",
+      "ownedFindings": 10,
+      "userFindings": 3,
+      "normalizedData": true,
+      "export": true,
+      "delete": true,
+      "overflow": false
+    },
+    {
+      "width": 360,
+      "theme": "light",
+      "lang": "en",
+      "ownedFindings": 10,
+      "userFindings": 3,
+      "normalizedData": true,
+      "export": true,
+      "delete": true,
+      "overflow": false
+    },
+    {
+      "width": 360,
+      "theme": "light",
+      "lang": "es",
+      "ownedFindings": 10,
+      "userFindings": 3,
+      "normalizedData": true,
+      "export": true,
+      "delete": true,
+      "overflow": false
+    },
+    {
+      "width": 360,
+      "theme": "dark",
+      "lang": "en",
+      "ownedFindings": 10,
+      "userFindings": 3,
+      "normalizedData": true,
+      "export": true,
+      "delete": true,
+      "overflow": false
+    },
+    {
+      "width": 360,
+      "theme": "dark",
+      "lang": "es",
+      "ownedFindings": 10,
+      "userFindings": 3,
+      "normalizedData": true,
+      "export": true,
+      "delete": true,
+      "overflow": false
+    }
+  ],
+  "errors": []
+}

@@ -6,6 +6,7 @@ import '@fasl-work/caos-app-shell/styles.css';
 import 'katex/dist/katex.min.css';
 import './i18n';
 import './neuraxis.css';
+import './operations.css';
 
 applyTheme(readTheme());
 

@@ -8,6 +8,7 @@ import tarfile
 from pathlib import Path
 
 from check_artifacts import validate
+from check_operations import validate as validate_operations
 from check_research import validate as validate_research
 
 ROOT = Path(__file__).resolve().parents[1]
@@ -19,6 +20,7 @@ def package(output: Path, build: Path | None = None):
         raise ValueError("static build requires the application and canonical evidence")
     coverage = validate(build / "data")
     validate_research(build / "data")
+    operations = validate_operations(ROOT, build / "operations")
     commit = subprocess.check_output(["git", "rev-parse", "HEAD"], cwd=ROOT, text=True).strip()
     files = []
     for path in sorted(build.rglob("*")):
@@ -39,6 +41,7 @@ def package(output: Path, build: Path | None = None):
         "version": (ROOT / "VERSION").read_text().strip(),
         "files": files,
         "canonical_coverage": coverage,
+        "operation_coverage": operations,
     }
     (build / "release.json").write_text(json.dumps(manifest, separators=(",", ":")), encoding="utf-8")
     output.parent.mkdir(parents=True, exist_ok=True)

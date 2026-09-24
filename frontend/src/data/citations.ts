@@ -1,6 +1,47 @@
 import type { Citation } from '@fasl-work/caos-app-shell';
 export const CITATIONS: Citation[] = [
   {
+    id: 'neuraxis2026',
+    label: 'Neuraxis implementation (2026)',
+    citation:
+      'Neuraxis. Product implementation and measured operation records, release 0.02.000. Source repository access requires authorization; measured artifacts are available in Experiments.',
+    url: 'https://github.com/fsantibanezleal/CAOS_Neuraxis',
+  },
+  {
+    id: 'reflexmesh2026',
+    label: 'reflexmesh 0.1.0',
+    citation:
+      'Santibáñez-Leal F. reflexmesh 0.1.0: native software-control runtime, released implementation and corrected evaluation evidence (2026).',
+    url: 'https://github.com/fsantibanezleal/reflexmesh/tree/v0.01.000',
+  },
+  {
+    id: 'amershi2019',
+    label: 'Amershi et al. 2019',
+    citation: 'Amershi S et al. Guidelines for Human-AI Interaction. CHI 2019.',
+    doi: '10.1145/3290605.3300233',
+  },
+  {
+    id: 'zhang2025',
+    label: 'Zhang et al. 2025',
+    citation:
+      'Zhang S et al. Leveraging Dual Process Theory in Language Agent Framework for Real-time Simultaneous Human-AI Collaboration (2025).',
+    url: 'https://arxiv.org/abs/2502.11882',
+  },
+  {
+    id: 'madras2018',
+    label: 'Madras et al. 2018',
+    citation:
+      'Madras D, Pitassi T, Zemel R. Predict Responsibly: Improving Fairness and Accuracy by Learning to Defer. NeurIPS 2018.',
+    url: 'https://arxiv.org/abs/1711.06664',
+  },
+  {
+    id: 'barres2025',
+    label: 'Barres et al. 2025',
+    citation:
+      'Barres V et al. tau2-Bench: Evaluating Conversational Agents in a Dual-Control Environment (2025).',
+    url: 'https://arxiv.org/abs/2506.07982',
+  },
+  {
     id: 'bago2017',
     label: 'Bago and De Neys 2017',
     citation:

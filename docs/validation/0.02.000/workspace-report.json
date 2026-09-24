@@ -1,0 +1,83 @@
+{
+  "verified_run": {
+    "run_id": "514ac03ba9764565bb21495c24d3f23c",
+    "status": "succeeded",
+    "verified_success": true,
+    "event_count": 2,
+    "goal_evidence": {
+      "step_1": {
+        "state": "succeeded",
+        "error": null,
+        "history": [
+          {
+            "kind": "decision",
+            "decision": {
+              "policy_id": "verified-workflow-fsm",
+              "candidate_id": "step_1",
+              "mode": "act",
+              "confidence": null,
+              "scores": {},
+              "reason": "registered_dependency_ready",
+              "diagnostics": {}
+            },
+            "event_id": "7458096a95f145d98e89e3f7caeab665",
+            "revision": 0
+          },
+          {
+            "kind": "effect",
+            "receipt": {
+              "accepted_ms": 43,
+              "cancellation_requested": false,
+              "expires_ms": 30043,
+              "finished_ms": 77,
+              "intent": {
+                "action_id": "file.write",
+                "action_version": 1,
+                "arguments": {
+                  "content": "A native write verified independently.\n",
+                  "path": "ui-verified-1790225379955.txt"
+                },
+                "idempotency_key": null,
+                "intent_id": "1eafaa194e3048549dcfc9567e104e6e",
+                "resources": [
+                  {
+                    "access": "write",
+                    "expected_revision": 0,
+                    "resource_id": "file:ui-verified-1790225379955.txt"
+                  }
+                ],
+                "ttl_ms": 30000
+              },
+              "invalidation_reason": null,
+              "outcome": {
+                "changed_resources": [
+                  "file:ui-verified-1790225379955.txt"
+                ],
+                "evidence": {
+                  "bytes": 39,
+                  "expected_sha256": "86f1345a05c706d0791779dea26adb2d1f9785f29183103dad6f05354895a533",
+                  "path": "ui-verified-1790225379955.txt",
+                  "sha256": "86f1345a05c706d0791779dea26adb2d1f9785f29183103dad6f05354895a533"
+                },
+                "resource_fingerprints": {
+                  "file:ui-verified-1790225379955.txt": "sha256:86f1345a05c706d0791779dea26adb2d1f9785f29183103dad6f05354895a533"
+                },
+                "status": "completed_verified"
+              },
+              "started_ms": 46,
+              "status": "completed_verified"
+            }
+          }
+        ]
+      }
+    }
+  },
+  "stale_preview_status": 409,
+  "cancellation": {
+    "run_id": "af1616ac747c4e92854c306cc05653bd",
+    "status": "cancelling",
+    "cancellation_requested": true,
+    "rollback_claimed": false
+  },
+  "page_errors": []
+}

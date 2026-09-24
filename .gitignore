@@ -55,3 +55,6 @@ models/*.pth
 .DS_Store
 Thumbs.db
 *.log
+.runtime/
+frontend/qa/
+frontend/public/operations/

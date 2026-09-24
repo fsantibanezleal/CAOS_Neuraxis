@@ -1,5 +1,5 @@
 # CAOS Neuraxis software design
-Date: 2026-09-23. Display release: 0.01.000.
+Date: 2026-09-24. Display release: 0.02.000.
 
 ## Review and migration record
 This records the existing research-backed implementation authorized before ADR-0075 was adopted on September 22. It is a September 23 migration of the current design, not a backdated pre-development review. The current user instruction explicitly continues the full implementation. Requirement convergence records distinguish local verification from publication and deployment.
@@ -13,7 +13,7 @@ The product consumes the separately versioned reflexmesh PyPI dependency and dec
 The local API uses a session bearer token, same-origin/loopback validation, bounded requests and immutable host registration. Workspace previews bind the entire validated recipe and current file hashes and expire after 120 seconds. Submission consumes a preview once. Recovery requires current unresolved-record identity, observed file evidence, effect review and process quiescence attestation.
 
 ## Lanes and measured basis
-The browser contains interactive simulation, immutable canonical replay and visualization. The static payload includes 14,400 trace files, about 243 MB before compression, plus the 5 MB index. Training, planner inference and effect execution run in the local installed package, never in CI or on the public web host.
+The browser contains interactive simulation, immutable canonical replay and visualization. The static payload includes 14,400 trace files, about 243 MB before compression, plus the 5 MB index. Training and planner inference run locally, never in CI. Public file tasks execute the installed native package under a separate fixed-tool service; user workspace authority stays local.
 The workspace local lane executes user-authored DAG recipes and displays actual native receipts. Static public requests to /api return 404. Offline research, model fitting and transfer workloads are retained in the package evidence.
 
 ## Method ladder
@@ -40,7 +40,7 @@ The twenty [case contracts](../cases/cases.md) cover files, builds, HTTP, proces
 The package evaluates actual environment postconditions. The app validates immutable receipt-bearing traces and displays outcomes unchanged, including failure, cancellation and abstention. Demonstration reliability is labeled as such. Native runs are checked with actual API responses; workspace/recovery browser tests verify real filesystem effects. Screenshots and viewport checks cover six routes, both languages and both themes.
 
 ## Deploy driver
-Private repository visibility excludes GitHub Pages. The 243 MB trace payload exceeds the 100 MB small-static-data planning threshold; the measured ML VPS has 37 GB free disk, 8 GB RAM and four CPUs. Deploy immutable compressed static releases to neuraxis.ml.fasl-work.com on that host. Archive installation enforces a 2 GiB unpacked limit, 100,000-file limit, exact hashes and atomic current-release switching. TLS must be verified externally for this hostname. No training service or user workspace is deployed there.
+Private repository visibility excludes GitHub Pages. The 243 MB trace payload exceeds the 100 MB small-static-data planning threshold; the measured ML VPS has 37 GB free disk, 8 GB RAM and four CPUs. Deploy immutable compressed static releases to neuraxis.ml.fasl-work.com on that host. Archive installation enforces a 2 GiB unpacked limit, 100,000-file limit, exact hashes and atomic current-release switching. TLS must be verified externally for this hostname. The additional operation service has two concurrent native runs, 24 retained directories, one-hour retention, 512 MiB memory and one CPU quota. No training service or general user workspace is deployed there. The separately reviewed [operational requirements](features/operational-workbench/requirements.md) govern its input and authority boundaries.
 
 ## Risks and kill criteria
 Reject incomplete matrices, wrong run identities, hash drift, tokenless effects, stale previews, clipped controls and invalid mathematics. Do not release with an unresolved artifact or process ownership defect. A green build alone cannot establish deployment, usable controls or scientific superiority. Actual PyPI publication, verified TLS and final remote branch state remain separate completion gates.
