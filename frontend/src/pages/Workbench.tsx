@@ -465,7 +465,7 @@ export default function Workbench() {
       id: 'environment',
       label: t.environment,
       content: (
-        <div className="nx-controls">
+        <div className="nx-controls nx-environment-controls">
           {lane === 'native' && (
             <label className="nx-control">
               {lang === 'en' ? 'Maximum native steps' : 'Máximo de pasos nativos'}
