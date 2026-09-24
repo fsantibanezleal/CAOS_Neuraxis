@@ -1,5 +1,5 @@
 import { useMemo, useState } from 'react';
-import { Callout, Cite, Refs, SubTabs } from '@fasl-work/caos-app-shell';
+import { Callout, Cite, Refs, ReferenceList, Tabs } from '@fasl-work/caos-app-shell';
 import { Download } from 'lucide-react';
 import { useArtifacts, episodeReferences, downloadJSON } from '../api/artifacts';
 import { useCopy } from '../i18n';
@@ -368,7 +368,7 @@ export default function Benchmark() {
     </Panel>
   );
   return (
-    <div className="page-body wide nx-benchmark">
+    <div className="page-body prose nx-benchmark">
       <div className="page-head">
         <h1>{t.benchmark}</h1>
         <p className="lede">
@@ -430,7 +430,7 @@ export default function Benchmark() {
             </div>
           </div>
           <div className="nx-benchmark-body">
-            <SubTabs
+            <Tabs
               ariaLabel={t.evidence}
               tabs={[
                 { id: 'results', label: t.table, content: table },
@@ -449,6 +449,16 @@ export default function Benchmark() {
                   id: 'confusion',
                   label: t.confusion,
                   content: selected ? <Confusion data={selected} /> : null,
+                },
+                {
+                  id: 'bibliography',
+                  label: lang === 'en' ? 'Bibliography' : 'Bibliografía',
+                  content: (
+                    <ReferenceList
+                      ids={['agarwal2021', 'guo2017', 'lu2024', 'schulman2017', 'ross2011']}
+                      heading={lang === 'en' ? 'Bibliography' : 'Bibliografía'}
+                    />
+                  ),
                 },
                 {
                   id: 'provenance',

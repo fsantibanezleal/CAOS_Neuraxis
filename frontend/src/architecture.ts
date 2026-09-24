@@ -18,9 +18,9 @@ export const architecture: ArchitectureConfig = {
       en: 'Execution lanes',
       es: 'Modos de ejecución',
       body_en:
-        'The browser operates a deterministic virtual workspace with exact policies. The authenticated runtime executes registered software cases with trained policies, or user-authored recipes under a strict dependency controller in an operator-configured workspace. Offline computation fits and evaluates models. Canonical replay never repeats effects.',
+        'Tasks runs bounded file checks and produces verified outputs through the native engine on the same origin. Investigations compares measured controller executions without repeating effects. The advanced view retains deterministic virtual experiments, authenticated trained policies and user-authored recipes in an operator-selected local workspace. Offline computation fits and evaluates models.',
       body_es:
-        'El navegador opera un espacio virtual determinista. El motor autenticado ejecuta casos con políticas entrenadas o recetas del usuario mediante dependencias estrictas en un espacio configurado por el operador. El cómputo fuera de línea ajusta y evalúa. La reproducción canónica nunca repite efectos.',
+        'Tareas comprueba archivos y produce salidas verificadas mediante el motor nativo del mismo origen. Investigaciones compara ejecuciones medidas sin repetir efectos. La vista avanzada conserva experimentos virtuales, políticas entrenadas autenticadas y recetas en un espacio local seleccionado por el operador. El cómputo fuera de línea ajusta y evalúa modelos.',
       svg: svg('02-lanes'),
     },
     {
@@ -28,9 +28,9 @@ export const architecture: ArchitectureConfig = {
       en: 'Workbench flow',
       es: 'Flujo del banco',
       body_en:
-        'A selected case, policy, lane and parameter set determine a run. Run, step, fault and cancel modify the appropriate live lane. Timeline, resource, probability, effect and coordination instruments share a decision cursor. Import is data only; export preserves parameters and provenance.',
+        'Select a task and supply text files or inspect the owned compound incident. Run the native tools, follow their dependencies and inspect findings at their original file and line. Review accepted CSV rows, rejected rows and independent hash checks; download the evidence or delete the run. Investigations connects each controller decision to an observed state change, receipt and planner request.',
       body_es:
-        'Caso, política, modo y parámetros determinan la ejecución. Ejecutar, paso, fallo y cancelar modifican el modo correspondiente. Instrumentos de cronología, recursos, probabilidades, efectos y coordinación comparten cursor. Importar solo carga datos; exportar conserva procedencia.',
+        'Elegir tarea y cargar archivos de texto o inspeccionar el incidente compuesto propio. Ejecutar herramientas nativas, seguir dependencias e inspeccionar hallazgos en archivo y línea originales. Revisar filas aceptadas, rechazadas y hashes; descargar evidencia o eliminar la ejecución. Investigaciones conecta decisiones con cambios observados, recibos y solicitudes al planificador.',
       svg: svg('03-web-flow'),
     },
     {

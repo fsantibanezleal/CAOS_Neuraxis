@@ -1,17 +1,68 @@
 import { bi as b } from './registry';
 import type { ContentPage, ContentSection } from './content.types';
-const sharedNodes = [
-  b('Typed observation', 'Observación tipada'),
-  b('Causal features', 'Características causales'),
-  b('Policy proposal', 'Propuesta de política'),
-  b('Admission + execution', 'Admisión + ejecución'),
-  b('Evidence artifact', 'Artefacto de evidencia'),
-];
+const moduleNodes: Record<string, ReturnType<typeof b>[]> = {
+  runtime: [
+    b('Versioned observation', 'Observación versionada'),
+    b('Admissible candidates', 'Candidatos admisibles'),
+    b('Native admission', 'Admisión nativa'),
+    b('Registered effect', 'Efecto registrado'),
+    b('Receipt and verification', 'Recibo y verificación'),
+  ],
+  features: [
+    b('Observed state', 'Estado observado'),
+    b('Scale and clip', 'Escalar y limitar'),
+    b('Candidate features', 'Características candidatas'),
+    b('Frozen checkpoint', 'Modelo congelado'),
+    b('Versioned episode', 'Episodio versionado'),
+  ],
+  classical: [
+    b('Training demonstrations', 'Demostraciones'),
+    b('Linear / boosted trees', 'Lineal / árboles'),
+    b('Held-out calibration', 'Calibración separada'),
+    b('Candidate ranking', 'Orden de candidatos'),
+    b('Actual action reward', 'Recompensa observada'),
+  ],
+  recurrent: [
+    b('Goal state and history', 'Estado e historial'),
+    b('GRU hidden state', 'Estado oculto GRU'),
+    b('Candidate logits', 'Logits candidatos'),
+    b('Masked action', 'Acción enmascarada'),
+    b('ONNX parity audit', 'Auditoría ONNX'),
+  ],
+  planning: [
+    b('Observed transition', 'Transición observada'),
+    b('Predicted effect', 'Efecto predicho'),
+    b('Bounded search', 'Búsqueda limitada'),
+    b('Async planner proposal', 'Propuesta asíncrona'),
+    b('Revalidate revision', 'Revalidar revisión'),
+  ],
+  browser: [
+    b('Files and selected task', 'Archivos y tarea'),
+    b('Immutable input bundle', 'Entradas inmutables'),
+    b('Dependency controller', 'Control de dependencias'),
+    b('Verified artifacts', 'Artefactos verificados'),
+    b('Inspect and export', 'Inspeccionar y exportar'),
+  ],
+  pipeline: [
+    b('Whole-group split', 'División por grupos'),
+    b('Fit and calibrate', 'Ajustar y calibrar'),
+    b('Freeze checkpoints', 'Congelar modelos'),
+    b('Native evaluation', 'Evaluación nativa'),
+    b('Checksummed replay', 'Reproducción verificada'),
+  ],
+  deployment: [
+    b('Offline evaluation', 'Evaluación fuera de línea'),
+    b('Immutable static assets', 'Artefactos inmutables'),
+    b('TLS origin', 'Origen TLS'),
+    b('Bounded native service', 'Servicio nativo limitado'),
+    b('Browser result review', 'Revisión del resultado'),
+  ],
+};
 const section = (
   s: Omit<ContentSection, 'nodes' | 'figure'> & Partial<Pick<ContentSection, 'nodes' | 'figure'>>,
 ): ContentSection => ({
   ...s,
-  nodes: s.nodes ?? sharedNodes,
+  nodes: s.nodes ?? moduleNodes[s.id],
   figure:
     s.figure ??
     b(
@@ -201,8 +252,16 @@ export const implementation: ContentPage = {
     }),
     section({
       id: 'browser',
-      title: b('Browser execution and interaction', 'Ejecución e interacción del navegador'),
+      title: b('Tasks and browser interaction', 'Tareas e interacción del navegador'),
       paragraphs: [
+        b(
+          'Tasks is the entry point for three concrete operations: source audit, data reconciliation and release verification. A run snapshots up to 256 UTF-8 files, with a 128 KiB per-file and 1 MiB total limit. The native controller admits only dependency-ready registered actions. Source analysis parses Python, strict JSON and TOML without executing uploaded code; CSV analysis checks missing fields, repeated identifiers and resolvable cross-table references. Normalization writes accepted rows to separate outputs and keeps rejected rows with their original line and reason. The final verifier rereads input bytes and checks their hashes, output manifests and row conservation independently of the action that produced them.',
+          'Tareas ofrece tres operaciones concretas: auditar código, conciliar datos y verificar entregas. Cada ejecución conserva hasta 256 archivos UTF-8, con límites de 128 KiB por archivo y 1 MiB total. El controlador nativo admite solo acciones registradas cuyas dependencias estén listas. El análisis procesa Python, JSON estricto y TOML sin ejecutar código cargado; CSV comprueba campos ausentes, identificadores repetidos y referencias entre tablas presentes. La normalización escribe filas aceptadas en salidas separadas y conserva las rechazadas con línea y motivo. El verificador relee las entradas y comprueba hashes, manifiestos y conservación de filas independientemente de la acción productora.',
+        ),
+        b(
+          'An analysis can finish correctly while rejecting its input delivery. The interface therefore separates execution status from the attention-required disposition, exposes each finding at its file and line, and exports original inputs, accepted data and the full decision journal together. The dependency graph shows actual action states rather than simulated progress. Investigations compares two frozen methods on the same case, fault condition and seed, showing observed state changes, native receipts, planner requests and failures. The advanced engine view retains the virtual simulator and authenticated native cases for controlled interventions; their timing and authority are labeled separately.',
+          'Un análisis puede terminar correctamente y rechazar la entrega. La interfaz separa estado de ejecución y necesidad de atención, muestra cada hallazgo en archivo y línea y exporta entradas, datos aceptados y diario completo. El grafo muestra estados reales de acciones. Investigaciones compara dos métodos congelados con caso, condición y semilla iguales, exponiendo cambios observados, recibos nativos, solicitudes al planificador y fallos. La vista avanzada conserva simulación y casos nativos autenticados para intervenciones controladas, con tiempos y autoridad identificados por separado.',
+        ),
         b(
           'src/lib/simulator.ts implements the virtual workspace as a serializable state machine. A linear-congruential random generator uses multiplier 1664525, increment 1013904223 and unsigned 32-bit state. The seed, case, method, variant and continuous parameters determine the virtual sequence. A step records its event, action, candidate priorities, resource revision, simulated time and outcome. Fault injection marks the next effect unknown or failed; cancellation stops new transitions while preserving already observed state.',
           'src/lib/simulator.ts implementa el espacio virtual serializable. El generador congruencial usa multiplicador 1664525, incremento 1013904223 y estado de 32 bits sin signo. Semilla, caso, método, variante y parámetros determinan la secuencia. Cada paso registra evento, acción, prioridades, revisión, tiempo y resultado. Inyectar fallo marca un efecto desconocido o fallido; cancelar detiene transiciones conservando estado observado.',
@@ -282,8 +341,12 @@ export const implementation: ContentPage = {
       title: b('API, deployment and reproducibility', 'API, despliegue y reproducibilidad'),
       paragraphs: [
         b(
-          'The native workbench uses the API on its own origin. GET /api/config reports capabilities and authentication requirements. POST /api/run starts a case with method, variant, seed and parameters. GET /api/events polls a run after a sequence number; POST /api/cancel/{id} requests cancellation; POST /api/replay validates a record without repeating its effects. The session token remains in browser memory. A public static deployment provides browser simulation and canonical replay, and does not probe arbitrary localhost services or expose a remote shell.',
-          'El banco nativo usa API del mismo origen. GET /api/config informa capacidades y autenticación. POST /api/run inicia caso con método, variante, semilla y parámetros. GET /api/events consulta después de secuencia; POST /api/cancel/{id} solicita cancelación; POST /api/replay valida sin repetir efectos. El token permanece en memoria. El despliegue estático ofrece simulación y reproducción sin sondear servicios locales arbitrarios ni exponer shell.',
+          'The public operations service uses the same HTTPS origin as the frontend and accepts only the three declared task types. Each browser receives an unguessable session capability; every run read, cancellation, download and deletion checks ownership. Inputs are data, never shell commands or imported modules. Two runs may execute concurrently, a session has one active run, at most 24 retained runs occupy the service, and at most 20 runs start per minute. Completed directories and session capabilities expire after one hour, including orphaned directories after restart. A dedicated unprivileged Linux service bounds memory and CPU. Its state directory is separate from static releases and from the private local workspace.',
+          'El servicio público usa el mismo origen HTTPS y acepta solo los tres tipos declarados. Cada navegador recibe una capacidad de sesión impredecible; toda lectura, cancelación, descarga y eliminación verifica propiedad. Las entradas son datos, nunca órdenes de shell ni módulos importados. Se ejecutan dos tareas concurrentes, una por sesión, con hasta 24 resultados retenidos y 20 inicios por minuto. Directorios y capacidades caducan tras una hora, incluidos huérfanos después de reiniciar. Un servicio Linux sin privilegios limita memoria y CPU. Su almacenamiento está separado de las versiones estáticas y del espacio local privado.',
+        ),
+        b(
+          'The native workbench uses the API on its own origin. GET /api/config reports capabilities and authentication requirements. POST /api/run starts a case with method, variant, seed and parameters. GET /api/events polls a run after a sequence number; POST /api/cancel/{id} requests cancellation; POST /api/replay validates a record without repeating its effects. The session token remains in browser memory. The public site also runs bounded file operations on its own server through a separate API; the general workspace and trained-model APIs remain local. It does not probe arbitrary localhost services or expose a remote shell.',
+          'El banco nativo usa API del mismo origen. GET /api/config informa capacidades y autenticación. POST /api/run inicia caso con método, variante, semilla y parámetros. GET /api/events consulta después de secuencia; POST /api/cancel/{id} solicita cancelación; POST /api/replay valida sin repetir efectos. El token permanece en memoria. El sitio público ejecuta operaciones de archivos limitadas en su propio servidor mediante otra API; las API de espacio general y modelos entrenados permanecen locales. No sondea servicios locales arbitrarios ni expone shell.',
         ),
         b(
           'A static build contains application code, translated content, SVG diagrams and validated canonical artifacts. Training environments, external datasets, caches, secrets and local runtime authority stay outside the published assets. Direct route loads must resolve to the SPA entry and then fetch the same versioned data as in-app navigation. Theme and language are persistent shared-shell preferences. Reproducibility records distinguish code and seeded virtual determinism from hardware-dependent latency, concurrent scheduling and probabilistic external model responses.',

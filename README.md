@@ -2,6 +2,8 @@
 
 A scientific workbench and local software-control application for fast learned policies, real tools and asynchronous language-model coordination. The reusable Rust/Python engine is the separate [reflexmesh](https://github.com/fsantibanezleal/reflexmesh) package.
 
+The default Tasks view audits supplied source/configuration files, reconciles CSV deliveries, and verifies software-release manifests through native registered tools. Findings identify files and rows; accepted CSV data, checksums and the complete decision journal are downloadable. Investigations compares matched measured runs from the full scientific matrix. See [operational tasks](docs/workbench/operations.md) for formats and limits.
+
 Neuraxis exposes live decisions, candidate scores, exact resource state, effects, unresolved outcomes and planner delegations. Its scientific repository contains reproducible collection, training, calibration, inference, evaluation and export. The six bilingual workbench routes connect the implementation to neuroscience, machine learning, reinforcement learning and prior agent architectures.
 
 ## Run locally
@@ -12,7 +14,7 @@ Install Python 3.12 and Node 24, then run `scripts/setup.ps1` on Windows or `bas
 python scripts/serve.py --checkpoints models/checkpoints --model qwen3.5:4b
 ```
 
-The service prints a loopback URL and session token. Enter the token in the local workbench to run native methods. A configured Ollama model is required for slow-model methods; unavailable models are reported explicitly. Exported static workbench artifacts have no host-tool authority.
+The service opens a loopback browser with a generated local capability held only in application memory. No account password or PyPI login is needed. The URL fragment is removed immediately after the UI reads it. Use --no-browser with an operator-supplied REFLEXMESH_LOCAL_TOKEN for manual sessions. A configured Ollama model is required for slow-model methods; unavailable models are reported explicitly. Exported static workbench artifacts have no host-tool authority.
 
 To fit checkpoints yourself, setup accepts `-SkipModels` on Windows or `--skip-models` on Linux/macOS. Run the scientific stages below before selecting a learned method. For operator-owned files, add `--workspace /absolute/existing/directory`; the Workspace tab provides dependency recipes, effect verification, cancellation and reviewed recovery.
 

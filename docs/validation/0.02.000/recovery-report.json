@@ -1,0 +1,59 @@
+{
+  "rejected_bad_evidence_status": 422,
+  "reconciled": {
+    "result": {
+      "accepted_ms": 99,
+      "cancellation_requested": true,
+      "expires_ms": 10099,
+      "finished_ms": 1112,
+      "intent": {
+        "action_id": "process.qa_delay",
+        "action_version": 1,
+        "arguments": {},
+        "idempotency_key": null,
+        "intent_id": "bdaabd97e252468d9ec94eca67d3574a",
+        "resources": [
+          {
+            "access": "write",
+            "expected_revision": 0,
+            "resource_id": "process:qa_delay"
+          }
+        ],
+        "ttl_ms": 10000
+      },
+      "invalidation_reason": null,
+      "outcome": {
+        "changed_resources": [
+          "process:qa_delay"
+        ],
+        "evidence": {
+          "operator_review": "Inspected the registered process termination receipt and confirmed its declared output is absent. No other file effects were configured.",
+          "prior_record_sha256": "456acf35c55e3e65d0754d6cbb590f7ae6f997f9dc042a099264ae37987922ac",
+          "processes_quiescent": true,
+          "reviewed_effects": true,
+          "scope": "listed files; operator reviewed remaining effects and process tree",
+          "verification": "file fingerprints and explicit operator attestation",
+          "verified_checks": {
+            "qa-delayed.txt": "absent"
+          }
+        },
+        "resource_fingerprints": {
+          "process:qa_delay": "819a8a94f61a0e4ebdf5f9db3ccb6d623565585bda9ad0d452e4d7547958109d"
+        },
+        "status": "failed_verified"
+      },
+      "started_ms": 102,
+      "status": "failed_verified"
+    },
+    "verified_checks": {
+      "qa-delayed.txt": "absent"
+    },
+    "journal_sequence": 19
+  },
+  "unknown_remaining": 0,
+  "readmission": {
+    "status": "succeeded",
+    "verified_success": true
+  },
+  "page_errors": []
+}
