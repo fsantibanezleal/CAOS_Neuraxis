@@ -1,0 +1,29 @@
+{
+  "date": "2026-09-26",
+  "version": "0.02.002",
+  "deployed_app_commit": "fa20c09486ee37e44788e03b33ce6dd2a0e5dcba",
+  "static_archive_sha256": "88235d526d696c660a3c6650411a7b1aa77add64a6f69e2c29b806a6156b9fc8",
+  "native_archive_sha256": "427dd8b6b881048c8455829d358fd24a715332a3448695f033a16d87dadb153e",
+  "hosted_checks": {
+    "develop_ci": 36268651421,
+    "main_ci": 36268735437,
+    "main_static_build": 36268735379,
+    "conclusion": "success"
+  },
+  "live": {
+    "static_and_native_commit_match": true,
+    "manifest_entry_assets_verified": 3,
+    "direct_scientific_routes": 5,
+    "history_recovery_views": 8,
+    "controlled_late_response_ignored": true,
+    "task_export_ownership_and_delete_verified": true,
+    "public_workspace_api_status": 404
+  },
+  "unchanged": {
+    "engine": "reflexmesh 0.1.0",
+    "canonical_episodes": 14400,
+    "research_episodes": 19488,
+    "operation_runs": 36
+  },
+  "limitations": "Controlled browser expiry uses HTTP 401 injection; live tasks do not establish user design acceptance or learned superiority."
+}
