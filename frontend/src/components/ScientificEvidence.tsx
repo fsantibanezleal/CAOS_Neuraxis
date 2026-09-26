@@ -3,6 +3,7 @@ import { Callout, Cite, Refs, ReferenceList } from '@fasl-work/caos-app-shell';
 import { useArtifacts } from '../api/artifacts';
 import { useCopy } from '../i18n';
 import { taskLabels, conditionLabels } from '../lib/operations';
+import { formatFixed } from './Instruments';
 
 const groups: Record<string, string[]> = {
   exact: ['M01', 'M02'],
@@ -65,9 +66,9 @@ export function MethodEvidence({ section }: { section: string }) {
               <tr key={r.method_id}>
                 <th>{r.method_id}</th>
                 <td>{r.episodes}</td>
-                <td>{(r.task_success * 100).toFixed(2)}%</td>
-                <td>{r.wall_ms.toFixed(2)} ms</td>
-                <td>{r.delegations.toFixed(3)}</td>
+                <td>{formatFixed(r.task_success * 100, 2)}%</td>
+                <td>{formatFixed(r.wall_ms, 2)} ms</td>
+                <td>{formatFixed(r.delegations, 3)}</td>
               </tr>
             ))}
           </tbody>
@@ -259,8 +260,8 @@ export function OperationStudy() {
             </p>
           )}
           <p>
-            {c('Measured elapsed time', 'Tiempo medido')}: {detail.metrics.wall_ms.toFixed(2)} ms ·{' '}
-            {c('Native receipts', 'Recibos nativos')}: {detail.metrics.native_receipts} ·{' '}
+            {c('Measured elapsed time', 'Tiempo medido')}: {formatFixed(detail.metrics.wall_ms, 2)}{' '}
+            ms · {c('Native receipts', 'Recibos nativos')}: {detail.metrics.native_receipts} ·{' '}
             {c('Model calls', 'Llamadas a modelos')}: {detail.metrics.model_calls}
           </p>
         </>

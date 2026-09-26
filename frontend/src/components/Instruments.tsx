@@ -1,15 +1,21 @@
 import { useState, type ReactNode } from 'react';
 import { useCopy } from '../i18n';
+import { useLangStore } from '@fasl-work/caos-app-shell';
 import type { Decision, Episode, Resource } from '../lib/types';
 export function format(value: unknown, digits = 2): string {
   return typeof value === 'number' && Number.isFinite(value)
-    ? value.toLocaleString(
-        typeof document === 'undefined' ? 'en' : document.documentElement.lang || 'en',
-        { maximumFractionDigits: digits },
-      )
+    ? value.toLocaleString(useLangStore.getState().lang, { maximumFractionDigits: digits })
     : typeof value === 'string'
       ? value
       : '--';
+}
+export function formatFixed(value: number, digits: number): string {
+  return Number.isFinite(value)
+    ? value.toLocaleString(useLangStore.getState().lang, {
+        minimumFractionDigits: digits,
+        maximumFractionDigits: digits,
+      })
+    : '--';
 }
 export function Panel({
   title,

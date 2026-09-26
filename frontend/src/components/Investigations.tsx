@@ -12,12 +12,11 @@ import { CASES, METHODS, VARIANTS, VARIANT_IDS } from '../data/registry';
 import { episodeReferences, loadEpisode, useArtifacts, downloadJSON } from '../api/artifacts';
 import type { Decision, Episode } from '../lib/types';
 import { useCopy } from '../i18n';
+import { format, formatFixed } from './Instruments';
 
 function metric(episode: Episode, key: string, digits = 0) {
   const n = episode.metrics[key];
-  return typeof n === 'number'
-    ? n.toLocaleString(undefined, { maximumFractionDigits: digits })
-    : '…';
+  return typeof n === 'number' ? format(n, digits) : '…';
 }
 function ActionEvidence({ episode, decision }: { episode: Episode; decision?: Decision }) {
   const { lang } = useCopy();
@@ -84,8 +83,10 @@ function ActionEvidence({ episode, decision }: { episode: Episode; decision?: De
                 <tr key={i} className={decision.action === candidate.action ? 'nx-active-row' : ''}>
                   <td>{candidate.action}</td>
                   <td>{String(candidate.allowed)}</td>
-                  <td>{candidate.score?.toFixed(4) ?? '…'}</td>
-                  <td>{candidate.probability?.toFixed(4) ?? '…'}</td>
+                  <td>{candidate.score == null ? '…' : formatFixed(candidate.score, 4)}</td>
+                  <td>
+                    {candidate.probability == null ? '…' : formatFixed(candidate.probability, 4)}
+                  </td>
                 </tr>
               ))}
             </tbody>
@@ -328,7 +329,7 @@ export default function Investigations() {
                   </span>
                   <strong>{d.action.replace(/^a-/, '').replaceAll('_', ' ')}</strong>
                   <small>
-                    {d.timestamp_ms.toFixed(1)} ms · {d.status}
+                    {formatFixed(d.timestamp_ms, 1)} ms · {d.status}
                   </small>
                 </button>
               ))}

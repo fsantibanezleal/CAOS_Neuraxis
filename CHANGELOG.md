@@ -1,5 +1,11 @@
 # Changelog
 
+## 0.02.003 - 2026-09-26
+
+- Lead completed task runs with their actual findings or accepted outputs while keeping the execution map and decision journal available for inspection.
+- Restore vertical source-file lines and accurate finding-line navigation in the file viewer; verify both desktop and phone behavior in English and Spanish.
+- Format investigation and benchmark measurements using the selected language rather than the browser's regional default.
+
 ## 0.02.002 - 2026-09-26
 
 - Keep session history cleared when an older request completes after an expired-session response. The browser regression deliberately delivers that stale response late.
