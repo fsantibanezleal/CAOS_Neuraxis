@@ -45,6 +45,7 @@ try {
           await expect(panel.locator('.science-measurement table tbody tr').first()).toBeVisible();
         const last = (await panel.locator('a[href]').count() ? panel : root).locator('a[href]').last();
         await last.focus();
+        await last.scrollIntoViewIfNeeded();
         await expect(last).toBeInViewport();
         const geometry = await root.evaluate(el => {
           const b = el.getBoundingClientRect();

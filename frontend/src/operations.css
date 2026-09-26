@@ -146,6 +146,6 @@ button:focus-visible, summary:focus-visible { outline: 2px solid var(--color-acc
 .op-history-run[aria-pressed='true'] { border-color: var(--color-accent); background: var(--color-accent-soft); }
 .op-history-run strong { font-size: .72rem; }
 .op-history-run span { font-size: .66rem; color: var(--color-fg-subtle); overflow-wrap: anywhere; }
-.op-source-line { display: inline-block; min-width: 100%; }
+.op-source-line { display: block; width: 100%; min-width: max-content; min-height: 1.8em; }
 .op-source-line.selected { background: var(--color-accent-soft); outline: 1px solid var(--color-accent); }
 .op-run-badge[data-state='unavailable'] { color: var(--color-warn); }

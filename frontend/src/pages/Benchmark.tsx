@@ -412,7 +412,7 @@ export default function Benchmark() {
           <div className="nx-metrics">
             <div className="nx-metric">
               <span>{t.episodes}</span>
-              <b>{coverage.episodes.toLocaleString()}</b>
+              <b>{format(coverage.episodes, 0)}</b>
             </div>
             <div className="nx-metric">
               <span>{t.method}</span>
