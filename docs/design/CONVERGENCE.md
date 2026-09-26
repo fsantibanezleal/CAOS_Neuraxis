@@ -32,3 +32,21 @@ and fetched entry-asset hashes match the release manifest. The frozen research
 matrix, 36 operation runs, native API and reflexmesh 0.1.0 are unchanged. See
 [release evidence](../validation/0.02.002/release.json). This does not establish
 user design acceptance or learned superiority.
+
+## 0.02.003 evidence-first task correction
+
+The public static manifest and bounded native service both report app commit
+`b6180eb92186d63bfb7fce724728af041276300a` and release 0.02.003.
+The audited static archive has 14,517 declared files. Its fetched entry assets
+match their SHA-256 values and all five bookmarked science routes resolve.
+Eight live EN/ES, light/dark, desktop/phone task flows opened actual findings
+and navigated to recorded source lines; owned and uploaded runs exported and
+deleted successfully. Forty-eight investigation views, 296 scientific sections
+and 72 route views passed on the live host. Hosted develop CI, main CI and the
+main static release workflow all passed. The native service remained active,
+with 49,164,288 bytes peak memory after the QA workload. See the
+[source-bound release record](../validation/0.02.003/release.json).
+
+The engine and frozen scientific evidence are unchanged. This release corrects
+how task evidence is reached and displayed; it does not establish user design
+acceptance or a broader intelligence claim.
