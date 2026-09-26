@@ -1,0 +1,20 @@
+{
+  "commit": "b6180eb92186d63bfb7fce724728af041276300a",
+  "version": "0.02.003",
+  "manifest_files": 14517,
+  "verified_assets": [
+    "assets/index-Bm0Sghl_.js",
+    "assets/index-Dse2wfvb.css",
+    "index.html"
+  ],
+  "direct_routes": [
+    "/introduction",
+    "/methodology",
+    "/implementation",
+    "/experiments",
+    "/benchmark"
+  ],
+  "static_and_native_commit_match": true,
+  "canonical_episodes": 14400,
+  "operation_runs": 36
+}
