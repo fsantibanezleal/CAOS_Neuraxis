@@ -67,6 +67,7 @@ export default function Operations() {
   const input = useRef<HTMLInputElement>(null);
   const folder = useRef<HTMLInputElement>(null);
   const sourceLine = useRef<HTMLSpanElement>(null);
+  const historyRequest = useRef(0);
   const active = activeRun(run) && !unavailable;
   const outcome = operationOutcome(run);
   const summary = fileSummary(files);
@@ -92,18 +93,26 @@ export default function Operations() {
     } else setError(String(e));
   }
   async function refreshHistory() {
-    if (!localSession.operationToken) {
+    const request = ++historyRequest.current;
+    const token = localSession.operationToken;
+    if (!token) {
       setHistory([]);
+      setHistoryError('');
       return;
     }
     try {
-      setHistory((await operationAPI('runs')).runs);
+      const runs = (await operationAPI('runs')).runs;
+      if (request !== historyRequest.current || token !== localSession.operationToken) return;
+      setHistory(runs);
       setHistoryError('');
     } catch (e) {
+      if (request !== historyRequest.current) return;
       if (e instanceof OperationError && e.status === 401) {
+        if (localSession.operationToken && localSession.operationToken !== token) return;
         setHistory([]);
+        setHistoryError('');
         handleError(e);
-      } else setHistoryError(String(e));
+      } else if (token === localSession.operationToken) setHistoryError(String(e));
     }
   }
   useEffect(() => {

@@ -1,5 +1,10 @@
 # Changelog
 
+## 0.02.002 - 2026-09-26
+
+- Keep session history cleared when an older request completes after an expired-session response. The browser regression deliberately delivers that stale response late.
+- Complete the previously open release and live-recovery validation gate with source-bound evidence.
+
 ## 0.02.001 - 2026-09-24
 
 - Keep all session-owned runs selectable and deletable; recover expired sessions without replaying uncertain submissions. Preserve cached evidence and mark incomplete verification explicitly.

@@ -1,0 +1,20 @@
+{
+  "date": "2026-09-26",
+  "scope": "Operation-history response ordering and expired-session recovery",
+  "app_version": "0.02.002",
+  "frontend_unit_tests": 30,
+  "frontend_format_and_build": "passed",
+  "local_browser_recovery_views": 8,
+  "controlled_late_history_response": "ignored after newer expired-session response",
+  "local_browser_errors": 0,
+  "source_checks": {
+    "ci_budget": "passed",
+    "sdd": "passed",
+    "canonical_episodes": 14400,
+    "research_episodes": 19488,
+    "operation_runs": 36,
+    "template_residue": "passed",
+    "content_standards": "passed"
+  },
+  "unchanged": "Native operation API, reflexmesh 0.1.0, and frozen scientific artifacts"
+}
