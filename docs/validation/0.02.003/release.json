@@ -1,0 +1,49 @@
+{
+  "date": "2026-09-26",
+  "version": "0.02.003",
+  "tag": "v0.02.003",
+  "deployed_app_commit": "b6180eb92186d63bfb7fce724728af041276300a",
+  "static_release": "b6180eb92186-92af00efc7a1",
+  "static_archive_sha256": "92af00efc7a131d3c470781f81e05ec2eab4579740d37c51380967e95303fae0",
+  "native_release": "/opt/neuraxis-operations/releases/b6180eb92186-55e67b3e7d1b",
+  "native_archive_sha256": "55e67b3e7d1b8b15f2e6ac7eb0c03d4affef08a310cf4b929bd7e6950462e24c",
+  "hosted_checks": {
+    "develop_ci": 36271745375,
+    "main_ci": 36271829388,
+    "main_static_build": 36271829401,
+    "conclusion": "success"
+  },
+  "local_gates": {
+    "frontend_unit_tests": 31,
+    "product_deployment_tests_passed": 8,
+    "posix_only_tests_skipped_on_windows": 1,
+    "task_flow_views": 8,
+    "investigation_views": 48,
+    "science_sections": 296,
+    "route_views": 72,
+    "production_build_and_formatting": "passed",
+    "clean_run_opened_accepted_output": true,
+    "numeric_locale_en_es": "passed"
+  },
+  "live": {
+    "manifest_entry_assets_verified": 3,
+    "direct_scientific_routes": 5,
+    "task_flow_views": 8,
+    "investigation_views": 48,
+    "science_sections": 296,
+    "route_views": 72,
+    "task_export_ownership_and_delete_verified": true,
+    "static_and_native_commit_match": true,
+    "public_workspace_api_status": 404,
+    "native_service_active": true,
+    "native_peak_memory_bytes": 49164288,
+    "host_free_disk_gb_reported": 27
+  },
+  "unchanged": {
+    "engine": "reflexmesh 0.1.0",
+    "canonical_episodes": 14400,
+    "research_episodes": 19488,
+    "operation_study_runs": 36
+  },
+  "limitations": "Controlled workbench and browser verification do not establish user design acceptance, open-world performance, or learned-method superiority."
+}
