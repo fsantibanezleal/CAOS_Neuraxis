@@ -10,9 +10,11 @@ findings or grant a model arbitrary computer access.
 2. Inspect the owned incident or select your UTF-8 files or a folder. A folder's
    common root is removed; relative paths are preserved. Selection remains in the
    browser until Run task is pressed.
-3. Run the native tools. The dependency graph shows admission and verification;
-   selecting a node shows its dependencies, effect history and artifact.
-4. Inspect findings, then click a finding to open the exact input file. Findings
+3. Run the native tools. A completed run opens its findings, or its files and
+   outputs when no findings were produced. The execution map remains available
+   in the Inspect selector; selecting a node shows dependencies, effect history
+   and its artifact.
+4. Click a finding to open the exact input file and highlighted line. Findings
    preserve original line numbers. The file view includes generated JSON records
    and accepted CSV outputs. A successful analysis may still reject a delivery.
 5. Download the ZIP before closing or reloading the browser. It includes original

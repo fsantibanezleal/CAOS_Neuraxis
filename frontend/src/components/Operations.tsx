@@ -37,6 +37,7 @@ import {
   type OperationSummary,
 } from '../lib/operations';
 import OperationGraph from './OperationGraph';
+import { formatFixed } from './Instruments';
 
 const empty: InputFile[] = [];
 function shown(value: unknown) {
@@ -46,12 +47,13 @@ export default function Operations() {
   const { lang } = useCopy();
   const c = (en: string, es: string) => (lang === 'en' ? en : es);
   const saved = localSession.operations;
+  const initialRun = (saved?.run as OperationRun | undefined) ?? null;
   const [task, setTask] = useState((saved?.task as keyof typeof taskLabels) ?? 'release');
   const [variant, setVariant] = useState((saved?.variant as string) ?? 'compound');
   const [seed, setSeed] = useState((saved?.seed as number) ?? 17);
   const [files, setFiles] = useState<InputFile[]>((saved?.files as InputFile[]) ?? empty);
   const [nodes, setNodes] = useState<OperationNode[]>((saved?.nodes as OperationNode[]) ?? []);
-  const [run, setRun] = useState<OperationRun | null>((saved?.run as OperationRun) ?? null);
+  const [run, setRun] = useState<OperationRun | null>(initialRun);
   const [uploaded, setUploaded] = useState(Boolean(saved?.uploaded));
   const [online, setOnline] = useState<boolean | null>(null);
   const [busy, setBusy] = useState(false);
@@ -63,17 +65,39 @@ export default function Operations() {
   const [selectedFile, setSelectedFile] = useState('');
   const [selectedLine, setSelectedLine] = useState<number | null>(null);
   const [query, setQuery] = useState('');
-  const [resultView, setResultView] = useState('graph');
+  const [resultView, setResultView] = useState(
+    initialRun?.result ? (initialRun.result.findings.length ? 'findings' : 'files') : 'graph',
+  );
   const input = useRef<HTMLInputElement>(null);
   const folder = useRef<HTMLInputElement>(null);
   const sourceLine = useRef<HTMLSpanElement>(null);
   const historyRequest = useRef(0);
+  const viewChosen = useRef(false);
   const active = activeRun(run) && !unavailable;
   const outcome = operationOutcome(run);
   const summary = fileSummary(files);
   const result = run?.result;
   const displayNodes = run?.nodes ?? nodes;
   const selectedNode = displayNodes.find((n) => n.id === selected) ?? displayNodes[0];
+  function resetSelection() {
+    setRun(null);
+    setUnavailable(false);
+    setSelectedFile('');
+    setSelectedLine(null);
+    viewChosen.current = false;
+    setResultView('graph');
+  }
+  useEffect(() => {
+    if (!result || viewChosen.current) return;
+    if (result.findings.length) {
+      setResultView('findings');
+      return;
+    }
+    const accepted = result.artifacts.normalize?.outputs as Record<string, unknown> | undefined;
+    const firstAccepted = Object.keys(accepted ?? {})[0];
+    setSelectedFile(firstAccepted ? `accepted/${firstAccepted}` : 'output/verify.json');
+    setResultView('files');
+  }, [run?.id, result]);
   useEffect(() => {
     if (resultView === 'files' && selectedLine)
       sourceLine.current?.scrollIntoView({ block: 'nearest' });
@@ -196,6 +220,7 @@ export default function Operations() {
       });
       setRun(value);
       setUnavailable(false);
+      viewChosen.current = false;
       setResultView('graph');
     } catch (e) {
       handleError(e);
@@ -213,6 +238,8 @@ export default function Operations() {
       await operationAPI(`runs/${run.id}`, undefined, 'DELETE');
       setRun(null);
       setUnavailable(false);
+      viewChosen.current = false;
+      setResultView('graph');
       await refreshHistory();
       setError('');
     } catch (e) {
@@ -236,6 +263,8 @@ export default function Operations() {
       setSelectedFile('');
       setUnavailable(false);
       setError('');
+      viewChosen.current = false;
+      setResultView(value.result ? (value.result.findings.length ? 'findings' : 'files') : 'graph');
     } catch (e) {
       handleError(e);
       await refreshHistory();
@@ -321,7 +350,7 @@ export default function Operations() {
             disabled={active || busy}
             onChange={(e) => {
               setTask(e.target.value as typeof task);
-              setRun(null);
+              resetSelection();
             }}
           >
             {Object.entries(taskLabels).map(([key, title]) => (
@@ -339,7 +368,7 @@ export default function Operations() {
               : c('Owned release bundle', 'Entrega de evaluación propia')}
           </strong>
           <span>
-            {summary.count} {c('files', 'archivos')} · {(summary.bytes / 1024).toFixed(1)} KiB
+            {summary.count} {c('files', 'archivos')} · {formatFixed(summary.bytes / 1024, 1)} KiB
           </span>
           <p>
             {uploaded
@@ -352,7 +381,13 @@ export default function Operations() {
                   '32 módulos, 16 configuraciones, 400 registros y 18 tareas dependientes. Inspeccionar cada entrada.',
                 )}
           </p>
-          <button className="op-text-link" onClick={() => setResultView('files')}>
+          <button
+            className="op-text-link"
+            onClick={() => {
+              viewChosen.current = true;
+              setResultView('files');
+            }}
+          >
             {c('Inspect input files', 'Inspeccionar archivos')}
             <ArrowUpRight size={14} />
           </button>
@@ -366,7 +401,7 @@ export default function Operations() {
                 disabled={active || busy}
                 onChange={(e) => {
                   setVariant(e.target.value);
-                  setRun(null);
+                  resetSelection();
                 }}
               >
                 {Object.entries(conditionLabels).map(([key, title]) => (
@@ -386,7 +421,7 @@ export default function Operations() {
                 disabled={active || busy}
                 onChange={(e) => {
                   setSeed(Math.floor(Math.max(0, Math.min(99999, Number(e.target.value) || 0))));
-                  setRun(null);
+                  resetSelection();
                 }}
               />
             </label>
@@ -431,7 +466,7 @@ export default function Operations() {
             disabled={active || busy}
             onClick={() => {
               setUploaded(false);
-              setRun(null);
+              resetSelection();
             }}
           >
             {c('Use the owned workload', 'Usar la carga propia')}
@@ -615,8 +650,8 @@ export default function Operations() {
             <p>
               {result
                 ? c(
-                    `${result.metrics.verified_nodes} verified actions · ${(result.metrics.wall_ms / 1000).toFixed(2)} s · ${result.metrics.model_calls} model calls`,
-                    `${result.metrics.verified_nodes} acciones verificadas · ${(result.metrics.wall_ms / 1000).toFixed(2)} s · ${result.metrics.model_calls} llamadas a modelos`,
+                    `${result.metrics.verified_nodes} verified actions · ${formatFixed(result.metrics.wall_ms / 1000, 2)} s · ${result.metrics.model_calls} model calls`,
+                    `${result.metrics.verified_nodes} acciones verificadas · ${formatFixed(result.metrics.wall_ms / 1000, 2)} s · ${result.metrics.model_calls} llamadas a modelos`,
                   )
                 : c(
                     'Source and configuration errors, broken relationships and changed release bytes become concrete findings.',
@@ -640,7 +675,13 @@ export default function Operations() {
         <div className="op-view-select">
           <label>
             {c('Inspect', 'Inspeccionar')}
-            <select value={resultView} onChange={(e) => setResultView(e.target.value)}>
+            <select
+              value={resultView}
+              onChange={(e) => {
+                viewChosen.current = true;
+                setResultView(e.target.value);
+              }}
+            >
               <option value="graph">{c('Execution map', 'Mapa de ejecución')}</option>
               <option value="findings">
                 {c('Findings & consequences', 'Hallazgos y consecuencias')}
@@ -663,7 +704,10 @@ export default function Operations() {
             <OperationGraph
               nodes={displayNodes}
               selected={selected}
-              onSelect={setSelected}
+              onSelect={(id) => {
+                viewChosen.current = true;
+                setSelected(id);
+              }}
               artifacts={result?.artifacts}
             />
             <aside className="op-inspector">
@@ -686,6 +730,7 @@ export default function Operations() {
                   <button
                     className="op-text-link"
                     onClick={() => {
+                      viewChosen.current = true;
                       setSelectedFile(selectedNode.output);
                       setResultView('files');
                     }}
@@ -718,6 +763,7 @@ export default function Operations() {
                     key={i}
                     className="op-finding"
                     onClick={() => {
+                      viewChosen.current = true;
                       setSelectedFile(`input/${f.path}`);
                       setSelectedLine(f.line);
                       setResultView('files');
@@ -819,7 +865,7 @@ export default function Operations() {
               </div>
               <pre tabIndex={0} style={currentFile ? undefined : { whiteSpace: 'pre-wrap' }}>
                 {currentFile
-                  ? currentFile.content.split('\n').map((line, i, lines) => (
+                  ? currentFile.content.split('\n').map((line, i) => (
                       <span
                         key={i}
                         className={
@@ -829,7 +875,6 @@ export default function Operations() {
                         ref={i + 1 === selectedLine ? sourceLine : undefined}
                       >
                         {line}
-                        {i < lines.length - 1 ? '\n' : ''}
                       </span>
                     ))
                   : selectedFile
@@ -848,7 +893,7 @@ export default function Operations() {
               run.events.map((e, i) => (
                 <details key={i}>
                   <summary>
-                    <span>{Number(e.elapsed_ms).toFixed(0)} ms</span>
+                    <span>{formatFixed(Number(e.elapsed_ms), 0)} ms</span>
                     <strong>{String(e.kind).replaceAll('_', ' ')}</strong>
                     <code>{String(e.node ?? e.goal_id ?? '')}</code>
                   </summary>
