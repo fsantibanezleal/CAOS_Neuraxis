@@ -8,6 +8,7 @@ const checks = [], errors = [];
 for (const width of [1600, 360]) for (const theme of ['light', 'dark']) for (const lang of ['en', 'es']) {
   const page = await browser.newPage({ viewport: { width, height: 900 } });
   const owned = new Map();
+  let releaseHeldHistory = () => {};
   let token;
   page.on('pageerror', e => errors.push(e.message));
   page.on('request', request => {
@@ -69,7 +70,27 @@ for (const width of [1600, 360]) for (const theme of ['light', 'dark']) for (con
     await page.locator('.op-sidebar select').first().selectOption('source');
     await page.locator('.op-view-select select').selectOption('graph');
     await expect(page.locator('.op-node')).toHaveCount(7);
-    await page.locator('.op-history-run').first().click();
+    let heldHistoryDelivered;
+    if (width === 1600 && theme === 'light' && lang === 'en') {
+      let historyStarted, resolveHeldHistory;
+      const started = new Promise(resolve => { historyStarted = resolve; });
+      heldHistoryDelivered = new Promise(resolve => { resolveHeldHistory = resolve; });
+      const released = new Promise(resolve => { releaseHeldHistory = resolve; });
+      let held = false;
+      await page.route('**/operations-api/runs', async route => {
+        if (route.request().method() !== 'GET' || held) return route.fallback();
+        held = true;
+        const response = await route.fetch();
+        historyStarted();
+        await released;
+        await route.fulfill({ response });
+        resolveHeldHistory();
+      });
+      await page.locator('.op-history-run').first().click();
+      await started;
+    } else {
+      await page.locator('.op-history-run').first().click();
+    }
     await expect(page.locator('.op-outcome strong')).toContainText('3');
     let expired = true, expireAll = false;
     await page.route('**/operations-api/runs**', route => expired && (expireAll || route.request().url().endsWith('/export'))
@@ -83,6 +104,16 @@ for (const width of [1600, 360]) for (const theme of ['light', 'dark']) for (con
     expireAll = true;
     await page.getByRole('button', { name: lang === 'en' ? 'Refresh history' : 'Actualizar historial' }).click();
     await expect(page.locator('.op-history-run')).toHaveCount(0);
+    const oldResponse = heldHistoryDelivered
+      ? page.waitForResponse(r => r.url().endsWith('/operations-api/runs') && r.request().method() === 'GET' && r.status() === 200)
+      : null;
+    releaseHeldHistory();
+    if (heldHistoryDelivered) {
+      await heldHistoryDelivered;
+      await (await oldResponse).finished();
+      await page.evaluate(() => new Promise(resolve => requestAnimationFrame(() => requestAnimationFrame(resolve))));
+      await expect(page.locator('.op-history-run')).toHaveCount(0);
+    }
     expired = false;
     await startRun();
     await expect(page.locator('.op-outcome strong')).toContainText('3');
@@ -95,9 +126,11 @@ for (const width of [1600, 360]) for (const theme of ['light', 'dark']) for (con
     await page.locator('.op-scope').scrollIntoViewIfNeeded();
     await expect(page.locator('.op-scope')).toBeInViewport();
     checks.push({ width, theme, lang, history: true, distinctInputs: true, physicalLines: true, uploadedGraph: true,
-      simulatedExpiry: true, cachedExport: true, freshExecution: true, verticalAccess: true });
+      simulatedExpiry: true, delayedHistoryIgnored: Boolean(heldHistoryDelivered),
+      cachedExport: true, freshExecution: true, verticalAccess: true });
     console.log(JSON.stringify(checks.at(-1)));
   } finally {
+    releaseHeldHistory();
     for (const [id, authorization] of owned) {
       const response = await page.request.delete(`${base}/operations-api/runs/${id}`, {
         headers: { Authorization: authorization, 'X-Neuraxis-Client': 'operations-v1' },
