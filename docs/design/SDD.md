@@ -1,5 +1,5 @@
 # CAOS Neuraxis software design
-Date: 2026-09-24. Display release: 0.02.004.
+Date: 2026-09-24. Display release: 0.02.005.
 
 ## Review and migration record
 This records the existing research-backed implementation authorized before ADR-0075 was adopted on September 22. It is a September 23 migration of the current design, not a backdated pre-development review. The current user instruction explicitly continues the full implementation. Requirement convergence records distinguish local verification from publication and deployment.

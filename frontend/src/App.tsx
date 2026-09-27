@@ -37,7 +37,7 @@ const Experiments = lazy(async () => {
 const Benchmark = lazy(() => import('./pages/Benchmark'));
 const config: ShellConfig = {
   product: { name: 'Neuraxis', mark: <Network size={18} aria-hidden="true" /> },
-  version: '0.02.004',
+  version: '0.02.005',
   routes: [
     { path: '/', en: 'App', es: 'App' },
     { path: '/introduction', en: 'Introduction', es: 'Introducción' },

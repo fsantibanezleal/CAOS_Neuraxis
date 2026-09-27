@@ -4,7 +4,7 @@ export const CITATIONS: Citation[] = [
     id: 'neuraxis2026',
     label: 'Neuraxis implementation (2026)',
     citation:
-      'Neuraxis. Product implementation and measured operation records, release 0.02.004. Source repository access requires authorization; measured artifacts are available in Experiments.',
+      'Neuraxis. Product implementation and measured operation records, release 0.02.005. Source repository access requires authorization; measured artifacts are available in Experiments.',
     url: 'https://github.com/fsantibanezleal/CAOS_Neuraxis',
   },
   {

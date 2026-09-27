@@ -6,7 +6,7 @@ import { useCopy } from '../i18n';
 import { METHODS, VARIANTS, VARIANT_IDS } from '../data/registry';
 import { format, Panel } from '../components/Instruments';
 import { ResearchResults } from '../components/ResearchResults';
-import OverflowTabs from '../components/OverflowTabs';
+import OverflowTabs, { OverflowSubTabs } from '../components/OverflowTabs';
 type Bin = { lower: number; upper: number; count: number; confidence: number; accuracy: number };
 interface Aggregate {
   method_id: string;
@@ -369,7 +369,7 @@ export default function Benchmark() {
     </Panel>
   );
   return (
-    <div className="page-body prose nx-benchmark">
+    <div className="page-body wide prose nx-benchmark">
       <div className="page-head">
         <h1>{t.benchmark}</h1>
         <p className="lede">
@@ -434,22 +434,44 @@ export default function Benchmark() {
             <OverflowTabs
               ariaLabel={t.evidence}
               tabs={[
-                { id: 'results', label: t.table, content: table },
                 {
-                  id: 'findings',
-                  label: lang === 'en' ? 'Findings' : 'Hallazgos',
-                  content: <ResearchResults />,
+                  id: 'outcomes',
+                  label: lang === 'en' ? 'Outcomes' : 'Resultados',
+                  content: (
+                    <OverflowSubTabs
+                      ariaLabel={lang === 'en' ? 'Outcome views' : 'Vistas de resultados'}
+                      tabs={[
+                        { id: 'results', label: t.table, content: table },
+                        {
+                          id: 'findings',
+                          label: lang === 'en' ? 'Findings' : 'Hallazgos',
+                          content: <ResearchResults />,
+                        },
+                        { id: 'robustness', label: t.robustness, content: robustness },
+                      ]}
+                    />
+                  ),
                 },
-                { id: 'robustness', label: t.robustness, content: robustness },
                 {
-                  id: 'calibration',
-                  label: t.probabilities,
-                  content: selected ? <Reliability data={selected} /> : null,
-                },
-                {
-                  id: 'confusion',
-                  label: t.confusion,
-                  content: selected ? <Confusion data={selected} /> : null,
+                  id: 'diagnostics',
+                  label: lang === 'en' ? 'Diagnostics' : 'Diagnósticos',
+                  content: (
+                    <OverflowSubTabs
+                      ariaLabel={lang === 'en' ? 'Diagnostic views' : 'Vistas de diagnóstico'}
+                      tabs={[
+                        {
+                          id: 'calibration',
+                          label: t.probabilities,
+                          content: selected ? <Reliability data={selected} /> : null,
+                        },
+                        {
+                          id: 'confusion',
+                          label: t.confusion,
+                          content: selected ? <Confusion data={selected} /> : null,
+                        },
+                      ]}
+                    />
+                  ),
                 },
                 {
                   id: 'bibliography',
