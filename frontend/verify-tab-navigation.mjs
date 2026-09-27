@@ -25,7 +25,7 @@ try {
       await expect(root.locator('.page-head h1')).toBeInViewport();
       await expect.poll(() => page.evaluate(() => scrollY)).toBe(0);
       const overflow = await list.evaluate(el => el.scrollWidth > el.clientWidth + 2);
-      const controls = navigator.locator('.nx-tab-scroll-controls');
+      const controls = navigator.locator(':scope > .nx-tab-scroll-controls');
       if ((route === 'introduction' || route === 'methodology') && lang === 'en' && theme === 'dark') {
         await page.screenshot({ path: `qa/tab-navigation-initial-${route}-${width}.png` });
       }
@@ -50,7 +50,7 @@ try {
       const visible = await last.evaluate((el) => {
         const tab = el.getBoundingClientRect();
         const strip = el.parentElement.getBoundingClientRect();
-        const controls = el.closest('.nx-overflow-tabs').querySelector('.nx-tab-scroll-controls');
+        const controls = el.closest('.nx-overflow-tabs').querySelector(':scope > .nx-tab-scroll-controls');
         const usableRight = controls ? controls.getBoundingClientRect().left : strip.right;
         return tab.left >= strip.left - 2 && tab.right <= usableRight + 2;
       });
@@ -62,6 +62,42 @@ try {
       await bibliography.click();
       await expect(bibliography).toHaveAttribute('aria-selected', 'true');
       await expect(navigator.locator('.tabpanel:visible .reference-list li').first()).toBeVisible();
+      await tabs.first().click();
+      const sublist = navigator.locator(':scope > .tabs > .tabpanel:visible .subtablist');
+      const subtabs = sublist.locator(':scope > .subtab');
+      await expect(subtabs.first()).toBeVisible();
+      const nestedOverflow = await sublist.evaluate(el => el.scrollWidth > el.clientWidth + 2);
+      const nestedControls = navigator.locator(':scope > .tabs > .tabpanel:visible .nx-overflow-subtabs > .nx-tab-scroll-controls');
+      if (nestedOverflow) {
+        await expect(nestedControls).toBeVisible();
+        const nextTopic = nestedControls.getByRole('button', { name: lang === 'en' ? 'More topics' : 'Más temas' });
+        for (let attempt = 0; attempt < 12 && await nextTopic.isEnabled(); attempt++) {
+          const rect = await nextTopic.boundingBox();
+          if (!rect) throw new Error(`${route}: next-topics control has no pointer target`);
+          if (width === 360) await page.touchscreen.tap(rect.x + rect.width / 2, rect.y + rect.height / 2);
+          else await page.mouse.click(rect.x + rect.width / 2, rect.y + rect.height / 2);
+          await expect.poll(() => sublist.evaluate(el => el.scrollLeft)).toBeGreaterThan(0);
+          await page.waitForTimeout(180);
+        }
+        await expect(nextTopic).toBeDisabled();
+      } else {
+        await expect(nestedControls).toHaveCount(0);
+      }
+      await subtabs.first().focus();
+      await page.keyboard.press('ArrowDown');
+      await expect(subtabs.nth(1)).toBeFocused();
+      await expect(subtabs.nth(1)).toHaveAttribute('aria-selected', 'true');
+      await subtabs.last().click();
+      await expect(navigator.locator(':scope > .tabs > .tabpanel:visible .subtabpanel:visible')).toBeVisible();
+      const topicVisibility = () => subtabs.last().evaluate(el => {
+        const tab = el.getBoundingClientRect();
+        const strip = el.parentElement.getBoundingClientRect();
+        const controls = el.closest('.nx-overflow-subtabs').querySelector('.nx-tab-scroll-controls');
+        const right = controls ? controls.getBoundingClientRect().left : strip.right;
+        return tab.left >= strip.left - 2 && tab.right <= right + 2;
+      });
+      await expect.poll(topicVisibility).toBe(true);
+      await expect.poll(() => page.evaluate(() => document.documentElement.scrollWidth <= innerWidth + 1)).toBe(true);
       await tabs.first().focus();
       await page.keyboard.press('End');
       await expect(last).toBeFocused();
@@ -69,7 +105,7 @@ try {
       const keyboardVisible = await expect.poll(() => last.evaluate(el => {
         const tab = el.getBoundingClientRect();
         const strip = el.parentElement.getBoundingClientRect();
-        const controls = el.closest('.nx-overflow-tabs').querySelector('.nx-tab-scroll-controls');
+        const controls = el.closest('.nx-overflow-tabs').querySelector(':scope > .nx-tab-scroll-controls');
         const usableRight = controls ? controls.getBoundingClientRect().left : strip.right;
         return tab.left >= strip.left - 2 && tab.right <= usableRight + 2;
       })).toBe(true).then(() => true, () => false);
@@ -79,7 +115,7 @@ try {
       if ((route === 'introduction' || route === 'methodology') && lang === 'en' && theme === 'dark') {
         await page.screenshot({ path: `qa/tab-navigation-${route}-${width}.png` });
       }
-      checks.push({ route, width, lang, theme, overflow, pointerReachable: visible, keyboardReachable: keyboardVisible, bibliographyReachable: true });
+      checks.push({ route, width, lang, theme, overflow, pointerReachable: visible, keyboardReachable: keyboardVisible, nestedNavigationReachable: true, bibliographyReachable: true });
     }
     await page.close();
   }

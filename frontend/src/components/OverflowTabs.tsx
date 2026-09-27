@@ -1,17 +1,27 @@
-import { useEffect, useRef, useState } from 'react';
-import { Tabs, type TabDef } from '@fasl-work/caos-app-shell';
+import { useEffect, useRef, useState, type ReactNode } from 'react';
+import { SubTabs, Tabs, type SubTabDef, type TabDef } from '@fasl-work/caos-app-shell';
 import { ChevronLeft, ChevronRight } from 'lucide-react';
 import { useCopy } from '../i18n';
 
 type ScrollState = { overflow: boolean; left: boolean; right: boolean };
 
-export default function OverflowTabs({ tabs, ariaLabel }: { tabs: TabDef[]; ariaLabel: string }) {
+function TabScroller({
+  children,
+  selector,
+  className,
+  level,
+}: {
+  children: ReactNode;
+  selector: '.tablist' | '.subtablist';
+  className: string;
+  level: 'sections' | 'topics';
+}) {
   const { lang } = useCopy();
   const root = useRef<HTMLDivElement>(null);
   const [scroll, setScroll] = useState<ScrollState>({ overflow: false, left: false, right: false });
 
   useEffect(() => {
-    const list = root.current?.querySelector<HTMLElement>('.tablist');
+    const list = root.current?.querySelector<HTMLElement>(selector);
     if (!list) return;
     const update = () => {
       const overflow = list.scrollWidth > list.clientWidth + 2;
@@ -31,10 +41,10 @@ export default function OverflowTabs({ tabs, ariaLabel }: { tabs: TabDef[]; aria
       list.removeEventListener('scroll', update);
       window.removeEventListener('resize', update);
     };
-  }, [tabs, lang]);
+  }, [selector, lang]);
 
   const move = (direction: -1 | 1) => {
-    const list = root.current?.querySelector<HTMLElement>('.tablist');
+    const list = root.current?.querySelector<HTMLElement>(selector);
     if (!list) return;
     list.scrollBy({ left: direction * Math.max(180, list.clientWidth * 0.7), behavior: 'smooth' });
   };
@@ -42,8 +52,8 @@ export default function OverflowTabs({ tabs, ariaLabel }: { tabs: TabDef[]; aria
   const revealFocusedTab = (target: HTMLElement) => {
     if (target.getAttribute('role') !== 'tab') return;
     requestAnimationFrame(() => {
-      const list = root.current?.querySelector<HTMLElement>('.tablist');
-      if (!list || !target.isConnected) return;
+      const list = root.current?.querySelector<HTMLElement>(selector);
+      if (!list || !target.isConnected || !list.contains(target)) return;
       const tab = target.getBoundingClientRect();
       const strip = list.getBoundingClientRect();
       const controls = root.current?.querySelector<HTMLElement>('.nx-tab-scroll-controls');
@@ -56,23 +66,32 @@ export default function OverflowTabs({ tabs, ariaLabel }: { tabs: TabDef[]; aria
     });
   };
 
+  const labels =
+    level === 'sections'
+      ? {
+          group: lang === 'en' ? 'Scroll sections' : 'Desplazar secciones',
+          previous: lang === 'en' ? 'Previous sections' : 'Secciones anteriores',
+          next: lang === 'en' ? 'More sections' : 'Más secciones',
+        }
+      : {
+          group: lang === 'en' ? 'Scroll topics' : 'Desplazar temas',
+          previous: lang === 'en' ? 'Previous topics' : 'Temas anteriores',
+          next: lang === 'en' ? 'More topics' : 'Más temas',
+        };
+
   return (
     <div
-      className={`nx-overflow-tabs${scroll.overflow ? ' has-overflow' : ''}`}
+      className={`${className}${scroll.overflow ? ' has-overflow' : ''}`}
       ref={root}
       onFocusCapture={(event) => revealFocusedTab(event.target as HTMLElement)}
     >
       {scroll.overflow && (
-        <div
-          className="nx-tab-scroll-controls"
-          role="group"
-          aria-label={lang === 'en' ? 'Scroll sections' : 'Desplazar secciones'}
-        >
+        <div className="nx-tab-scroll-controls" role="group" aria-label={labels.group}>
           <button
             type="button"
             className="nx-tab-scroll-button"
-            aria-label={lang === 'en' ? 'Previous sections' : 'Secciones anteriores'}
-            title={lang === 'en' ? 'Previous sections' : 'Secciones anteriores'}
+            aria-label={labels.previous}
+            title={labels.previous}
             disabled={!scroll.left}
             onClick={() => move(-1)}
           >
@@ -81,8 +100,8 @@ export default function OverflowTabs({ tabs, ariaLabel }: { tabs: TabDef[]; aria
           <button
             type="button"
             className="nx-tab-scroll-button"
-            aria-label={lang === 'en' ? 'More sections' : 'Más secciones'}
-            title={lang === 'en' ? 'More sections' : 'Más secciones'}
+            aria-label={labels.next}
+            title={labels.next}
             disabled={!scroll.right}
             onClick={() => move(1)}
           >
@@ -90,7 +109,32 @@ export default function OverflowTabs({ tabs, ariaLabel }: { tabs: TabDef[]; aria
           </button>
         </div>
       )}
-      <Tabs ariaLabel={ariaLabel} tabs={tabs} />
+      {children}
     </div>
+  );
+}
+
+export default function OverflowTabs({ tabs, ariaLabel }: { tabs: TabDef[]; ariaLabel: string }) {
+  return (
+    <TabScroller selector=".tablist" className="nx-overflow-tabs" level="sections">
+      <Tabs ariaLabel={ariaLabel} tabs={tabs} />
+    </TabScroller>
+  );
+}
+
+export function OverflowSubTabs({ tabs, ariaLabel }: { tabs: SubTabDef[]; ariaLabel: string }) {
+  return (
+    <TabScroller selector=".subtablist" className="nx-overflow-subtabs" level="topics">
+      <SubTabs
+        ariaLabel={ariaLabel}
+        orientation="vertical"
+        tabs={tabs.map((tab) => ({
+          ...tab,
+          label: (
+            <span title={typeof tab.label === 'string' ? tab.label : undefined}>{tab.label}</span>
+          ),
+        }))}
+      />
+    </TabScroller>
   );
 }

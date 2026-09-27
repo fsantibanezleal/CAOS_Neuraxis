@@ -5,61 +5,83 @@ const base = process.env.NEURAXIS_QA_URL ?? 'http://127.0.0.1:4180';
 mkdirSync('qa', { recursive: true });
 const browser = await chromium.launch();
 const sections = [], errors = [];
-const expectedTabs = { introduction: 6, methodology: 7, implementation: 9, experiments: 8, benchmark: 7 };
+const expectedGroups = {
+  introduction: [3, 2, 0],
+  methodology: [4, 2, 0],
+  implementation: [2, 3, 3, 0],
+  experiments: [3, 2, 2, 0],
+  benchmark: [3, 2, 0, 0],
+};
 try {
   for (const width of [1600, 360]) for (const theme of ['light', 'dark']) for (const lang of ['en', 'es']) {
     const page = await browser.newPage({ viewport: { width, height: 900 } });
-    page.on('pageerror', e => errors.push(e.message));
+    page.on('pageerror', e => errors.push({ width, theme, lang, pageError: e.message }));
     await page.addInitScript(({ theme, lang }) => {
       localStorage.setItem('caos.theme', theme); localStorage.setItem('caos.lang', lang);
     }, { theme, lang });
-    for (const [route, count] of Object.entries(expectedTabs)) {
+    for (const [route, groups] of Object.entries(expectedGroups)) {
       await page.goto(`${base}/${route}`);
       const root = page.locator(route === 'benchmark' ? '.nx-benchmark' : '.nx-doc');
-      const tabs = root.locator('.tablist > .tab');
-      await expect(tabs).toHaveCount(count);
-      for (let i = 0; i < count; i++) {
+      const tabs = root.locator('.nx-overflow-tabs > .tabs > .tablist > .tab');
+      await expect(tabs).toHaveCount(groups.length);
+      expect(groups.length).toBeLessThanOrEqual(6);
+      let leafIndex = 0;
+      for (let i = 0; i < groups.length; i++) {
         await tabs.nth(i).click();
         await expect(tabs.nth(i)).toHaveAttribute('aria-selected', 'true');
-        const panel = root.locator('.tabpanel:visible');
+        const panel = root.locator('.nx-overflow-tabs > .tabs > .tabpanel:visible');
         await expect(panel).toBeVisible();
-        const title = await tabs.nth(i).innerText();
-        const bibliography = /Bibliograph|Bibliograf/.test(title);
-        const compound = /Compound|compuestas/.test(title);
-        if (bibliography) {
-          await expect(panel.locator('.reference-list li').first()).toBeVisible();
-          expect(await panel.locator('.reference-list li').count()).toBeGreaterThan(2);
-        } else if (compound) {
-          await expect(panel.locator('select option')).toHaveCount(36);
-          await expect(panel.locator('table tbody tr')).toHaveCount(9);
-        } else if (route !== 'benchmark') {
-          const article = panel.locator('.nx-doc-section');
-          expect(await article.locator(':scope > p.measure').count()).toBeGreaterThanOrEqual(route === 'methodology' ? 4 : 2);
-          expect(await article.locator('.katex-display').count()).toBeGreaterThanOrEqual(route === 'methodology' ? 2 : route === 'introduction' ? 0 : 1);
-          await expect(article.locator('.science-figure')).toBeVisible();
-          expect(await article.locator('.th-refs a').count()).toBeGreaterThan(0);
-          expect(await article.locator('p.measure .cite-inline').count()).toBeGreaterThan(0);
+        const subtabs = panel.locator('.subtabs > .subtablist > .subtab');
+        await expect(subtabs).toHaveCount(groups[i]);
+        for (let j = 0; j < Math.max(1, groups[i]); j++) {
+          if (groups[i]) {
+            await subtabs.nth(j).click();
+            await expect(subtabs.nth(j)).toHaveAttribute('aria-selected', 'true');
+          }
+          const leaf = groups[i] ? panel.locator('.subtabpanel:visible') : panel;
+          const title = groups[i] ? await subtabs.nth(j).innerText() : await tabs.nth(i).innerText();
+          const bibliography = /Bibliograph|Bibliograf/.test(title);
+          const compound = /Compound|compuestas/.test(title);
+          if (bibliography) {
+            await expect(leaf.locator('.reference-list li').first()).toBeVisible();
+            expect(await leaf.locator('.reference-list li').count()).toBeGreaterThan(2);
+          } else if (compound) {
+            await expect(leaf.locator('select option')).toHaveCount(36);
+            await expect(leaf.locator('table tbody tr')).toHaveCount(9);
+          } else if (route !== 'benchmark') {
+            const article = leaf.locator('.nx-doc-section');
+            expect(await article.locator(':scope > p.measure').count()).toBeGreaterThanOrEqual(route === 'methodology' ? 4 : 2);
+            expect(await article.locator('.katex-display').count()).toBeGreaterThanOrEqual(route === 'methodology' ? 2 : route === 'introduction' ? 0 : 1);
+            await expect(article.locator('.science-figure')).toBeVisible();
+            expect(await article.locator('.th-refs a').count()).toBeGreaterThan(0);
+            expect(await article.locator('p.measure .cite-inline').count()).toBeGreaterThan(0);
+            await expect(article.locator('.reference-list')).toHaveCount(0);
+          }
+          expect(await leaf.locator('.katex-error').count()).toBe(0);
+          if (route === 'methodology' && !bibliography)
+            await expect(leaf.locator('.science-measurement table tbody tr').first()).toBeVisible();
+          const links = leaf.locator('a[href]');
+          if (await links.count()) {
+            const last = links.last();
+            await last.focus();
+            await last.scrollIntoViewIfNeeded();
+            await expect(last).toBeInViewport();
+          }
+          const geometry = await root.evaluate(el => {
+            const b = el.getBoundingClientRect();
+            return { wide: b.width >= innerWidth - 48,
+              overflow: document.documentElement.scrollWidth > innerWidth + 1 };
+          });
+          if (!geometry.wide || geometry.overflow) errors.push({ route, title, width, theme, lang, ...geometry });
+          await page.evaluate(() => scrollTo({ top: 0, behavior: 'instant' }));
+          await expect.poll(() => page.evaluate(() => scrollY)).toBe(0);
+          await page.screenshot({ path: `qa/content-${route}-${leafIndex}-${width}-${theme}-${lang}.png`, fullPage: true });
+          sections.push({ route, title, width, theme, lang, sourcesReachable: true, ...geometry });
+          leafIndex++;
         }
-        expect(await panel.locator('.katex-error').count()).toBe(0);
-        if (route === 'methodology' && !bibliography)
-          await expect(panel.locator('.science-measurement table tbody tr').first()).toBeVisible();
-        const last = (await panel.locator('a[href]').count() ? panel : root).locator('a[href]').last();
-        await last.focus();
-        await last.scrollIntoViewIfNeeded();
-        await expect(last).toBeInViewport();
-        const geometry = await root.evaluate(el => {
-          const b = el.getBoundingClientRect();
-          return { centered: Math.abs(b.left - (innerWidth - b.width) / 2) < 2,
-            capped: b.width <= parseFloat(getComputedStyle(el).getPropertyValue('--maxw')) + 2,
-            overflow: document.documentElement.scrollWidth > innerWidth + 1 };
-        });
-        if (!geometry.centered || !geometry.capped || geometry.overflow) errors.push({ route, title, width, theme, lang, ...geometry });
-        await page.evaluate(() => scrollTo({ top: 0, behavior: 'instant' }));
-        await expect.poll(() => page.evaluate(() => scrollY)).toBe(0);
-        await page.screenshot({ path: `qa/content-${route}-${i}-${width}-${theme}-${lang}.png`, fullPage: true });
-        sections.push({ route, title, width, theme, lang, sourcesReachable: true, ...geometry });
       }
-      // The shared tab component must preserve keyboard navigation too.
+      const expectedLeaves = groups.reduce((n, count) => n + Math.max(1, count), 0);
+      expect(leafIndex).toBe(expectedLeaves);
       await tabs.first().focus(); await page.keyboard.press('ArrowRight');
       await expect(tabs.nth(1)).toBeFocused();
     }
