@@ -27,9 +27,15 @@ Implementation and local convergence (2026-09-24):
   1fb6f7226ab8cfba88ee87fdf9031a0f48cc908f. Live HTTPS uploads, findings, verified CSV
   bytes, ZIP export, session isolation and deletion passed in eight browser
   language/theme/width combinations. First compound run peak memory was about
-  42 MiB under a 512 MiB service bound. CI billing remains a separate external
-  limitation; main run 35957971063 executed no job steps. All 296 scientific
+  42 MiB under a 512 MiB service bound. Main run 35957971063 executed no job
+  steps because of the then-current billing block. All 296 scientific
   tab views and 120 navigation/scrolling combinations also passed on live HTTPS.
 
 Machine-readable reports are under docs/validation/0.02.000. These are engineering
 checks, not user design acceptance or a claim of general intelligence.
+
+Current release 0.02.003 passed hosted develop CI, main CI and the static-build
+workflow. Its static and native deployments match source
+`b6180eb92186d63bfb7fce724728af041276300a`; see the
+[0.02.003 release receipt](../../../validation/0.02.003/release.json). The
+earlier billing failure is historical. User design acceptance remains separate.
