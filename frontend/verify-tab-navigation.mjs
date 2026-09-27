@@ -22,6 +22,8 @@ try {
       const list = navigator.locator(':scope > .tabs > .tablist');
       const tabs = list.locator(':scope > .tab');
       await expect(tabs.first()).toBeVisible();
+      await expect(root.locator('.page-head h1')).toBeInViewport();
+      await expect.poll(() => page.evaluate(() => scrollY)).toBe(0);
       const overflow = await list.evaluate(el => el.scrollWidth > el.clientWidth + 2);
       const controls = navigator.locator('.nx-tab-scroll-controls');
       if ((route === 'introduction' || route === 'methodology') && lang === 'en' && theme === 'dark') {

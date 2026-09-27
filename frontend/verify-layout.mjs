@@ -35,10 +35,20 @@ for (const viewport of sizes) for (const theme of ['light', 'dark']) for (const 
   for (const route of routes) {
     console.log(JSON.stringify({ route, viewport, theme, lang, phase: 'navigation' }));
     // Exercise navigation out of fixed mode, not only direct URL loads.
-    await page.locator(`.site-header a[href="${route}"]`).click();
+    const destination = page.locator(`.site-header a[href="${route}"]`);
+    const heading = (await destination.innerText()).trim();
+    await destination.click();
     try {
       await expect(page).toHaveURL(new URL(route, base).href);
+      // A previous lazy route can remain visible briefly after the URL changes.
+      if (route === '/benchmark')
+        await expect(page.locator('.nx-benchmark .page-head h1')).toBeVisible();
+      else
+        await expect(page.locator('.nx-doc .page-head h1')).toHaveText(heading);
       await page.locator(route === '/benchmark' ? '.nx-benchmark .nx-metrics' : '.nx-doc-section').waitFor();
+      if (route === '/methodology')
+        await expect(page.locator('.science-measurement table tbody tr').first()).toBeVisible();
+      await page.evaluate(() => document.fonts.ready);
     } catch (error) {
       await page.screenshot({ path: 'qa/layout-failure.png', fullPage: true });
       console.log(JSON.stringify({
