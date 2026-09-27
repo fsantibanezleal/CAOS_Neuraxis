@@ -16,8 +16,10 @@
 .nx-benchmark-body .nx-overflow-tabs > .tabs > .tablist { flex-wrap: nowrap; overflow-x: auto; padding-bottom: .55rem; scrollbar-width: thin; }
 .op-page > .tabs > .tablist .tab { display: flex; align-items: center; gap: .5rem; }
 .nx-doc .nx-overflow-tabs > .tabs > .tabpanel { padding-top: 1.25rem; }
-.nx-overflow-tabs { position: relative; min-width: 0; }
+.nx-overflow-tabs, .nx-overflow-subtabs { position: relative; min-width: 0; }
 .nx-overflow-tabs.has-overflow > .tabs > .tablist { padding-right: 5.5rem; }
+.nx-overflow-subtabs > .subtabs { margin-block: 0; }
+.nx-overflow-subtabs.has-overflow > .subtabs > .subtablist { padding-right: 5.5rem; }
 .nx-tab-scroll-controls { position: absolute; z-index: 2; top: 0; right: 0; display: flex; align-items: center; height: 2.5rem; gap: .2rem; padding-left: .35rem; background: var(--color-bg); }
 .nx-tab-scroll-button { display: inline-flex; align-items: center; justify-content: center; width: 2.3rem; height: 2.3rem; border: 1px solid var(--color-border); border-radius: 5px; background: var(--color-surface); color: var(--color-fg); }
 .nx-tab-scroll-button:hover:not(:disabled), .nx-tab-scroll-button:focus-visible { border-color: var(--color-accent); color: var(--color-accent); }

@@ -1,5 +1,13 @@
 # Changelog
 
+## 0.02.005 - 2026-09-27
+
+### Fixed
+
+- Group the science and benchmark views into question-led shared Tabs and SubTabs, keeping every section and the dedicated bibliography reachable.
+- Give long mobile topic rows visible touch and keyboard controls; preserve document scrolling and full-width rail layouts.
+- Keep per-section inline citations and references while removing redundant full bibliography lists below each section.
+
 ## 0.02.004 - 2026-09-27
 
 ### Fixed

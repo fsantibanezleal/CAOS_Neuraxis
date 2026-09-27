@@ -562,7 +562,7 @@ select:disabled {
 .nx-doc .subtablist {
   align-self: start;
   position: sticky;
-  top: 1rem;
+  top: calc(56px + 1rem);
   flex-wrap: nowrap;
 }
 .nx-doc .subtab {
@@ -570,7 +570,7 @@ select:disabled {
 }
 .nx-doc-section {
   min-width: 0;
-  scroll-margin-top: 1.5rem;
+  scroll-margin-top: calc(56px + 1rem);
 }
 .nx-doc-section .callout p {
   margin: 0;
@@ -1103,13 +1103,13 @@ select:disabled {
   flex: none;
 }
 .nx-benchmark .subtablist {
-  flex-wrap: nowrap;
-  overflow-x: auto;
-  padding-bottom: 0.35rem;
+  align-self: start;
+  position: sticky;
+  top: calc(56px + 1rem);
+  overflow-x: visible;
 }
 .nx-benchmark .subtab {
-  flex-shrink: 0;
-  white-space: nowrap;
+  white-space: normal;
 }
 @media (max-width: 760px) {
   .nx-schematic-desktop {
@@ -1125,10 +1125,25 @@ select:disabled {
     overflow-x: auto;
     padding-bottom: 0.4rem;
   }
+  .nx-benchmark .subtabs-vertical .subtablist {
+    position: static;
+    flex-direction: row;
+    flex-wrap: nowrap;
+    overflow-x: auto;
+    padding-bottom: 0.4rem;
+  }
   .nx-doc .subtab {
     flex-shrink: 0;
     white-space: nowrap;
     min-height: 44px;
+  }
+  .nx-overflow-subtabs .subtab {
+    max-width: calc(100vw - 8rem);
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+  .nx-doc-section {
+    scroll-margin-top: calc(96px + 1rem);
   }
   .nx-doc-nav-select {
     flex-wrap: wrap;
@@ -1144,6 +1159,8 @@ select:disabled {
     flex-basis: 100%;
   }
   .nx-benchmark .subtab {
+    flex-shrink: 0;
+    white-space: nowrap;
     min-height: 44px;
   }
   .nx-doc .nx-doc-symbols {

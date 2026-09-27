@@ -2,10 +2,74 @@ import { useEffect, useRef } from 'react';
 import { Callout, Cite, Equation, Refs, ReferenceList } from '@fasl-work/caos-app-shell';
 import { useCopy } from '../i18n';
 import type { ContentPage, ContentSection } from '../data/content.types';
+import type { Bilingual } from '../lib/types';
 import ScientificFigure from '../components/ScientificFigure';
 import { paragraphSources } from '../data/paragraph-sources';
 import { MethodEvidence, OperationStudy } from '../components/ScientificEvidence';
-import OverflowTabs from '../components/OverflowTabs';
+import OverflowTabs, { OverflowSubTabs } from '../components/OverflowTabs';
+
+type SectionGroup = { id: string; label: Bilingual; sections: string[] };
+
+const groupsByPage: Record<string, SectionGroup[]> = {
+  Introduction: [
+    {
+      id: 'foundations',
+      label: { en: 'Foundations', es: 'Fundamentos' },
+      sections: ['problem', 'biology', 'formal'],
+    },
+    {
+      id: 'practice',
+      label: { en: 'Using Neuraxis', es: 'Uso de Neuraxis' },
+      sections: ['workflow', 'honesty'],
+    },
+  ],
+  Methodology: [
+    {
+      id: 'fast',
+      label: { en: 'Fast control', es: 'Control rápido' },
+      sections: ['exact', 'supervised', 'sequential', 'modelbased'],
+    },
+    {
+      id: 'coordination',
+      label: { en: 'Slow coordination', es: 'Coordinación lenta' },
+      sections: ['slow', 'metacontrol'],
+    },
+  ],
+  Implementation: [
+    {
+      id: 'runtime',
+      label: { en: 'Execution boundary', es: 'Límite de ejecución' },
+      sections: ['runtime', 'features'],
+    },
+    {
+      id: 'engines',
+      label: { en: 'Policy engines', es: 'Motores de políticas' },
+      sections: ['classical', 'recurrent', 'planning'],
+    },
+    {
+      id: 'product',
+      label: { en: 'Product and evidence', es: 'Producto y evidencia' },
+      sections: ['browser', 'pipeline', 'deployment'],
+    },
+  ],
+  Experiments: [
+    {
+      id: 'protocol',
+      label: { en: 'Study protocol', es: 'Protocolo de estudio' },
+      sections: ['design', 'splits', 'metrics'],
+    },
+    {
+      id: 'tests',
+      label: { en: 'Stress and ablation', es: 'Estrés y ablación' },
+      sections: ['robustness', 'ablations'],
+    },
+    {
+      id: 'evidence',
+      label: { en: 'Evidence and tasks', es: 'Evidencia y tareas' },
+      sections: ['data', 'compound'],
+    },
+  ],
+};
 export function SectionContent({ section }: { section: ContentSection }) {
   const { lang, t } = useCopy();
   const article = useRef<HTMLElement>(null);
@@ -76,26 +140,44 @@ export function SectionContent({ section }: { section: ContentSection }) {
         section.id,
       ) && <MethodEvidence section={section.id} />}
       <Refs ids={sourceIds} label={t.refs} />
-      <ReferenceList
-        ids={sourceIds}
-        heading={lang === 'en' ? 'Section bibliography' : 'Bibliografía de la sección'}
-      />
     </article>
   );
 }
 export default function Science({ page }: { page: ContentPage }) {
   const { lang, t } = useCopy();
-  const tabs = page.sections.map((s) => ({
+  const sections = page.sections.map((s) => ({
     id: s.id,
     label: s.title[lang],
     content: <SectionContent section={s} />,
   }));
   if (page.title.en === 'Experiments')
-    tabs.push({
+    sections.push({
       id: 'compound',
       label: lang === 'en' ? 'Compound task study' : 'Estudio de tareas compuestas',
       content: <OperationStudy />,
     });
+  const groups = groupsByPage[page.title.en];
+  const groupedIds = groups.flatMap((group) => group.sections);
+  if (
+    groupedIds.length !== sections.length ||
+    new Set(groupedIds).size !== sections.length ||
+    groupedIds.some((id) => !sections.some((section) => section.id === id))
+  ) {
+    throw new Error(`Incomplete science navigation for ${page.title.en}`);
+  }
+  const tabs = groups.map((group) => ({
+    id: group.id,
+    label: group.label[lang],
+    content: (
+      <OverflowSubTabs
+        ariaLabel={`${page.title[lang]}: ${group.label[lang]}`}
+        tabs={group.sections.map((id) => {
+          const section = sections.find((item) => item.id === id)!;
+          return section;
+        })}
+      />
+    ),
+  }));
   tabs.push({
     id: 'bibliography',
     label: lang === 'en' ? 'Bibliography' : 'Bibliografía',
@@ -111,7 +193,7 @@ export default function Science({ page }: { page: ContentPage }) {
     ),
   });
   return (
-    <div className="page-body prose nx-doc">
+    <div className="page-body wide prose nx-doc">
       <div className="page-head">
         <h1>{page.title[lang]}</h1>
         <p className="lede">{page.lede[lang]}</p>
