@@ -13,7 +13,20 @@ const browser = await chromium.launch();
 const checks = [], errors = [];
 for (const viewport of sizes) for (const theme of ['light', 'dark']) for (const lang of ['en', 'es']) {
   const page = await browser.newPage({ viewport, hasTouch: viewport.width < 761 });
-  page.on('pageerror', e => errors.push({ viewport, theme, lang, error: e.message }));
+  const navigationErrors = [];
+  page.on('pageerror', e => {
+    const detail = { viewport, theme, lang, error: e.message };
+    errors.push(detail);
+    navigationErrors.push(detail);
+  });
+  page.on('requestfailed', request => navigationErrors.push({
+    url: request.url(), failure: request.failure() ?? 'request failed',
+  }));
+  page.on('response', response => {
+    if (response.status() >= 400) navigationErrors.push({
+      url: response.url(), status: response.status(),
+    });
+  });
   await page.addInitScript(({ theme, lang }) => {
     localStorage.setItem('caos.theme', theme);
     localStorage.setItem('caos.lang', lang);
@@ -28,7 +41,10 @@ for (const viewport of sizes) for (const theme of ['light', 'dark']) for (const 
       await page.locator(route === '/benchmark' ? '.nx-benchmark .nx-metrics' : '.nx-doc-section').waitFor();
     } catch (error) {
       await page.screenshot({ path: 'qa/layout-failure.png', fullPage: true });
-      console.log(JSON.stringify({ url: page.url(), text: (await page.locator('body').innerText()).slice(0, 1800) }));
+      console.log(JSON.stringify({
+        url: page.url(), text: (await page.locator('body').innerText()).slice(0, 1800),
+        navigationErrors: navigationErrors.slice(-20),
+      }));
       throw error;
     }
     await expect(page.locator('.app-shell')).not.toHaveClass(/fixed/);
