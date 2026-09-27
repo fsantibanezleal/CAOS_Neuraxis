@@ -1,0 +1,58 @@
+{
+  "date": "2026-09-27",
+  "version": "0.02.005",
+  "tag": "v0.02.005",
+  "deployed_app_commit": "feb31096d4a85a1fcd9b85ff5b721a36f93a2839",
+  "qa_harness_main_commit": "feb31096d4a85a1fcd9b85ff5b721a36f93a2839",
+  "static_release": "feb31096d4a8-8662fd3989cc",
+  "static_archive_sha256": "8662fd3989cca836608f0a6e8e4add8ca5948a120ef21a0674154632cfe22f60",
+  "native_release": "/opt/neuraxis-operations/releases/feb31096d4a8-896b19ee3b9f",
+  "native_archive_sha256": "896b19ee3b9f958908197cf4fa0259e26cb8fc796852b2f205b9a07942b09fa3",
+  "hosted_checks": {
+    "product_develop_ci": 36343202079,
+    "product_main_ci": 36343287208,
+    "product_main_static_build": 36343287136,
+    "conclusion": "success"
+  },
+  "local_gates": {
+    "frontend_unit_tests": 31,
+    "app_python_tests": "55 passed, three skipped, in isolated environment with published reflexmesh 0.1.0",
+    "canonical_episodes": 14400,
+    "research_episodes": 19488,
+    "operation_study_runs": 36,
+    "production_build_formatting_sdd_content_and_ci_budget": "passed"
+  },
+  "live": {
+    "manifest_files": 14518,
+    "manifest_entry_assets_verified": 2,
+    "direct_scientific_routes": 5,
+    "tab_navigation_views": 40,
+    "layout_views": 120,
+    "science_sections": 296,
+    "investigation_views": 48,
+    "task_flow_views": 8,
+    "native_runs": 2,
+    "native_findings": [10, 3],
+    "task_export_ownership_and_delete_verified": true,
+    "static_and_native_commit_match": true,
+    "public_workspace_api_status": 404,
+    "native_service_active": true,
+    "native_peak_memory_bytes": 48820224,
+    "host_free_disk_gb_reported": 25
+  },
+  "evidence_files": [
+    "browser-tabs.json",
+    "browser-layout.json",
+    "browser-content.json",
+    "browser-investigations.json",
+    "browser-operations.json",
+    "native-operations.json"
+  ],
+  "unchanged": {
+    "engine": "reflexmesh 0.1.0",
+    "canonical_episodes": 14400,
+    "research_episodes": 19488,
+    "operation_study_runs": 36
+  },
+  "limitations": "Engineering checks do not establish user design acceptance, open-world performance, learned-method superiority, or AGI."
+}

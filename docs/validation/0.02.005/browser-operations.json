@@ -1,0 +1,110 @@
+{
+  "base": "https://neuraxis.ml.fasl-work.com",
+  "checks": [
+    {
+      "width": 1600,
+      "theme": "light",
+      "lang": "en",
+      "evidenceFirst": true,
+      "verticalSourceLines": true,
+      "ownedFindings": 10,
+      "userFindings": 3,
+      "normalizedData": true,
+      "export": true,
+      "delete": true,
+      "overflow": false
+    },
+    {
+      "width": 1600,
+      "theme": "light",
+      "lang": "es",
+      "evidenceFirst": true,
+      "verticalSourceLines": true,
+      "ownedFindings": 10,
+      "userFindings": 3,
+      "normalizedData": true,
+      "export": true,
+      "delete": true,
+      "overflow": false
+    },
+    {
+      "width": 1600,
+      "theme": "dark",
+      "lang": "en",
+      "evidenceFirst": true,
+      "verticalSourceLines": true,
+      "ownedFindings": 10,
+      "userFindings": 3,
+      "normalizedData": true,
+      "export": true,
+      "delete": true,
+      "overflow": false
+    },
+    {
+      "width": 1600,
+      "theme": "dark",
+      "lang": "es",
+      "evidenceFirst": true,
+      "verticalSourceLines": true,
+      "ownedFindings": 10,
+      "userFindings": 3,
+      "normalizedData": true,
+      "export": true,
+      "delete": true,
+      "overflow": false
+    },
+    {
+      "width": 360,
+      "theme": "light",
+      "lang": "en",
+      "evidenceFirst": true,
+      "verticalSourceLines": true,
+      "ownedFindings": 10,
+      "userFindings": 3,
+      "normalizedData": true,
+      "export": true,
+      "delete": true,
+      "overflow": false
+    },
+    {
+      "width": 360,
+      "theme": "light",
+      "lang": "es",
+      "evidenceFirst": true,
+      "verticalSourceLines": true,
+      "ownedFindings": 10,
+      "userFindings": 3,
+      "normalizedData": true,
+      "export": true,
+      "delete": true,
+      "overflow": false
+    },
+    {
+      "width": 360,
+      "theme": "dark",
+      "lang": "en",
+      "evidenceFirst": true,
+      "verticalSourceLines": true,
+      "ownedFindings": 10,
+      "userFindings": 3,
+      "normalizedData": true,
+      "export": true,
+      "delete": true,
+      "overflow": false
+    },
+    {
+      "width": 360,
+      "theme": "dark",
+      "lang": "es",
+      "evidenceFirst": true,
+      "verticalSourceLines": true,
+      "ownedFindings": 10,
+      "userFindings": 3,
+      "normalizedData": true,
+      "export": true,
+      "delete": true,
+      "overflow": false
+    }
+  ],
+  "errors": []
+}

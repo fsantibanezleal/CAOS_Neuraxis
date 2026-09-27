@@ -1,8 +1,8 @@
 # Release convergence, updated September 27, 2026
 
-The deployed 0.02.004 static and native releases identify source
-`96bd2fa6061132fbc867d65abb39f87738834ad0`. The matching
-[release receipt](../validation/0.02.004/release.json) distinguishes the latest
+The deployed 0.02.005 static and native releases identify source
+`feb31096d4a85a1fcd9b85ff5b721a36f93a2839`. The matching
+[release receipt](../validation/0.02.005/release.json) distinguishes the latest
 hosted and live gates from the dated results below.
 
 | Product SDD requirement | Named gate result |
@@ -16,12 +16,12 @@ hosted and live gates from the dated results below.
 | R-007 | Actual workspace file write, SHA verification, stale-preview rejection and cancellation passed. |
 | R-008 | Incorrect recovery evidence returned 422; reviewed reconciliation and subsequent execution passed, including 360px viewport. |
 | R-009 | Archive traversal/digest rejection passed; positive immutable release installation ran on the Linux target. |
-| R-010 | Canonical packaging passed; the current 0.02.004 archive declares 14,518 files and its fetched entry assets match the live manifest. Earlier 14,479- and 14,517-file installs were older releases. |
-| R-011 | CI budget guard passed. Earlier account-billing failures are historical; 0.02.004 product develop CI 36338410171, main CI 36338490964 and static build 36338490966 completed successfully. The later audit-only main checks also passed. |
+| R-010 | Canonical packaging passed; the current 0.02.005 archive declares 14,518 files and its fetched entry assets match the live manifest. Earlier 14,479- and 14,517-file installs were older releases. |
+| R-011 | CI budget guard passed. Earlier account-billing failures are historical; 0.02.005 product develop CI 36343202079, main CI 36343287208 and static build 36343287136 completed successfully. |
 
 The current release manifest at https://neuraxis.ml.fasl-work.com/release.json identifies the exact deployed commit, version, canonical coverage and every published file digest. Installation retains prior releases and switches current atomically. TLS hostname verification succeeded with TLS 1.3 and a certificate expiring December 23, 2026. Certbot renewal is enabled and the deployment hook reloads nginx after a successful renewal.
 
-For 0.02.004, local validation recorded passing app Python tests, 31 frontend
+For 0.02.005, local validation recorded 55 passing app Python tests with three skips, 31 frontend
 tests, the complete experiment integrity audit and desktop/mobile browser
 checks. Live validation exercised 40 tab interactions, 120 layout views, 296
 scientific sections, 48 investigation views, eight task flows and real native
@@ -30,6 +30,21 @@ the specific runs above, not inferred from local results. No credentials are
 embedded in these reports.
 
 The corrected research report records 19,488 episodes and the negative M12/ablation/learned-allocation findings. Implementation completion is distinct from evidence of a new algorithmic advantage or AGI.
+
+## 0.02.005 scientific reading hierarchy
+
+The live static manifest and native config identify app commit
+`feb31096d4a85a1fcd9b85ff5b721a36f93a2839`. Five bookmarked science
+routes now use bounded shared top-level tabs with vertical subsection tabs,
+while Bibliography remains directly reachable. The reading surface uses
+document flow at desktop and phone widths; explicit phone arrows expose later
+subsections. Inline citations and full references remain available. The live
+host passed 40 tab interactions, 120 layout views, 296 science sections,
+48 investigations and eight task flows; two native HTTPS runs verified
+findings, receipts, exports, session isolation and deletion. The app's
+[0.02.005 receipt](../validation/0.02.005/release.json) contains the exact
+static/native identities and six machine-readable reports. User design
+acceptance remains open.
 
 ## 0.02.002 operation-history correction
 
