@@ -12,10 +12,17 @@
 .science-figure figcaption { font-size: .78rem; line-height: 1.65; color: var(--color-fg-subtle); border-top: 1px solid var(--color-border); padding-top: .8rem; }
 @media (max-width: 650px) { .science-figure { padding: 1rem; }.science-figure-title { flex-wrap: wrap; font-size: .57rem; }.science-figure-desktop { display: none; }.science-figure-mobile { display: grid; gap: .6rem; padding: 0; list-style: none; margin-block: 1.2rem; }.science-figure-mobile li { display: flex; align-items: center; gap: .8rem; background: var(--color-surface); border: 1px solid var(--color-border); padding: .9rem; border-radius: 7px; font-size: .83rem; }.science-figure-mobile span { color: var(--color-accent); font: .65rem var(--font-mono); }.science-figure figcaption { font-size: .73rem; } }
 .op-page > .tabs > .tablist,
-.nx-doc > .tabs > .tablist,
-.nx-benchmark-body > .tabs > .tablist { flex-wrap: nowrap; overflow-x: auto; padding-bottom: .55rem; scrollbar-width: thin; }
+.nx-doc .nx-overflow-tabs > .tabs > .tablist,
+.nx-benchmark-body .nx-overflow-tabs > .tabs > .tablist { flex-wrap: nowrap; overflow-x: auto; padding-bottom: .55rem; scrollbar-width: thin; }
 .op-page > .tabs > .tablist .tab { display: flex; align-items: center; gap: .5rem; }
-.nx-doc > .tabs > .tabpanel { padding-top: 1.25rem; }
+.nx-doc .nx-overflow-tabs > .tabs > .tabpanel { padding-top: 1.25rem; }
+.nx-overflow-tabs { position: relative; min-width: 0; }
+.nx-overflow-tabs.has-overflow > .tabs > .tablist { padding-right: 5.5rem; }
+.nx-tab-scroll-controls { position: absolute; z-index: 2; top: 0; right: 0; display: flex; align-items: center; height: 2.5rem; gap: .2rem; padding-left: .35rem; background: var(--color-bg); }
+.nx-tab-scroll-button { display: inline-flex; align-items: center; justify-content: center; width: 2.3rem; height: 2.3rem; border: 1px solid var(--color-border); border-radius: 5px; background: var(--color-surface); color: var(--color-fg); }
+.nx-tab-scroll-button:hover:not(:disabled), .nx-tab-scroll-button:focus-visible { border-color: var(--color-accent); color: var(--color-accent); }
+.nx-tab-scroll-button:focus-visible { outline: 2px solid var(--color-accent); outline-offset: 2px; }
+.nx-tab-scroll-button:disabled { opacity: .35; }
 .nx-doc .reference-list, .nx-doc .references { margin-top: 2rem; }
 .op-layout { display: grid; grid-template-columns: 288px minmax(0, 1fr); gap: 2rem; padding-top: 1.6rem; }
 .op-sidebar { min-width: 0; display: flex; flex-direction: column; gap: 1.15rem; border-right: 1px solid var(--color-border); padding-right: 1.5rem; }
