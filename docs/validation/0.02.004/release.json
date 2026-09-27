@@ -1,0 +1,59 @@
+{
+  "date": "2026-09-27",
+  "version": "0.02.004",
+  "tag": "v0.02.004",
+  "deployed_app_commit": "96bd2fa6061132fbc867d65abb39f87738834ad0",
+  "qa_harness_main_commit": "91464b4562edc6d652be95f390eecc178897bfd7",
+  "static_release": "96bd2fa60611-4e165102fb06",
+  "static_archive_sha256": "4e165102fb06fab657b2780781ce4a6e580fb6d9a683d0f4d6ece7e506296da3",
+  "native_release": "/opt/neuraxis-operations/releases/96bd2fa60611-7c6a750523ba",
+  "native_archive_sha256": "7c6a750523bafc110bf612f8eceb58aa8df33880fb6998e470bed80fd76a173b",
+  "hosted_checks": {
+    "product_develop_ci": 36338410171,
+    "product_main_ci": 36338490964,
+    "product_main_static_build": 36338490966,
+    "qa_develop_ci": 36339679410,
+    "qa_main_ci": 36339798496,
+    "qa_main_static_build": 36339798484,
+    "conclusion": "success"
+  },
+  "local_gates": {
+    "frontend_unit_tests": 31,
+    "app_python_tests": "passed with three skips",
+    "canonical_episodes": 14400,
+    "research_episodes": 19488,
+    "operation_study_runs": 36,
+    "production_build_formatting_sdd_content_and_ci_budget": "passed"
+  },
+  "live": {
+    "manifest_files": 14518,
+    "manifest_entry_assets_verified": 2,
+    "direct_scientific_routes": 5,
+    "tab_navigation_views": 40,
+    "layout_views": 120,
+    "science_sections": 296,
+    "investigation_views": 48,
+    "task_flow_views": 8,
+    "task_export_ownership_and_delete_verified": true,
+    "static_and_native_commit_match": true,
+    "public_workspace_api_status": 404,
+    "native_service_active": true,
+    "native_peak_memory_bytes": 45588480,
+    "host_free_disk_gb_reported": 25
+  },
+  "evidence_files": [
+    "browser-tabs.json",
+    "browser-layout.json",
+    "browser-content.json",
+    "browser-investigations.json",
+    "browser-operations.json",
+    "native-operations.json"
+  ],
+  "unchanged": {
+    "engine": "reflexmesh 0.1.0",
+    "canonical_episodes": 14400,
+    "research_episodes": 19488,
+    "operation_study_runs": 36
+  },
+  "limitations": "Controlled workbench and browser verification do not establish user design acceptance, open-world performance, or learned-method superiority."
+}

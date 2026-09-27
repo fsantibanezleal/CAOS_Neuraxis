@@ -4,7 +4,7 @@ A scientific workbench and local software-control application for fast learned p
 
 The default Tasks view audits supplied source/configuration files, reconciles CSV deliveries, and verifies software-release manifests through native registered tools. Findings identify files and rows; accepted CSV data, checksums and the complete decision journal are downloadable. Investigations compares matched measured runs from the full scientific matrix. See [operational tasks](docs/workbench/operations.md) for formats and limits.
 
-Neuraxis exposes live decisions, candidate scores, exact resource state, effects, unresolved outcomes and planner delegations. Its scientific repository contains reproducible collection, training, calibration, inference, evaluation and export. The six bilingual workbench routes connect the implementation to neuroscience, machine learning, reinforcement learning and prior agent architectures.
+Neuraxis exposes live decisions, candidate scores, exact resource state, effects, unresolved outcomes and planner delegations. Its scientific repository contains reproducible collection, training, calibration, inference, evaluation and export. The six bilingual workbench routes connect the implementation to neuroscience, machine learning, reinforcement learning and prior agent architectures. Scientific sections and bibliographies use shared tabs with visible controls when the one-row tab strip overflows.
 
 ## Run locally
 
