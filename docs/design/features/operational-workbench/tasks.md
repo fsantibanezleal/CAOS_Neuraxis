@@ -34,8 +34,8 @@ Implementation and local convergence (2026-09-24):
 Machine-readable reports are under docs/validation/0.02.000. These are engineering
 checks, not user design acceptance or a claim of general intelligence.
 
-Current release 0.02.004 passed hosted develop CI, main CI and the static-build
+Current release 0.02.005 passed hosted develop CI, main CI and the static-build
 workflow. Its static and native deployments match source
-`96bd2fa6061132fbc867d65abb39f87738834ad0`; see the
-[0.02.004 release receipt](../../../validation/0.02.004/release.json). The
+`feb31096d4a85a1fcd9b85ff5b721a36f93a2839`; see the
+[0.02.005 release receipt](../../../validation/0.02.005/release.json). The
 earlier billing failure is historical. User design acceptance remains separate.
