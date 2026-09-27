@@ -1,11 +1,12 @@
 import { useMemo, useState } from 'react';
-import { Callout, Cite, Refs, ReferenceList, Tabs } from '@fasl-work/caos-app-shell';
+import { Callout, Cite, Refs, ReferenceList } from '@fasl-work/caos-app-shell';
 import { Download } from 'lucide-react';
 import { useArtifacts, episodeReferences, downloadJSON } from '../api/artifacts';
 import { useCopy } from '../i18n';
 import { METHODS, VARIANTS, VARIANT_IDS } from '../data/registry';
 import { format, Panel } from '../components/Instruments';
 import { ResearchResults } from '../components/ResearchResults';
+import OverflowTabs from '../components/OverflowTabs';
 type Bin = { lower: number; upper: number; count: number; confidence: number; accuracy: number };
 interface Aggregate {
   method_id: string;
@@ -430,7 +431,7 @@ export default function Benchmark() {
             </div>
           </div>
           <div className="nx-benchmark-body">
-            <Tabs
+            <OverflowTabs
               ariaLabel={t.evidence}
               tabs={[
                 { id: 'results', label: t.table, content: table },

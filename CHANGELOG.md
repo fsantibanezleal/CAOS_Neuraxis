@@ -1,5 +1,12 @@
 # Changelog
 
+## 0.02.004 - 2026-09-27
+
+### Fixed
+
+- Make overflowing scientific and benchmark tabs visibly navigable on desktop and phone; keep the focused tab in view when navigating by keyboard.
+- Exercise actual pointer/touch navigation to Bibliography across both languages, themes and supported viewport sizes.
+
 ## 0.02.003 - 2026-09-26
 
 - Lead completed task runs with their actual findings or accepted outputs while keeping the execution map and decision journal available for inspection.

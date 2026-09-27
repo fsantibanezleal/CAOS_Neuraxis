@@ -1,10 +1,11 @@
 import { useEffect, useRef } from 'react';
-import { Callout, Cite, Equation, Refs, ReferenceList, Tabs } from '@fasl-work/caos-app-shell';
+import { Callout, Cite, Equation, Refs, ReferenceList } from '@fasl-work/caos-app-shell';
 import { useCopy } from '../i18n';
 import type { ContentPage, ContentSection } from '../data/content.types';
 import ScientificFigure from '../components/ScientificFigure';
 import { paragraphSources } from '../data/paragraph-sources';
 import { MethodEvidence, OperationStudy } from '../components/ScientificEvidence';
+import OverflowTabs from '../components/OverflowTabs';
 export function SectionContent({ section }: { section: ContentSection }) {
   const { lang, t } = useCopy();
   const article = useRef<HTMLElement>(null);
@@ -115,7 +116,7 @@ export default function Science({ page }: { page: ContentPage }) {
         <h1>{page.title[lang]}</h1>
         <p className="lede">{page.lede[lang]}</p>
       </div>
-      <Tabs key={page.title.en} ariaLabel={t.content} tabs={tabs} />
+      <OverflowTabs key={page.title.en} ariaLabel={t.content} tabs={tabs} />
     </div>
   );
 }
