@@ -1,25 +1,25 @@
-# Release convergence, updated September 27, 2026
+# Release convergence, updated September 28, 2026
 
-The deployed 0.02.005 static and native releases identify source
-`feb31096d4a85a1fcd9b85ff5b721a36f93a2839`. The matching
-[release receipt](../validation/0.02.005/release.json) distinguishes the latest
+The deployed 0.02.006 static and native releases identify source
+`8fd4c3f1a95632f56f9c0940f94541930a8513dd`. The matching
+[release receipt](../validation/0.02.006/release.json) distinguishes the latest
 hosted and live gates from the dated results below.
 
 | Product SDD requirement | Named gate result |
 | --- | --- |
 | R-001 | Application startup rejects missing authentication; local tests passed. |
 | R-002 | Incomplete matrices and mismatched lineage are rejected; full 14,400-episode export passed. |
-| R-003 | Product contains no installable engine; reflexmesh 0.1.0 published to PyPI and clean installation verified. |
+| R-003 | Product contains no installable engine; reflexmesh 0.1.1 published to PyPI, installed from a clean environment and on the dedicated native host. |
 | R-004 | Artifact-integrity tests passed; 240 method-family selections replayed with matching canonical run IDs. |
 | R-005 | Eight live EN/ES, light/dark, desktop/phone task flows, 120 layout views and 40 pointer/touch/keyboard tab cases passed. The earlier fixed reading-page containment was rejected and corrected. |
-| R-006 | 296 live scientific section checks verify tabs, citations and reference access. Bibliography and last-tab reachability are now exercised through visible overflow controls. |
+| R-006 | 312 live scientific section checks verify tabs, citations and reference access, including the new adequacy and semantic-transfer panels. Bibliography and last-tab reachability are exercised through visible overflow controls. |
 | R-007 | Actual workspace file write, SHA verification, stale-preview rejection and cancellation passed. |
 | R-008 | Incorrect recovery evidence returned 422; reviewed reconciliation and subsequent execution passed, including 360px viewport. |
 | R-009 | Archive traversal/digest rejection passed; positive immutable release installation ran on the Linux target. |
-| R-010 | Canonical packaging passed; the current 0.02.005 archive declares 14,518 files and its fetched entry assets match the live manifest. Earlier 14,479- and 14,517-file installs were older releases. |
-| R-011 | CI budget guard passed. Earlier account-billing failures are historical; 0.02.005 product develop CI 36343202079, main CI 36343287208 and static build 36343287136 completed successfully. |
+| R-010 | Canonical packaging passed; the current 0.02.006 archive declares 16,059 files. Eight fetched entry, benchmark and evidence files match the live manifest, and five direct science routes resolve. |
+| R-011 | CI budget guard passed. Earlier account-billing failures are historical; 0.02.006 product develop CI 36383755892, main CI 36383873143 and static build 36383873065 completed successfully. |
 
-The current release manifest at https://neuraxis.ml.fasl-work.com/release.json identifies the exact deployed commit, version, canonical coverage and every published file digest. Installation retains prior releases and switches current atomically. TLS hostname verification succeeded with TLS 1.3 and a certificate expiring December 23, 2026. Certbot renewal is enabled and the deployment hook reloads nginx after a successful renewal.
+The current release manifest at https://neuraxis.ml.fasl-work.com/release.json identifies the exact deployed commit, version, canonical coverage and every published file digest. Installation retains prior releases and switches current atomically. The HTTPS verification used the actual hostname and its certificate; the earlier explicit TLS 1.3/certificate-expiry check belongs to 0.02.005. Certbot renewal is enabled and the deployment hook reloads nginx after a successful renewal.
 
 For 0.02.005, local validation recorded 55 passing app Python tests with three skips, 31 frontend
 tests, the complete experiment integrity audit and desktop/mobile browser
@@ -29,7 +29,22 @@ file operations with export and deletion. Hosted CI success is reported from
 the specific runs above, not inferred from local results. No credentials are
 embedded in these reports.
 
-The corrected research report records 19,488 episodes and the negative M12/ablation/learned-allocation findings. Implementation completion is distinct from evidence of a new algorithmic advantage or AGI.
+The frozen research report records 19,488 episodes and the negative M12/ablation/learned-allocation findings. The separate semantic-transfer study adds 1,536 traces and explicitly reports that the fitted router delegated zero held-out cases. Implementation completion is distinct from evidence of a new algorithmic advantage or AGI.
+
+## 0.02.006 benchmark adequacy and semantic transfer
+
+The live static manifest and native service both identify commit
+`8fd4c3f1a95632f56f9c0940f94541930a8513dd`. The public research panel
+exposes a SHA-checked benchmark adequacy report, a separate 1,536-trace
+semantic-transfer study, paired controller outcomes, and a selectable executed
+trace. It labels the Tasks workbench as a deterministic validator; the fitted
+router delegates zero held-out cases, and M12 does not outperform the
+always-planner comparator. The 36 owned operation runs were rebaked against
+reflexmesh 0.1.1, with stable inputs, findings and outputs verified against
+0.02.005. The [0.02.006 release receipt](../validation/0.02.006/release.json)
+records hosted CI, deployed hashes, live browser checks and native tasks.
+These engineering checks do not establish user design acceptance or open-world
+performance.
 
 ## 0.02.005 scientific reading hierarchy
 

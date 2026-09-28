@@ -1,0 +1,80 @@
+{
+  "schema": "neuraxis.live-static-verification/v1",
+  "base": "https://neuraxis.ml.fasl-work.com",
+  "commit": "8fd4c3f1a95632f56f9c0940f94541930a8513dd",
+  "version": "0.02.006",
+  "manifest_files": 16059,
+  "verified_files": [
+    {
+      "path": "assets/Benchmark-yiXdKsww.js",
+      "bytes": 41454,
+      "sha256": "c05a4ddf351597fad8e912b5a09d381b691eb78a22b706ea57f46105146069f5"
+    },
+    {
+      "path": "assets/index-BWpWsTnu.css",
+      "bytes": 94035,
+      "sha256": "da68c8ed4242f9e6ad0dd16a351f791d8afff607072e80d02368ec5bb9ce7cfc"
+    },
+    {
+      "path": "assets/index-CHNaU-rP.js",
+      "bytes": 653090,
+      "sha256": "d5369a587e9461a8e96eef77ee951e39f6ca71fdf0522c44882383dec29a4e7e"
+    },
+    {
+      "path": "data/index.json",
+      "bytes": 5092316,
+      "sha256": "1024a451fdc1f1aebc4e8d8d66e6bf1aca119f26ae058d3de9b84ff312d8d7a6"
+    },
+    {
+      "path": "data/semantic-routing-study/analysis.json",
+      "bytes": 9953,
+      "sha256": "2caa9039f64ba57e41d453b826eef3b9d30f8b02bde706a477da833f42b69d86"
+    },
+    {
+      "path": "data/semantic-transfer/index.json",
+      "bytes": 685281,
+      "sha256": "05a57e6e4709c0c2e2226ba804e8c8f2fc233580e912e777d578cbc2ea2a44d8"
+    },
+    {
+      "path": "index.html",
+      "bytes": 758,
+      "sha256": "d2254479ba44dc2b017cf2626508a4c12e6c6089e589b41d58a568bd0d8c2388"
+    },
+    {
+      "path": "operations/index.json",
+      "bytes": 19418,
+      "sha256": "361212d29bc0ea1b90607d7568985391de2dead67938520c28f36a8271521ba4"
+    }
+  ],
+  "direct_routes": [
+    "/introduction",
+    "/methodology",
+    "/implementation",
+    "/experiments",
+    "/benchmark"
+  ],
+  "canonical_coverage": {
+    "episodes": 14400,
+    "cells": 1440,
+    "methods": 12,
+    "cases": 20,
+    "minimum_seeds": 10
+  },
+  "semantic_coverage": {
+    "episodes": 1536,
+    "methods": 12,
+    "families": 8,
+    "seed_variable_cells": 35
+  },
+  "routing_coverage": {
+    "paired_environments": 128,
+    "held_out": 32,
+    "held_out_incremental_positives": 10,
+    "learned_delegations": 0
+  },
+  "operation_coverage": {
+    "runs": 36,
+    "coverage": "3 tasks x 4 fault conditions x 3 seeds",
+    "verified": true
+  }
+}

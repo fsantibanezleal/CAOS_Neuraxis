@@ -19,7 +19,7 @@ uncertain execution until history refresh determines the server state.
 
 Each immutable release receives its own venv and a saved dependency inventory.
 Health checks compare source commit, not just route shape. Rollback restores the
-old code and its old interpreter together. The installed engine remains PyPI 0.1.0.
+old code and its old interpreter together. The 0.02.006 service installs PyPI 0.1.1.
 
 Risks: relation inference is a naming convention, not a supplied database schema;
 unknown/ambiguous relationships must remain explicit. Session loss is expected

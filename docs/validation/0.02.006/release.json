@@ -1,0 +1,61 @@
+{
+  "date": "2026-09-28",
+  "version": "0.02.006",
+  "tag": "v0.02.006",
+  "deployed_app_commit": "8fd4c3f1a95632f56f9c0940f94541930a8513dd",
+  "static_release": "8fd4c3f1a956-1fcc049ee83f",
+  "static_archive_sha256": "1fcc049ee83fde1d1228ec1cacde5b286908e85c78846601cc9098047cf87a29",
+  "native_release": "/opt/neuraxis-operations/releases/8fd4c3f1a956-6adcd4d20920",
+  "native_archive_sha256": "6adcd4d209205b024e5fe3a52632609e163833b9e751581367980be723b2cb7d",
+  "engine": "reflexmesh 0.1.1",
+  "hosted_checks": {
+    "product_develop_ci": 36383755892,
+    "product_main_ci": 36383873143,
+    "product_main_static_build": 36383873065,
+    "conclusion": "success",
+    "corrected_prior_develop_run": 36383103204
+  },
+  "local_gates": {
+    "app_python_tests": "55 passed, three skipped against reflexmesh 0.1.1",
+    "frontend_unit_tests": 32,
+    "frontend_format_and_build": "passed",
+    "artifact_semantic_routing_and_operations_auditors": "passed",
+    "operation_rebake": "36 runs; stable inputs, findings, outputs, status, disposition and non-timing metrics unchanged",
+    "new_research_traces": 1536
+  },
+  "live": {
+    "manifest_files": 16059,
+    "manifest_files_fetched_and_hashed": 8,
+    "direct_scientific_routes": 5,
+    "benchmark_language_theme_width_views": 16,
+    "tab_navigation_views": 40,
+    "layout_views": 120,
+    "science_sections": 312,
+    "investigation_views": 48,
+    "task_flow_views": 8,
+    "native_runs": 2,
+    "native_findings": [10, 3],
+    "task_export_ownership_and_delete_verified": true,
+    "static_and_native_commit_match": true,
+    "public_workspace_api_status": 404,
+    "native_service_active": true,
+    "native_peak_memory_bytes": 45838336,
+    "host_free_disk_gb_reported": 24
+  },
+  "evidence_files": [
+    "operations-rebake.json",
+    "live-static.json",
+    "benchmark-report.json",
+    "tab-navigation-report.json",
+    "layout-report.json",
+    "content-report.json",
+    "investigations-report.json",
+    "operations-report.json",
+    "native-operations.json"
+  ],
+  "frozen_research_episodes": 19488,
+  "core_episodes": 14400,
+  "semantic_transfer_episodes": 1536,
+  "semantic_routing_result": "The fitted gate delegates zero held-out cases; M12 does not beat the always-planner comparator.",
+  "limitations": "Engineering checks do not establish user design acceptance, open-world performance, learned-method superiority, or AGI. The public Tasks workbench is deterministic; learned and LLM methods are inspectable research evidence rather than its task policy."
+}
