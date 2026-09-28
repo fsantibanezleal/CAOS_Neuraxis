@@ -10,7 +10,7 @@ const expectedGroups = {
   methodology: [4, 2, 0],
   implementation: [2, 3, 3, 0],
   experiments: [3, 2, 2, 0],
-  benchmark: [3, 2, 0, 0],
+  benchmark: [5, 2, 0, 0],
 };
 try {
   for (const width of [1600, 360]) for (const theme of ['light', 'dark']) for (const lang of ['en', 'es']) {
@@ -48,6 +48,10 @@ try {
           } else if (compound) {
             await expect(leaf.locator('select option')).toHaveCount(36);
             await expect(leaf.locator('table tbody tr')).toHaveCount(9);
+          } else if (/Adequacy|Adecuación/.test(title)) {
+            await expect(leaf.getByText(lang === 'en' ? 'Hash-checked episodes' : 'Episodios verificados por hash')).toBeVisible();
+          } else if (/Semantic transfer|Transferencia semántica/.test(title)) {
+            await expect(leaf.getByText(lang === 'en' ? 'Inspect an executed choice' : 'Inspeccionar una elección ejecutada')).toBeVisible();
           } else if (route !== 'benchmark') {
             const article = leaf.locator('.nx-doc-section');
             expect(await article.locator(':scope > p.measure').count()).toBeGreaterThanOrEqual(route === 'methodology' ? 4 : 2);
