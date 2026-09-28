@@ -123,6 +123,30 @@ export function normalizeEpisode(value: unknown): Episode {
     provenance: typeof v.provenance === 'object' && v.provenance ? v.provenance : {},
   } as Episode;
 }
+export async function loadVerifiedIndex(
+  path: string,
+  sha256: string,
+  signal?: AbortSignal,
+): Promise<ArtifactIndex> {
+  if (path.includes('..') || /^\w+:/.test(path) || path.startsWith('/'))
+    throw new Error('Evidence path must be relative');
+  if (!/^[a-f0-9]{64}$/i.test(sha256)) throw new Error('Canonical index requires a SHA-256 digest');
+  if (!globalThis.crypto?.subtle)
+    throw new Error('Canonical index verification requires a secure browser context');
+  const response = await fetch(`${root}${path}`, { signal });
+  if (!response.ok || !(response.headers.get('content-type') ?? '').includes('json'))
+    throw new Error(`HTTP ${response.status}`);
+  const bytes = await response.arrayBuffer();
+  const digest = Array.from(new Uint8Array(await crypto.subtle.digest('SHA-256', bytes)))
+    .map((byte) => byte.toString(16).padStart(2, '0'))
+    .join('');
+  if (digest !== sha256.toLowerCase()) throw new Error('Canonical index SHA-256 mismatch');
+  const value: unknown = JSON.parse(new TextDecoder('utf-8', { fatal: true }).decode(bytes));
+  if (!value || typeof value !== 'object' || !Array.isArray((value as ArtifactIndex).episodes))
+    throw new Error('Invalid canonical index');
+  return value as ArtifactIndex;
+}
+
 export async function loadEpisode(ref: EpisodeReference): Promise<Episode> {
   const path = String(ref.path ?? ref.url ?? `episodes/${ref.run_id}.json`);
   if (path.includes('..') || /^\w+:/.test(path) || path.startsWith('/'))

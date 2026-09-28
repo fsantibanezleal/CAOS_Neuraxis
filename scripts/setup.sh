@@ -4,7 +4,8 @@ cd "$(dirname "$0")/.."
 python3 -m venv .venv
 .venv/bin/python -m pip install -r requirements-api.txt -r requirements-dev.txt
 if [[ "${1:-}" != "--skip-models" ]]; then
-  model_release="v$(tr -d '\r\n' < VERSION)"
+  # The published checkpoint archive is an engine release asset, not an app-version asset.
+  model_release="v0.01.000"
   .venv/bin/python -m reflexmesh.cli fetch-models --destination models/checkpoints --version "$model_release"
 fi
 cd frontend

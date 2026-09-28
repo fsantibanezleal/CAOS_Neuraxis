@@ -6,6 +6,8 @@ import { useCopy } from '../i18n';
 import { METHODS, VARIANTS, VARIANT_IDS } from '../data/registry';
 import { format, Panel } from '../components/Instruments';
 import { ResearchResults } from '../components/ResearchResults';
+import BenchmarkAdequacy from '../components/BenchmarkAdequacy';
+import SemanticTransfer from '../components/SemanticTransfer';
 import OverflowTabs, { OverflowSubTabs } from '../components/OverflowTabs';
 type Bin = { lower: number; upper: number; count: number; confidence: number; accuracy: number };
 interface Aggregate {
@@ -442,6 +444,16 @@ export default function Benchmark() {
                       ariaLabel={lang === 'en' ? 'Outcome views' : 'Vistas de resultados'}
                       tabs={[
                         { id: 'results', label: t.table, content: table },
+                        {
+                          id: 'adequacy',
+                          label: lang === 'en' ? 'Adequacy' : 'Adecuación',
+                          content: <BenchmarkAdequacy />,
+                        },
+                        {
+                          id: 'semantic',
+                          label: lang === 'en' ? 'Semantic transfer' : 'Transferencia semántica',
+                          content: <SemanticTransfer />,
+                        },
                         {
                           id: 'findings',
                           label: lang === 'en' ? 'Findings' : 'Hallazgos',

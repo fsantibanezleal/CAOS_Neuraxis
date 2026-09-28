@@ -27,7 +27,8 @@ def validate(root: Path, required_seeds: int = 10) -> dict:
     if type(required_seeds) is not int or not 1 <= required_seeds <= 10000:
         raise ValueError("required seeds must be 1..10000")
     root = root.resolve()
-    index = json.loads((root / "index.json").read_text(encoding="utf-8"))
+    index_bytes = (root / "index.json").read_bytes()
+    index = json.loads(index_bytes)
     if index.get("schema_version") != 1:
         raise ValueError("unsupported index schema")
     if {m["id"] for m in index["methods"]} != METHODS or {c["id"] for c in index["cases"]} != CASES:
@@ -55,7 +56,7 @@ def validate(root: Path, required_seeds: int = 10) -> dict:
     if not re.fullmatch(r"[0-9a-f]{64}", lineage.get("native_binary", {}).get("sha256", "")):
         raise ValueError("canonical lineage lacks native binary digest")
     required_seed_ids = set(range(40000, 40000 + required_seeds))
-    seen, cells, counts = set(), Counter(), Counter()
+    seen, cells, counts, outcomes = set(), Counter(), Counter(), {}
     for entry in index["episodes"]:
         relative = Path(entry["path"])
         path = (root / relative).resolve()
@@ -95,12 +96,47 @@ def validate(root: Path, required_seeds: int = 10) -> dict:
         seen.add(identity)
         cells[identity[:3]] += 1
         counts[identity[0]] += 1
+        outcomes.setdefault(identity[:3], []).append(episode["metrics"]["task_success"])
     expected = {(m, c, v) for m in METHODS for c in CASES for v in VARIANTS}
     if set(cells) != expected or any(n != required_seeds for n in cells.values()):
         raise ValueError("required complete method/case/variant/seed matrix is missing")
     aggregates = {a["method_id"]: a for a in index["aggregate_results"]}
     if set(aggregates) != METHODS or any(aggregates[m]["episodes"] != counts[m] for m in METHODS):
         raise ValueError("aggregate episode counts differ from raw trace evidence")
+    if required_seeds == 10:
+        adequacy = json.loads((root / "benchmark-adequacy.json").read_text(encoding="utf-8"))
+        variable = sum(len(set(values)) > 1 for values in outcomes.values())
+        successes = Counter()
+        variable_by_method = Counter()
+        m12_failures = {}
+        for (method, _, _), values in outcomes.items():
+            successes[method] += sum(values)
+        for (method, case, variant), values in outcomes.items():
+            variable_by_method[method] += len(set(values)) > 1
+            if method == "M12" and sum(values) != len(values):
+                m12_failures[(case, variant)] = len(values) - sum(values)
+        report_methods = {m["method_id"]: m for m in adequacy.get("methods", [])}
+        report_failures = {
+            (row["case_id"], row["variant"]): row["failures"]
+            for row in adequacy.get("m12_failures", [])
+        }
+        if (
+            adequacy.get("schema_version") != 1
+            or adequacy.get("index_sha256") != hashlib.sha256(index_bytes).hexdigest()
+            or adequacy.get("episodes_checked") != len(seen)
+            or adequacy.get("case_variant_method_cells") != len(outcomes)
+            or adequacy.get("seed_variable_cells") != variable
+            or set(report_methods) != METHODS
+            or any(
+                report_methods[m]["successes"] != successes[m]
+                or report_methods[m]["seed_variable_case_variant_cells"] != variable_by_method[m]
+                for m in METHODS
+            )
+            or report_failures != m12_failures
+            or set(adequacy.get("perfect_methods", []))
+            != {m for m in METHODS if successes[m] == counts[m]}
+        ):
+            raise ValueError("benchmark adequacy audit differs from canonical episodes")
     return {
         "episodes": len(seen),
         "cells": len(cells),

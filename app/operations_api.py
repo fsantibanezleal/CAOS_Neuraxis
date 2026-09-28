@@ -289,7 +289,7 @@ def create_app(root=None, host=None, prefix="/operations-api"):
         commit_file = Path(__file__).resolve().parents[1] / "commit.txt"
         return {
             "schema_version": 1,
-            "engine": "reflexmesh 0.1.0",
+            "engine": "reflexmesh 0.1.1",
             "commit": commit_file.read_text().strip() if commit_file.is_file() else "local",
             "tasks": TASKS,
             "variants": VARIANTS,
