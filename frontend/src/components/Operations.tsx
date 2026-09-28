@@ -543,6 +543,12 @@ export default function Operations() {
                 'Encontrar los fallos. Conservar la evidencia. Producir una entrega comprobada.',
               )}
             </p>
+            <p className="op-scope">
+              {c(
+                'Routing here is deterministic: the first dependency-ready registered action runs. This task view does not invoke the learned gate or an LLM; Investigations shows their measured traces.',
+                'Aquí la selección es determinista: se ejecuta la primera acción registrada con dependencias listas. Esta vista no usa el umbral aprendido ni un LLM; Investigaciones muestra sus trazas medidas.',
+              )}
+            </p>
           </div>
           <span
             className="op-run-badge"

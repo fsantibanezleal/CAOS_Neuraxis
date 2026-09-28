@@ -718,7 +718,7 @@ def execute_operation(
                 "journal_sequence": runtime.snapshot()["journal_sequence"],
                 "concurrency": concurrency,
             },
-            "engine": "reflexmesh 0.1.0 native authority",
+            "engine": "reflexmesh 0.1.1 native authority",
             "policy": "verified-operation-fsm",
             "input_sha256": digest(encoded(inputs)),
             "scope": report.get("scope", ""),

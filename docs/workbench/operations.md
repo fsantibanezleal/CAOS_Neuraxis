@@ -1,7 +1,7 @@
 # File operations and investigations
 
 Tasks executes three useful fixed-tool workflows through the published reflexmesh
-0.1.0 native runtime. It does not execute uploaded source, ask an LLM to invent
+0.1.1 native runtime. It does not execute uploaded source, ask an LLM to invent
 findings or grant a model arbitrary computer access.
 
 ## Run a task
@@ -82,6 +82,11 @@ findings. Neither is a claim of general software correctness. The task policy is
 an exact dependency controller with zero model calls. It shares the native engine
 with learned research controllers without attributing those methods to this task.
 
+Specifically, `app/services/operations.py` uses `ReadyPolicy`, which chooses the
+first admissible dependency-ready action. The default Tasks view is a useful
+deterministic validator, not a live test of the fitted M12 routing gate. Open
+Investigations or Benchmark for the separately measured controller evidence.
+
 ## Investigations and scientific experiments
 
 Investigations compares two canonical method executions with identical case,
@@ -105,6 +110,11 @@ python scripts/check_operations.py
 The frozen controller research is unchanged: 14,400 core, 288 structural-transfer
 and 4,800 ablation episodes. Its negative learned-gate and transfer findings are
 preserved. The additional operation study must not be pooled into that comparison.
+
+The [benchmark adequacy audit](../evaluation/benchmark-adequacy.md) checks the
+core matrix's method ceiling and seed sensitivity. A separate semantic-transfer
+suite tests grounded choices among new registered file operations; its results
+are never added to the frozen denominator.
 
 ## Local workspace and models
 

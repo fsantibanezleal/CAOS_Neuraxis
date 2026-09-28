@@ -1,6 +1,6 @@
 {
   "boundary": "Application integration and fault detection, separate from frozen learned-policy experiments. No model calls or learned superiority claimed.",
-  "engine": "reflexmesh 0.1.0",
+  "engine": "reflexmesh 0.1.1",
   "platform": "Windows-11-10.0.26200-SP0",
   "policy": "verified-operation-fsm",
   "runs": [
@@ -15,12 +15,12 @@
       "path": "release-clean-70000.json",
       "run_id": "release-clean-70000",
       "seed": 70000,
-      "sha256": "50c4dd2d0594cb2a468a6cad755248d9da043e4e63f1e3c3665d3ab4f31235ff",
+      "sha256": "0d5b8e1645a18194fc5e05bd326281327c0a5e95dc3b256a855ab402183e008c",
       "status": "succeeded",
       "task": "release",
       "variant": "clean",
       "verified_nodes": 9,
-      "wall_ms": 4285.044
+      "wall_ms": 5001.969
     },
     {
       "concurrency": 3,
@@ -33,12 +33,12 @@
       "path": "release-clean-70001.json",
       "run_id": "release-clean-70001",
       "seed": 70001,
-      "sha256": "c3f8aebb08253e968da7bbd15d5a73e167ddf6390549304feafce50d8c6da7ae",
+      "sha256": "fa1ddf101ad2738331a099d3186994d0485b3bcec56005c87abb1391ba5bd712",
       "status": "succeeded",
       "task": "release",
       "variant": "clean",
       "verified_nodes": 9,
-      "wall_ms": 3115.438
+      "wall_ms": 1950.651
     },
     {
       "concurrency": 3,
@@ -51,12 +51,12 @@
       "path": "release-clean-70002.json",
       "run_id": "release-clean-70002",
       "seed": 70002,
-      "sha256": "53e05019cb1fa9b417b836278c76cee8a0146ecd88f59a8d290364872f82072d",
+      "sha256": "a9aaa2041849b29c4167d4f7db5d06c82ad2893ec960fbf74e4dcb0bb622eacb",
       "status": "succeeded",
       "task": "release",
       "variant": "clean",
       "verified_nodes": 9,
-      "wall_ms": 2861.961
+      "wall_ms": 2036.928
     },
     {
       "concurrency": 3,
@@ -69,12 +69,12 @@
       "path": "release-corrupt-70000.json",
       "run_id": "release-corrupt-70000",
       "seed": 70000,
-      "sha256": "fc4181d90ac3ab1605045edfa76901a2f350828866fd05b033d7f07537d8bc07",
+      "sha256": "3cdff3fda5fd927e92aad911bb167c58e5e05fcdf332ad2e4f9ec81895deb2ba",
       "status": "succeeded",
       "task": "release",
       "variant": "corrupt",
       "verified_nodes": 9,
-      "wall_ms": 2835.435
+      "wall_ms": 2102.656
     },
     {
       "concurrency": 3,
@@ -87,12 +87,12 @@
       "path": "release-corrupt-70001.json",
       "run_id": "release-corrupt-70001",
       "seed": 70001,
-      "sha256": "f273f426f5a96f42a375f69fb5f5fcfb60838d379500b440ee396e62cf82b257",
+      "sha256": "d9f32b4cdfe336d4832f0be562e9170941dc4394261f809b09d1cc15268ee12d",
       "status": "succeeded",
       "task": "release",
       "variant": "corrupt",
       "verified_nodes": 9,
-      "wall_ms": 2919.083
+      "wall_ms": 2427.235
     },
     {
       "concurrency": 3,
@@ -105,12 +105,12 @@
       "path": "release-corrupt-70002.json",
       "run_id": "release-corrupt-70002",
       "seed": 70002,
-      "sha256": "391af418b9de043ad876388d4874a91a2cd5d19a4fd6b5e03ecee54b43fcaca9",
+      "sha256": "04b2a5a621de88152fe84e9995f54cfad0ff9da56fece3e1af9008bedff3f8f8",
       "status": "succeeded",
       "task": "release",
       "variant": "corrupt",
       "verified_nodes": 9,
-      "wall_ms": 2909.639
+      "wall_ms": 2575.446
     },
     {
       "concurrency": 3,
@@ -123,12 +123,12 @@
       "path": "release-conflict-70000.json",
       "run_id": "release-conflict-70000",
       "seed": 70000,
-      "sha256": "d3f3188a68e2b2a22d0922faeea697ff3ed8170bc1da638f11e822909b6b040a",
+      "sha256": "1f711d5d66200db6aae57aa3530ead49c335d09173baf3546a28b7fbb23b12ca",
       "status": "succeeded",
       "task": "release",
       "variant": "conflict",
       "verified_nodes": 9,
-      "wall_ms": 5898.397
+      "wall_ms": 4119.629
     },
     {
       "concurrency": 3,
@@ -141,12 +141,12 @@
       "path": "release-conflict-70001.json",
       "run_id": "release-conflict-70001",
       "seed": 70001,
-      "sha256": "45a2b8877781d7d3249de11f079489b46b1e3e9c731c1ad94d65990c7ce445e8",
+      "sha256": "ecfbd41e093cd7da378affff4afda5967d841540303051cb856c6b4589cc4c29",
       "status": "succeeded",
       "task": "release",
       "variant": "conflict",
       "verified_nodes": 9,
-      "wall_ms": 4723.637
+      "wall_ms": 3207.843
     },
     {
       "concurrency": 3,
@@ -159,12 +159,12 @@
       "path": "release-conflict-70002.json",
       "run_id": "release-conflict-70002",
       "seed": 70002,
-      "sha256": "ea2f189d18a955cd82873420e454ea3d4111e89c9015ce8d1f2696e07e93efe2",
+      "sha256": "f3b513e3571d7e64f5bfa91e5db104e10829e79baab25ef5b9af0286ce33e4ba",
       "status": "succeeded",
       "task": "release",
       "variant": "conflict",
       "verified_nodes": 9,
-      "wall_ms": 3861.003
+      "wall_ms": 2798.964
     },
     {
       "concurrency": 3,
@@ -177,30 +177,30 @@
       "path": "release-compound-70000.json",
       "run_id": "release-compound-70000",
       "seed": 70000,
-      "sha256": "f157568b9c39e52c4592424f3d376f9379f8cf7f48a1a7e984759253688da8ad",
+      "sha256": "dd12d61d5b5bda7f5803fcfc40c205c8c97f7aece40ec8c028f20f50844d17a3",
       "status": "succeeded",
       "task": "release",
       "variant": "compound",
       "verified_nodes": 9,
-      "wall_ms": 3826.188
+      "wall_ms": 2107.126
     },
     {
       "concurrency": 3,
       "disposition": "attention_required",
       "files": 54,
       "findings": 10,
-      "journal_sequence": 633,
+      "journal_sequence": 201,
       "model_calls": 0,
       "native_receipts": 9,
       "path": "release-compound-70001.json",
       "run_id": "release-compound-70001",
       "seed": 70001,
-      "sha256": "7ab87b466a192afb426ebcf7df7a02a596fb0184e3a8f08e0216b8b5bd3f1d2d",
+      "sha256": "1f252bfce9877e317a70e8c789e766fa0198f68d9ad0e8a100bda0b06f71f5b1",
       "status": "succeeded",
       "task": "release",
       "variant": "compound",
       "verified_nodes": 9,
-      "wall_ms": 7230.44
+      "wall_ms": 2259.466
     },
     {
       "concurrency": 3,
@@ -213,12 +213,12 @@
       "path": "release-compound-70002.json",
       "run_id": "release-compound-70002",
       "seed": 70002,
-      "sha256": "a1ba75191612b52b80050c6d0af8836bf3cb30df7c033f0f0fd6862921e6c330",
+      "sha256": "7a7faed182afb6d6b33df31eb1ae75e77a15ea1f4c8ba76e4e8ade54c6cc7b87",
       "status": "succeeded",
       "task": "release",
       "variant": "compound",
       "verified_nodes": 9,
-      "wall_ms": 3016.521
+      "wall_ms": 1951.509
     },
     {
       "concurrency": 3,
@@ -231,12 +231,12 @@
       "path": "source-clean-70000.json",
       "run_id": "source-clean-70000",
       "seed": 70000,
-      "sha256": "a4e8df10887e0aa20b66a347d45421c3ceee2055c287eb784c68a37c4e95abd1",
+      "sha256": "c886a3b8e0b24762b4330e8db141f7605b169956de68aef9c346a5f2d5c55032",
       "status": "succeeded",
       "task": "source",
       "variant": "clean",
       "verified_nodes": 7,
-      "wall_ms": 4106.854
+      "wall_ms": 1692.967
     },
     {
       "concurrency": 3,
@@ -249,12 +249,12 @@
       "path": "source-clean-70001.json",
       "run_id": "source-clean-70001",
       "seed": 70001,
-      "sha256": "53f749fb521dbac62d74fa1f7d3531fd008c39774dad18828b5f1a14dd7aebb7",
+      "sha256": "03e8ed8958ad04451e0c527ea1d49b4aeda66f780635af3041a05b0c80500d50",
       "status": "succeeded",
       "task": "source",
       "variant": "clean",
       "verified_nodes": 7,
-      "wall_ms": 3785.168
+      "wall_ms": 2741.543
     },
     {
       "concurrency": 3,
@@ -267,12 +267,12 @@
       "path": "source-clean-70002.json",
       "run_id": "source-clean-70002",
       "seed": 70002,
-      "sha256": "d6fc7a8908ac4734d402583a399281be3c36df31737e3b4a5be8024dd8955b1c",
+      "sha256": "222297c3dff575debd647e56da278178bf5fcaa39f277dd6797aa22524f62633",
       "status": "succeeded",
       "task": "source",
       "variant": "clean",
       "verified_nodes": 7,
-      "wall_ms": 3380.502
+      "wall_ms": 5463.831
     },
     {
       "concurrency": 3,
@@ -285,12 +285,12 @@
       "path": "source-corrupt-70000.json",
       "run_id": "source-corrupt-70000",
       "seed": 70000,
-      "sha256": "57195099fbffac95f83f4c90dc60abc0b4f286385436605d9915e10b6f38e549",
+      "sha256": "e6800408ddb0568f57e5297b70664e6c4be52e259ea97b2c511f84390f70645e",
       "status": "succeeded",
       "task": "source",
       "variant": "corrupt",
       "verified_nodes": 7,
-      "wall_ms": 2771.171
+      "wall_ms": 3681.94
     },
     {
       "concurrency": 3,
@@ -303,12 +303,12 @@
       "path": "source-corrupt-70001.json",
       "run_id": "source-corrupt-70001",
       "seed": 70001,
-      "sha256": "3985ec86359dd2dd52e33d67f2443b158bdc1887b9483e4890b7b5c39a05bbb4",
+      "sha256": "9159812a94850e620c4d4df426d963f5d95c80b3c5b7c1b7f4013e795899cee0",
       "status": "succeeded",
       "task": "source",
       "variant": "corrupt",
       "verified_nodes": 7,
-      "wall_ms": 3015.301
+      "wall_ms": 2014.201
     },
     {
       "concurrency": 3,
@@ -321,12 +321,12 @@
       "path": "source-corrupt-70002.json",
       "run_id": "source-corrupt-70002",
       "seed": 70002,
-      "sha256": "1d024e373a95583c8e3ca55e3b02e5a6e686d41241181eb64ca773b1be4caec2",
+      "sha256": "75ceaabb3b95c6b604b2bd40d12486592640f360670753ff2ef5b4c15a85fc3d",
       "status": "succeeded",
       "task": "source",
       "variant": "corrupt",
       "verified_nodes": 7,
-      "wall_ms": 2231.551
+      "wall_ms": 2249.097
     },
     {
       "concurrency": 3,
@@ -339,12 +339,12 @@
       "path": "source-conflict-70000.json",
       "run_id": "source-conflict-70000",
       "seed": 70000,
-      "sha256": "b9c3aeec5406b95aa6c6b286c71d1f85af9afcf5ad975a2490c5555f1bccdfd7",
+      "sha256": "f5b89736adbaae7565325ce2c39f51420abbeab388b06daa06e6bf9d251d3e35",
       "status": "succeeded",
       "task": "source",
       "variant": "conflict",
       "verified_nodes": 7,
-      "wall_ms": 3018.839
+      "wall_ms": 2255.438
     },
     {
       "concurrency": 3,
@@ -357,12 +357,12 @@
       "path": "source-conflict-70001.json",
       "run_id": "source-conflict-70001",
       "seed": 70001,
-      "sha256": "f4fc0e91f6ef0b01da34ec9c39840b38c8290586abee4183d34bb7a401065970",
+      "sha256": "15b80d71e989794e43373b0ab56270c4d97e57afb5cbe695842a2f0afcb886d6",
       "status": "succeeded",
       "task": "source",
       "variant": "conflict",
       "verified_nodes": 7,
-      "wall_ms": 2774.644
+      "wall_ms": 2188.167
     },
     {
       "concurrency": 3,
@@ -375,12 +375,12 @@
       "path": "source-conflict-70002.json",
       "run_id": "source-conflict-70002",
       "seed": 70002,
-      "sha256": "ef86a5a098b17e076bea2866cf986ce50903fe77bf2dab38692d375cff67ea85",
+      "sha256": "66bf9afe476c64edc484e39dc0c63d9903bf2b4869ba5200d27150863fa04fa2",
       "status": "succeeded",
       "task": "source",
       "variant": "conflict",
       "verified_nodes": 7,
-      "wall_ms": 4146.821
+      "wall_ms": 2059.733
     },
     {
       "concurrency": 3,
@@ -393,12 +393,12 @@
       "path": "source-compound-70000.json",
       "run_id": "source-compound-70000",
       "seed": 70000,
-      "sha256": "809e6c5e4bfda3f4c4cbb83cfbd62c8f97839421cc17103f440ece9d2bd3aebe",
+      "sha256": "b6049a0e224fd6097e28d838d186da97521acfe17945b4a35ee63a9ea69f2437",
       "status": "succeeded",
       "task": "source",
       "variant": "compound",
       "verified_nodes": 7,
-      "wall_ms": 3811.67
+      "wall_ms": 2643.232
     },
     {
       "concurrency": 3,
@@ -411,12 +411,12 @@
       "path": "source-compound-70001.json",
       "run_id": "source-compound-70001",
       "seed": 70001,
-      "sha256": "3292f397ecb5e36cc866bf2b0d9ac37b094b622e22c0b041750c4cebfd73cbb6",
+      "sha256": "cd00eb519a67ec0f62153d9de04a763690fc98e4f15b803c58e3c92acb368c1b",
       "status": "succeeded",
       "task": "source",
       "variant": "compound",
       "verified_nodes": 7,
-      "wall_ms": 2879.178
+      "wall_ms": 5001.618
     },
     {
       "concurrency": 3,
@@ -429,12 +429,12 @@
       "path": "source-compound-70002.json",
       "run_id": "source-compound-70002",
       "seed": 70002,
-      "sha256": "19270517d5c5a53f217e993e90d52f7ebec15a84eb0deae7f63dc08cb5477eae",
+      "sha256": "c28ebb887a44ec7696171d1d0d3d58f054db2b809904bb7f8142adb79986e55d",
       "status": "succeeded",
       "task": "source",
       "variant": "compound",
       "verified_nodes": 7,
-      "wall_ms": 3060.287
+      "wall_ms": 2386.9
     },
     {
       "concurrency": 3,
@@ -447,12 +447,12 @@
       "path": "data-clean-70000.json",
       "run_id": "data-clean-70000",
       "seed": 70000,
-      "sha256": "a9ab279d8b047e3c310afa17d40cc735cfa62b4e411260d0adc0c5325c8c5724",
+      "sha256": "3d68046d0ab489b47f1609667b8f0af8400d9fa7799dbb075c2c5b803da26862",
       "status": "succeeded",
       "task": "data",
       "variant": "clean",
       "verified_nodes": 7,
-      "wall_ms": 2923.938
+      "wall_ms": 2113.981
     },
     {
       "concurrency": 3,
@@ -465,12 +465,12 @@
       "path": "data-clean-70001.json",
       "run_id": "data-clean-70001",
       "seed": 70001,
-      "sha256": "7253273c6fdc31b8eca1d7b2ba075a2d45409544ff542f9845bb5e0dfd419b29",
+      "sha256": "e620d0f0f50c553b1a3f9ece188f28e0831eb4c6caab8d7faec6548cc7f4f81f",
       "status": "succeeded",
       "task": "data",
       "variant": "clean",
       "verified_nodes": 7,
-      "wall_ms": 3260.595
+      "wall_ms": 2934.325
     },
     {
       "concurrency": 3,
@@ -483,12 +483,12 @@
       "path": "data-clean-70002.json",
       "run_id": "data-clean-70002",
       "seed": 70002,
-      "sha256": "3663092dcea1b15586b358030e0896a6dca6d8162829fd73bbc5c75043ffd6b4",
+      "sha256": "81de43eb2a0c27d7377315c4f3d66873400d98a0cdef860c3e1a3dc41691f008",
       "status": "succeeded",
       "task": "data",
       "variant": "clean",
       "verified_nodes": 7,
-      "wall_ms": 4004.121
+      "wall_ms": 5288.887
     },
     {
       "concurrency": 3,
@@ -501,12 +501,12 @@
       "path": "data-corrupt-70000.json",
       "run_id": "data-corrupt-70000",
       "seed": 70000,
-      "sha256": "669f6c1dcb17690c5a101f40f24ed4c3370087166dda0aacabec79dba511a443",
+      "sha256": "d9b03429d7e42c7656ad983d800f319ba22be157b1f60409e293e0de1ae56fbf",
       "status": "succeeded",
       "task": "data",
       "variant": "corrupt",
       "verified_nodes": 7,
-      "wall_ms": 3741.311
+      "wall_ms": 3351.418
     },
     {
       "concurrency": 3,
@@ -519,12 +519,12 @@
       "path": "data-corrupt-70001.json",
       "run_id": "data-corrupt-70001",
       "seed": 70001,
-      "sha256": "62703209228cdd798919e4e598a9aa2bb1374a4891d5eabc47d31064489ec1a3",
+      "sha256": "38e3465ed5a4311565a5a5f5992536d0151ae56fdb02e1fe43c1a2f9906d98b0",
       "status": "succeeded",
       "task": "data",
       "variant": "corrupt",
       "verified_nodes": 7,
-      "wall_ms": 3967.829
+      "wall_ms": 3741.921
     },
     {
       "concurrency": 3,
@@ -537,12 +537,12 @@
       "path": "data-corrupt-70002.json",
       "run_id": "data-corrupt-70002",
       "seed": 70002,
-      "sha256": "7338e9ee536040996482e019cc8730afff7438ab47ce8973593e60053699e677",
+      "sha256": "e434ceb88d336ec620d672d013af378ebf3333a6c50abdb11524f6b37f1e505c",
       "status": "succeeded",
       "task": "data",
       "variant": "corrupt",
       "verified_nodes": 7,
-      "wall_ms": 4494.913
+      "wall_ms": 4097.468
     },
     {
       "concurrency": 3,
@@ -555,12 +555,12 @@
       "path": "data-conflict-70000.json",
       "run_id": "data-conflict-70000",
       "seed": 70000,
-      "sha256": "92de706b58af2efc03dd3bd9eeb891a7cff8f288eb97780c9895ecf544d12419",
+      "sha256": "1fbda22a119a2df3ea5d8e331e5dcd9b50f1859b9b33bf54c869c90cb32503b4",
       "status": "succeeded",
       "task": "data",
       "variant": "conflict",
       "verified_nodes": 7,
-      "wall_ms": 3890.043
+      "wall_ms": 4747.706
     },
     {
       "concurrency": 3,
@@ -573,12 +573,12 @@
       "path": "data-conflict-70001.json",
       "run_id": "data-conflict-70001",
       "seed": 70001,
-      "sha256": "36deac531e26662b87997d3a1c65458377f7b20906ba7f238d33f9aaebd1e51a",
+      "sha256": "c920acf5d810ab1fcf3a47c1bc805f7b1582584d919d90c13d7b33d94f5eef0e",
       "status": "succeeded",
       "task": "data",
       "variant": "conflict",
       "verified_nodes": 7,
-      "wall_ms": 3517.374
+      "wall_ms": 3293.841
     },
     {
       "concurrency": 3,
@@ -591,12 +591,12 @@
       "path": "data-conflict-70002.json",
       "run_id": "data-conflict-70002",
       "seed": 70002,
-      "sha256": "0e9df99613dec06cc307ae9ce0437555642f9ad4aac12b61a5e8bcc014b84cbe",
+      "sha256": "d7ffa0c2063538f804fe599178dbf75e24ca7dc9c92188867dc81ddd8be2cc12",
       "status": "succeeded",
       "task": "data",
       "variant": "conflict",
       "verified_nodes": 7,
-      "wall_ms": 4046.277
+      "wall_ms": 4205.006
     },
     {
       "concurrency": 3,
@@ -609,12 +609,12 @@
       "path": "data-compound-70000.json",
       "run_id": "data-compound-70000",
       "seed": 70000,
-      "sha256": "c0f575a151d27858cacd22dc30377e06cf326f5cd3f7fa5a742f27607cd13f85",
+      "sha256": "fb855ae45c0f98cfd7673a4c51e6c851742202273af8a96fdd7bb587ae42fa99",
       "status": "succeeded",
       "task": "data",
       "variant": "compound",
       "verified_nodes": 7,
-      "wall_ms": 3509.234
+      "wall_ms": 3049.552
     },
     {
       "concurrency": 3,
@@ -627,12 +627,12 @@
       "path": "data-compound-70001.json",
       "run_id": "data-compound-70001",
       "seed": 70001,
-      "sha256": "64ebccdaea05d1b36991a8f4768ff69029ba03802d7d33b5075bea903b0be18c",
+      "sha256": "39cbe8347f0f204c0749b4366418622362c0db971f2766f101f4ab29c02b1475",
       "status": "succeeded",
       "task": "data",
       "variant": "compound",
       "verified_nodes": 7,
-      "wall_ms": 2878.191
+      "wall_ms": 3192.034
     },
     {
       "concurrency": 3,
@@ -645,19 +645,19 @@
       "path": "data-compound-70002.json",
       "run_id": "data-compound-70002",
       "seed": 70002,
-      "sha256": "57a6da963a6601a3f8f354f91dc49c8a6d2ecacf47bf5368e2036093e4f61a9a",
+      "sha256": "319fb107d8a09f1875c258a38b08a575cbe963a9397d38a315a836f8f823a992",
       "status": "succeeded",
       "task": "data",
       "variant": "compound",
       "verified_nodes": 7,
-      "wall_ms": 3437.925
+      "wall_ms": 2386.703
     }
   ],
   "schema_version": 1,
   "seeds": 3,
   "source_sha256": {
-    "app/services/operations.py": "013794343ffec6c3ed3b2f1f51c8741ce7cfd9fc3e53c96d216993d7ab258e4d",
-    "scripts/evaluate_operations.py": "b68a3a115eb54fce758d928818da05ef08dff64a8d1e95faf4038698725d4d85"
+    "app/services/operations.py": "e4fa951f52523de9dedd40e4b81bada9df3225046e5bfc3dd928811de06d1520",
+    "scripts/evaluate_operations.py": "9f44423cfaa5667e4e21ddebe98a343027efc4737b9d7fce71eb04c9fd166686"
   },
   "study": "compound file operations"
 }

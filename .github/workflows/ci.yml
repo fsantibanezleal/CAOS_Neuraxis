@@ -20,6 +20,8 @@ jobs:
       - run: python scripts/check_ci_budget.py
       - run: python scripts/check_sdd.py
       - run: python scripts/check_artifacts.py
+      - run: python scripts/check_semantic_transfer.py
+      - run: python scripts/check_semantic_routing.py
       - run: python scripts/check_research.py
       - run: python scripts/check_operations.py
       - run: python scripts/check_template_residue.py

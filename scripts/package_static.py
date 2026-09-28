@@ -10,6 +10,8 @@ from pathlib import Path
 from check_artifacts import validate
 from check_operations import validate as validate_operations
 from check_research import validate as validate_research
+from check_semantic_transfer import validate as validate_semantic_transfer
+from check_semantic_routing import validate as validate_semantic_routing
 
 ROOT = Path(__file__).resolve().parents[1]
 
@@ -20,6 +22,8 @@ def package(output: Path, build: Path | None = None):
         raise ValueError("static build requires the application and canonical evidence")
     coverage = validate(build / "data")
     validate_research(build / "data")
+    semantic = validate_semantic_transfer(build / "data" / "semantic-transfer")
+    routing = validate_semantic_routing(build / "data")
     operations = validate_operations(ROOT, build / "operations")
     commit = subprocess.check_output(["git", "rev-parse", "HEAD"], cwd=ROOT, text=True).strip()
     files = []
@@ -42,6 +46,8 @@ def package(output: Path, build: Path | None = None):
         "files": files,
         "canonical_coverage": coverage,
         "operation_coverage": operations,
+        "semantic_coverage": semantic,
+        "routing_coverage": routing,
     }
     (build / "release.json").write_text(json.dumps(manifest, separators=(",", ":")), encoding="utf-8")
     output.parent.mkdir(parents=True, exist_ok=True)

@@ -19,6 +19,34 @@ select:disabled {
   opacity: 0.5;
   cursor: not-allowed;
 }
+/* The shared shell wraps navigation at 760px. With six routes and the research controls,
+   the unwrapped header overflows up to tablet width; keep navigation reachable there too. */
+@media (max-width: 1000px) {
+  .site-header .header-inner {
+    height: auto;
+    min-height: 56px;
+    flex-wrap: wrap;
+    gap: 0 0.5rem;
+    padding: 4px 1rem;
+  }
+  .site-header .main-nav {
+    order: 3;
+    flex: 0 0 100%;
+    min-width: 0;
+    overflow-x: auto;
+    white-space: nowrap;
+    padding: 3px 0;
+    scrollbar-width: thin;
+  }
+  .site-header .main-nav .nav-link {
+    flex: none;
+    padding: 0.3rem 0.6rem;
+    font-size: 0.8rem;
+  }
+  .site-header .header-actions {
+    gap: 0;
+  }
+}
 .nx-layout {
   display: grid;
   grid-template-columns: 300px minmax(0, 1fr);
@@ -117,6 +145,10 @@ select:disabled {
   color: var(--color-fg-subtle);
   line-height: 1.5;
   margin: 0.5rem 0;
+}
+.nx-caption code {
+  overflow-wrap: anywhere;
+  word-break: break-all;
 }
 .nx-button {
   display: inline-flex;
@@ -325,6 +357,21 @@ select:disabled {
   max-height: 300px;
   display: block;
   overflow: visible;
+}
+.nx-routing-scroll {
+  max-width: 100%;
+  overflow-x: auto;
+}
+.nx-routing-scroll .nx-chart {
+  min-width: 700px;
+}
+.nx-routing-hint {
+  display: none;
+}
+@media (max-width: 700px) {
+  .nx-routing-hint {
+    display: block;
+  }
 }
 .nx-timeline .nx-chart {
   max-height: 240px;

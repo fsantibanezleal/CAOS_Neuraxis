@@ -1,0 +1,15 @@
+{
+  "schema": "neuraxis.operation-rebake-comparison/v1",
+  "runs": 36,
+  "stable_outputs_unchanged": true,
+  "baseline_engine": "reflexmesh 0.1.0",
+  "candidate_engine": "reflexmesh 0.1.1",
+  "baseline_index_sha256": "5f29fb99d83a7850bdf59a44d010dfa70bdc6ee5e58738c48f0c343c5b48b2ad",
+  "candidate_index_sha256": "361212d29bc0ea1b90607d7568985391de2dead67938520c28f36a8271521ba4",
+  "variable_fields": [
+    "native event/intent identifiers",
+    "native event order",
+    "journal sequence under concurrent scheduling",
+    "per-event and episode wall times"
+  ]
+}

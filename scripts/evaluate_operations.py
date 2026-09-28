@@ -1,4 +1,7 @@
-"""Execute the compound operation suite offline; never called by CI/deployment."""
+"""Execute the compound operation suite offline; never called by CI/deployment.
+
+Use --output for a candidate bake, validate it, then promote the complete tree.
+"""
 
 import argparse
 import json
@@ -15,9 +18,10 @@ from app.services.operations import TASKS, VARIANTS, digest, encoded, execute_op
 def main():
     parser = argparse.ArgumentParser()
     parser.add_argument("--seeds", type=int, default=3)
+    parser.add_argument("--output", type=Path)
     args = parser.parse_args()
-    target = ROOT / "data" / "operations"
-    target.mkdir(exist_ok=True)
+    target = args.output or ROOT / "data" / "operations"
+    target.mkdir(parents=True, exist_ok=True)
     rows = []
     for task in TASKS:
         for variant in VARIANTS:
@@ -45,7 +49,7 @@ def main():
     index = {
         "schema_version": 1,
         "study": "compound file operations",
-        "engine": "reflexmesh 0.1.0",
+        "engine": "reflexmesh 0.1.1",
         "platform": platform.platform(),
         "policy": "verified-operation-fsm",
         "seeds": args.seeds,

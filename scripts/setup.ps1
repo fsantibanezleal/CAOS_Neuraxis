@@ -6,7 +6,8 @@ if ($LASTEXITCODE) { throw 'Python environment creation failed' }
 & .venv/Scripts/python.exe -m pip install -r requirements-api.txt -r requirements-dev.txt
 if ($LASTEXITCODE) { throw 'Dependency installation failed' }
 if (-not $SkipModels) {
-    $modelRelease = 'v' + (Get-Content VERSION -Raw).Trim()
+    # Checkpoints remain the audited engine v0.01.000 assets; the app version is unrelated.
+    $modelRelease = 'v0.01.000'
     & .venv/Scripts/python.exe -m reflexmesh.cli fetch-models --destination models/checkpoints --version $modelRelease
     if ($LASTEXITCODE) { throw 'Verified model installation failed' }
 }
