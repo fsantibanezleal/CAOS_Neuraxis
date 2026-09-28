@@ -1,0 +1,41 @@
+{
+  "base": "https://neuraxis.ml.fasl-work.com",
+  "commit": "8fd4c3f1a95632f56f9c0940f94541930a8513dd",
+  "version": "0.02.006",
+  "public_workspace_status": 404,
+  "runs": [
+    {
+      "task": "release",
+      "uploaded": false,
+      "findings": 10,
+      "metrics": {
+        "wall_ms": 835.766,
+        "files": 54,
+        "verified_nodes": 9,
+        "model_calls": 0,
+        "native_receipts": 9,
+        "journal_sequence": 159,
+        "concurrency": 3
+      },
+      "export_verified": true,
+      "other_session_rejected": true
+    },
+    {
+      "task": "release",
+      "uploaded": true,
+      "findings": 3,
+      "metrics": {
+        "wall_ms": 427.049,
+        "files": 2,
+        "verified_nodes": 9,
+        "model_calls": 0,
+        "native_receipts": 9,
+        "journal_sequence": 159,
+        "concurrency": 3
+      },
+      "export_verified": true,
+      "other_session_rejected": true
+    }
+  ],
+  "deleted": true
+}

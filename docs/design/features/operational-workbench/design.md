@@ -10,7 +10,7 @@ acceptance remains distinct from our implementation verification.
 
 ## Composition and contracts
 
-The product continues to consume reflexmesh 0.1.0. Domain-specific analyzers belong
+The product consumes reflexmesh 0.1.1 as of app 0.02.006. Domain-specific analyzers belong
 in the product application; native authority, policy contracts and persistent
 effects remain in the separate published engine. No new internal package.
 
