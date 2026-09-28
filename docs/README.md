@@ -2,6 +2,8 @@
 
 Read the [corrected scientific results](evaluation/corrected-results.md) for the full comparison and negative findings, and the [software design](design/SDD.md) for contracts and requirement gates.
 
+The [benchmark adequacy audit](evaluation/benchmark-adequacy.md) exposes the frozen core's state-machine ceiling and seed-invariant outcomes. The Benchmark page displays its source-bound counts beside the original results.
+
 Use [operational tasks](workbench/operations.md) for the default real-file workflows and [the rebuild research](research/06-operational-rebuild.md) for their evidence boundaries.
 
 Start with [architecture](architecture.md) to understand the authority, learned state and asynchronous planning boundaries. [Guides](guides.md) cover local execution and reproduction. [Frameworks](frameworks.md) identifies each distinct scientific method; [cases](cases.md) defines actual effect truth and controlled fault variants.

@@ -8,7 +8,7 @@ Neuraxis exposes live decisions, candidate scores, exact resource state, effects
 
 ## Run locally
 
-Install Python 3.12 and Node 24, then run `scripts/setup.ps1` on Windows or `bash scripts/setup.sh` on Linux/macOS. Setup installs the pinned PyPI engine and hash-verified trained checkpoints from the matching project release. Build the frontend with `cd frontend && npm run build`. Activate `.venv` (`.venv/Scripts/Activate.ps1` on Windows or `source .venv/bin/activate` on Linux/macOS), return to the repository root and start the local workbench with:
+Install Python 3.12 and Node 24, then run `scripts/setup.ps1` on Windows or `bash scripts/setup.sh` on Linux/macOS. Setup installs the pinned PyPI engine and hash-verified trained checkpoints from reflexmesh release `v0.01.000`; app versions are independent of the checkpoint archive. Build the frontend with `cd frontend && npm run build`. Activate `.venv` (`.venv/Scripts/Activate.ps1` on Windows or `source .venv/bin/activate` on Linux/macOS), return to the repository root and start the local workbench with:
 
 ```sh
 python scripts/serve.py --checkpoints models/checkpoints --model qwen3.5:4b

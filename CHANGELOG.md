@@ -1,5 +1,19 @@
 # Changelog
 
+## 0.02.006 - 2026-09-28
+
+### Added
+
+- Publish a separate hash-audited 1,536-episode semantic-transfer investigation, with selectable
+  executed choices and effect receipts, alongside the frozen 19,488-episode record.
+- Show a held-out routing comparison and its negative fitted-gate result with explicit limits.
+
+### Fixed
+
+- Explain the default Tasks policy as a deterministic dependency-ready selector. Correct the
+  local setup checkpoint tag, update the pinned native engine, and make the browser research gate
+  exercise the actual routing result at phone and desktop widths in both languages.
+
 ## 0.02.005 - 2026-09-27
 
 ### Fixed

@@ -1,5 +1,5 @@
 # CAOS Neuraxis software design
-Date: 2026-09-24. Display release: 0.02.005.
+Date: 2026-09-24; benchmark extension 2026-09-28. Candidate display release: 0.02.006; deployment evidence is recorded separately.
 
 ## Review and migration record
 This records the existing research-backed implementation authorized before ADR-0075 was adopted on September 22. It is a September 23 migration of the current design, not a backdated pre-development review. The current user instruction explicitly continues the full implementation. Requirement convergence records distinguish local verification from publication and deployment.
@@ -36,6 +36,8 @@ The app exposes the full ladder with method-specific evidence and limitations. A
 ## Case taxonomy and coverage
 The twenty [case contracts](../cases/cases.md) cover files, builds, HTTP, processes, dependencies, conflicts, planners, untrusted text and crash recovery. Each has six variants and ten core seeds per method. Export rejects missing cells. The independent structural-transfer and ablation results remain separately labeled in the scientific report.
 
+The benchmark adequacy audit diagnoses the frozen core's state-machine ceiling and seed sensitivity without altering its traces. A new eight-family semantic-transfer lane uses the same twelve frozen methods with opaque, type-compatible operations and actual file effects. Its 1,536 episodes have a separate index, lineage, SHA-256 checks and result view. Results from these lanes are never pooled.
+
 ## Evaluation oracle
 The package evaluates actual environment postconditions. The app validates immutable receipt-bearing traces and displays outcomes unchanged, including failure, cancellation and abstention. Demonstration reliability is labeled as such. Native runs are checked with actual API responses; workspace/recovery browser tests verify real filesystem effects. Screenshots and viewport checks cover six routes, both languages and both themes.
 
@@ -69,6 +71,12 @@ R-010 WHEN canonical evidence is packaged, THE package builder SHALL validate th
 Gate: scripts/package_static.py
 R-011 WHEN CI executes, THE workflows SHALL respect the no-training budget.
 Gate: scripts/check_ci_budget.py
+R-012 WHEN the frozen core is presented, THE workbench SHALL expose a source-bound audit of its method ceiling and seed sensitivity.
+Gate: scripts/check_artifacts.py
+R-013 WHEN semantic-transfer results are packaged, THE product SHALL verify all 1,536 episode hashes, identities and lineage before release.
+Gate: scripts/check_semantic_transfer.py
+R-014 WHEN the default task route is displayed, THE interface SHALL identify its deterministic ReadyPolicy and distinguish it from learned-controller evidence.
+Gate: frontend/verify-benchmark.mjs
 ```
 
 Feature convergence lives under [features](features/). Scientific conclusions are in [corrected results](../evaluation/corrected-results.md).

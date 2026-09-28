@@ -1,6 +1,6 @@
 import { afterEach, describe, expect, it, vi } from 'vitest';
 import { createHash, webcrypto } from 'node:crypto';
-import { loadEpisode, type EpisodeReference } from '../api/artifacts';
+import { loadEpisode, loadVerifiedIndex, type EpisodeReference } from '../api/artifacts';
 
 const episode = {
   schema_version: 1,
@@ -34,6 +34,17 @@ function serve(bytes: string) {
 afterEach(() => vi.unstubAllGlobals());
 
 describe('canonical artifact integrity', () => {
+  it('hash-checks a separate index before accepting its episode references', async () => {
+    const index = serialize({ schema_version: 1, episodes: [reference()] });
+    serve(index);
+    expect(await loadVerifiedIndex('semantic-transfer/index.json', sha256(index))).toMatchObject({
+      episodes: [reference()],
+    });
+    serve(index.replace('verified-run', 'tampered-run'));
+    await expect(loadVerifiedIndex('semantic-transfer/index.json', sha256(index))).rejects.toThrow(
+      'SHA-256 mismatch',
+    );
+  });
   it('verifies the exact serialized bytes, including whitespace, before normalization', async () => {
     serve(serialize(episode));
     expect(await loadEpisode(reference())).toMatchObject(episode);

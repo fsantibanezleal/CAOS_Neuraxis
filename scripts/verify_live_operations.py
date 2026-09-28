@@ -34,7 +34,7 @@ def verify(base, commit):
     assert status == 200 and release["commit"] == commit
     assert release["operation_coverage"]["runs"] == 36
     assert request("/api/config")[0] == 404
-    assert request("/operations-api/config")[1]["engine"] == "reflexmesh 0.1.0"
+    assert request("/operations-api/config")[1]["engine"] == "reflexmesh 0.1.1"
     assert request("/operations-api/config")[1]["commit"] == commit
     owner = request("/operations-api/session", {})[1]["token"]
     other = request("/operations-api/session", {})[1]["token"]
