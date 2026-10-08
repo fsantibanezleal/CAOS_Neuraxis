@@ -1,5 +1,10 @@
 # Changelog
 
+## 0.02.008 - 2026-10-08
+
+- Report the installed native engine version in service configuration, fresh task receipts and operation-study metadata.
+- Regenerate the complete 36-run native operation study against reflexmesh 0.1.2 and the current source. Earlier operation evidence remains preserved in Git; the core and semantic learned-controller matrices are unchanged.
+
 ## 0.02.007 - 2026-10-08
 
 - Compare matched semantic controllers, capability descriptions, file effects and goal checks in App Investigations. Share selections and retain fresh authenticated runs separately.

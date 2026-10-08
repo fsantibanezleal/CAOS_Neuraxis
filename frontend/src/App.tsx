@@ -21,7 +21,7 @@ const config: ShellConfig = {
   visibility: 'private',
   contain: true,
   product: { name: 'Neuraxis', mark: <Network size={18} aria-hidden="true" /> },
-  version: '0.02.007',
+  version: '0.02.008',
   routes: [
     { path: '/', en: 'App', es: 'App' },
     { path: '/introduction', en: 'Introduction', es: 'Introducción' },
