@@ -86,7 +86,7 @@ export function normalizeEpisode(value: unknown): Episode {
       sequence,
       timestamp_ms: timestamp,
       event_kind: String(d.event_kind ?? 'decision'),
-      action: String(d.action ?? d.action_id ?? 'unknown'),
+      action: String(d.action ?? d.action_id ?? d.mode ?? 'no_action'),
       status: String(d.status ?? 'observed'),
       candidates,
       reason: String(d.reason ?? ''),
@@ -147,7 +147,7 @@ export async function loadVerifiedIndex(
   return value as ArtifactIndex;
 }
 
-export async function loadEpisode(ref: EpisodeReference): Promise<Episode> {
+export async function loadEpisode(ref: EpisodeReference, signal?: AbortSignal): Promise<Episode> {
   const path = String(ref.path ?? ref.url ?? `episodes/${ref.run_id}.json`);
   if (path.includes('..') || /^\w+:/.test(path) || path.startsWith('/'))
     throw new Error('Evidence path must be relative');
@@ -155,7 +155,7 @@ export async function loadEpisode(ref: EpisodeReference): Promise<Episode> {
     throw new Error('Canonical evidence requires a SHA-256 digest');
   if (!globalThis.crypto?.subtle)
     throw new Error('Canonical evidence verification requires a secure browser context');
-  const response = await fetch(`${root}${path}`);
+  const response = await fetch(`${root}${path}`, { signal });
   if (!response.ok) throw new Error(`HTTP ${response.status}`);
   if (!(response.headers.get('content-type') ?? '').includes('json'))
     throw new Error('Expected JSON evidence');

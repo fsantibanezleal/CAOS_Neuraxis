@@ -357,7 +357,7 @@ export default function Recovery({ token, active }: { token: string; active: boo
                   </span>
                 </label>
                 <button
-                  className="nx-button nx-primary"
+                  className="btn primary"
                   disabled={
                     busy ||
                     active ||

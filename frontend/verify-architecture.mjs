@@ -1,6 +1,10 @@
+import { tmpdir } from 'node:os';
+import { join } from 'node:path';
 import { chromium, expect } from '@playwright/test';
-import { writeFileSync } from 'node:fs';
+import { mkdirSync, writeFileSync } from 'node:fs';
 const base = process.env.NEURAXIS_QA_URL ?? 'http://127.0.0.1:4180';
+const qaRoot = process.env.NEURAXIS_QA_OUTPUT ?? join(tmpdir(), 'neuraxis-'+ 'verify-architecture');
+mkdirSync(qaRoot,{recursive:true});
 const browser = await chromium.launch();
 const checks = [], errors = [];
 try {
@@ -27,7 +31,7 @@ try {
         await expect.poll(() => region.evaluate(el => el.scrollLeft)).toBeGreaterThan(0);
       }
       await modal.getByRole('button', { name: /Fit diagram|Ajustar diagrama/ }).click();
-      await page.screenshot({ path: `qa/architecture-${i}-${width}-${theme}-${lang}.png` });
+      await page.screenshot({ path: `${qaRoot}/architecture-${i}-${width}-${theme}-${lang}.png` });
       expect(await page.evaluate(() => document.documentElement.scrollWidth > innerWidth + 1)).toBe(false);
       checks.push({ width, theme, lang, tab: i, fullSizeKeyboardAccess: true });
     }
@@ -38,7 +42,7 @@ try {
   }
 } finally {
   await browser.close();
-  writeFileSync('qa/architecture-report.json', JSON.stringify({ base, checks, errors }, null, 2));
+  writeFileSync(join(qaRoot,'architecture-report.json'), JSON.stringify({ base, checks, errors }, null, 2));
 }
 console.log(JSON.stringify({ checks: checks.length, errors }));
 if (errors.length) process.exitCode = 1;

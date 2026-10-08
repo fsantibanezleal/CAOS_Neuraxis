@@ -23,6 +23,7 @@ FILES = [
 def main():
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("--identity", type=Path, required=True)
+    parser.add_argument("--output", type=Path, help="external location for the service archive")
     parser.add_argument("--host", default="root@89.167.4.175")
     args = parser.parse_args()
     if not re.fullmatch(r"[A-Za-z0-9_.-]+@[A-Za-z0-9.-]+", args.host):
@@ -30,8 +31,8 @@ def main():
     if subprocess.check_output(["git", "status", "--porcelain", "--", *FILES], cwd=ROOT).strip():
         raise ValueError("Commit validated service sources before deployment")
     commit = subprocess.check_output(["git", "rev-parse", "HEAD"], cwd=ROOT, text=True).strip()
-    archive = ROOT / "dist" / "neuraxis-operations.tar.gz"
-    archive.parent.mkdir(exist_ok=True)
+    archive = args.output or ROOT / "dist" / "neuraxis-operations.tar.gz"
+    archive.parent.mkdir(parents=True, exist_ok=True)
     with tarfile.open(archive, "w:gz") as bundle:
         for name in FILES:
             bundle.add(ROOT / name, arcname=name, recursive=False)

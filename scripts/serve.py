@@ -11,12 +11,25 @@ from pathlib import Path
 import uvicorn
 
 ROOT = Path(__file__).resolve().parents[1]
+sys.path.insert(0, str(ROOT))
 
 if __name__ == "__main__":
+    from app.config import CHECKPOINTS, OPERATIONS_ROOT
+
     parser = argparse.ArgumentParser()
     parser.add_argument("--model", help="explicit installed Ollama model for planner methods")
     parser.add_argument("--port", type=int, default=8151)
-    parser.add_argument("--checkpoints", default=str(ROOT / "models" / "checkpoints"))
+    parser.add_argument("--checkpoints", default=str(CHECKPOINTS))
+    parser.add_argument(
+        "--operations-root",
+        default=str(OPERATIONS_ROOT),
+        help="external directory for bounded task files and receipts",
+    )
+    parser.add_argument(
+        "--temp-root",
+        default=os.environ.get("NEURAXIS_TEMP_ROOT"),
+        help="external scratch directory for disposable native workloads",
+    )
     parser.add_argument(
         "--workspace", help="operator-selected existing directory for verified user workflows"
     )
@@ -34,6 +47,14 @@ if __name__ == "__main__":
     token = os.environ.setdefault("REFLEXMESH_LOCAL_TOKEN", secrets.token_urlsafe(32))
     os.environ["NEURAXIS_PORT"] = str(args.port)
     os.environ["NEURAXIS_CHECKPOINTS"] = str(Path(args.checkpoints).resolve())
+    os.environ["NEURAXIS_OPERATIONS_ROOT"] = str(Path(args.operations_root).expanduser().resolve())
+    if args.temp_root:
+        scratch = Path(args.temp_root).expanduser().resolve()
+        scratch.mkdir(parents=True, exist_ok=True)
+        os.environ["TMPDIR"] = os.environ["TEMP"] = os.environ["TMP"] = str(scratch)
+        import tempfile
+
+        tempfile.tempdir = str(scratch)
     for name, value in [
         ("NEURAXIS_MODEL", args.model),
         ("NEURAXIS_WORKSPACE", args.workspace),

@@ -1,3 +1,5 @@
+import { tmpdir } from 'node:os';
+import { join } from 'node:path';
 import { chromium, expect } from '@playwright/test';
 import { mkdirSync, writeFileSync } from 'node:fs';
 
@@ -8,7 +10,8 @@ const sizes = [
   { width: 2560, height: 1440 }, { width: 360, height: 800 },
   { width: 390, height: 844 }, { width: 430, height: 932 },
 ];
-mkdirSync('qa', { recursive: true });
+const qaRoot = process.env.NEURAXIS_QA_OUTPUT ?? join(tmpdir(), 'neuraxis-qa');
+mkdirSync(qaRoot, { recursive: true });
 const browser = await chromium.launch();
 const checks = [], errors = [];
 for (const viewport of sizes) for (const theme of ['light', 'dark']) for (const lang of ['en', 'es']) {
@@ -44,24 +47,24 @@ for (const viewport of sizes) for (const theme of ['light', 'dark']) for (const 
       if (route === '/benchmark')
         await expect(page.locator('.nx-benchmark .page-head h1')).toBeVisible();
       else
-        await expect(page.locator('.nx-doc .page-head h1')).toHaveText(heading);
+        await expect(page.locator('[data-doc-page] .page-head h1')).toHaveText(heading);
       await page.locator(route === '/benchmark' ? '.nx-benchmark .nx-metrics' : '.nx-doc-section').waitFor();
       if (route === '/methodology')
         await expect(page.locator('.science-measurement table tbody tr').first()).toBeVisible();
       await page.evaluate(() => document.fonts.ready);
     } catch (error) {
-      await page.screenshot({ path: 'qa/layout-failure.png', fullPage: true });
+      await page.screenshot({ path: qaRoot + '/layout-failure.png', fullPage: true });
       console.log(JSON.stringify({
         url: page.url(), text: (await page.locator('body').innerText()).slice(0, 1800),
         navigationErrors: navigationErrors.slice(-20),
       }));
       throw error;
     }
-    await expect(page.locator('.app-shell')).not.toHaveClass(/fixed/);
+    await expect(page.locator('.app-shell')).toHaveClass(/contain/);
     await expect.poll(() => page.evaluate(() => scrollY)).toBe(0);
     const before = await page.evaluate(() => ({ height: innerHeight, document: document.documentElement.scrollHeight, width: innerWidth, documentWidth: document.documentElement.scrollWidth }));
     if (before.documentWidth > before.width + 1) errors.push({ route, viewport, theme, lang, horizontalOverflow: before });
-    if (lang === 'en' && [360, 1600].includes(viewport.width)) await page.screenshot({ path: `qa/layout-${route.slice(1)}-${viewport.width}-${theme}-top.png` });
+    if (lang === 'en' && [360, 1600].includes(viewport.width)) await page.screenshot({ path: `${qaRoot}/layout-${route.slice(1)}-${viewport.width}-${theme}-top.png` });
     if (before.document > before.height + 2) {
       await page.mouse.move(viewport.width * .75, viewport.height * .6);
       await page.mouse.wheel(0, 700);
@@ -84,19 +87,27 @@ for (const viewport of sizes) for (const theme of ['light', 'dark']) for (const 
         await session.detach();
       }
     }
+    // Desktop shell contains a scrollable main; mobile uses document flow.
+    const scrollable = page.locator('main').filter({visible:true}).first();
+    const mainScroll = await scrollable.evaluate(el => ({height:el.clientHeight, content:el.scrollHeight}));
+    if (before.document <= before.height + 2 && mainScroll.content > mainScroll.height + 2) {
+      await scrollable.hover();
+      await page.mouse.wheel(0, 700);
+      await expect.poll(() => scrollable.evaluate(el => el.scrollTop)).toBeGreaterThan(0);
+    }
     const last = page.locator(route === '/benchmark' ? '.nx-benchmark a[href]' : '.nx-doc-section:visible a[href]').last();
     await last.focus();
     await expect(last).toBeInViewport();
-    if (lang === 'en' && [360, 1600].includes(viewport.width)) await page.screenshot({ path: `qa/layout-${route.slice(1)}-${viewport.width}-${theme}-end.png` });
-    checks.push({ route, viewport, theme, lang, documentFlow: true, finalSourceVisible: true, ...before });
+    if (lang === 'en' && [360, 1600].includes(viewport.width)) await page.screenshot({ path: `${qaRoot}/layout-${route.slice(1)}-${viewport.width}-${theme}-end.png` });
+    checks.push({ route, viewport, theme, lang, verticalScrollVerified: true, finalSourceVisible: true, ...before });
   }
   await page.locator('.site-header .nav-link[href="/"]').click();
   await expect(page.locator('.op-layout')).toBeVisible();
   await expect.poll(() => page.evaluate(() => scrollY)).toBe(0);
-  await expect(page.locator('.app-shell')).not.toHaveClass(/fixed/);
+  await expect(page.locator('.app-shell')).toHaveClass(/contain/);
   await page.close();
 }
 await browser.close();
-writeFileSync('qa/layout-report.json', JSON.stringify({ base, checks, errors }, null, 2));
+writeFileSync(qaRoot + '/layout-report.json', JSON.stringify({ base, checks, errors }, null, 2));
 console.log(JSON.stringify({ checks: checks.length, errors }, null, 2));
 if (errors.length) process.exitCode = 1;

@@ -8,10 +8,10 @@ Neuraxis exposes live decisions, candidate scores, exact resource state, effects
 
 ## Run locally
 
-Install Python 3.12 and Node 24, then run `scripts/setup.ps1` on Windows or `bash scripts/setup.sh` on Linux/macOS. Setup installs the pinned PyPI engine and hash-verified trained checkpoints from reflexmesh release `v0.01.000`; app versions are independent of the checkpoint archive. Build the frontend with `cd frontend && npm run build`. Activate `.venv` (`.venv/Scripts/Activate.ps1` on Windows or `source .venv/bin/activate` on Linux/macOS), return to the repository root and start the local workbench with:
+Install Python 3.12 and Node 24, then run `scripts/setup.ps1` on Windows or `bash scripts/setup.sh` on Linux/macOS. Setup installs the pinned PyPI engine and hash-verified trained checkpoints from reflexmesh release `v0.01.000`; app versions are independent of the checkpoint archive. Checkpoints default to an external user cache; use NEURAXIS_CHECKPOINTS or -Checkpoints to select a model directory. See [investigations and storage](docs/workbench/investigations.md). Build the frontend with `cd frontend && npm run build`. Activate `.venv` (`.venv/Scripts/Activate.ps1` on Windows or `source .venv/bin/activate` on Linux/macOS), return to the repository root and start the local workbench with:
 
 ```sh
-python scripts/serve.py --checkpoints models/checkpoints --model qwen3.5:4b
+python scripts/serve.py --model qwen3.5:4b
 ```
 
 The service opens a loopback browser with a generated local capability held only in application memory. No account password or PyPI login is needed. The URL fragment is removed immediately after the UI reads it. Use --no-browser with an operator-supplied REFLEXMESH_LOCAL_TOKEN for manual sessions. A configured Ollama model is required for slow-model methods; unavailable models are reported explicitly. Exported static workbench artifacts have no host-tool authority.
