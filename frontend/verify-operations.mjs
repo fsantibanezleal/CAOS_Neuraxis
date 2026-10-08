@@ -1,7 +1,10 @@
+import { tmpdir } from 'node:os';
+import { join } from 'node:path';
 import { chromium, expect } from '@playwright/test';
 import { mkdirSync, writeFileSync } from 'node:fs';
 const base = process.env.NEURAXIS_QA_URL ?? 'http://127.0.0.1:4180';
-mkdirSync('qa', { recursive: true });
+const qaRoot = process.env.NEURAXIS_QA_OUTPUT ?? join(tmpdir(), 'neuraxis-'+ 'verify-operations');
+mkdirSync(qaRoot,{recursive:true});
 const browser = await chromium.launch();
 const checks = [], errors = [];
 for (const width of [1600, 360]) for (const theme of ['light', 'dark']) for (const lang of ['en', 'es']) {
@@ -19,7 +22,7 @@ for (const width of [1600, 360]) for (const theme of ['light', 'dark']) for (con
   await page.locator('.op-view-select select').selectOption('graph');
   await page.evaluate(() => scrollTo({ top: 0, behavior: 'instant' }));
   await expect.poll(() => page.evaluate(() => scrollY)).toBe(0);
-  await page.screenshot({ path: `qa/operations-${width}-${theme}-${lang}-before.png`, fullPage: true });
+  await page.screenshot({ path: `${qaRoot}/operations-${width}-${theme}-${lang}-before.png`, fullPage: true });
   await page.locator('.op-run').click();
   await expect(page.locator('.op-run-badge[data-state="succeeded"]')).toBeVisible({ timeout: 60000 });
   await expect(page.locator('.op-outcome strong')).toContainText('10');
@@ -27,14 +30,14 @@ for (const width of [1600, 360]) for (const theme of ['light', 'dark']) for (con
   await expect(page.locator('.op-finding')).toHaveCount(10);
   await page.evaluate(() => scrollTo({ top: 0, behavior: 'instant' }));
   await expect.poll(() => page.evaluate(() => scrollY)).toBe(0);
-  await page.screenshot({ path: `qa/operations-${width}-${theme}-${lang}-findings.png`, fullPage: true });
+  await page.screenshot({ path: `${qaRoot}/operations-${width}-${theme}-${lang}-findings.png`, fullPage: true });
   await page.locator('.op-view-select select').selectOption('graph');
   await expect(page.locator('.op-node[data-state="succeeded"]')).toHaveCount(9);
   await page.locator('.op-node').last().click();
   await expect(page.locator('.op-inspector code').first()).toHaveText('output/verify.json');
   await page.evaluate(() => scrollTo({ top: 0, behavior: 'instant' }));
   await expect.poll(() => page.evaluate(() => scrollY)).toBe(0);
-  await page.screenshot({ path: `qa/operations-${width}-${theme}-${lang}-result.png`, fullPage: true });
+  await page.screenshot({ path: `${qaRoot}/operations-${width}-${theme}-${lang}-result.png`, fullPage: true });
   await page.locator('.op-view-select select').selectOption('findings');
   await expect(page.locator('.op-finding')).toHaveCount(10);
   await page.locator('.op-finding').nth(2).click();
@@ -50,7 +53,7 @@ for (const width of [1600, 360]) for (const theme of ['light', 'dark']) for (con
   const download = page.waitForEvent('download');
   await page.getByRole('button', { name: lang === 'en' ? 'Download results' : 'Descargar resultados' }).click();
   const file = await download;
-  await file.saveAs(`qa/operation-export-${width}-${theme}-${lang}.zip`);
+  await file.saveAs(`${qaRoot}/operation-export-${width}-${theme}-${lang}.zip`);
   expect(await file.failure()).toBeNull();
   await page.getByRole('button', { name: lang === 'en' ? 'Delete this hosted run' : 'Eliminar esta ejecución' }).click();
   await expect(page.locator('.op-run-badge[data-state="ready"]')).toBeVisible();
@@ -75,5 +78,5 @@ for (const width of [1600, 360]) for (const theme of ['light', 'dark']) for (con
   await page.close();
 }
 await browser.close();
-writeFileSync('qa/operations-report.json', JSON.stringify({ base, checks, errors }, null, 2));
+writeFileSync(join(qaRoot,'operations-report.json'), JSON.stringify({ base, checks, errors }, null, 2));
 if (errors.length) throw new Error(JSON.stringify(errors));

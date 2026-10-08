@@ -1,43 +1,27 @@
 import { BrowserRouter, Route, Routes, useLocation } from 'react-router-dom';
-import { lazy, Suspense, useEffect } from 'react';
+import { Suspense, useEffect } from 'react';
 import { Network } from 'lucide-react';
 import { AppShell, CitationsProvider, type ShellConfig } from '@fasl-work/caos-app-shell';
 import { CITATIONS } from './data/citations';
 import { architecture } from './architecture';
 import OperationsWorkbench from './pages/OperationsWorkbench';
 import { useCopy } from './i18n';
-const Introduction = lazy(async () => {
-  const [{ default: Science }, { introduction }] = await Promise.all([
-    import('./pages/Science'),
-    import('./data/introduction'),
-  ]);
-  return { default: () => <Science page={introduction} /> };
-});
-const Methodology = lazy(async () => {
-  const [{ default: Science }, { methodology }] = await Promise.all([
-    import('./pages/Science'),
-    import('./data/methodology'),
-  ]);
-  return { default: () => <Science page={methodology} /> };
-});
-const Implementation = lazy(async () => {
-  const [{ default: Science }, { implementation }] = await Promise.all([
-    import('./pages/Science'),
-    import('./data/implementation'),
-  ]);
-  return { default: () => <Science page={implementation} /> };
-});
-const Experiments = lazy(async () => {
-  const [{ default: Science }, { experiments }] = await Promise.all([
-    import('./pages/Science'),
-    import('./data/experiments'),
-  ]);
-  return { default: () => <Science page={experiments} /> };
-});
-const Benchmark = lazy(() => import('./pages/Benchmark'));
+import Science from './pages/Science';
+import { introduction } from './data/introduction';
+import { methodology } from './data/methodology';
+import { implementation } from './data/implementation';
+import { experiments } from './data/experiments';
+import Benchmark from './pages/Benchmark';
+const Introduction = () => <Science page={introduction} />;
+const Methodology = () => <Science page={methodology} />;
+const Implementation = () => <Science page={implementation} />;
+const Experiments = () => <Science page={experiments} />;
 const config: ShellConfig = {
+  license: { en: 'Private source', es: 'Código privado' },
+  visibility: 'private',
+  contain: true,
   product: { name: 'Neuraxis', mark: <Network size={18} aria-hidden="true" /> },
-  version: '0.02.006',
+  version: '0.02.007',
   routes: [
     { path: '/', en: 'App', es: 'App' },
     { path: '/introduction', en: 'Introduction', es: 'Introducción' },
@@ -68,7 +52,7 @@ function RoutedApp() {
   }, [pathname]);
   return (
     <CitationsProvider items={CITATIONS}>
-      <AppShell config={{ ...config, fixed: false }}>
+      <AppShell config={config}>
         <Suspense
           fallback={
             <div className="page-body nx-empty" role="status">

@@ -1,3 +1,3 @@
 # Install the official Torch wheel compatible with the measured CUDA driver separately.
 # A GPU label is not evidence that training ran on GPU.
-reflexmesh[train,server]==0.1.0
+reflexmesh[train,server]==0.1.2

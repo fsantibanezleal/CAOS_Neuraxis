@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import { Callout, Cite, Refs, ReferenceList } from '@fasl-work/caos-app-shell';
+import { Callout, Cite, Refs } from '@fasl-work/caos-app-shell';
 import { useArtifacts } from '../api/artifacts';
 import { useCopy } from '../i18n';
 import { taskLabels, conditionLabels } from '../lib/operations';
@@ -276,10 +276,6 @@ export function OperationStudy() {
         )}
       </Callout>
       <Refs ids={['neuraxis2026', 'reflexmesh2026']} label={c('Sources', 'Fuentes')} />
-      <ReferenceList
-        ids={['neuraxis2026', 'reflexmesh2026']}
-        heading={c('Section bibliography', 'Bibliografía de la sección')}
-      />
     </article>
   );
 }

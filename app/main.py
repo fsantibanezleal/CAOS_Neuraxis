@@ -12,6 +12,7 @@ from reflexmesh.server import create_app as engine_app
 from reflexmesh.workflows import process_templates
 from starlette.routing import Mount
 
+from app.config import CHECKPOINTS, OPERATIONS_ROOT
 from app.operations_api import create_app as operations_app
 
 ROOT = Path(__file__).resolve().parents[1]
@@ -34,7 +35,7 @@ def create_app():
             raise ValueError("Process configuration exceeds 1 MiB")
         templates = process_templates(json.loads(path.read_text(encoding="utf-8")))
     app = engine_app(
-        checkpoints=os.environ.get("NEURAXIS_CHECKPOINTS", ROOT / "models" / "checkpoints"),
+        checkpoints=os.environ.get("NEURAXIS_CHECKPOINTS", CHECKPOINTS),
         artifacts=ROOT / "data" / "derived",
         static=ROOT / "frontend" / "dist",
         token=token,
@@ -43,7 +44,7 @@ def create_app():
         process_templates=templates,
     )
     operations = operations_app(
-        root=os.environ.get("NEURAXIS_OPERATIONS_ROOT", ROOT / ".runtime" / "operations"),
+        root=os.environ.get("NEURAXIS_OPERATIONS_ROOT", OPERATIONS_ROOT),
         host="127.0.0.1:" + os.environ.get("NEURAXIS_PORT", "8151"),
         prefix="",
     )

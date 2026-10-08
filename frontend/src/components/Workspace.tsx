@@ -436,7 +436,7 @@ export default function Workspace({ token, onBack }: { token: string; onBack: ()
         )}
         {view === 'author' && (
           <button
-            className="nx-button nx-primary"
+            className="btn primary"
             onClick={() => void execute()}
             disabled={busy || active || !preview || seconds <= 0}
           >

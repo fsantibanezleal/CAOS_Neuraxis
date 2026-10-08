@@ -156,7 +156,7 @@ export function ResearchResults() {
           <p key={name}>
             <strong>{name}:</strong> {gate.positive_fit_states}/{gate.fit_states}{' '}
             {en ? 'positive fit states; threshold' : 'estados positivos de ajuste; umbral'}{' '}
-            {gate.threshold}.{' '}
+            {format(gate.threshold)}.{' '}
             {en
               ? 'The learned gate never defers. M12 surprise/evidence triggers remain separate.'
               : 'El umbral aprendido nunca delega. Los disparadores de sorpresa/evidencia de M12 son independientes.'}

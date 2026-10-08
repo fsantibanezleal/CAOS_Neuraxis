@@ -148,7 +148,7 @@ export const methodology: ContentPage = {
           tex: String.raw`a_t=\arg\max_{a\in\mathcal A_t}\left[x_{t,a}^{\top}\widehat\theta+\alpha\sqrt{x_{t,a}^{\top}A^{-1}x_{t,a}}\right]`,
           caption: b(
             'This shared action-feature LinUCB uses a seeded 64-dimensional projection x, one fitted reward vector theta and one regularized covariance A across actions; alpha=0.2 controls exploration and A_t is the admissible set. Updates use only executed-action feedback.',
-            'LinUCB comparte una proyección de 64 dimensiones x, vector de recompensa theta y covarianza regularizada A entre acciones; alpha=0.2 controla exploración y A_t es el conjunto admisible. Solo se actualiza con acciones ejecutadas.',
+            'LinUCB comparte una proyección de 64 dimensiones x, vector de recompensa theta y covarianza regularizada A entre acciones; alpha=0,2 controla exploración y A_t es el conjunto admisible. Solo se actualiza con acciones ejecutadas.',
           ),
         },
         {

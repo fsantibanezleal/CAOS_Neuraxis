@@ -570,7 +570,7 @@ export default function Operations() {
         </header>
         <div className="op-command-bar">
           <button
-            className="nx-button nx-primary op-run"
+            className="btn primary op-run"
             onClick={() => void start()}
             disabled={active || busy || !online || !files.length}
           >

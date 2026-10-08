@@ -6,6 +6,7 @@ export const localSession: {
   workspace?: Record<string, unknown>;
   operationToken?: string;
   operations?: Record<string, unknown>;
+  investigation?: { run_id: string; status: string; label: string };
 } = { token: '' };
 
 if (typeof window !== 'undefined' && ['127.0.0.1', 'localhost'].includes(location.hostname)) {

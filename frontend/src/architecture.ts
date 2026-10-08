@@ -1,6 +1,17 @@
 import type { ArchitectureConfig } from '@fasl-work/caos-app-shell';
-// The shared Architecture modal resolves paths against Vite BASE_URL itself.
-const svg = (name: string) => `svg/tech/${name}.svg`;
+import app from './diagrams/01-the-app.svg?raw';
+import lanes from './diagrams/02-lanes.svg?raw';
+import web from './diagrams/03-web-flow.svg?raw';
+import science from './diagrams/04-the-science.svg?raw';
+import contracts from './diagrams/05-data-contracts.svg?raw';
+const diagrams: Record<string, string> = {
+  '01-the-app': app,
+  '02-lanes': lanes,
+  '03-web-flow': web,
+  '04-the-science': science,
+  '05-data-contracts': contracts,
+};
+const svg = (name: string) => diagrams[name];
 export const architecture: ArchitectureConfig = {
   tabs: [
     {

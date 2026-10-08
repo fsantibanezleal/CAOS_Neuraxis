@@ -1,127 +1,45 @@
 import { chromium, expect } from '@playwright/test';
 import { mkdirSync, writeFileSync } from 'node:fs';
-
-const base = process.env.NEURAXIS_QA_URL ?? 'http://127.0.0.1:4180';
-const routes = ['introduction', 'methodology', 'implementation', 'experiments', 'benchmark'];
-const checks = [];
-const errors = [];
-mkdirSync('qa', { recursive: true });
-const browser = await chromium.launch();
+import { tmpdir } from 'node:os';
+import { join } from 'node:path';
+const base=process.env.NEURAXIS_QA_URL??'http://127.0.0.1:4180';
+const out=process.env.NEURAXIS_QA_OUTPUT??join(tmpdir(),'neuraxis-tabs');
+mkdirSync(out,{recursive:true});
+const browser=await chromium.launch();
+const checks=[],errors=[];
 try {
-  for (const width of [1600, 360]) for (const lang of ['en', 'es']) for (const theme of ['light', 'dark']) {
-    const page = await browser.newPage({ viewport: { width, height: 900 }, hasTouch: width === 360 });
-    page.on('pageerror', error => errors.push({ width, lang, theme, pageError: error.message }));
-    await page.addInitScript(({ lang, theme }) => {
-      localStorage.setItem('caos.lang', lang);
-      localStorage.setItem('caos.theme', theme);
-    }, { lang, theme });
-    for (const route of routes) {
-      await page.goto(`${base}/${route}`);
-      const root = page.locator(route === 'benchmark' ? '.nx-benchmark' : '.nx-doc');
-      const navigator = root.locator('.nx-overflow-tabs');
-      const list = navigator.locator(':scope > .tabs > .tablist');
-      const tabs = list.locator(':scope > .tab');
-      await expect(tabs.first()).toBeVisible();
-      await expect(root.locator('.page-head h1')).toBeInViewport();
-      await expect.poll(() => page.evaluate(() => scrollY)).toBe(0);
-      const overflow = await list.evaluate(el => el.scrollWidth > el.clientWidth + 2);
-      const controls = navigator.locator(':scope > .nx-tab-scroll-controls');
-      if ((route === 'introduction' || route === 'methodology') && lang === 'en' && theme === 'dark') {
-        await page.screenshot({ path: `qa/tab-navigation-initial-${route}-${width}.png` });
-      }
-      if (overflow) {
-        await expect(controls).toBeVisible();
-        const next = controls.getByRole('button', { name: lang === 'en' ? 'More sections' : 'Más secciones' });
-        for (let attempt = 0; attempt < 12 && await next.isEnabled(); attempt++) {
-          const rect = await next.boundingBox();
-          if (!rect) throw new Error(`${route}: next-sections control has no pointer target`);
-          const x = rect.x + rect.width / 2;
-          const y = rect.y + rect.height / 2;
-          if (width === 360) await page.touchscreen.tap(x, y);
-          else await page.mouse.click(x, y);
-          await expect.poll(() => list.evaluate(el => el.scrollLeft)).toBeGreaterThan(0);
-          await page.waitForTimeout(180);
-        }
-        await expect(next).toBeDisabled();
-      } else {
-        await expect(controls).toHaveCount(0);
-      }
-      const last = tabs.last();
-      const visible = await last.evaluate((el) => {
-        const tab = el.getBoundingClientRect();
-        const strip = el.parentElement.getBoundingClientRect();
-        const controls = el.closest('.nx-overflow-tabs').querySelector(':scope > .nx-tab-scroll-controls');
-        const usableRight = controls ? controls.getBoundingClientRect().left : strip.right;
-        return tab.left >= strip.left - 2 && tab.right <= usableRight + 2;
-      });
-      if (!visible) errors.push({ route, width, lang, theme, lastTabHiddenAfterScrolling: true });
-      await last.click();
-      await expect(last).toHaveAttribute('aria-selected', 'true');
-      await expect(navigator.locator(':scope > .tabs > .tabpanel:visible')).toBeVisible();
-      const bibliography = tabs.filter({ hasText: /Bibliograph|Bibliograf/ });
-      await bibliography.click();
-      await expect(bibliography).toHaveAttribute('aria-selected', 'true');
-      await expect(navigator.locator('.tabpanel:visible .reference-list li').first()).toBeVisible();
-      await tabs.first().click();
-      const sublist = navigator.locator(':scope > .tabs > .tabpanel:visible .subtablist');
-      const subtabs = sublist.locator(':scope > .subtab');
-      await expect(subtabs.first()).toBeVisible();
-      const nestedOverflow = await sublist.evaluate(el => el.scrollWidth > el.clientWidth + 2);
-      const nestedControls = navigator.locator(':scope > .tabs > .tabpanel:visible .nx-overflow-subtabs > .nx-tab-scroll-controls');
-      if (nestedOverflow) {
-        await expect(nestedControls).toBeVisible();
-        const nextTopic = nestedControls.getByRole('button', { name: lang === 'en' ? 'More topics' : 'Más temas' });
-        for (let attempt = 0; attempt < 12 && await nextTopic.isEnabled(); attempt++) {
-          const rect = await nextTopic.boundingBox();
-          if (!rect) throw new Error(`${route}: next-topics control has no pointer target`);
-          if (width === 360) await page.touchscreen.tap(rect.x + rect.width / 2, rect.y + rect.height / 2);
-          else await page.mouse.click(rect.x + rect.width / 2, rect.y + rect.height / 2);
-          await expect.poll(() => sublist.evaluate(el => el.scrollLeft)).toBeGreaterThan(0);
-          await page.waitForTimeout(180);
-        }
-        await expect(nextTopic).toBeDisabled();
-      } else {
-        await expect(nestedControls).toHaveCount(0);
-      }
-      await subtabs.first().focus();
-      await page.keyboard.press('ArrowDown');
-      await expect(subtabs.nth(1)).toBeFocused();
-      await expect(subtabs.nth(1)).toHaveAttribute('aria-selected', 'true');
-      await subtabs.last().click();
-      await expect(navigator.locator(':scope > .tabs > .tabpanel:visible .subtabpanel:visible')).toBeVisible();
-      const topicVisibility = () => subtabs.last().evaluate(el => {
-        const tab = el.getBoundingClientRect();
-        const strip = el.parentElement.getBoundingClientRect();
-        const controls = el.closest('.nx-overflow-subtabs').querySelector('.nx-tab-scroll-controls');
-        const right = controls ? controls.getBoundingClientRect().left : strip.right;
-        return tab.left >= strip.left - 2 && tab.right <= right + 2;
-      });
-      await expect.poll(topicVisibility).toBe(true);
-      await expect.poll(() => page.evaluate(() => document.documentElement.scrollWidth <= innerWidth + 1)).toBe(true);
-      await tabs.first().focus();
-      await page.keyboard.press('End');
-      await expect(last).toBeFocused();
-      await expect(last).toHaveAttribute('aria-selected', 'true');
-      const keyboardVisible = await expect.poll(() => last.evaluate(el => {
-        const tab = el.getBoundingClientRect();
-        const strip = el.parentElement.getBoundingClientRect();
-        const controls = el.closest('.nx-overflow-tabs').querySelector(':scope > .nx-tab-scroll-controls');
-        const usableRight = controls ? controls.getBoundingClientRect().left : strip.right;
-        return tab.left >= strip.left - 2 && tab.right <= usableRight + 2;
-      })).toBe(true).then(() => true, () => false);
-      if (!keyboardVisible) errors.push({ route, width, lang, theme, selectedTabHiddenAfterKeyboard: true });
-      const pageOverflow = await page.evaluate(() => document.documentElement.scrollWidth > innerWidth + 1);
-      if (pageOverflow) errors.push({ route, width, lang, theme, pageOverflow: true });
-      if ((route === 'introduction' || route === 'methodology') && lang === 'en' && theme === 'dark') {
-        await page.screenshot({ path: `qa/tab-navigation-${route}-${width}.png` });
-      }
-      checks.push({ route, width, lang, theme, overflow, pointerReachable: visible, keyboardReachable: keyboardVisible, nestedNavigationReachable: true, bibliographyReachable: true });
-    }
-    await page.close();
+ for(const width of [390,768,1280,1600,2560]) for(const lang of ['en','es']) for(const theme of ['light','dark']) {
+  const page=await browser.newPage({viewport:{width,height:900}});
+  page.on('pageerror',error=>errors.push({width,lang,theme,error:error.message}));
+  await page.addInitScript(({lang,theme})=>{localStorage.setItem('caos.lang',lang);localStorage.setItem('caos.theme',theme);},{lang,theme});
+  for(const route of ['introduction','methodology','implementation','experiments','benchmark']) {
+   await page.goto(`${base}/${route}`);
+   const root=page.locator(route==='benchmark'?'.nx-benchmark':'[data-doc-page]');
+   const list=root.locator('[role="tablist"]').first();
+   const tabs=list.getByRole('tab');
+   await expect(tabs.first()).toBeVisible();
+   await tabs.first().focus(); await page.keyboard.press('End');
+   await expect(tabs.last()).toBeFocused();
+   const revealed=await tabs.last().evaluate(el=>{const b=el.getBoundingClientRect(),p=el.parentElement.getBoundingClientRect();return b.left>=p.left-2&&b.right<=p.right+2;});
+   expect(revealed).toBe(true);
+   await tabs.last().click();
+   await expect(tabs.last()).toHaveAttribute('aria-selected','true');
+   const bibliography=tabs.filter({hasText:lang==='en'?'Bibliography':'Bibliografía'});
+   await bibliography.click();
+   await expect(root.locator('[role="tabpanel"]:visible .th-refs a').first()).toBeVisible();
+   await tabs.first().click();
+   const nested=root.locator('[role="tabpanel"]:visible [role="tablist"]').first();
+   if(await nested.count()) {
+    const children=nested.getByRole('tab');
+    await children.first().focus(); await page.keyboard.press('End');
+    await expect(children.last()).toBeFocused(); await children.last().click();
+    await expect(children.last()).toHaveAttribute('aria-selected','true');
+   }
+   expect(await page.evaluate(()=>document.documentElement.scrollWidth>innerWidth+1)).toBe(false);
+   checks.push({route,width,lang,theme,keyboard:true,bibliography:true,nested:true});
   }
-} finally {
-  await browser.close();
-  writeFileSync('qa/tab-navigation-report.json', JSON.stringify({ base, checks, errors }, null, 2));
-}
-console.log(JSON.stringify({ checks: checks.length, errors }, null, 2));
-if (errors.length) process.exitCode = 1;
+  await page.close();
+ }
+} finally {await browser.close();writeFileSync(join(out,'report.json'),JSON.stringify({base,checks,errors},null,2));}
+console.log(JSON.stringify({checks:checks.length,errors}));
+if(errors.length)process.exitCode=1;

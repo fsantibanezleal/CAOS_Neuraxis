@@ -1,5 +1,5 @@
 import { useMemo, useState } from 'react';
-import { Callout, Cite, Refs, ReferenceList } from '@fasl-work/caos-app-shell';
+import { Callout, Cite, Refs, DocSection } from '@fasl-work/caos-app-shell';
 import { Download } from 'lucide-react';
 import { useArtifacts, episodeReferences, downloadJSON } from '../api/artifacts';
 import { useCopy } from '../i18n';
@@ -58,12 +58,12 @@ function Reliability({ data }: { data: Aggregate }) {
           <path d="M55,25 L55,305 L505,305" className="nx-axis" fill="none" />
           <line x1="55" y1="305" x2="505" y2="25" className="nx-grid" />
           {[0, 0.25, 0.5, 0.75, 1].map((v) => (
-            <g key={v}>
+            <g key={format(v)}>
               <text x={55 + 450 * v} y="326" className="nx-axis-label" textAnchor="middle">
-                {v}
+                {format(v)}
               </text>
               <text x="45" y={309 - 280 * v} className="nx-axis-label" textAnchor="end">
-                {v}
+                {format(v)}
               </text>
             </g>
           ))}
@@ -109,12 +109,12 @@ function Reliability({ data }: { data: Aggregate }) {
         <svg className="nx-chart" viewBox="0 0 540 360" role="img" aria-label={t.riskCoverage}>
           <path d="M55,25 L55,305 L505,305" className="nx-axis" fill="none" />
           {[0, 0.25, 0.5, 0.75, 1].map((v) => (
-            <g key={v}>
+            <g key={format(v)}>
               <text x={55 + 450 * v} y="326" className="nx-axis-label" textAnchor="middle">
-                {v}
+                {format(v)}
               </text>
               <text x="45" y={309 - 280 * v} className="nx-axis-label" textAnchor="end">
-                {v}
+                {format(v)}
               </text>
               <line x1="55" x2="505" y1={305 - 280 * v} y2={305 - 280 * v} className="nx-grid" />
             </g>
@@ -319,10 +319,10 @@ export default function Benchmark() {
     <Panel title={t.robustness}>
       <svg viewBox="0 0 980 420" className="nx-chart" role="img" aria-label={t.robustness}>
         {[0, 0.25, 0.5, 0.75, 1].map((v) => (
-          <g key={v}>
+          <g key={format(v)}>
             <line x1="70" x2="950" y1={340 - 280 * v} y2={340 - 280 * v} className="nx-grid" />
             <text x="60" y={344 - 280 * v} textAnchor="end" className="nx-axis-label">
-              {v}
+              {format(v)}
             </text>
           </g>
         ))}
@@ -489,10 +489,19 @@ export default function Benchmark() {
                   id: 'bibliography',
                   label: lang === 'en' ? 'Bibliography' : 'Bibliografía',
                   content: (
-                    <ReferenceList
-                      ids={['agarwal2021', 'guo2017', 'lu2024', 'schulman2017', 'ross2011']}
-                      heading={lang === 'en' ? 'Bibliography' : 'Bibliografía'}
-                    />
+                    <DocSection
+                      title={{
+                        en: 'Evaluation and learning sources',
+                        es: 'Fuentes de evaluaci�n y aprendizaje',
+                      }}
+                      refs={['agarwal2021', 'guo2017', 'lu2024', 'schulman2017', 'ross2011']}
+                    >
+                      <p>
+                        {lang === 'en'
+                          ? 'These sources define evaluation, calibration, learning to defer, PPO and imitation methods used here. Open a citation for its complete bibliographic record. Their reported findings are distinct from the owned measured outcomes above.'
+                          : 'Estas fuentes definen evaluaci�n, calibraci�n, derivaci�n, PPO e imitaci�n usados aqu�. Abrir una cita para ver su registro bibliogr�fico completo. Sus hallazgos se distinguen de los resultados propios medidos.'}
+                      </p>
+                    </DocSection>
                   ),
                 },
                 {
