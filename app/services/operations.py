@@ -19,6 +19,7 @@ import tomllib
 from collections import defaultdict, deque
 from pathlib import Path, PurePosixPath
 
+from reflexmesh import __version__ as engine_version
 from reflexmesh.contracts import Decision, Observation
 from reflexmesh.controller import Controller, Event, Goal
 from reflexmesh.runtime import EffectReceipt, Runtime, ToolSpec
@@ -718,7 +719,7 @@ def execute_operation(
                 "journal_sequence": runtime.snapshot()["journal_sequence"],
                 "concurrency": concurrency,
             },
-            "engine": "reflexmesh 0.1.1 native authority",
+            "engine": f"reflexmesh {engine_version} native authority",
             "policy": "verified-operation-fsm",
             "input_sha256": digest(encoded(inputs)),
             "scope": report.get("scope", ""),

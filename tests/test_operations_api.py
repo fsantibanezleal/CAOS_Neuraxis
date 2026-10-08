@@ -148,3 +148,9 @@ def test_concurrent_delete_is_atomic(client):
 def test_non_scalar_admission_is_a_client_error(client, value):
     assert client.post("/operations-api/runs", headers=session(client), json=value).status_code == 422
     assert not client.app.state.operations.runs
+
+
+def test_config_reports_installed_engine_version(client):
+    from reflexmesh import __version__
+
+    assert client.get("/operations-api/config").json()["engine"] == f"reflexmesh {__version__}"

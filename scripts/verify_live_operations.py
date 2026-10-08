@@ -9,6 +9,8 @@ import urllib.request
 import zipfile
 from pathlib import Path
 
+from reflexmesh import __version__ as engine_version
+
 
 def verify(base, commit):
     def request(path, body=None, token=None, method=None):
@@ -34,7 +36,7 @@ def verify(base, commit):
     assert status == 200 and release["commit"] == commit
     assert release["operation_coverage"]["runs"] == 36
     assert request("/api/config")[0] == 404
-    assert request("/operations-api/config")[1]["engine"] == "reflexmesh 0.1.1"
+    assert request("/operations-api/config")[1]["engine"] == f"reflexmesh {engine_version}"
     assert request("/operations-api/config")[1]["commit"] == commit
     owner = request("/operations-api/session", {})[1]["token"]
     other = request("/operations-api/session", {})[1]["token"]
@@ -62,6 +64,7 @@ def verify(base, commit):
                 time.sleep(0.3)
             assert snapshot["status"] == "succeeded", snapshot.get("error")
             result = snapshot["result"]
+            assert result["engine"] == f"reflexmesh {engine_version} native authority"
             assert result["disposition"] == "attention_required"
             assert len(result["findings"]) == findings
             assert result["metrics"]["native_receipts"] == 9
