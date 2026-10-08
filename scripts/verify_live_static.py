@@ -39,10 +39,16 @@ def verify(base: str, commit: str, version: str) -> dict:
     files = {row["path"]: row for row in manifest["files"]}
     entry = fetch(base, "index.html").decode("utf-8")
     assets = re.findall(r"/assets/[A-Za-z0-9_.-]+\.(?:js|css)", entry)
-    benchmark = [path for path in files if re.fullmatch(r"assets/Benchmark-[A-Za-z0-9_-]+\.js", path)]
-    paths = sorted(set(["index.html", *[path.lstrip("/") for path in assets], *benchmark, *EVIDENCE]))
-    if len(assets) < 2 or len(benchmark) != 1 or any(path not in files for path in paths):
-        raise ValueError("entry assets or benchmark chunk absent from release manifest")
+    # Chunk boundaries are a build choice: verify every emitted code/style bundle,
+    # including lazy views, whether Benchmark is split or in the entry module.
+    bundles = [path for path in files if re.fullmatch(r"assets/[A-Za-z0-9_.-]+\.(?:js|css)", path)]
+    paths = sorted(set(["index.html", *[path.lstrip("/") for path in assets], *bundles, *EVIDENCE]))
+    if (
+        not any(path.endswith(".js") for path in assets)
+        or not any(path.endswith(".css") for path in assets)
+        or any(path not in files for path in paths)
+    ):
+        raise ValueError("entry assets or evidence absent from release manifest")
     checked = []
     for path in paths:
         raw = fetch(base, path)
@@ -51,7 +57,7 @@ def verify(base: str, commit: str, version: str) -> dict:
             raise ValueError(f"served file differs from release manifest: {path}")
         checked.append({"path": path, "bytes": len(raw), "sha256": digest})
     for route in ROUTES:
-        if "<div id=\"root\"" not in fetch(base, route).decode("utf-8"):
+        if '<div id="root"' not in fetch(base, route).decode("utf-8"):
             raise ValueError(f"direct route did not serve the application: {route}")
     return {
         "schema": "neuraxis.live-static-verification/v1",
@@ -79,5 +85,13 @@ if __name__ == "__main__":
     if args.output:
         args.output.parent.mkdir(parents=True, exist_ok=True)
         args.output.write_text(json.dumps(report, indent=2) + "\n", encoding="utf-8")
-    print(json.dumps({"commit": report["commit"], "files": report["manifest_files"],
-                      "verified": len(report["verified_files"]), "routes": len(report["direct_routes"])}))
+    print(
+        json.dumps(
+            {
+                "commit": report["commit"],
+                "files": report["manifest_files"],
+                "verified": len(report["verified_files"]),
+                "routes": len(report["direct_routes"]),
+            }
+        )
+    )
