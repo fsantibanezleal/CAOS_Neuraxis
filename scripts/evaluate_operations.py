@@ -10,6 +10,8 @@ import sys
 import tempfile
 from pathlib import Path
 
+from reflexmesh import __version__ as engine_version
+
 ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(ROOT))
 from app.services.operations import TASKS, VARIANTS, digest, encoded, execute_operation, fixture
@@ -49,7 +51,7 @@ def main():
     index = {
         "schema_version": 1,
         "study": "compound file operations",
-        "engine": "reflexmesh 0.1.1",
+        "engine": f"reflexmesh {engine_version}",
         "platform": platform.platform(),
         "policy": "verified-operation-fsm",
         "seeds": args.seeds,

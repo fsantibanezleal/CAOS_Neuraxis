@@ -1,6 +1,7 @@
 import threading
 
 import pytest
+from reflexmesh import __version__
 
 from app.services.operations import digest, execute_operation, fixture, validate_files
 
@@ -10,6 +11,7 @@ def test_native_operation_outputs(tmp_path, task):
     supplied = fixture(task, "compound", 17)
     result = execute_operation(tmp_path, task, supplied)
     assert result["status"] == "succeeded"
+    assert result["engine"] == f"reflexmesh {__version__} native authority"
     assert result["disposition"] == "attention_required"
     assert result["metrics"]["native_receipts"] == len(result["nodes"])
     assert result["artifacts"]["verify"]["passed"]
