@@ -2,7 +2,9 @@
 
 import hashlib
 import json
+
 import pytest
+
 from scripts import verify_live_static as live
 
 

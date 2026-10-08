@@ -42,7 +42,7 @@ def verify(base: str, commit: str, version: str) -> dict:
     # Chunk boundaries are a build choice: verify every emitted code/style bundle,
     # including lazy views, whether Benchmark is split or in the entry module.
     bundles = [path for path in files if re.fullmatch(r"assets/[A-Za-z0-9_.-]+\.(?:js|css)", path)]
-    paths = sorted(set(["index.html", *[path.lstrip("/") for path in assets], *bundles, *EVIDENCE]))
+    paths = sorted({"index.html", *[path.lstrip("/") for path in assets], *bundles, *EVIDENCE})
     if (
         not any(path.endswith(".js") for path in assets)
         or not any(path.endswith(".css") for path in assets)
