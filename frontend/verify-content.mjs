@@ -1,8 +1,11 @@
+import { tmpdir } from 'node:os';
+import { join } from 'node:path';
 import { chromium, expect } from '@playwright/test';
 import { mkdirSync, writeFileSync } from 'node:fs';
 
 const base = process.env.NEURAXIS_QA_URL ?? 'http://127.0.0.1:4180';
-mkdirSync('qa', { recursive: true });
+const qaRoot = process.env.NEURAXIS_QA_OUTPUT ?? join(tmpdir(), 'neuraxis-qa');
+mkdirSync(qaRoot, { recursive: true });
 const browser = await chromium.launch();
 const sections = [], errors = [];
 const expectedGroups = {
@@ -21,15 +24,15 @@ try {
     }, { theme, lang });
     for (const [route, groups] of Object.entries(expectedGroups)) {
       await page.goto(`${base}/${route}`);
-      const root = page.locator(route === 'benchmark' ? '.nx-benchmark' : '.nx-doc');
-      const tabs = root.locator('.nx-overflow-tabs > .tabs > .tablist > .tab');
+      const root = page.locator(route === 'benchmark' ? '.nx-benchmark' : '[data-doc-page]');
+      const tabs = root.locator('.tabs > .tablist > .tab');
       await expect(tabs).toHaveCount(groups.length);
       expect(groups.length).toBeLessThanOrEqual(6);
       let leafIndex = 0;
       for (let i = 0; i < groups.length; i++) {
         await tabs.nth(i).click();
         await expect(tabs.nth(i)).toHaveAttribute('aria-selected', 'true');
-        const panel = root.locator('.nx-overflow-tabs > .tabs > .tabpanel:visible');
+        const panel = root.locator('.tabs > .tabpanel:visible');
         await expect(panel).toBeVisible();
         const subtabs = panel.locator('.subtabs > .subtablist > .subtab');
         await expect(subtabs).toHaveCount(groups[i]);
@@ -43,8 +46,8 @@ try {
           const bibliography = /Bibliograph|Bibliograf/.test(title);
           const compound = /Compound|compuestas/.test(title);
           if (bibliography) {
-            await expect(leaf.locator('.reference-list li').first()).toBeVisible();
-            expect(await leaf.locator('.reference-list li').count()).toBeGreaterThan(2);
+            await expect(leaf.locator('[data-doc-section]').first()).toBeVisible();
+            expect(await leaf.locator('.th-refs a').count()).toBeGreaterThan(2);
           } else if (compound) {
             await expect(leaf.locator('select option')).toHaveCount(36);
             await expect(leaf.locator('table tbody tr')).toHaveCount(9);
@@ -79,7 +82,7 @@ try {
           if (!geometry.wide || geometry.overflow) errors.push({ route, title, width, theme, lang, ...geometry });
           await page.evaluate(() => scrollTo({ top: 0, behavior: 'instant' }));
           await expect.poll(() => page.evaluate(() => scrollY)).toBe(0);
-          await page.screenshot({ path: `qa/content-${route}-${leafIndex}-${width}-${theme}-${lang}.png`, fullPage: true });
+          await page.screenshot({ path: `${qaRoot}/content-${route}-${leafIndex}-${width}-${theme}-${lang}.png`, fullPage: true });
           sections.push({ route, title, width, theme, lang, sourcesReachable: true, ...geometry });
           leafIndex++;
         }
@@ -93,7 +96,7 @@ try {
   }
 } finally {
   await browser.close();
-  writeFileSync('qa/content-report.json', JSON.stringify({ base, sections, errors }, null, 2));
+  writeFileSync(qaRoot + '/content-report.json', JSON.stringify({ base, sections, errors }, null, 2));
 }
 console.log(JSON.stringify({ section_checks: sections.length, errors }, null, 2));
 if (errors.length) process.exitCode = 1;

@@ -1,5 +1,13 @@
 # Changelog
 
+## 0.02.007 - 2026-10-08
+
+- Compare matched semantic controllers, capability descriptions, file effects and goal checks in App Investigations. Share selections and retain fresh authenticated runs separately.
+- Adopt exact shared shell 0.9.3, inline bilingual architecture and shared console/document layouts, removing local shell overrides.
+- Respect external model/data/cache storage; document local semantic execution and storage overrides.
+- Update patched frontend dependencies; preserve all frozen negative research results.
+
+
 ## 0.02.006 - 2026-09-28
 
 ### Added

@@ -589,7 +589,7 @@ export default function Workbench() {
               : 'Crear un flujo de dependencias para el espacio local configurado. Revisar efectos, ejecutar con autoridad nativa y verificar objetivos SHA-256 de forma independiente.'}
           </p>
           <button
-            className="nx-button nx-primary"
+            className="btn primary"
             disabled={nativeActive}
             onClick={() => {
               playback.pause();
@@ -625,6 +625,7 @@ export default function Workbench() {
   return (
     <div
       className={`page-body wide nx-layout ${focus ? 'nx-focus' : ''} ${mobileControls ? 'nx-mobile-controls' : ''}`}
+      data-state={artifacts.loading ? 'loading' : 'ready'}
     >
       <div className="nx-mobile-switch">
         <span className="nx-kicker">NEURAXIS / {t.workbench}</span>
@@ -713,7 +714,7 @@ export default function Workbench() {
           </div>
           <div className="nx-runtime-bar">
             <button
-              className="nx-button nx-primary"
+              className="btn primary"
               onClick={() => void run()}
               disabled={
                 busy ||

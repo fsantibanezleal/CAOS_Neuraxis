@@ -13,6 +13,9 @@ import { episodeReferences, loadEpisode, useArtifacts, downloadJSON } from '../a
 import type { Decision, Episode } from '../lib/types';
 import { useCopy } from '../i18n';
 import { format, formatFixed } from './Instruments';
+import { useSemanticEvidence } from '../api/semantic';
+import FreshInvestigation from './FreshInvestigation';
+import { replaceQueryParam } from '@fasl-work/caos-app-shell';
 
 function metric(episode: Episode, key: string, digits = 0) {
   const n = episode.metrics[key];
@@ -73,6 +76,7 @@ function ActionEvidence({ episode, decision }: { episode: Episode; decision?: De
             <thead>
               <tr>
                 <th>{c('Action', 'Acción')}</th>
+                <th>{c('Tool capability', 'Capacidad de la herramienta')}</th>
                 <th>{c('Admitted candidate', 'Candidato admitido')}</th>
                 <th>{c('Score', 'Puntaje')}</th>
                 <th>{c('Probability', 'Probabilidad')}</th>
@@ -82,6 +86,11 @@ function ActionEvidence({ episode, decision }: { episode: Episode; decision?: De
               {decision.candidates.map((candidate, i) => (
                 <tr key={i} className={decision.action === candidate.action ? 'nx-active-row' : ''}>
                   <td>{candidate.action}</td>
+                  <td>
+                    {String(
+                      candidate.arguments?.description ?? candidate.arguments?.operation ?? '…',
+                    )}
+                  </td>
                   <td>{String(candidate.allowed)}</td>
                   <td>{candidate.score == null ? '…' : formatFixed(candidate.score, 4)}</td>
                   <td>
@@ -100,17 +109,44 @@ export default function Investigations() {
   const { lang } = useCopy();
   const c = (en: string, es: string) => (lang === 'en' ? en : es);
   const { index, error: indexError, loading } = useArtifacts();
-  const refs = useMemo(() => episodeReferences(index), [index]);
-  const [caseId, setCase] = useState('C07');
-  const [variant, setVariant] = useState('noisy');
-  const [seed, setSeed] = useState(40000);
-  const [method, setMethod] = useState('M12');
-  const [comparison, setComparison] = useState('M01');
+  const semantic = useSemanticEvidence();
+  const [suite, setSuite] = useState(() =>
+    new URLSearchParams(location.search).get('suite') === 'semantic_transfer'
+      ? 'semantic_transfer'
+      : 'core',
+  );
+  const refs = useMemo(
+    () => (suite === 'core' ? episodeReferences(index) : semantic.refs),
+    [index, semantic.refs, suite],
+  );
+  const [caseId, setCase] = useState(() => {
+    const value = new URLSearchParams(location.search).get('incident') ?? '';
+    return (suite === 'core' ? CASES.some((item) => item.id === value) : /^D0[1-8]$/.test(value))
+      ? value
+      : suite === 'core'
+        ? 'C07'
+        : 'D01';
+  });
+  const [variant, setVariant] = useState(
+    () => new URLSearchParams(location.search).get('condition') ?? 'noisy',
+  );
+  const [seed, setSeed] = useState(() =>
+    Number(new URLSearchParams(location.search).get('seed') ?? 40000),
+  );
+  const [method, setMethod] = useState(() => {
+    const value = new URLSearchParams(location.search).get('controller');
+    return METHODS.some((m) => m.id === value) ? value! : 'M12';
+  });
+  const [comparison, setComparison] = useState(() => {
+    const value = new URLSearchParams(location.search).get('compare');
+    return METHODS.some((m) => m.id === value) ? value! : 'M01';
+  });
   const [episodes, setEpisodes] = useState<Episode[]>([]);
   const [error, setError] = useState('');
   const [busy, setBusy] = useState(false);
   const [selectedSide, setSide] = useState(0);
   const [step, setStep] = useState(0);
+  const [showWaiting, setShowWaiting] = useState(false);
   const available = refs.filter((r) => r.case_id === caseId && r.method_id === method);
   const variants = [...new Set(available.map((r) => r.variant ?? 'nominal'))];
   const actualVariant = variants.includes(variant)
@@ -122,8 +158,17 @@ export default function Investigations() {
   ].sort((a, b) => a - b);
   const actualSeed = seeds.includes(seed) ? seed : seeds[0];
   useEffect(() => {
+    replaceQueryParam('suite', suite);
+    replaceQueryParam('incident', caseId);
+    replaceQueryParam('controller', method);
+    replaceQueryParam('compare', comparison);
+    if (actualVariant) replaceQueryParam('condition', actualVariant);
+    if (actualSeed !== undefined) replaceQueryParam('seed', String(actualSeed));
+  }, [suite, caseId, method, comparison, actualVariant, actualSeed]);
+  useEffect(() => {
     if (!refs.length || actualSeed === undefined) return;
     let alive = true;
+    const abort = new AbortController();
     setBusy(true);
     setError('');
     setEpisodes([]);
@@ -142,9 +187,17 @@ export default function Investigations() {
       setBusy(false);
       return;
     }
-    void Promise.all(pair.map((r) => loadEpisode(r!)))
+    void Promise.all(pair.map((r) => loadEpisode(r!, abort.signal)))
       .then((value) => {
-        if (alive) setEpisodes(value);
+        if (alive) {
+          setEpisodes(value);
+          setStep(
+            Math.max(
+              0,
+              value[selectedSide]?.decisions.findIndex((d) => d.action.startsWith('a-')) ?? 0,
+            ),
+          );
+        }
       })
       .catch((e) => {
         if (alive) setError(String(e));
@@ -154,9 +207,10 @@ export default function Investigations() {
       });
     return () => {
       alive = false;
+      abort.abort();
     };
   }, [refs, caseId, actualVariant, actualSeed, method, comparison]);
-  const spec = CASES.find((item) => item.id === caseId)!;
+  const spec = CASES.find((item) => item.id === caseId);
   const episode = episodes[selectedSide];
   const planner = episode && (episode as unknown as { planner_work?: unknown }).planner_work;
   return (
@@ -167,9 +221,93 @@ export default function Investigations() {
           {c('Investigate measured behavior', 'Investigar conducta medida')}
         </div>
         <label className="nx-control">
+          {c('Evidence suite', 'Estudio de evidencia')}
+          <select
+            value={suite}
+            onChange={(e) => {
+              setSuite(e.target.value);
+              setCase(e.target.value === 'core' ? 'C07' : 'D01');
+              setComparison(e.target.value === 'core' ? 'M01' : 'M09');
+              setEpisodes([]);
+            }}
+          >
+            <option value="core">
+              {c('Core software incidents', 'Incidentes de software principales')}
+            </option>
+            <option value="semantic_transfer">
+              {c('Semantic tool choices', 'Elecciones semánticas de herramientas')}
+            </option>
+          </select>
+        </label>
+        {suite === 'semantic_transfer' && (
+          <div className="op-input-card">
+            <strong>{c('Inspect measured contrasts', 'Inspeccionar contrastes medidos')}</strong>
+            {[
+              {
+                label: c(
+                  'Planner succeeds, M12 fails',
+                  'El planificador logra el objetivo, M12 falla',
+                ),
+                a: 'failed',
+                b: 'succeeded',
+              },
+              {
+                label: c(
+                  'M12 succeeds, planner fails',
+                  'M12 logra el objetivo, el planificador falla',
+                ),
+                a: 'succeeded',
+                b: 'failed',
+              },
+              { label: c('Both fail', 'Ambos fallan'), a: 'failed', b: 'failed' },
+            ].map((example) => {
+              const row = refs.find(
+                (r) =>
+                  r.method_id === 'M12' &&
+                  r.status === example.a &&
+                  refs.some(
+                    (other) =>
+                      other.method_id === 'M09' &&
+                      other.case_id === r.case_id &&
+                      other.variant === r.variant &&
+                      other.seed === r.seed &&
+                      other.status === example.b,
+                  ),
+              );
+              return (
+                <button
+                  key={example.label}
+                  className="op-text-link"
+                  disabled={!row}
+                  onClick={() => {
+                    setCase(row!.case_id);
+                    setVariant(row!.variant!);
+                    setSeed(row!.seed!);
+                    setMethod('M12');
+                    setComparison('M09');
+                    setSide(0);
+                  }}
+                >
+                  {example.label}
+                  <ArrowRight size={14} />
+                </button>
+              );
+            })}
+          </div>
+        )}
+        <label className="nx-control">
           {c('Software incident', 'Incidente de software')}
           <select value={caseId} onChange={(e) => setCase(e.target.value)}>
-            {CASES.map((item) => (
+            {(suite === 'core'
+              ? CASES
+              : Array.from({ length: 8 }, (_, i) => ({
+                  id: `D0${i + 1}`,
+                  name: {
+                    en: `File transformation ${i + 1}`,
+                    es: `Transformación de archivos ${i + 1}`,
+                  },
+                }))
+            ).map((item) => (
               <option key={item.id} value={item.id}>
                 {item.id} · {item.name[lang]}
               </option>
@@ -228,8 +366,12 @@ export default function Investigations() {
         </div>
         <p className="op-scope">
           {c(
-            'The complete core matrix contains 12 controllers × 20 task families × 6 conditions × 10 seeds. New task runs are separate from this frozen study.',
-            'La matriz principal contiene 12 controladores × 20 familias × 6 condiciones × 10 semillas. Las nuevas tareas están separadas de este estudio congelado.',
+            suite === 'core'
+              ? 'Frozen core: 12 controllers × 20 families × 6 conditions × 10 seeds.'
+              : 'Separate semantic study: 12 controllers × 8 families × 2 conditions × 8 seeds. Fresh runs do not change these results.',
+            suite === 'core'
+              ? 'Matriz principal congelada: 12 controladores × 20 familias × 6 condiciones × 10 semillas.'
+              : 'Estudio semántico separado: 12 controladores × 8 familias × 2 condiciones × 8 semillas. Las ejecuciones nuevas no cambian estos resultados.',
           )}
         </p>
       </aside>
@@ -239,17 +381,27 @@ export default function Investigations() {
             <span className="nx-kicker">
               {c('Measured incident investigation', 'Investigación de incidentes medidos')}
             </span>
-            <h1>{spec.name[lang]}</h1>
-            <p>{spec.goal[lang]}</p>
+            <h1>
+              {spec?.name[lang] ??
+                `${caseId} · ${c('Semantic file transformation', 'Transformación semántica de archivos')}`}
+            </h1>
+            <p>
+              {suite === 'core'
+                ? spec?.goal[lang]
+                : c(
+                    'Compare controllers choosing between opaque, type-compatible tools. Success requires three independently checked JSON file outputs.',
+                    'Comparar controladores que eligen herramientas opacas con tipos compatibles. El éxito requiere tres salidas JSON comprobadas de forma independiente.',
+                  )}
+            </p>
           </div>
         </header>
-        {(indexError || error) && (
+        {(indexError || semantic.error || error) && (
           <div className="nx-error" role="alert">
-            {indexError || error}
+            {indexError || semantic.error || error}
           </div>
         )}
-        {(loading || busy) && (
-          <p role="status">
+        {(loading || (suite !== 'core' && semantic.loading) || busy) && (
+          <p role="status" data-state="loading">
             {c(
               'Loading and verifying matched evidence…',
               'Cargando y verificando evidencia emparejada…',
@@ -263,7 +415,12 @@ export default function Investigations() {
               className={`invest-result ${selectedSide === side ? 'selected' : ''}`}
               onClick={() => {
                 setSide(side);
-                setStep(0);
+                setStep(
+                  Math.max(
+                    0,
+                    e.decisions.findIndex((d) => d.action.startsWith('a-')),
+                  ),
+                );
               }}
               aria-pressed={side === selectedSide}
             >
@@ -303,6 +460,70 @@ export default function Investigations() {
             </button>
           ))}
         </div>
+        {suite === 'semantic_transfer' && episodes.length === 2 && (
+          <section
+            className="invest-files"
+            aria-label={c('Observed JSON outputs', 'Salidas JSON observadas')}
+          >
+            <h2>{c('Files actually written', 'Archivos realmente escritos')}</h2>
+            <p>
+              {c(
+                'Latest recorded value for each output. Missing evidence stays unknown; the independent goal check above determines overall success.',
+                'Último valor registrado de cada salida. La evidencia ausente queda desconocida; la comprobación independiente anterior determina el éxito total.',
+              )}
+            </p>
+            <div className="invest-comparison">
+              {episodes.map((record, side) => (
+                <div key={record.run_id}>
+                  <h3>{record.method_id}</h3>
+                  {['stage-1.json', 'stage-2.json', 'final.json'].map((file) => {
+                    const write = record.decisions
+                      .map((decision, index) => ({ decision, index }))
+                      .filter(
+                        ({ decision }) =>
+                          typeof decision.effect_observed === 'object' &&
+                          decision.effect_observed?.written === file,
+                      )
+                      .at(-1);
+                    return (
+                      <button
+                        className="invest-file"
+                        key={file}
+                        disabled={!write}
+                        onClick={() => {
+                          setSide(side);
+                          setStep(write!.index);
+                        }}
+                      >
+                        <strong>{file}</strong>
+                        <code>
+                          {write
+                            ? JSON.stringify(
+                                (write.decision.effect_observed as Record<string, unknown>)
+                                  .observed_value,
+                              )
+                            : c('No recorded write', 'Sin escritura registrada')}
+                        </code>
+                        {write && (
+                          <small>
+                            {c('Inspect write', 'Inspeccionar escritura')} #{write.index + 1}
+                          </small>
+                        )}
+                      </button>
+                    );
+                  })}
+                </div>
+              ))}
+            </div>
+          </section>
+        )}
+        <FreshInvestigation
+          suite={suite}
+          caseId={caseId}
+          variant={actualVariant ?? 'nominal'}
+          seed={actualSeed ?? 82000}
+          method={method}
+        />
         {episode && (
           <>
             <div className="invest-trace-head">
@@ -315,24 +536,49 @@ export default function Investigations() {
                 {c('Export evidence', 'Exportar evidencia')}
               </button>
             </div>
+            <label className="nx-control">
+              <span>
+                <input
+                  type="checkbox"
+                  checked={showWaiting}
+                  onChange={(event) => setShowWaiting(event.target.checked)}
+                />{' '}
+                {c('Show every waiting event', 'Mostrar cada evento de espera')} (
+                {episode.decisions.filter((d) => d.status === 'planner_pending').length})
+              </span>
+            </label>
             <div className="invest-action-strip">
-              {episode.decisions.map((d, i) => (
-                <button
-                  key={i}
-                  className={step === i ? 'selected' : ''}
-                  onClick={() => setStep(i)}
-                  aria-pressed={step === i}
-                >
-                  <span>
-                    {String(i + 1).padStart(2, '0')}
-                    <Zap size={13} />
-                  </span>
-                  <strong>{d.action.replace(/^a-/, '').replaceAll('_', ' ')}</strong>
-                  <small>
-                    {formatFixed(d.timestamp_ms, 1)} ms · {d.status}
-                  </small>
-                </button>
-              ))}
+              {episode.decisions
+                .map((d, i) => ({ d, i }))
+                .filter(
+                  ({ d, i }) =>
+                    showWaiting || d.status !== 'planner_pending' || i === 0 || i === step,
+                )
+                .map(({ d, i }) => (
+                  <button
+                    key={i}
+                    className={step === i ? 'selected' : ''}
+                    onClick={() => setStep(i)}
+                    aria-pressed={step === i}
+                  >
+                    <span>
+                      {String(i + 1).padStart(2, '0')}
+                      <Zap size={13} />
+                    </span>
+                    <strong>
+                      {String(
+                        d.candidates.find((candidate) => candidate.action === d.action)?.arguments
+                          ?.description ?? d.action,
+                      )
+                        .split(':')[0]
+                        .replace(/^a-/, '')
+                        .replaceAll('_', ' ')}
+                    </strong>
+                    <small>
+                      {formatFixed(d.timestamp_ms, 1)} ms · {d.status}
+                    </small>
+                  </button>
+                ))}
             </div>
             <ActionEvidence episode={episode} decision={episode.decisions[step]} />
             <details className="invest-planner">

@@ -27,6 +27,7 @@ export interface MethodSpec {
 }
 export interface Candidate {
   action: string;
+  arguments?: Record<string, unknown>;
   score?: number;
   probability?: number;
   allowed: boolean;

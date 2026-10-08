@@ -1,5 +1,7 @@
 # Neuraxis documentation
 
+Use [matched investigations and fresh local execution](workbench/investigations.md) to compare semantic decisions and actual file effects.
+
 Read the [corrected scientific results](evaluation/corrected-results.md) for the full comparison and negative findings, and the [software design](design/SDD.md) for contracts and requirement gates.
 
 The [benchmark adequacy audit](evaluation/benchmark-adequacy.md) exposes the frozen core's state-machine ceiling and seed-invariant outcomes. The Benchmark page displays its source-bound counts beside the original results.

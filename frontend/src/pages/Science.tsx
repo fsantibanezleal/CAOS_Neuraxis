@@ -1,5 +1,5 @@
 import { useEffect, useRef } from 'react';
-import { Callout, Cite, Equation, Refs, ReferenceList } from '@fasl-work/caos-app-shell';
+import { Callout, Cite, DocPage, Equation, Refs, DocSection } from '@fasl-work/caos-app-shell';
 import { useCopy } from '../i18n';
 import type { ContentPage, ContentSection } from '../data/content.types';
 import type { Bilingual } from '../lib/types';
@@ -182,23 +182,22 @@ export default function Science({ page }: { page: ContentPage }) {
     id: 'bibliography',
     label: lang === 'en' ? 'Bibliography' : 'Bibliografía',
     content: (
-      <ReferenceList
-        ids={[
-          ...new Set(
-            page.sections.flatMap((s) => [...s.refs, ...(paragraphSources[s.id] ?? []).flat()]),
-          ),
-        ]}
-        heading={lang === 'en' ? 'Bibliography' : 'Bibliografía'}
-      />
+      <div>
+        {page.sections.map((section) => (
+          <DocSection
+            key={section.id}
+            title={section.title}
+            refs={[...new Set([...section.refs, ...(paragraphSources[section.id] ?? []).flat()])]}
+          >
+            <p>{section.paragraphs[0]?.[lang]}</p>
+          </DocSection>
+        ))}
+      </div>
     ),
   });
   return (
-    <div className="page-body wide prose nx-doc">
-      <div className="page-head">
-        <h1>{page.title[lang]}</h1>
-        <p className="lede">{page.lede[lang]}</p>
-      </div>
+    <DocPage title={page.title} lede={page.lede[lang]} wide>
       <OverflowTabs key={page.title.en} ariaLabel={t.content} tabs={tabs} />
-    </div>
+    </DocPage>
   );
 }
