@@ -1123,7 +1123,7 @@
     }
   },
   "disposition": "attention_required",
-  "engine": "reflexmesh 0.1.1 native authority",
+  "engine": "reflexmesh 0.1.2 native authority",
   "events": [
     {
       "decision": {
@@ -1135,23 +1135,23 @@
         "reason": "prerequisites_verified; registered_read_transform_verify",
         "scores": {}
       },
-      "elapsed_ms": 161.037,
+      "elapsed_ms": 67.643,
       "goal_id": "inventory",
-      "intent_id": "0c2725b7167948a88408f59c603275ad",
+      "intent_id": "177db1ba536a4c47a771dcd54049e1aa",
       "kind": "decision",
       "sequence": 1
     },
     {
-      "elapsed_ms": 289.317,
+      "elapsed_ms": 87.871,
       "kind": "tool_started",
       "node": "inventory",
       "sequence": 2
     },
     {
-      "elapsed_ms": 445.995,
+      "elapsed_ms": 97.701,
       "evidence": {
         "bytes": 9348,
-        "duration_ms": 156.669,
+        "duration_ms": 9.817,
         "findings": 0,
         "path": "output/inventory.json",
         "sha256": "c1a88beb713cbe2f1aa0823b1fe6cace11d93770dfe0f0a0cfe83ab30d57d19a"
@@ -1161,7 +1161,7 @@
       "sequence": 3
     },
     {
-      "elapsed_ms": 454.53,
+      "elapsed_ms": 114.411,
       "error": null,
       "goal_id": "inventory",
       "kind": "goal_state",
@@ -1178,9 +1178,9 @@
         "reason": "prerequisites_verified; registered_read_transform_verify",
         "scores": {}
       },
-      "elapsed_ms": 528.89,
+      "elapsed_ms": 176.384,
       "goal_id": "syntax",
-      "intent_id": "03a00e0197b94e33978e638f3de5211e",
+      "intent_id": "40b57ba26d564f5c8315cd1c37a6b0b5",
       "kind": "decision",
       "sequence": 5
     },
@@ -1194,9 +1194,9 @@
         "reason": "prerequisites_verified; registered_read_transform_verify",
         "scores": {}
       },
-      "elapsed_ms": 538.61,
+      "elapsed_ms": 186.964,
       "goal_id": "integrity",
-      "intent_id": "d06732a287a543e79fadfef0754a9890",
+      "intent_id": "826f60694844430095f3b9dabddf4bb9",
       "kind": "decision",
       "sequence": 6
     },
@@ -1210,42 +1210,42 @@
         "reason": "prerequisites_verified; registered_read_transform_verify",
         "scores": {}
       },
-      "elapsed_ms": 549.546,
+      "elapsed_ms": 197.386,
       "goal_id": "manifest",
-      "intent_id": "8385120b3a97455183661113053f6bdd",
+      "intent_id": "d58edd395c5d41a89cb0e02c2e85fbe8",
       "kind": "decision",
       "sequence": 7
     },
     {
-      "elapsed_ms": 725.013,
+      "elapsed_ms": 216.879,
       "kind": "tool_started",
       "node": "syntax",
       "sequence": 8
     },
     {
-      "elapsed_ms": 774.0,
-      "kind": "tool_started",
-      "node": "integrity",
-      "sequence": 9
-    },
-    {
-      "elapsed_ms": 836.372,
+      "elapsed_ms": 236.053,
       "evidence": {
         "bytes": 3521,
-        "duration_ms": 111.353,
+        "duration_ms": 19.162,
         "findings": 0,
         "path": "output/syntax.json",
         "sha256": "4421938eb6616e507eaeb1aa85bbf5e7e9642eab34580ca0c9530575e000c07c"
       },
       "kind": "tool_finished",
       "node": "syntax",
+      "sequence": 9
+    },
+    {
+      "elapsed_ms": 239.357,
+      "kind": "tool_started",
+      "node": "integrity",
       "sequence": 10
     },
     {
-      "elapsed_ms": 953.957,
+      "elapsed_ms": 260.766,
       "evidence": {
         "bytes": 13413,
-        "duration_ms": 179.949,
+        "duration_ms": 21.391,
         "findings": 2,
         "path": "output/integrity.json",
         "sha256": "bf23247b294154f79d9719276b94d22ed0231510fa6842af87964db3fd567fdf"
@@ -1255,34 +1255,34 @@
       "sequence": 11
     },
     {
-      "elapsed_ms": 962.032,
+      "elapsed_ms": 274.361,
       "kind": "tool_started",
       "node": "manifest",
       "sequence": 12
     },
     {
-      "elapsed_ms": 974.963,
-      "error": null,
-      "goal_id": "syntax",
-      "kind": "goal_state",
-      "sequence": 13,
-      "state": "succeeded"
-    },
-    {
-      "elapsed_ms": 986.742,
+      "elapsed_ms": 285.316,
       "evidence": {
         "bytes": 5089,
-        "duration_ms": 24.702,
+        "duration_ms": 10.942,
         "findings": 0,
         "path": "output/manifest.json",
         "sha256": "240c18c68aaf0d127d51d22b1ad06eef68582cb72bcb7aa9d0c4181db9316144"
       },
       "kind": "tool_finished",
       "node": "manifest",
-      "sequence": 14
+      "sequence": 13
     },
     {
-      "elapsed_ms": 994.793,
+      "elapsed_ms": 295.171,
+      "error": null,
+      "goal_id": "syntax",
+      "kind": "goal_state",
+      "sequence": 14,
+      "state": "succeeded"
+    },
+    {
+      "elapsed_ms": 295.923,
       "error": null,
       "goal_id": "integrity",
       "kind": "goal_state",
@@ -1290,7 +1290,7 @@
       "state": "succeeded"
     },
     {
-      "elapsed_ms": 1009.454,
+      "elapsed_ms": 331.159,
       "error": null,
       "goal_id": "manifest",
       "kind": "goal_state",
@@ -1307,23 +1307,23 @@
         "reason": "prerequisites_verified; registered_read_transform_verify",
         "scores": {}
       },
-      "elapsed_ms": 1020.789,
+      "elapsed_ms": 349.081,
       "goal_id": "dependencies",
-      "intent_id": "92bebb4a80e948188c4d75ef56ee2840",
+      "intent_id": "6e7c839d99e34d01a74d7ec7964f7d61",
       "kind": "decision",
       "sequence": 17
     },
     {
-      "elapsed_ms": 1191.532,
+      "elapsed_ms": 364.268,
       "kind": "tool_started",
       "node": "dependencies",
       "sequence": 18
     },
     {
-      "elapsed_ms": 1254.746,
+      "elapsed_ms": 373.194,
       "evidence": {
         "bytes": 1938,
-        "duration_ms": 63.204,
+        "duration_ms": 8.917,
         "findings": 1,
         "path": "output/dependencies.json",
         "sha256": "73acea4c280d4202222f2bfb09e4d823ab38c323f87f6dbd20d1a361e09120bc"
@@ -1333,7 +1333,7 @@
       "sequence": 19
     },
     {
-      "elapsed_ms": 1265.352,
+      "elapsed_ms": 384.51,
       "error": null,
       "goal_id": "dependencies",
       "kind": "goal_state",
@@ -1350,23 +1350,23 @@
         "reason": "prerequisites_verified; registered_read_transform_verify",
         "scores": {}
       },
-      "elapsed_ms": 1301.26,
+      "elapsed_ms": 419.465,
       "goal_id": "report",
-      "intent_id": "d1e3f57e10df4af891db59063730db68",
+      "intent_id": "d18a524c9acb4804af7db0f93a9ed5bf",
       "kind": "decision",
       "sequence": 21
     },
     {
-      "elapsed_ms": 1548.665,
+      "elapsed_ms": 438.402,
       "kind": "tool_started",
       "node": "report",
       "sequence": 22
     },
     {
-      "elapsed_ms": 1689.545,
+      "elapsed_ms": 445.444,
       "evidence": {
         "bytes": 1671,
-        "duration_ms": 140.873,
+        "duration_ms": 7.025,
         "findings": 3,
         "path": "output/report.json",
         "sha256": "ed757bf7d0615a0d7ee4a05f6a670e22587536603de8aaa7a3eb6febcf1681be"
@@ -1376,7 +1376,7 @@
       "sequence": 23
     },
     {
-      "elapsed_ms": 1704.113,
+      "elapsed_ms": 453.025,
       "error": null,
       "goal_id": "report",
       "kind": "goal_state",
@@ -1393,23 +1393,23 @@
         "reason": "prerequisites_verified; registered_read_transform_verify",
         "scores": {}
       },
-      "elapsed_ms": 1746.856,
+      "elapsed_ms": 509.264,
       "goal_id": "verify",
-      "intent_id": "06e8d174ac1b4d1f9df9848639026e5c",
+      "intent_id": "52b14508d0a248aa9d9f6a81d9516ef6",
       "kind": "decision",
       "sequence": 25
     },
     {
-      "elapsed_ms": 1793.21,
+      "elapsed_ms": 530.383,
       "kind": "tool_started",
       "node": "verify",
       "sequence": 26
     },
     {
-      "elapsed_ms": 2046.141,
+      "elapsed_ms": 537.23,
       "evidence": {
         "bytes": 277,
-        "duration_ms": 252.924,
+        "duration_ms": 6.836,
         "findings": 0,
         "path": "output/verify.json",
         "sha256": "728321573c87e41cb5235ad0cde77f118c752629f529681b7a97d4ba377ed079"
@@ -1419,7 +1419,7 @@
       "sequence": 27
     },
     {
-      "elapsed_ms": 2058.662,
+      "elapsed_ms": 544.335,
       "error": null,
       "goal_id": "verify",
       "kind": "goal_state",
@@ -1676,11 +1676,11 @@
   "metrics": {
     "concurrency": 3,
     "files": 54,
-    "journal_sequence": 144,
+    "journal_sequence": 115,
     "model_calls": 0,
     "native_receipts": 7,
     "verified_nodes": 7,
-    "wall_ms": 2059.733
+    "wall_ms": 546.329
   },
   "nodes": [
     {
@@ -1697,23 +1697,23 @@
             "reason": "prerequisites_verified; registered_read_transform_verify",
             "scores": {}
           },
-          "event_id": "22faab8a6a92431a81fc27fc571099f6",
+          "event_id": "acf0c5a6282b45efbc8b62601d1eabca",
           "kind": "decision",
           "revision": 0
         },
         {
           "kind": "effect",
           "receipt": {
-            "accepted_ms": 222,
+            "accepted_ms": 48,
             "cancellation_requested": false,
-            "expires_ms": 45222,
-            "finished_ms": 389,
+            "expires_ms": 45048,
+            "finished_ms": 73,
             "intent": {
               "action_id": "operation.inventory",
               "action_version": 1,
               "arguments": {},
               "idempotency_key": null,
-              "intent_id": "0c2725b7167948a88408f59c603275ad",
+              "intent_id": "177db1ba536a4c47a771dcd54049e1aa",
               "resources": [
                 {
                   "access": "read",
@@ -1735,7 +1735,7 @@
               ],
               "evidence": {
                 "bytes": 9348,
-                "duration_ms": 156.669,
+                "duration_ms": 9.817,
                 "findings": 0,
                 "path": "output/inventory.json",
                 "sha256": "c1a88beb713cbe2f1aa0823b1fe6cace11d93770dfe0f0a0cfe83ab30d57d19a"
@@ -1745,7 +1745,7 @@
               },
               "status": "completed_verified"
             },
-            "started_ms": 227,
+            "started_ms": 55,
             "status": "completed_verified"
           }
         }
@@ -1774,23 +1774,23 @@
             "reason": "prerequisites_verified; registered_read_transform_verify",
             "scores": {}
           },
-          "event_id": "22faab8a6a92431a81fc27fc571099f6",
+          "event_id": "acf0c5a6282b45efbc8b62601d1eabca",
           "kind": "decision",
           "revision": 1
         },
         {
           "kind": "effect",
           "receipt": {
-            "accepted_ms": 654,
+            "accepted_ms": 180,
             "cancellation_requested": false,
-            "expires_ms": 45654,
-            "finished_ms": 907,
+            "expires_ms": 45180,
+            "finished_ms": 251,
             "intent": {
               "action_id": "operation.syntax",
               "action_version": 1,
               "arguments": {},
               "idempotency_key": null,
-              "intent_id": "03a00e0197b94e33978e638f3de5211e",
+              "intent_id": "40b57ba26d564f5c8315cd1c37a6b0b5",
               "resources": [
                 {
                   "access": "read",
@@ -1817,7 +1817,7 @@
               ],
               "evidence": {
                 "bytes": 3521,
-                "duration_ms": 111.353,
+                "duration_ms": 19.162,
                 "findings": 0,
                 "path": "output/syntax.json",
                 "sha256": "4421938eb6616e507eaeb1aa85bbf5e7e9642eab34580ca0c9530575e000c07c"
@@ -1827,7 +1827,7 @@
               },
               "status": "completed_verified"
             },
-            "started_ms": 661,
+            "started_ms": 186,
             "status": "completed_verified"
           }
         }
@@ -1856,23 +1856,23 @@
             "reason": "prerequisites_verified; registered_read_transform_verify",
             "scores": {}
           },
-          "event_id": "22faab8a6a92431a81fc27fc571099f6",
+          "event_id": "acf0c5a6282b45efbc8b62601d1eabca",
           "kind": "decision",
           "revision": 1
         },
         {
           "kind": "effect",
           "receipt": {
-            "accepted_ms": 1121,
+            "accepted_ms": 329,
             "cancellation_requested": false,
-            "expires_ms": 46121,
-            "finished_ms": 1200,
+            "expires_ms": 45329,
+            "finished_ms": 348,
             "intent": {
               "action_id": "operation.dependencies",
               "action_version": 1,
               "arguments": {},
               "idempotency_key": null,
-              "intent_id": "92bebb4a80e948188c4d75ef56ee2840",
+              "intent_id": "6e7c839d99e34d01a74d7ec7964f7d61",
               "resources": [
                 {
                   "access": "read",
@@ -1899,7 +1899,7 @@
               ],
               "evidence": {
                 "bytes": 1938,
-                "duration_ms": 63.204,
+                "duration_ms": 8.917,
                 "findings": 1,
                 "path": "output/dependencies.json",
                 "sha256": "73acea4c280d4202222f2bfb09e4d823ab38c323f87f6dbd20d1a361e09120bc"
@@ -1909,7 +1909,7 @@
               },
               "status": "completed_verified"
             },
-            "started_ms": 1128,
+            "started_ms": 334,
             "status": "completed_verified"
           }
         }
@@ -1938,23 +1938,23 @@
             "reason": "prerequisites_verified; registered_read_transform_verify",
             "scores": {}
           },
-          "event_id": "22faab8a6a92431a81fc27fc571099f6",
+          "event_id": "acf0c5a6282b45efbc8b62601d1eabca",
           "kind": "decision",
           "revision": 1
         },
         {
           "kind": "effect",
           "receipt": {
-            "accepted_ms": 705,
+            "accepted_ms": 202,
             "cancellation_requested": false,
-            "expires_ms": 45705,
-            "finished_ms": 916,
+            "expires_ms": 45202,
+            "finished_ms": 261,
             "intent": {
               "action_id": "operation.integrity",
               "action_version": 1,
               "arguments": {},
               "idempotency_key": null,
-              "intent_id": "d06732a287a543e79fadfef0754a9890",
+              "intent_id": "826f60694844430095f3b9dabddf4bb9",
               "resources": [
                 {
                   "access": "read",
@@ -1981,7 +1981,7 @@
               ],
               "evidence": {
                 "bytes": 13413,
-                "duration_ms": 179.949,
+                "duration_ms": 21.391,
                 "findings": 2,
                 "path": "output/integrity.json",
                 "sha256": "bf23247b294154f79d9719276b94d22ed0231510fa6842af87964db3fd567fdf"
@@ -1991,7 +1991,7 @@
               },
               "status": "completed_verified"
             },
-            "started_ms": 711,
+            "started_ms": 206,
             "status": "completed_verified"
           }
         }
@@ -2020,23 +2020,23 @@
             "reason": "prerequisites_verified; registered_read_transform_verify",
             "scores": {}
           },
-          "event_id": "22faab8a6a92431a81fc27fc571099f6",
+          "event_id": "acf0c5a6282b45efbc8b62601d1eabca",
           "kind": "decision",
           "revision": 1
         },
         {
           "kind": "effect",
           "receipt": {
-            "accepted_ms": 890,
+            "accepted_ms": 237,
             "cancellation_requested": false,
-            "expires_ms": 45890,
-            "finished_ms": 935,
+            "expires_ms": 45237,
+            "finished_ms": 268,
             "intent": {
               "action_id": "operation.manifest",
               "action_version": 1,
               "arguments": {},
               "idempotency_key": null,
-              "intent_id": "8385120b3a97455183661113053f6bdd",
+              "intent_id": "d58edd395c5d41a89cb0e02c2e85fbe8",
               "resources": [
                 {
                   "access": "read",
@@ -2063,7 +2063,7 @@
               ],
               "evidence": {
                 "bytes": 5089,
-                "duration_ms": 24.702,
+                "duration_ms": 10.942,
                 "findings": 0,
                 "path": "output/manifest.json",
                 "sha256": "240c18c68aaf0d127d51d22b1ad06eef68582cb72bcb7aa9d0c4181db9316144"
@@ -2073,7 +2073,7 @@
               },
               "status": "completed_verified"
             },
-            "started_ms": 897,
+            "started_ms": 242,
             "status": "completed_verified"
           }
         }
@@ -2106,23 +2106,23 @@
             "reason": "prerequisites_verified; registered_read_transform_verify",
             "scores": {}
           },
-          "event_id": "22faab8a6a92431a81fc27fc571099f6",
+          "event_id": "acf0c5a6282b45efbc8b62601d1eabca",
           "kind": "decision",
           "revision": 5
         },
         {
           "kind": "effect",
           "receipt": {
-            "accepted_ms": 1469,
+            "accepted_ms": 401,
             "cancellation_requested": false,
-            "expires_ms": 46469,
-            "finished_ms": 1637,
+            "expires_ms": 45401,
+            "finished_ms": 420,
             "intent": {
               "action_id": "operation.report",
               "action_version": 1,
               "arguments": {},
               "idempotency_key": null,
-              "intent_id": "d1e3f57e10df4af891db59063730db68",
+              "intent_id": "d18a524c9acb4804af7db0f93a9ed5bf",
               "resources": [
                 {
                   "access": "read",
@@ -2169,7 +2169,7 @@
               ],
               "evidence": {
                 "bytes": 1671,
-                "duration_ms": 140.873,
+                "duration_ms": 7.025,
                 "findings": 3,
                 "path": "output/report.json",
                 "sha256": "ed757bf7d0615a0d7ee4a05f6a670e22587536603de8aaa7a3eb6febcf1681be"
@@ -2179,7 +2179,7 @@
               },
               "status": "completed_verified"
             },
-            "started_ms": 1477,
+            "started_ms": 407,
             "status": "completed_verified"
           }
         }
@@ -2208,23 +2208,23 @@
             "reason": "prerequisites_verified; registered_read_transform_verify",
             "scores": {}
           },
-          "event_id": "22faab8a6a92431a81fc27fc571099f6",
+          "event_id": "acf0c5a6282b45efbc8b62601d1eabca",
           "kind": "decision",
           "revision": 6
         },
         {
           "kind": "effect",
           "receipt": {
-            "accepted_ms": 1714,
+            "accepted_ms": 490,
             "cancellation_requested": false,
-            "expires_ms": 46714,
-            "finished_ms": 1987,
+            "expires_ms": 45490,
+            "finished_ms": 512,
             "intent": {
               "action_id": "operation.verify",
               "action_version": 1,
               "arguments": {},
               "idempotency_key": null,
-              "intent_id": "06e8d174ac1b4d1f9df9848639026e5c",
+              "intent_id": "52b14508d0a248aa9d9f6a81d9516ef6",
               "resources": [
                 {
                   "access": "read",
@@ -2276,7 +2276,7 @@
               ],
               "evidence": {
                 "bytes": 277,
-                "duration_ms": 252.924,
+                "duration_ms": 6.836,
                 "findings": 0,
                 "path": "output/verify.json",
                 "sha256": "728321573c87e41cb5235ad0cde77f118c752629f529681b7a97d4ba377ed079"
@@ -2286,7 +2286,7 @@
               },
               "status": "completed_verified"
             },
-            "started_ms": 1718,
+            "started_ms": 499,
             "status": "completed_verified"
           }
         }

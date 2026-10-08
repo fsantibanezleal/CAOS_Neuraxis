@@ -1,9 +1,13 @@
 {
   "name": "neuraxis-frontend",
   "private": true,
-  "version": "0.2.7",
+  "version": "0.2.8",
   "type": "module",
-  "overrides": { "@fasl-work/caos-app-shell": { "katex": "$katex" } },
+  "overrides": {
+    "@fasl-work/caos-app-shell": {
+      "katex": "$katex"
+    }
+  },
   "scripts": {
     "predev": "node copy-data.mjs",
     "dev": "vite",

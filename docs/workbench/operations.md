@@ -125,3 +125,8 @@ offers reviewed dependency recipes and unknown-effect reconciliation. Immutable
 process registrations may be supplied through `--process-config`; the browser
 cannot add process authority. Model-dependent native methods require an explicitly
 configured installed Ollama model and their matching frozen checkpoints.
+
+
+## Operation-study lineage
+
+Release 0.02.008 regenerates all 36 task/condition/seed combinations on Linux using the installed reflexmesh 0.1.2 native wheel. The index binds the exact operation and evaluation source bytes. This integration study remains separate from the frozen learned-controller benchmarks and makes no learned-performance claim. Earlier 0.1.1 operation evidence is preserved at [its immutable source revision](https://github.com/fsantibanezleal/CAOS_Neuraxis/blob/7d139e6173a02d713120ec5147b032c04f401db1/data/operations/index.json). Platform and storage differences prevent attributing elapsed-time changes to controller improvement.
