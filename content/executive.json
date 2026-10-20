@@ -1,0 +1,1009 @@
+{
+  "title": {
+    "en": "Organisations are connecting artificial intelligence (AI) agents to the systems they run faster than they can check what those agents did.",
+    "es": "Las organizaciones conectan agentes de inteligencia artificial (IA) a los sistemas que operan más rápido de lo que pueden verificar lo que esos agentes hicieron."
+  },
+  "key_statement": {
+    "en": "In 2026 agents finish most short computer tasks but one in five long workflows, report work as done without checking it, and leave the outage to operations. The direction is registered, scoped actions with a checked effect, interrupted stale work, costly deliberation only where it changes the outcome, and judgement on held-out, realistic work.",
+    "es": "En 2026 los agentes terminan la mayoría de las tareas cortas pero una de cada cinco de las largas, informan trabajo hecho sin verificarlo y dejan la caída a operaciones. El rumbo son acciones registradas y acotadas con efecto verificado, trabajo desactualizado interrumpido, deliberación costosa solo donde cambia el resultado y evaluación sobre trabajo realista reservado."
+  },
+  "headline_figures": [
+    {
+      "heading": {
+        "en": "Cost of major outages",
+        "es": "Costo de las caídas mayores"
+      },
+      "value": {
+        "en": "57",
+        "es": "57"
+      },
+      "unit": {
+        "en": "percent of surveyed operators put their most recent major outage above 100,000 US dollars, in the 2025 survey",
+        "es": "por ciento de los operadores encuestados situó su caída del servicio mayor más reciente por sobre 100.000 dólares estadounidenses, en la encuesta de 2025"
+      },
+      "source": "uptime-outages-2026"
+    },
+    {
+      "heading": {
+        "en": "The best agent on long workflows",
+        "es": "El mejor agente en flujos largos"
+      },
+      "value": {
+        "en": "20.6",
+        "es": "20,6"
+      },
+      "unit": {
+        "en": "percent of 108 long professional workflows completed by the best agent, in a 2026 benchmark",
+        "es": "por ciento de 108 flujos profesionales largos completados por el mejor agente, en una prueba de referencia de 2026"
+      },
+      "source": "osworld-2-2026"
+    },
+    {
+      "heading": {
+        "en": "When the European Union (EU) duties of oversight and logging start",
+        "es": "Cuándo empiezan los deberes de supervisión y registro de la Unión Europea (UE)"
+      },
+      "value": {
+        "en": "2027-12-02",
+        "es": "2027-12-02"
+      },
+      "unit": {
+        "en": "date from which the EU duties of human oversight and logging apply to the high-risk systems of Annex III, a listed set of uses and not every agent",
+        "es": "fecha desde la que rigen los deberes de supervisión humana y registro para los sistemas de alto riesgo del anexo III, un conjunto de usos listados y no todo agente"
+      },
+      "source": "ai-act-art-113"
+    }
+  ],
+  "pain": {
+    "key_message": {
+      "en": "Agents report unchecked work as done, the cost lands on operations, delivery, security, finance and owners, and one long workflow in five is completed.",
+      "es": "Los agentes informan como hecho trabajo sin verificar, el costo recae en operaciones, seguridad, finanzas y dueños, y solo uno de cada cinco flujos largos se completa."
+    },
+    "paragraphs": [
+      {
+        "en": "Agents that act on software are now good at short, self-contained actions and still poor at sustained, stateful work. On a 2026 benchmark of 108 long professional workflows, each taking a person about 1.6 hours, the best agent completed 20.6 percent. Its average cost was 72.4 US dollars per task. The same paper cites 83.5 percent for the best agent on shorter desktop tasks. Its authors report agents that lose track of constraints, miss information that arrives mid-task, guess rather than ask and skip verification. Such agents spend under 7 percent of their budget detecting and repairing their own errors.",
+        "es": "Los agentes que actúan sobre software ya son buenos en acciones cortas y autocontenidas, y siguen siendo débiles en trabajo sostenido y con estado. En una prueba de referencia de 2026 con 108 flujos profesionales largos, que a una persona le toman unas 1,6 horas, el mejor agente completó 20,6 %. Su costo promedio fue de 72,4 dólares estadounidenses por tarea. El mismo artículo cita 83,5 % para el mejor agente en tareas de escritorio más cortas. Sus autores describen agentes que pierden el hilo de las restricciones, no ven la información que llega a mitad de tarea, adivinan en vez de preguntar y omiten la verificación. Esos agentes gastan menos de 7 % de su presupuesto en detectar y reparar sus propios errores."
+      },
+      {
+        "en": "Acting without checking is expensive where changes already cause outages, such as in information technology (IT) operations. In the 2025 survey of operators, 57 percent put their most recent major outage above 100,000 US dollars and about one in five above 1 million. One large operator publishes that roughly 70 percent of its outages came from changes to a live system, in the 2017 edition of its book. A 2024 study of nearly 3,000 professionals estimates that delivery stability falls 7.2 percent for every 25 percent rise in AI adoption. The pain is also silent failure, authority wider than the task and spend not tied to outcomes. In a 2026 audit of long-task runs, agents bypassed the visible interface in about 33 percent of tasks.",
+        "es": "Actuar sin verificar sale caro donde los cambios ya causan caídas del servicio, como en las operaciones de tecnologías de la información (TI). En la encuesta de 2025 a operadores, 57 % situó su caída mayor más reciente por sobre 100.000 dólares estadounidenses y cerca de uno de cada cinco por sobre 1 millón. Un gran operador publica que cerca de 70 % de sus caídas provino de cambios en un sistema en producción, en la edición de 2017 de su libro. Un estudio de 2024 con casi 3.000 profesionales estima que la estabilidad de entrega cae 7,2 % por cada 25 % de aumento en el uso de IA. El problema también es la falla silenciosa, la autoridad más amplia que la tarea y el gasto sin relación con los resultados. En una auditoría de 2026 de ejecuciones largas, los agentes eludieron la interfaz visible en cerca de 33 % de las tareas."
+      }
+    ],
+    "bearers": [
+      {
+        "who": {
+          "en": "IT operations and site reliability engineering (SRE) teams",
+          "es": "Operaciones de TI e ingeniería de confiabilidad (SRE)"
+        },
+        "cost": {
+          "en": "Outages: 57 percent of surveyed operators put their latest major one above 100,000 US dollars in 2025.",
+          "es": "Caídas del servicio: 57 % de los operadores encuestados situó la última mayor por sobre 100.000 dólares estadounidenses en 2025."
+        },
+        "measure": {
+          "en": "Cost bands, share of outages from changes, error budget consumed.",
+          "es": "Bandas de costo, parte de las caídas originadas en cambios, presupuesto de errores consumido."
+        }
+      },
+      {
+        "who": {
+          "en": "Software delivery and platform teams",
+          "es": "Equipos de entrega de software y de plataforma"
+        },
+        "cost": {
+          "en": "Lower delivery stability: an estimated 7.2 percent fall for every 25 percent rise in AI adoption in 2024, and 1.5 percent lower throughput.",
+          "es": "Menor estabilidad de entrega: caída estimada de 7,2 % por cada 25 % de aumento en el uso de IA en 2024, y 1,5 % menos de capacidad de entrega."
+        },
+        "measure": {
+          "en": "Change failure rate, recovery time after failed deployments, delivery throughput.",
+          "es": "Tasa de fallos de cambios, tiempo de recuperación tras despliegues fallidos, capacidad de entrega."
+        }
+      },
+      {
+        "who": {
+          "en": "Security and risk",
+          "es": "Seguridad y riesgo"
+        },
+        "cost": {
+          "en": "Exposure from authority wider than the task: in a 2026 audit, agents bypassed the visible interface in about 33 percent of long tasks.",
+          "es": "Exposición por autoridad más amplia que la tarea: en una auditoría de 2026, los agentes eludieron la interfaz visible en cerca de 33 % de las tareas largas."
+        },
+        "measure": {
+          "en": "Attack success and utility under attack, side-effect audits of long tasks.",
+          "es": "Éxito de ataques y utilidad bajo ataque, auditorías de efectos secundarios en tareas largas."
+        }
+      },
+      {
+        "who": {
+          "en": "Finance and the people who see model spend",
+          "es": "Finanzas y quienes ven el gasto en modelos"
+        },
+        "cost": {
+          "en": "Spend without outcome: the best agent cost 72.4 US dollars per task while completing 20.6 percent of long workflows in 2026.",
+          "es": "Gasto sin resultado: el mejor agente costó 72,4 dólares estadounidenses por tarea y completó 20,6 % de los flujos largos en 2026."
+        },
+        "measure": {
+          "en": "Cost per task and per verified outcome, share of practitioners managing AI spend.",
+          "es": "Costo por tarea y por resultado verificado, proporción de profesionales que gestionan el gasto en IA."
+        }
+      },
+      {
+        "who": {
+          "en": "Business owners and reviewing staff",
+          "es": "Dueños del negocio y personal que revisa"
+        },
+        "cost": {
+          "en": "Review and rework of unfinished work: 79.4 percent of long workflows were not completed end to end in 2026.",
+          "es": "Revisión y retrabajo de lo inconcluso: 79,4 % de los flujos largos no se completó de extremo a extremo en 2026."
+        },
+        "measure": {
+          "en": "Share of tasks completed end to end, completion time in a controlled trial.",
+          "es": "Proporción de tareas completadas de extremo a extremo, tiempo de realización en un ensayo controlado."
+        }
+      }
+    ],
+    "figures": [
+      {
+        "heading": {
+          "en": "Delivery stability and AI adoption",
+          "es": "Estabilidad de entrega y uso de IA"
+        },
+        "value": {
+          "en": "7.2",
+          "es": "7,2"
+        },
+        "unit": {
+          "en": "percent estimated fall in delivery stability for every 25 percent rise in AI adoption, in the 2024 study",
+          "es": "por ciento de caída estimada de la estabilidad de entrega por cada 25 % de aumento en el uso de IA, en el estudio de 2024"
+        },
+        "source": "dora-2024"
+      },
+      {
+        "heading": {
+          "en": "Budget spent on repair",
+          "es": "Presupuesto gastado en reparar"
+        },
+        "value": {
+          "en": "under 7",
+          "es": "menos de 7"
+        },
+        "unit": {
+          "en": "percent of an agent's budget spent detecting and repairing its own errors on long workflows, in 2026",
+          "es": "por ciento del presupuesto de un agente gastado en detectar y reparar sus propios errores en flujos largos, en 2026"
+        },
+        "source": "osworld-2-2026"
+      },
+      {
+        "heading": {
+          "en": "Outages caused by changes",
+          "es": "Caídas causadas por cambios"
+        },
+        "value": {
+          "en": "roughly 70",
+          "es": "cerca de 70"
+        },
+        "unit": {
+          "en": "percent of outages due to changes in a live system, one large operator's own published finding, 2017 edition",
+          "es": "por ciento de las caídas se debe a cambios en un sistema en producción, hallazgo publicado por un gran operador, edición de 2017"
+        },
+        "source": "sre-book-2017"
+      }
+    ],
+    "causes": [
+      {
+        "cause": {
+          "en": "Actions are reported as done without checking their real effect afterwards.",
+          "es": "Las acciones se informan como hechas sin verificar después su efecto real."
+        },
+        "weight": 25
+      },
+      {
+        "cause": {
+          "en": "The state the agent planned against goes stale and nothing interrupts the work.",
+          "es": "El estado con el que el agente planificó queda desactualizado y nada interrumpe el trabajo."
+        },
+        "weight": 20
+      },
+      {
+        "cause": {
+          "en": "Authority is wider than the task.",
+          "es": "La autoridad es más amplia que la tarea."
+        },
+        "weight": 20
+      },
+      {
+        "cause": {
+          "en": "Deliberation is spent the same way whatever the difficulty.",
+          "es": "La deliberación se gasta igual sin importar la dificultad."
+        },
+        "weight": 15
+      },
+      {
+        "cause": {
+          "en": "Agents are judged on demos and short benchmarks, not on held-out, realistic work.",
+          "es": "Los agentes se evalúan con demostraciones y pruebas cortas, no con trabajo realista reservado."
+        },
+        "weight": 20
+      }
+    ]
+  },
+  "context": {
+    "key_message": {
+      "en": "Agents are being connected to real systems faster than the checks around them, while rules on oversight and logging are about to bind.",
+      "es": "Los agentes se conectan a sistemas reales más rápido que los controles a su alrededor, mientras las reglas de supervisión y registro están por entrar en vigor."
+    },
+    "paragraphs": [
+      {
+        "en": "The pain persists because agents are being connected to real systems faster than the checks around them. The effect of each action is rarely verified, and the authority granted is wider than the task. Large-model deliberation is bought uniformly because each call has become cheap, while rules on oversight and logging are about to bind.",
+        "es": "El problema persiste porque los agentes se conectan a sistemas reales más rápido que los controles a su alrededor. El efecto de cada acción rara vez se verifica y la autoridad concedida es más amplia que la tarea. La deliberación de los modelos grandes se compra de manera uniforme porque cada llamada se abarató, mientras las reglas de supervisión y registro están por entrar en vigor."
+      },
+      {
+        "en": "Adoption is broad and shallow. In 2025, 88 percent of surveyed organisations used AI, up from 55 percent in 2023, yet agent deployment was in the single digits across nearly all business functions.",
+        "es": "La adopción es amplia y superficial. En 2025, 88 % de las organizaciones encuestadas usó IA, frente a 55 % en 2023, pero el despliegue de agentes estaba en un dígito en casi todas las funciones del negocio."
+      }
+    ],
+    "setting": {
+      "en": "Organisations of every size put AI agents or automation in front of systems they already run: IT operations, back-office processes, files and records, and developer tooling. They work under their own change management and the EU AI Act, using tool-access protocols and models.",
+      "es": "Organizaciones de todo tamaño ponen agentes de IA o automatización frente a sistemas que ya operan: operaciones de TI, procesos administrativos, archivos y registros, y herramientas de desarrollo. Trabajan bajo su propia gestión de cambios y la ley de IA de la UE, con protocolos de acceso a herramientas y modelos."
+    },
+    "forces": [
+      {
+        "force": {
+          "en": "Adoption of AI and agents is broad but still shallow for agents.",
+          "es": "La adopción de IA y de agentes es amplia, pero aún superficial para los agentes."
+        },
+        "direction": "rising"
+      },
+      {
+        "force": {
+          "en": "Calls to large models have become cheap, so uniform deliberation is the default while total spend rises.",
+          "es": "Las llamadas a modelos grandes se abarataron, así que la deliberación uniforme es lo habitual mientras el gasto total sube."
+        },
+        "direction": "rising"
+      },
+      {
+        "force": {
+          "en": "Rules on human oversight, event logging and the security of agents are being written and are about to bind listed high-risk uses.",
+          "es": "Las reglas sobre supervisión humana, registro de eventos y seguridad de los agentes se están escribiendo y están por obligar en los usos de alto riesgo listados."
+        },
+        "direction": "rising"
+      },
+      {
+        "force": {
+          "en": "Standard tool-access protocols spread, and each connection widens what an agent can act on.",
+          "es": "Los protocolos estándar de acceso a herramientas se extienden y cada conexión amplía aquello sobre lo que un agente puede actuar."
+        },
+        "direction": "rising"
+      }
+    ],
+    "evidence": [
+      {
+        "statement": {
+          "en": "The amended EU AI Act applies its high-risk duties from 2 December 2027 to Annex III systems and from 2 August 2028 to Annex I systems.",
+          "es": "Los deberes de alto riesgo de la ley de IA rigen desde el 2 de diciembre de 2027 (anexo III) y el 2 de agosto de 2028 (anexo I)."
+        },
+        "source": "ai-act-art-113"
+      },
+      {
+        "statement": {
+          "en": "Article 14 requires that the human overseer can interrupt the system through a stop button, a duty that binds the listed high-risk uses and not every agent.",
+          "es": "El artículo 14 exige un botón de parada para que quien supervisa interrumpa el sistema, deber que rige en los usos de alto riesgo listados, no para todo agente."
+        },
+        "source": "ai-act-art-14"
+      },
+      {
+        "statement": {
+          "en": "In 2025, 88 percent of surveyed organisations used AI, up from 55 percent in 2023, while agent deployment was in the single digits in nearly all functions.",
+          "es": "En 2025, 88 % de las organizaciones encuestadas usó IA, frente a 55 % en 2023, mientras el despliegue de agentes estaba en un dígito en casi todas las funciones."
+        },
+        "source": "ai-index-economy-2026"
+      },
+      {
+        "statement": {
+          "en": "In December 2025 the Linux Foundation stated that more than 10,000 servers of the Model Context Protocol, a standard way for agents to reach tools, were published.",
+          "es": "En diciembre de 2025 la Linux Foundation informó de más de 10.000 servidores publicados del Model Context Protocol, una forma estándar de que los agentes accedan a herramientas."
+        },
+        "source": "linux-foundation-agentic-2025"
+      }
+    ]
+  },
+  "situation": {
+    "key_message": {
+      "en": "Five roles each hold part of the picture, every approach in use has a limit, and agents are adopted widely while deployed shallowly.",
+      "es": "Cinco roles tienen cada uno parte del cuadro, cada enfoque en uso tiene un límite, y los agentes se adoptan mucho pero se despliegan poco."
+    },
+    "roles": [
+      {
+        "role": {
+          "en": "Head of IT operations or reliability (SRE)",
+          "es": "Responsable de operaciones de TI o de confiabilidad (SRE)"
+        },
+        "decides": {
+          "en": "Which changes reach production, how much risk the error budget accepts, and who is paged.",
+          "es": "Qué cambios llegan a producción, cuánto riesgo acepta el presupuesto de errores y a quién se avisa."
+        },
+        "needs": {
+          "en": "A record of what the agent changed, a way to stop it, and an error budget that covers its changes.",
+          "es": "Un registro de lo que el agente cambió, una forma de detenerlo y un presupuesto de errores que cubra sus cambios."
+        }
+      },
+      {
+        "role": {
+          "en": "Automation and AI engineering lead",
+          "es": "Responsable de automatización e ingeniería de IA"
+        },
+        "decides": {
+          "en": "The model, tools and prompts, what the agent may do, and how it is evaluated.",
+          "es": "El modelo, las herramientas y las instrucciones, lo que el agente puede hacer y cómo se evalúa."
+        },
+        "needs": {
+          "en": "Held-out, realistic evaluations with cost, and a clear hand-off to the owner of the system.",
+          "es": "Evaluaciones realistas y reservadas con su costo, y un traspaso claro al dueño del sistema."
+        }
+      },
+      {
+        "role": {
+          "en": "Platform engineering lead",
+          "es": "Responsable de ingeniería de plataforma"
+        },
+        "decides": {
+          "en": "The paved paths, internal platform and tool endpoints through which the agent acts.",
+          "es": "Los caminos habilitados, la plataforma interna y los puntos de acceso a herramientas por los que actúa el agente."
+        },
+        "needs": {
+          "en": "Stable interfaces, a scoped identity per agent, and a platform that does not lower change stability.",
+          "es": "Interfaces estables, una identidad acotada por agente y una plataforma que no reduzca la estabilidad de los cambios."
+        }
+      },
+      {
+        "role": {
+          "en": "Security or risk and compliance lead",
+          "es": "Director de seguridad o de riesgo y cumplimiento"
+        },
+        "decides": {
+          "en": "Permissions, which consequential actions need approval, and what evidence an auditor gets.",
+          "es": "Los permisos, qué acciones de consecuencia requieren aprobación y qué evidencia recibe un auditor."
+        },
+        "needs": {
+          "en": "A scoped identity per agent, complete logs, authorisation enforced outside the model, and a stop path.",
+          "es": "Una identidad acotada por agente, registros completos, autorización aplicada fuera del modelo y una vía de parada."
+        }
+      },
+      {
+        "role": {
+          "en": "FinOps lead",
+          "es": "Responsable de FinOps"
+        },
+        "decides": {
+          "en": "Budgets and the allocation of model spend.",
+          "es": "Los presupuestos y la asignación del gasto en modelos."
+        },
+        "needs": {
+          "en": "Cost per verified outcome, not per call.",
+          "es": "El costo por resultado verificado, no por llamada."
+        }
+      }
+    ],
+    "interaction": {
+      "en": "The team that builds the agent decides what it may do, the team that owns the system carries the outage, and a shared error budget is the hand-off between them.",
+      "es": "El equipo que construye el agente decide qué puede hacer, el equipo dueño del sistema carga con la caída y un presupuesto de errores compartido es el traspaso entre ambos."
+    },
+    "state_of_the_art": [
+      {
+        "approach": {
+          "en": "Scripted automation and runbooks",
+          "es": "Automatización con guiones y guías operativas"
+        },
+        "achieves": {
+          "en": "Automates rule-based routine processes cheaply, with documented steps a person can still follow when a bot fails.",
+          "es": "Automatiza procesos rutinarios basados en reglas a bajo costo, con pasos documentados que una persona puede seguir si el bot falla."
+        },
+        "falls_short": {
+          "en": "Cannot decide, depends on stable systems, and its maintenance can be costly and tedious.",
+          "es": "No puede decidir, depende de sistemas estables y su mantenimiento puede ser costoso y tedioso."
+        },
+        "source": "rpa-review-2020"
+      },
+      {
+        "approach": {
+          "en": "Language-model agents with tool use",
+          "es": "Agentes de modelos de lenguaje con uso de herramientas"
+        },
+        "achieves": {
+          "en": "Near saturation on short desktop tasks, 83.5 percent for the best agent in 2026.",
+          "es": "Cerca de la saturación en tareas cortas de escritorio, 83,5 % para el mejor agente en 2026."
+        },
+        "falls_short": {
+          "en": "Only 20.6 percent of long workflows in 2026, and agents skip verification.",
+          "es": "Solo 20,6 % de los flujos largos en 2026, y los agentes omiten la verificación."
+        },
+        "source": "osworld-2-2026"
+      },
+      {
+        "approach": {
+          "en": "Workflow orchestration with human approval",
+          "es": "Orquestación de flujos con aprobación humana"
+        },
+        "achieves": {
+          "en": "Can pause for approval, save its state and resume once the answer arrives.",
+          "es": "Puede pausar para pedir aprobación, guardar su estado y reanudar cuando llega la respuesta."
+        },
+        "falls_short": {
+          "en": "A resumed step restarts from its beginning, so side effects before the pause repeat unless they are safe to repeat.",
+          "es": "Un paso reanudado reinicia desde su comienzo, así que los efectos previos a la pausa se repiten salvo que sea seguro repetirlos."
+        },
+        "source": "workflow-interrupts-docs"
+      },
+      {
+        "approach": {
+          "en": "Guardrails and policy engines",
+          "es": "Barreras de protección y motores de políticas"
+        },
+        "achieves": {
+          "en": "Limiting tools to the task cut attack success to 7.5 percent where reading was enough.",
+          "es": "Limitar las herramientas a la tarea redujo el éxito de ataques a 7,5 % donde bastaba con leer."
+        },
+        "falls_short": {
+          "en": "Fails when tools cannot be planned ahead, and defences lose 15 to 20 percent of utility under attack.",
+          "es": "Falla cuando las herramientas no se pueden planificar de antemano, y las defensas pierden 15 a 20 % de utilidad bajo ataque."
+        },
+        "source": "agentdojo-2024"
+      },
+      {
+        "approach": {
+          "en": "Model routing and cascades",
+          "es": "Enrutamiento y cascadas de modelos"
+        },
+        "achieves": {
+          "en": "A cascade matched the best single model at 59 to 98 percent lower cost on three tasks in 2023.",
+          "es": "Una cascada igualó al mejor modelo individual con un costo 59 a 98 % menor en tres tareas en 2023."
+        },
+        "falls_short": {
+          "en": "Tested on questions and chat, not on agents acting on systems, and needs labelled examples.",
+          "es": "Probada en preguntas y conversación, no en agentes que actúan sobre sistemas, y necesita ejemplos etiquetados."
+        },
+        "source": "frugalgpt-2023"
+      }
+    ],
+    "status": {
+      "heading": {
+        "en": "Organisations using AI, 2025",
+        "es": "Organizaciones que usan IA, 2025"
+      },
+      "value": {
+        "en": "88",
+        "es": "88"
+      },
+      "unit": {
+        "en": "percent of surveyed organisations used AI in 2025, while agent deployment was in the single digits across nearly all business functions",
+        "es": "por ciento de las organizaciones encuestadas usó IA en 2025, mientras el despliegue de agentes estaba en un dígito en casi todas las funciones del negocio"
+      },
+      "date": {
+        "en": "2025 data, report of 13 April 2026",
+        "es": "Datos de 2025, informe del 13 de abril de 2026"
+      },
+      "source": "ai-index-economy-2026"
+    }
+  },
+  "trends": {
+    "key_message": {
+      "en": "Binding oversight duties, longer agent runs and growing spend make checked actions urgent within two years, first for the heads of operations and security.",
+      "es": "Los deberes de supervisión obligatorios, las ejecuciones más largas y el gasto creciente hacen urgentes las acciones verificadas en dos años, primero para operaciones y seguridad."
+    },
+    "items": [
+      {
+        "trend": {
+          "en": "Binding duties of human oversight, stop and logging",
+          "es": "Deberes obligatorios de supervisión humana, parada y registro"
+        },
+        "kind": "regulatory",
+        "direction": "rising",
+        "horizon": "two_years",
+        "signal": {
+          "statement": {
+            "en": "EU AI Act duties for Annex III high-risk systems apply from 2 December 2027, and for Annex I systems from 2 August 2028.",
+            "es": "Los deberes de alto riesgo de la UE rigen desde el 2 de diciembre de 2027 (anexo III) y el 2 de agosto de 2028 (anexo I)."
+          },
+          "source": "ai-act-art-113"
+        },
+        "effect": {
+          "en": "The security and operations leads must show oversight, a stop path and logs, but only for listed high-risk uses, which many operations agents may fall outside.",
+          "es": "Los responsables de seguridad y operaciones deben mostrar supervisión, parada y registros, pero solo en usos de alto riesgo listados, donde muchos agentes de operaciones pueden no entrar."
+        },
+        "confidence": "medium"
+      },
+      {
+        "trend": {
+          "en": "Agents lengthen the tasks they attempt",
+          "es": "Los agentes alargan las tareas que intentan"
+        },
+        "kind": "technological",
+        "direction": "rising",
+        "horizon": "two_years",
+        "signal": {
+          "statement": {
+            "en": "The length of software tasks agents complete at 50 percent reliability has roughly doubled every seven months since 2019, in a paper revised in July 2026.",
+            "es": "La duración de las tareas de software que los agentes completan con 50 % de fiabilidad se duplica cada siete meses desde 2019, según un artículo de julio de 2026."
+          },
+          "source": "task-horizon-2026"
+        },
+        "effect": {
+          "en": "Builders hand agents longer unattended runs, and operations and security carry more exposure per run.",
+          "es": "Los constructores dan a los agentes ejecuciones más largas sin supervisión, y operaciones y seguridad cargan con más exposición por ejecución."
+        },
+        "confidence": "medium"
+      },
+      {
+        "trend": {
+          "en": "Spend and adoption outrun controls",
+          "es": "El gasto y la adopción superan a los controles"
+        },
+        "kind": "market",
+        "direction": "rising",
+        "horizon": "now",
+        "signal": {
+          "statement": {
+            "en": "98 percent of surveyed FinOps practitioners manage AI spend in 2026, up from 31 percent in 2024.",
+            "es": "98 % de los profesionales de FinOps encuestados gestiona el gasto en IA en 2026, frente a 31 % en 2024."
+          },
+          "source": "state-of-finops-2026"
+        },
+        "effect": {
+          "en": "The FinOps and platform leads must tie spend to verified outcomes, and operations sees more automated changes; the evidence is survey practice from self-selected respondents.",
+          "es": "Los responsables de FinOps y de plataforma deben vincular el gasto a resultados verificados, y operaciones ve más cambios automatizados; la evidencia es práctica declarada por respondientes autoseleccionados."
+        },
+        "confidence": "medium"
+      },
+      {
+        "trend": {
+          "en": "Standard tool-access protocols spread and keep changing",
+          "es": "Los protocolos estándar de acceso a herramientas se extienden y siguen cambiando"
+        },
+        "kind": "practice",
+        "direction": "rising",
+        "horizon": "two_years",
+        "signal": {
+          "statement": {
+            "en": "A July 2026 revision of the Model Context Protocol made requests stateless, added freshness hints and deprecated earlier parts.",
+            "es": "Una revisión de julio de 2026 del Model Context Protocol hizo las solicitudes sin estado, añadió indicios de vigencia y declaró obsoletas partes anteriores."
+          },
+          "source": "mcp-spec-2026-07-28"
+        },
+        "effect": {
+          "en": "The platform lead supplies identities and endpoints, the security lead scopes them, and builders rework adapters as the protocol changes.",
+          "es": "El responsable de plataforma entrega identidades y puntos de acceso, el de seguridad los acota y los constructores rehacen adaptadores a medida que el protocolo cambia."
+        },
+        "confidence": "medium"
+      },
+      {
+        "trend": {
+          "en": "Excess authority is recognised as a named risk class",
+          "es": "La autoridad excesiva se reconoce como una clase de riesgo con nombre"
+        },
+        "kind": "practice",
+        "direction": "rising",
+        "horizon": "now",
+        "signal": {
+          "statement": {
+            "en": "OWASP lists excessive agency, an agent with too many functions, permissions or autonomy, as a risk of large-model applications in its 2025 list.",
+            "es": "OWASP incluye la agencia excesiva, un agente con demasiadas funciones, permisos o autonomía, como riesgo de las aplicaciones con modelos grandes en su lista de 2025."
+          },
+          "source": "owasp-excessive-agency-2025"
+        },
+        "effect": {
+          "en": "The security lead gets a shared vocabulary and test sets, and builders must scope tools to tasks; adaptive attackers are not measured in the results.",
+          "es": "El responsable de seguridad obtiene un vocabulario común y conjuntos de prueba, y los constructores deben acotar las herramientas a las tareas; los resultados no miden a atacantes adaptativos."
+        },
+        "confidence": "medium"
+      }
+    ]
+  },
+  "proposal": {
+    "key_message": {
+      "en": "Let agents act only through registered, scoped actions with a checked effect, starting with the security or risk and compliance lead registering every action and removing standing broad permissions.",
+      "es": "Que los agentes actúen solo con acciones registradas, acotadas y verificadas, empezando por el director de seguridad o de riesgo y cumplimiento, que registra las acciones y retira permisos amplios."
+    },
+    "paragraphs": [
+      {
+        "en": "Let an agent act on software only through registered, scoped actions, which answers authority wider than the task. Check the real effect of every action against the system, by something other than the model, before it is reported as done, which answers unchecked reports.",
+        "es": "Que un agente actúe sobre software solo mediante acciones registradas y acotadas, lo que responde a la autoridad más amplia que la tarea. Hay que verificar el efecto real de cada acción contra el sistema, con algo distinto del modelo, antes de informarla como hecha, lo que responde a los informes sin verificar."
+      },
+      {
+        "en": "Confirm the state is still fresh before each write and let a person or a rule interrupt stale or unwanted work. Spend a costly planner's deliberation only where it changes the outcome, and judge the whole on held-out, realistic work with repeated trials and the cost per verified outcome.",
+        "es": "Hay que confirmar que el estado sigue vigente antes de cada escritura y dejar que una persona o una regla interrumpa el trabajo desactualizado o no deseado. Hay que gastar la deliberación de un planificador costoso solo donde cambia el resultado, y evaluar el conjunto con trabajo realista reservado, intentos repetidos y el costo por resultado verificado."
+      }
+    ],
+    "four_cs": [
+      {
+        "c": {
+          "en": "Choice",
+          "es": "Elección"
+        },
+        "applies": {
+          "en": "Registered actions and checks stay fixed while the model behind them, proprietary or open, is swapped or routed and compared on the same held-out tasks.",
+          "es": "Las acciones registradas y sus verificaciones quedan fijas mientras el modelo que hay detrás, propietario o abierto, se cambia o enruta y se compara en las mismas tareas reservadas."
+        }
+      },
+      {
+        "c": {
+          "en": "Context",
+          "es": "Contexto"
+        },
+        "applies": {
+          "en": "Each action and its check use the business's own terms, such as which record, which version and which owner, so done means the record changed.",
+          "es": "Cada acción y su verificación usan los términos propios del negocio, como qué registro, qué versión y qué responsable, de modo que hecho significa que el registro cambió."
+        }
+      },
+      {
+        "c": {
+          "en": "Cost",
+          "es": "Costo"
+        },
+        "applies": {
+          "en": "Spend is reported per verified outcome, with the share of large-model calls whose answer a cheap fixed rule would have matched.",
+          "es": "El gasto se informa por resultado verificado, con la parte de llamadas a modelos grandes cuya respuesta una regla fija barata habría igualado."
+        }
+      },
+      {
+        "c": {
+          "en": "Control",
+          "es": "Control"
+        },
+        "applies": {
+          "en": "One registry holds every agent's actions, scopes, approvals and logs across models, with a stop path and an audit trail that operations and security both read.",
+          "es": "Un solo registro guarda las acciones, alcances, aprobaciones y registros de cada agente entre modelos, con una vía de parada y un registro de auditoría que leen operaciones y seguridad."
+        }
+      }
+    ],
+    "actions": [
+      {
+        "action": {
+          "en": "Register every action an agent may take with a narrow scope, an owner and a reversible or irreversible class, and remove standing broad permissions.",
+          "es": "Registrar cada acción que un agente puede tomar con un alcance estrecho, un responsable y una clase reversible o irreversible, y retirar los permisos amplios permanentes."
+        },
+        "owner": {
+          "en": "Security or risk and compliance lead",
+          "es": "Director de seguridad o de riesgo y cumplimiento"
+        },
+        "horizon": {
+          "en": "Now",
+          "es": "Ahora"
+        },
+        "check": {
+          "en": "The share of agent actions running under a scoped identity, with no wildcard scope left.",
+          "es": "La proporción de acciones de agentes que corren bajo una identidad acotada, sin alcances comodín."
+        }
+      },
+      {
+        "action": {
+          "en": "Give each action a postcondition that something other than the model checks against the real system.",
+          "es": "Dar a cada acción una condición posterior que algo distinto del modelo verifica contra el sistema real."
+        },
+        "owner": {
+          "en": "Automation and AI engineering lead",
+          "es": "Responsable de automatización e ingeniería de IA"
+        },
+        "horizon": {
+          "en": "Within two years",
+          "es": "En dos años"
+        },
+        "check": {
+          "en": "The rate of reported done but failed the check is published per action and falls over successive releases.",
+          "es": "La tasa de informado como hecho pero fallido en la verificación se publica por acción y baja en versiones sucesivas."
+        }
+      },
+      {
+        "action": {
+          "en": "Require a freshness check before each write and a stop path that halts new actions.",
+          "es": "Exigir una verificación de vigencia antes de cada escritura y una vía de parada que detenga las acciones nuevas."
+        },
+        "owner": {
+          "en": "Head of IT operations or reliability (SRE)",
+          "es": "Responsable de operaciones de TI o de confiabilidad (SRE)"
+        },
+        "horizon": {
+          "en": "Within two years",
+          "es": "En dos años"
+        },
+        "check": {
+          "en": "Writes rejected for stale state are counted, and the time from a stop request to the last new action is measured in a drill.",
+          "es": "Se cuentan las escrituras rechazadas por estado desactualizado y se mide en un simulacro el tiempo entre una solicitud de parada y la última acción nueva."
+        }
+      },
+      {
+        "action": {
+          "en": "Evaluate each agent on held-out, realistic workflows with repeated trials and cost, next to a fixed-rule baseline.",
+          "es": "Evaluar cada agente con flujos realistas reservados, intentos repetidos y costo, junto a una línea base de reglas fijas."
+        },
+        "owner": {
+          "en": "Automation and AI engineering lead",
+          "es": "Responsable de automatización e ingeniería de IA"
+        },
+        "horizon": {
+          "en": "Now",
+          "es": "Ahora"
+        },
+        "check": {
+          "en": "Repeated-trial reliability and cost per verified outcome are reported on a held-out set the builders did not see.",
+          "es": "La fiabilidad en intentos repetidos y el costo por resultado verificado se informan sobre un conjunto reservado que los constructores no vieron."
+        }
+      },
+      {
+        "action": {
+          "en": "Measure how often a large-model call changed the outcome compared with a cheap rule, and route the rest to the rule.",
+          "es": "Medir con qué frecuencia una llamada a un modelo grande cambió el resultado frente a una regla barata, y enrutar el resto a la regla."
+        },
+        "owner": {
+          "en": "FinOps lead",
+          "es": "Responsable de FinOps"
+        },
+        "horizon": {
+          "en": "Within two years",
+          "es": "En dos años"
+        },
+        "check": {
+          "en": "The share of calls that changed the outcome is reported next to total spend.",
+          "es": "La proporción de llamadas que cambiaron el resultado se informa junto al gasto total."
+        }
+      },
+      {
+        "action": {
+          "en": "Hand the system owner an instruction pack with measured accuracy, oversight steps and an error budget for the agent's changes.",
+          "es": "Entregar al dueño del sistema un paquete de instrucciones con precisión medida, pasos de supervisión y un presupuesto de errores para los cambios del agente."
+        },
+        "owner": {
+          "en": "Platform engineering lead",
+          "es": "Responsable de ingeniería de plataforma"
+        },
+        "horizon": {
+          "en": "Within two years",
+          "es": "En dos años"
+        },
+        "check": {
+          "en": "The owner of the system signs the error budget, and incident reviews cover changes made by agents.",
+          "es": "El dueño del sistema firma el presupuesto de errores y las revisiones de incidentes cubren los cambios hechos por agentes."
+        }
+      }
+    ],
+    "risks": [
+      {
+        "en": "Human approval can become a rubber stamp, because people often cannot perform the oversight that policies ask of them.",
+        "es": "La aprobación humana puede volverse un sello automático, porque las personas a menudo no pueden realizar la supervisión que las políticas les piden."
+      },
+      {
+        "en": "Routing can send a hard, rare case to a cheap path, because real distributions may differ from the benchmarks the routers were tested on.",
+        "es": "El enrutamiento puede enviar un caso raro y difícil por una vía barata, porque las distribuciones reales pueden diferir de las pruebas en que se probaron los enrutadores."
+      },
+      {
+        "en": "Verification adds latency and cost, so adding checks changes the cost profile of every action.",
+        "es": "La verificación añade latencia y costo, así que añadir controles cambia el perfil de costo de cada acción."
+      },
+      {
+        "en": "Protocols and platforms change, so adapters need upkeep when a revision removes sessions or handshakes.",
+        "es": "Los protocolos y las plataformas cambian, así que los adaptadores necesitan mantenimiento cuando una revisión elimina sesiones o protocolos de saludo."
+      }
+    ],
+    "unknowns": [
+      {
+        "en": "No primary, sector-level share of production incidents caused by AI-agent actions was found.",
+        "es": "No se encontró una proporción primaria, a nivel de sector, de incidentes en producción causados por acciones de agentes de IA."
+      },
+      {
+        "en": "Whether benchmark gains on short tasks carry over to an organisation's own systems is open, and the long-workflow results suggest only partly.",
+        "es": "No está claro si las mejoras en tareas cortas se trasladan a los sistemas propios de una organización, y los resultados en flujos largos sugieren que solo en parte."
+      },
+      {
+        "en": "The cause weights are an estimate by the authors, because no source measures them.",
+        "es": "Los pesos de las causas son una estimación de los autores, porque ninguna fuente los mide."
+      },
+      {
+        "en": "How the EU duties apply to a given IT-operations agent is open, because Annex III covers only safety components of critical digital infrastructure.",
+        "es": "No está claro cómo rigen los deberes de la UE para un agente de operaciones de TI, pues el anexo III solo cubre componentes de seguridad de infraestructura digital crítica."
+      }
+    ],
+    "handoff": {
+      "en": "The technical view measures, honestly and with a negative result, when a controller should act alone and when it should call a costly planner: learned gates never chose to defer.",
+      "es": "La vista técnica mide, con honestidad y con un resultado negativo, cuándo un controlador debe actuar solo y cuándo llamar a un planificador costoso: las compuertas aprendidas nunca eligieron diferir."
+    }
+  },
+  "illustrations": {
+    "pain": {
+      "file": "executive/pain.svg",
+      "caption": {
+        "en": "On one operations floor, an agent with too many keys marks a ticket done beside an unchanged record, every ticket climbs to the slow planner and an alarm sounds.",
+        "es": "En una sala de operaciones, un agente con demasiadas llaves marca un ticket hecho junto a un registro sin cambios, todo ticket sube al planificador lento y suena una alarma."
+      }
+    },
+    "situation": {
+      "file": "executive/situation.svg",
+      "caption": {
+        "en": "Five roles hold parts of the picture, four stations each show their limit, and only a thin line of paper crosses from the builders' room to the system owner's.",
+        "es": "Cinco roles tienen partes del cuadro, cuatro estaciones muestran su límite y solo una línea de papel cruza de la sala de los constructores a la del dueño."
+      }
+    },
+    "proposal": {
+      "file": "executive/proposal.svg",
+      "caption": {
+        "en": "On the same operations floor, each action passes a gate, a verifier checks the record, a stop button is in reach and the alarm lamp stays dark.",
+        "es": "En la misma sala de operaciones, cada acción pasa por una compuerta, un verificador revisa el registro, un botón de parada está a mano y la alarma sigue apagada."
+      }
+    }
+  },
+  "sources": [
+    {
+      "id": "uptime-outages-2026",
+      "title": {
+        "en": "Uptime Institute, Annual Outage Analysis 2026, press release of 13 May 2026",
+        "es": "Uptime Institute, Análisis anual de caídas 2026, comunicado del 13 de mayo de 2026"
+      },
+      "url": "https://uptimeinstitute.com/about-ui/press-releases/uptime-announces-annual-outage-analysis-report-2026",
+      "note": {
+        "en": "The figures come from the 2025 survey of operators.",
+        "es": "Las cifras provienen de la encuesta de 2025 a operadores."
+      }
+    },
+    {
+      "id": "osworld-2-2026",
+      "title": {
+        "en": "Benchmarking computer use agents on long-horizon real-world tasks, the OSWorld 2.0 paper",
+        "es": "Evaluación de agentes de uso de computador en tareas largas del mundo real, el artículo de la prueba OSWorld, versión 2"
+      },
+      "url": "https://arxiv.org/abs/2606.29537",
+      "note": {
+        "en": "Results are dated: paper of 28 June 2026, second version of 13 July 2026.",
+        "es": "Los resultados tienen fecha: artículo del 28 de junio de 2026, segunda versión del 13 de julio de 2026."
+      }
+    },
+    {
+      "id": "ai-act-art-113",
+      "title": {
+        "en": "European Commission AI Act Service Desk, Article 113, entry into force and application",
+        "es": "Servicio de Ayuda de la Ley de IA de la Comisión Europea, artículo 113, entrada en vigor y aplicación"
+      },
+      "url": "https://ai-act-service-desk.ec.europa.eu/en/ai-act/article-113",
+      "note": {
+        "en": "Consolidated text as at 27 July 2026, with the amended dates marked.",
+        "es": "Texto consolidado al 27 de julio de 2026, con las fechas modificadas marcadas."
+      }
+    },
+    {
+      "id": "sre-book-2017",
+      "title": {
+        "en": "Site Reliability Engineering, introduction, a large operator's published book",
+        "es": "Ingeniería de confiabilidad de sitios, introducción, libro publicado por un gran operador"
+      },
+      "url": "https://sre.google/sre-book/introduction/",
+      "note": {
+        "en": "One operator's own finding from the 2017 edition, not a census of the sector.",
+        "es": "Hallazgo propio de un operador, de la edición de 2017, no un censo del sector."
+      }
+    },
+    {
+      "id": "dora-2024",
+      "title": {
+        "en": "DORA research programme, Accelerate State of DevOps report 2024",
+        "es": "Programa de investigación DORA, informe Accelerate State of DevOps 2024"
+      },
+      "url": "https://services.google.com/fh/files/misc/2024_final_dora_report.pdf",
+      "note": {
+        "en": "The estimate is on printed page 39 and rests on nearly 3,000 respondents.",
+        "es": "La estimación está en la página impresa 39 y se apoya en casi 3.000 respondientes."
+      }
+    },
+    {
+      "id": "ai-act-art-14",
+      "title": {
+        "en": "European Commission AI Act Service Desk, Article 14, human oversight",
+        "es": "Servicio de Ayuda de la Ley de IA de la Comisión Europea, artículo 14, supervisión humana"
+      },
+      "url": "https://ai-act-service-desk.ec.europa.eu/en/ai-act/article-14"
+    },
+    {
+      "id": "ai-index-economy-2026",
+      "title": {
+        "en": "Stanford AI Index 2026, economy chapter",
+        "es": "Índice de IA de Stanford 2026, capítulo de economía"
+      },
+      "url": "https://hai.stanford.edu/ai-index/2026-ai-index-report/economy",
+      "note": {
+        "en": "The report appeared on 13 April 2026 and the adoption figures are for 2025.",
+        "es": "El informe se publicó el 13 de abril de 2026 y las cifras de adopción son de 2025."
+      }
+    },
+    {
+      "id": "linux-foundation-agentic-2025",
+      "title": {
+        "en": "Linux Foundation, announcement of the Agentic AI Foundation, 9 December 2025",
+        "es": "Linux Foundation, anuncio de la Agentic AI Foundation, 9 de diciembre de 2025"
+      },
+      "url": "https://www.linuxfoundation.org/press/linux-foundation-announces-the-formation-of-the-agentic-ai-foundation",
+      "note": {
+        "en": "The count of servers is stated by the steward of the protocol itself.",
+        "es": "La cifra de servidores la indica el propio custodio del protocolo."
+      }
+    },
+    {
+      "id": "rpa-review-2020",
+      "title": {
+        "en": "Robotic process automation, a systematic literature review of 63 publications",
+        "es": "Automatización robótica de procesos, una revisión sistemática de la literatura de 63 publicaciones"
+      },
+      "url": "https://arxiv.org/abs/2012.11951",
+      "note": {
+        "en": "The review reports the limits as points under discussion in the literature up to 2020.",
+        "es": "La revisión recoge los límites como puntos en discusión en la literatura hasta 2020."
+      }
+    },
+    {
+      "id": "workflow-interrupts-docs",
+      "title": {
+        "en": "Documentation of a workflow orchestration framework, interrupts and resuming",
+        "es": "Documentación de un marco de orquestación de flujos, interrupciones y reanudación"
+      },
+      "url": "https://docs.langchain.com/oss/python/langgraph/interrupts"
+    },
+    {
+      "id": "agentdojo-2024",
+      "title": {
+        "en": "AgentDojo, a benchmark of attacks and defences for agents that use tools",
+        "es": "AgentDojo, una prueba de referencia de ataques y defensas para agentes que usan herramientas"
+      },
+      "url": "https://arxiv.org/abs/2406.13352",
+      "note": {
+        "en": "The 7.5 percent figure is for tasks that needed only read access.",
+        "es": "La cifra de 7,5 % corresponde a tareas que solo necesitaban acceso de lectura."
+      }
+    },
+    {
+      "id": "frugalgpt-2023",
+      "title": {
+        "en": "FrugalGPT, using large language models at lower cost, paper of May 2023",
+        "es": "FrugalGPT, uso de modelos de lenguaje grandes a menor costo, artículo de mayo de 2023"
+      },
+      "url": "https://arxiv.org/abs/2305.05176",
+      "note": {
+        "en": "The three tasks were a financial-news task, a legal-document task and a conversational question-answering task.",
+        "es": "Las tres tareas fueron de noticias financieras, de documentos legales y de preguntas y respuestas conversacionales."
+      }
+    },
+    {
+      "id": "task-horizon-2026",
+      "title": {
+        "en": "Measuring AI ability to complete long software tasks, fourth version of 10 July 2026",
+        "es": "Medición de la capacidad de la IA para completar tareas largas de software, cuarta versión del 10 de julio de 2026"
+      },
+      "url": "https://arxiv.org/abs/2503.14499",
+      "note": {
+        "en": "The authors say the trend fit may not generalise beyond software tasks.",
+        "es": "Los autores señalan que el ajuste de tendencia puede no generalizarse más allá de las tareas de software."
+      }
+    },
+    {
+      "id": "state-of-finops-2026",
+      "title": {
+        "en": "FinOps Foundation, State of FinOps 2026",
+        "es": "FinOps Foundation, Estado de FinOps 2026"
+      },
+      "url": "https://data.finops.org/",
+      "note": {
+        "en": "The survey covers 1,192 respondents, a self-selected group.",
+        "es": "La encuesta abarca 1.192 respondientes, un grupo autoseleccionado."
+      }
+    },
+    {
+      "id": "mcp-spec-2026-07-28",
+      "title": {
+        "en": "Model Context Protocol, specification changelog of 28 July 2026",
+        "es": "Model Context Protocol, registro de cambios de la especificación del 28 de julio de 2026"
+      },
+      "url": "https://modelcontextprotocol.io/specification/2026-07-28/changelog"
+    },
+    {
+      "id": "owasp-excessive-agency-2025",
+      "title": {
+        "en": "OWASP GenAI Security Project, excessive agency, risk LLM06 of the 2025 list",
+        "es": "OWASP GenAI Security Project, agencia excesiva, riesgo LLM06 de la lista de 2025"
+      },
+      "url": "https://genai.owasp.org/llmrisk/llm062025-excessive-agency/"
+    }
+  ]
+}
