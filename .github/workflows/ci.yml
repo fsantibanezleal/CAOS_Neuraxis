@@ -35,6 +35,34 @@ jobs:
       - run: python scripts/check_semantic_routing.py
       - run: python scripts/check_research.py
       - run: python scripts/check_operations.py
+      - name: Contract versions follow their schemas, each with its History entry, against the base (ADR-0080)
+        env:
+          BEFORE: ${{ github.event.before }}
+        run: |
+          base="$BEFORE"
+          if [ -z "${base//0/}" ]; then base=origin/develop; fi  # a new branch or a manual run has no before SHA
+          python scripts/check_contract_versions.py --base "$base"
+      - name: The contract catalog, every row complete and every path it names present (ADR-0080)
+        run: python scripts/check_contracts.py docs/contracts/catalog.md --repo-root .
+      - name: The readiness document is current with the catalog and the committed documents (ADR-0080)
+        run: python scripts/check_readiness.py
+      - name: Every document of the provider tree valid against its schema file (ADR-0080). The 15,981 committed documents take three minutes on one core, so pytest tests/contracts validates them (in parallel) and this step does not
+        run: |
+          pip install jsonschema==4.26.0
+          root="$(mktemp -d)"
+          mkdir -p "$root/data"
+          cp -r docs "$root/docs"
+          cp -r docs/contracts/fixtures/data/. "$root/data/"
+          python scripts/check_documents.py "$root"
+      - name: Rows still served by a provider (listed while building; none on main)
+        run: |
+          set +e
+          python scripts/check_skeleton.py docs/contracts/catalog.md
+          code=$?
+          set -e
+          if [ "$code" -eq 2 ] && [ "$GITHUB_REF" = "refs/heads/main" ]; then
+            echo "::error::main is a release: every catalog row must be real"; exit 1; fi
+          [ "$code" -eq 0 ] || [ "$code" -eq 2 ]
       - run: python scripts/check_template_residue.py
       - name: Every path a document names exists
         run: python scripts/check_doc_paths.py

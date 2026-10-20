@@ -1,0 +1,67 @@
+{
+  "episode-index": {
+    "version": "1.0.0",
+    "schema": "docs/contracts/schemas/episode-index.schema.json",
+    "sha256": "043a02b68ffb736d0c12851c34025cc9ea557902b2e0e4cc3ce372d6dfb50553"
+  },
+  "episode": {
+    "version": "1.0.0",
+    "schema": "docs/contracts/schemas/episode.schema.json",
+    "sha256": "6d0a0490721f83e32032837d3e03b8b591c9fe47c1f976b8f3b15dab0c420eb3"
+  },
+  "lineage": {
+    "version": "1.0.0",
+    "schema": "docs/contracts/schemas/lineage.schema.json",
+    "sha256": "96bad72689c8795353ba222bffbd94456f218a1c780a31b45345d95d3b64215a"
+  },
+  "research-summary": {
+    "version": "1.0.0",
+    "schema": "docs/contracts/schemas/research-summary.schema.json",
+    "sha256": "8f32c6d1889b1bb9a3a376f4ec376441267e5d3c913fa4bcace7649ae2d306b0"
+  },
+  "benchmark-adequacy": {
+    "version": "1.0.0",
+    "schema": "docs/contracts/schemas/benchmark-adequacy.schema.json",
+    "sha256": "e38e553e80c14aa94e8c0364020f9bb5a585576d76cfc161e70d03dfb123e48b"
+  },
+  "routing-study": {
+    "version": "1.0.0",
+    "schema": "docs/contracts/schemas/routing-study.schema.json",
+    "sha256": "0889fc901c0ef4468b7cee7dacd63f122c7c9926f94481c996e4ad0977b1e25b"
+  },
+  "semantic-transfer-index": {
+    "version": "1.0.0",
+    "schema": "docs/contracts/schemas/semantic-transfer-index.schema.json",
+    "sha256": "c8afa827f616ddc6a7ad3c0abb9bb14c7f3447c6df5cda93645e8e6472af8272"
+  },
+  "semantic-transfer-report": {
+    "version": "1.0.0",
+    "schema": "docs/contracts/schemas/semantic-transfer-report.schema.json",
+    "sha256": "64d84b24609373681d42ac804999ecef74088b8cb475a9cd99224b5c0a1b96ee"
+  },
+  "operation-index": {
+    "version": "1.0.0",
+    "schema": "docs/contracts/schemas/operation-index.schema.json",
+    "sha256": "5085c570fd747b83c177a72c25bb65a3fbe90b8cff8a027786a86c409f8a695b"
+  },
+  "operation-run": {
+    "version": "1.0.0",
+    "schema": "docs/contracts/schemas/operation-run.schema.json",
+    "sha256": "960613b5b734ccec2e0cca205e75d0814fa849a3aca549d5ea42ef169aaea7ee"
+  },
+  "operations-api": {
+    "version": "1.0.0",
+    "schema": "docs/contracts/api.openapi.json",
+    "sha256": "d8cbbabae9a91b0c6d6a3b540d5121ffed9f85f18191e3c40991c3e8529a4bbf"
+  },
+  "release-manifest": {
+    "version": "1.0.0",
+    "schema": "docs/contracts/schemas/release-manifest.schema.json",
+    "sha256": "a8a8d9ce4d21d9e60e403f1eae05f196eea072ee948e34dd98fa932a13ea5fa8"
+  },
+  "readiness": {
+    "version": "1.0.0",
+    "schema": "docs/contracts/schemas/readiness.schema.json",
+    "sha256": "f3027d7f3f5332fc2b75b72fddff2fc0e6508d617259fb0bd91970dd054a775c"
+  }
+}
