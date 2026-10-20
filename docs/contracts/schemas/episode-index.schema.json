@@ -1,0 +1,389 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "episode-index.schema.json",
+  "title": "Episode index",
+  "description": "Catalog row episode-index 1.0.0: the evaluation index reflexmesh `evaluate` writes (evaluation/runner.py:391-424) and data-pipeline/run.py copies to data/derived/index.json: the registries, one manifest entry per episode file with its digest, and the aggregate results per method. Read by the Workbench, scripts/check_artifacts.py and scripts/check_research.py.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "aggregate_results",
+    "cases",
+    "episodes",
+    "generated_at",
+    "methods",
+    "provenance",
+    "schema_version"
+  ],
+  "properties": {
+    "aggregate_results": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "bootstrap_groups",
+          "bootstrap_scope",
+          "by_variant",
+          "calibration",
+          "confusion",
+          "controller_ms",
+          "controller_p50_ms",
+          "controller_p95_ms",
+          "controller_p99_ms",
+          "delegations",
+          "episodes",
+          "execution_ms",
+          "interval_assumption",
+          "method_id",
+          "steps",
+          "success_interval_descriptive",
+          "success_interval_group_bootstrap",
+          "task_success",
+          "violations",
+          "wall_ms"
+        ],
+        "properties": {
+          "bootstrap_groups": {
+            "type": "integer"
+          },
+          "bootstrap_scope": {
+            "type": "string"
+          },
+          "by_variant": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "additionalProperties": false,
+              "required": [
+                "episodes",
+                "task_success",
+                "variant"
+              ],
+              "properties": {
+                "episodes": {
+                  "type": "integer"
+                },
+                "task_success": {
+                  "type": "number"
+                },
+                "variant": {
+                  "type": "string",
+                  "enum": [
+                    "nominal",
+                    "delayed_observation",
+                    "duplicate_event",
+                    "stale_conflict",
+                    "unavailable_dependency",
+                    "boundary"
+                  ]
+                }
+              }
+            }
+          },
+          "calibration": {
+            "type": "object",
+            "additionalProperties": false,
+            "required": [
+              "bins",
+              "target"
+            ],
+            "properties": {
+              "bins": {
+                "type": "array",
+                "items": {
+                  "type": "object",
+                  "additionalProperties": false,
+                  "required": [
+                    "accuracy",
+                    "confidence",
+                    "count",
+                    "lower",
+                    "upper"
+                  ],
+                  "properties": {
+                    "accuracy": {
+                      "type": "number"
+                    },
+                    "confidence": {
+                      "type": "number"
+                    },
+                    "count": {
+                      "type": "integer"
+                    },
+                    "lower": {
+                      "type": "number"
+                    },
+                    "upper": {
+                      "type": "number"
+                    }
+                  }
+                }
+              },
+              "target": {
+                "type": "string"
+              }
+            }
+          },
+          "confusion": {
+            "type": "object",
+            "additionalProperties": false,
+            "required": [
+              "counts",
+              "target"
+            ],
+            "properties": {
+              "counts": {
+                "type": "object",
+                "additionalProperties": {
+                  "type": "integer"
+                },
+                "propertyNames": {
+                  "pattern": "^(a-[A-Za-z0-9_]+|None)\\|(a-[A-Za-z0-9_]+|None)$"
+                },
+                "description": "Counts keyed \"<demonstration action>|<chosen action>\" (None when no action was chosen)."
+              },
+              "target": {
+                "type": "string"
+              }
+            }
+          },
+          "controller_ms": {
+            "type": "number"
+          },
+          "controller_p50_ms": {
+            "type": "number"
+          },
+          "controller_p95_ms": {
+            "type": "number"
+          },
+          "controller_p99_ms": {
+            "type": "number"
+          },
+          "delegations": {
+            "type": "number"
+          },
+          "episodes": {
+            "type": "integer"
+          },
+          "execution_ms": {
+            "type": "number"
+          },
+          "interval_assumption": {
+            "type": "string"
+          },
+          "method_id": {
+            "type": "string",
+            "pattern": "^M\\d{2}$"
+          },
+          "steps": {
+            "type": "number"
+          },
+          "success_interval_descriptive": {
+            "type": "array",
+            "items": {
+              "type": "number"
+            }
+          },
+          "success_interval_group_bootstrap": {
+            "type": "array",
+            "items": {
+              "type": "number"
+            }
+          },
+          "task_success": {
+            "type": "number"
+          },
+          "violations": {
+            "type": "number"
+          },
+          "wall_ms": {
+            "type": "number"
+          }
+        }
+      },
+      "minItems": 1,
+      "description": "One record per method: success rate, latency, interval estimates, calibration and the confusion of the demonstration action."
+    },
+    "cases": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "description",
+          "id",
+          "name",
+          "variants"
+        ],
+        "properties": {
+          "description": {
+            "type": "string"
+          },
+          "id": {
+            "type": "string",
+            "pattern": "^[A-Z]\\d{2}$"
+          },
+          "name": {
+            "type": "string"
+          },
+          "variants": {
+            "type": "array",
+            "items": {
+              "type": "string",
+              "enum": [
+                "nominal",
+                "delayed_observation",
+                "duplicate_event",
+                "stale_conflict",
+                "unavailable_dependency",
+                "boundary"
+              ]
+            }
+          }
+        }
+      },
+      "minItems": 1,
+      "description": "The case (or family) registry with its variants."
+    },
+    "episodes": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "case_id",
+          "method_id",
+          "path",
+          "run_id",
+          "seed",
+          "sha256",
+          "status",
+          "variant"
+        ],
+        "properties": {
+          "case_id": {
+            "type": "string",
+            "pattern": "^[A-Z]\\d{2}$"
+          },
+          "method_id": {
+            "type": "string",
+            "pattern": "^M\\d{2}$"
+          },
+          "path": {
+            "type": "string",
+            "pattern": "^episodes/[^/\\\\]+\\.json$"
+          },
+          "run_id": {
+            "type": "string",
+            "pattern": "^M\\d{2}-[A-Z]\\d{2}-[a-z_]+-\\d+$"
+          },
+          "seed": {
+            "type": "integer"
+          },
+          "sha256": {
+            "type": "string",
+            "pattern": "^[0-9a-f]{64}$"
+          },
+          "status": {
+            "type": "string",
+            "enum": [
+              "succeeded",
+              "failed",
+              "cancelled"
+            ]
+          },
+          "variant": {
+            "type": "string",
+            "enum": [
+              "nominal",
+              "delayed_observation",
+              "duplicate_event",
+              "stale_conflict",
+              "unavailable_dependency",
+              "boundary"
+            ]
+          }
+        }
+      },
+      "minItems": 1,
+      "description": "One manifest entry per episode file: identity, the path relative to the index and the SHA-256 of the file bytes."
+    },
+    "generated_at": {
+      "type": "string",
+      "format": "date-time",
+      "description": "When the engine wrote the index (ISO 8601, UTC)."
+    },
+    "methods": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "id",
+          "lane",
+          "name"
+        ],
+        "properties": {
+          "id": {
+            "type": "string",
+            "pattern": "^M\\d{2}$"
+          },
+          "lane": {
+            "type": "string"
+          },
+          "name": {
+            "type": "string"
+          }
+        }
+      },
+      "minItems": 1,
+      "description": "The method registry: id, display name and lane."
+    },
+    "provenance": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "complete_method_ids",
+        "lineage",
+        "lineage_signature",
+        "scope",
+        "split"
+      ],
+      "properties": {
+        "complete_method_ids": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "pattern": "^M\\d{2}$"
+          }
+        },
+        "lineage": {
+          "$ref": "lineage.schema.json",
+          "description": "The lineage document the run stamped, repeated inline (schema: lineage.schema.json)."
+        },
+        "lineage_signature": {
+          "type": "string",
+          "pattern": "^[0-9a-f]{64}$",
+          "description": "SHA-256 of the lineage serialised with sorted keys; every episode of the evaluation carries it."
+        },
+        "scope": {
+          "type": "string"
+        },
+        "split": {
+          "type": "string",
+          "enum": [
+            "test",
+            "structural_transfer",
+            "semantic_transfer"
+          ]
+        }
+      },
+      "description": "What the evaluation ran with: scope, split, the lineage document and its digest, the methods it completed."
+    },
+    "schema_version": {
+      "enum": [
+        1
+      ]
+    }
+  }
+}
