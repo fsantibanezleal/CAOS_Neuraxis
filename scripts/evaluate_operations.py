@@ -14,7 +14,9 @@ from reflexmesh import __version__ as engine_version
 
 ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(ROOT))
+sys.path.insert(0, str(ROOT / "data-pipeline"))
 from app.services.operations import TASKS, VARIANTS, digest, encoded, execute_operation, fixture
+from core.validation import check_document  # every document is validated against its schema before it is written
 
 
 def main():
@@ -31,6 +33,7 @@ def main():
                 with tempfile.TemporaryDirectory(prefix="neuraxis-evaluation-") as directory:
                     result = execute_operation(Path(directory), task, fixture(task, variant, 70000 + seed))
                 run_id = f"{task}-{variant}-{70000 + seed}"
+                check_document("operation-run", result, run_id + ".json")
                 raw = encoded(result)
                 (target / (run_id + ".json")).write_bytes(raw)
                 rows.append(
@@ -62,6 +65,7 @@ def main():
         "runs": rows,
         "boundary": "Application integration and fault detection, separate from frozen learned-policy experiments. No model calls or learned superiority claimed.",
     }
+    check_document("operation-index", index, "index.json")
     (target / "index.json").write_bytes(encoded(index))
     print(json.dumps({"runs": len(rows), "succeeded": sum(r["status"] == "succeeded" for r in rows)}))
 

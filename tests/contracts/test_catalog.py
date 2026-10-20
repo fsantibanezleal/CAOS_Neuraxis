@@ -26,7 +26,7 @@ def test_the_catalog_is_sound_and_has_the_thirteen_rows():
         "semantic-transfer-index", "semantic-transfer-report", "operation-index", "operation-run", "operations-api",
         "release-manifest", "readiness",
     ]
-    assert {r["status"] for r in rows} == {"real", "active"}
+    assert {r["status"] for r in rows} == {"real"}  # every row has a producer of record since U3c
 
 
 def test_every_schema_file_is_a_valid_schema_named_after_its_file():

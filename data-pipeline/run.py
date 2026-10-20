@@ -13,17 +13,32 @@ import sys
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[1]
+sys.path.insert(0, str(Path(__file__).resolve().parent))
+
+from core.validation import check_document
 
 
-def export(source: Path, destination: Path) -> dict:
+def _load_checks():
     spec = importlib.util.spec_from_file_location("artifact_checks", ROOT / "scripts" / "check_artifacts.py")
     checks = importlib.util.module_from_spec(spec)
     spec.loader.exec_module(checks)
-    checks.validate(source)
+    return checks
+
+
+def validate_export_documents(index: dict, lineage: dict) -> None:
+    """The documents export copies are checked against their schemas before anything is written."""
+    check_document("episode-index", index, "index.json")
+    check_document("lineage", lineage, "lineage.json")
+
+
+def export(source: Path, destination: Path) -> dict:
+    _load_checks().validate(source)
     index_path = source / "index.json"
     index = json.loads(index_path.read_text(encoding="utf-8"))
     if index.get("schema_version") != 1 or len(index.get("aggregate_results", [])) != 12:
         raise ValueError("export requires the complete 12-method evaluation index")
+    lineage_path = source / "lineage.json"
+    validate_export_documents(index, json.loads(lineage_path.read_text(encoding="utf-8")))
     destination.mkdir(parents=True, exist_ok=True)
     for entry in index["episodes"]:
         relative = Path(entry["path"])
@@ -48,19 +63,33 @@ def export(source: Path, destination: Path) -> dict:
 
 def main(argv=None):
     parser = argparse.ArgumentParser(description=__doc__)
-    parser.add_argument("stage", choices=["collect", "train", "ppo", "gates", "evaluate", "export", "readiness", "all"])
+    parser.add_argument("stage", choices=["collect", "train", "ppo", "gates", "evaluate", "export", "readiness", "import-evidence", "all"])
     parser.add_argument("--artifacts", type=Path, default=ROOT / "data" / "cache" / "science")
     parser.add_argument("--source", type=Path)
     parser.add_argument("--output", type=Path, default=ROOT / "data" / "derived")
     parser.add_argument("--model", default="qwen3.5:4b")
     parser.add_argument("--seeds", type=int, default=10)
+    parser.add_argument("--out", type=Path, default=ROOT, help="import-evidence: the root the documents are written under")
+    parser.add_argument("--offline", type=Path, help="import-evidence: a reflexmesh checkout at the pinned commit, read instead of the network")
+    parser.add_argument("--provenance", type=Path, default=ROOT / "docs" / "contracts" / "evidence-provenance.json")
     args = parser.parse_args(argv)
     if args.stage == "export":
         print(json.dumps(export(args.source or args.artifacts / "evaluation", args.output)))
         return 0
+    if args.stage == "import-evidence":
+        from core import evidence
+
+        try:
+            commits = {e["engine_commit"] for e in evidence.load_provenance(args.provenance)}
+            read = evidence.offline_reader(args.offline, commits.pop()) if args.offline else evidence.online_reader()
+            summary = evidence.import_evidence(args.provenance, args.out, read)
+        except ValueError as exc:
+            print(f"import-evidence: {exc}", file=sys.stderr)
+            return 1
+        print(json.dumps({"documents": summary["documents"], "out": str(args.out)}))
+        return 0
     if args.stage == "readiness":
         # computed from docs/contracts/catalog.md and the committed documents: no bake, no training stack
-        sys.path.insert(0, str(Path(__file__).resolve().parent))
         from core import readiness
 
         doc = readiness.compute(repo_root=ROOT, data_root=args.output.parent)

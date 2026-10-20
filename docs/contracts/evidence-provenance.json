@@ -1,0 +1,46 @@
+{
+  "schema": "neuraxis.evidence-provenance/v1",
+  "note": "Written by hand at the release; verified by tests/contracts/test_evidence_provenance.py and by python data-pipeline/run.py import-evidence.",
+  "documents": [
+    {
+      "contract": "research-summary",
+      "neuraxis_path": "data/derived/research.json",
+      "engine_repository": "fsantibanezleal/reflexmesh",
+      "engine_tag": "v0.01.002",
+      "engine_commit": "447cc0828b36d21d073f1277632bea2afdf3c344",
+      "engine_path": "docs/evaluation/corrected-results.json",
+      "engine_script": "scripts/export_science_report.py",
+      "sha256": "b77cb16ff8d4ff6bbee963ad38ad8a53b2140fd37acca455d46be3efc0ce8e51"
+    },
+    {
+      "contract": "benchmark-adequacy",
+      "neuraxis_path": "data/derived/benchmark-adequacy.json",
+      "engine_repository": "fsantibanezleal/reflexmesh",
+      "engine_tag": "v0.01.002",
+      "engine_commit": "447cc0828b36d21d073f1277632bea2afdf3c344",
+      "engine_path": "docs/evaluation/benchmark-adequacy.json",
+      "engine_script": "scripts/audit_benchmark_adequacy.py",
+      "sha256": "870dbc346e2b04472816f764e8ad2baf592dc602b4c2e735c791692fedda54b8"
+    },
+    {
+      "contract": "routing-study",
+      "neuraxis_path": "data/derived/semantic-routing-study/analysis.json",
+      "engine_repository": "fsantibanezleal/reflexmesh",
+      "engine_tag": "v0.01.002",
+      "engine_commit": "447cc0828b36d21d073f1277632bea2afdf3c344",
+      "engine_path": "artifacts/semantic-routing-study/analysis.json",
+      "engine_script": "scripts/study_semantic_routing.py",
+      "sha256": "2caa9039f64ba57e41d453b826eef3b9d30f8b02bde706a477da833f42b69d86"
+    },
+    {
+      "contract": "semantic-transfer-report",
+      "neuraxis_path": "data/derived/semantic-transfer/report.json",
+      "engine_repository": "fsantibanezleal/reflexmesh",
+      "engine_tag": "v0.01.002",
+      "engine_commit": "447cc0828b36d21d073f1277632bea2afdf3c344",
+      "engine_path": "artifacts/semantic-transfer-complete/report.json",
+      "engine_script": "scripts/audit_semantic_transfer.py",
+      "sha256": "643b20ae60be86e77b9c79ecf7e44c408217a23aa1f5d6749ddc250ae11f7b3a"
+    }
+  ]
+}
