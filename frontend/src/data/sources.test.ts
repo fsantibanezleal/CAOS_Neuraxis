@@ -81,6 +81,7 @@ const PREVIOUS: Record<string, string[][]> = {
   browser: [['neuraxis2026'], ['neuraxis2026', 'amershi2019'], ['neuraxis2026'], ['neuraxis2026']],
   pipeline: [['reflexmesh2026', 'ross2011', 'guo2017'], ['reflexmesh2026']],
   deployment: [['neuraxis2026'], ['reflexmesh2026'], ['neuraxis2026'], ['reflexmesh2026']],
+  reproducibility: [['neuraxis2026'], ['reflexmesh2026'], ['neuraxis2026']],
   design: [['reflexmesh2026'], ['agarwal2021', 'lu2024'], ['reflexmesh2026']],
   splits: [['ross2011', 'guo2017'], ['reflexmesh2026'], ['agarwal2021']],
   metrics: [['reflexmesh2026'], ['reflexmesh2026'], ['guo2017']],

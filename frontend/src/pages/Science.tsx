@@ -37,7 +37,7 @@ const groupsByPage: Record<string, SectionGroup[]> = {
     {
       id: 'product',
       label: { en: 'Product and evidence', es: 'Producto y evidencia' },
-      sections: ['browser', 'pipeline', 'deployment'],
+      sections: ['browser', 'pipeline', 'deployment', 'reproducibility'],
     },
   ],
   Experiments: [
