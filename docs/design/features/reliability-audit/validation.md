@@ -1,0 +1,17 @@
+# Adversarial validation: reliability audit
+
+For each requirement of [`requirements.md`](requirements.md), the check that tries to break it: what was planted or refuted, and the test that plants it. `scripts/check_sdd.py` fails when a requirement has no row here (or two), when a check is empty, and when a gate names a test that does not exist. The gates under `tests/adversarial/` and `frontend/src/adversarial/` are the planted-defect tests of the suite that follows this document; until a test exists the guard reports its row, and the names here are the ones that suite is to create.
+
+| requirement | adversarial check | gate |
+|---|---|---|
+| RA-001 | a CSV with an extra field and a quoted newline is analysed: the extra values and the physical source lines are exported and the valid checks still run | `tests/adversarial/test_reliability_audit.py::test_adversarial_a_malformed_csv_exports_rejections_without_aborting` |
+| RA-002 | a child table that references a rejected parent two tables away is planted: rejection propagates to a fixed point with no namespace collision | `tests/adversarial/test_reliability_audit.py::test_adversarial_rejection_propagates_to_a_fixed_point` |
+| RA-003 | a JSON exponent overflow and two independent workflow files that share a job name are planted: the first is rejected and the namespaces stay apart | `tests/adversarial/test_reliability_audit.py::test_adversarial_non_finite_values_and_shared_job_names` |
+| RA-004 | several owned runs are created and one is deleted: the history list restores each retained run and no deleted one | `frontend/src/adversarial/reliability-audit.test.ts::adversarial: the history list restores every owned run and only those` |
+| RA-005 | the authority expires while a run is open: polling stops, the inputs stay, recovery is explained and a fresh run needs an explicit action | `frontend/src/adversarial/reliability-audit.test.ts::adversarial: expired authority stops polling and never replays a submission` |
+| RA-006 | a cancelled run and an incomplete run are planted with all checks green: the input is not labelled passed | `frontend/src/adversarial/reliability-audit.test.ts::adversarial: an incomplete or cancelled run is never labelled passed` |
+| RA-007 | a delete and a retention sweep race a list and an export on the same run: ownership holds and no stale mutation applies | `tests/adversarial/test_reliability_audit.py::test_adversarial_concurrent_list_export_delete_and_retention` |
+| RA-008 | a release is installed whose dependency install fails: the active release and its interpreter are untouched and the rollback target still runs | `tests/adversarial/test_reliability_audit.py::test_adversarial_a_failed_dependency_install_leaves_the_active_release` |
+| RA-009 | a source byte of a copied operation study is changed: the operation check fails on the source provenance | `tests/adversarial/test_reliability_audit.py::test_adversarial_a_changed_operation_source_fails_the_operation_check` |
+| RA-010 | the first index request fails: the next tab asks again, and two concurrent tabs share one request | `frontend/src/adversarial/reliability-audit.test.ts::adversarial: a failed index load is retried and a concurrent load is shared` |
+| RA-011 | a finding that names a file absent from the input bundle is selected: the inspector keeps the path and says the file is absent, never another file's bytes | `frontend/src/adversarial/reliability-audit.test.ts::adversarial: a finding on an absent file shows absence` |

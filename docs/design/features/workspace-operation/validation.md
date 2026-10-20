@@ -1,0 +1,10 @@
+# Adversarial validation: workspace operation
+
+For each requirement of [`requirements.md`](requirements.md), the check that tries to break it: what was planted or refuted, and the test that plants it. `scripts/check_sdd.py` fails when a requirement has no row here (or two), when a check is empty, and when a gate names a test that does not exist. The gates under `tests/adversarial/` and `frontend/src/adversarial/` are the planted-defect tests of the suite that follows this document; until a test exists the guard reports its row, and the names here are the ones that suite is to create.
+
+| requirement | adversarial check | gate |
+|---|---|---|
+| WO-001 | a workspace request with no bearer token, and one with a wrong token, are refused and leave no effect | `tests/adversarial/test_workspace_operation.py::test_adversarial_a_workspace_request_without_the_token_is_refused` |
+| WO-002 | a workflow whose verified effect differs from its preview is planted: the interface shows the difference and not a pass | `frontend/src/adversarial/workspace-operation.test.ts::adversarial: an effect that differs from the preview is shown as a difference` |
+| WO-003 | reconciliation is requested with stale evidence and with an unrelated record: the interface refuses both and requires review | `frontend/src/adversarial/workspace-operation.test.ts::adversarial: stale or unrelated recovery evidence is refused` |
+| WO-004 | the application is started with no authentication setting and with an empty one: startup is refused each time | `tests/adversarial/test_workspace_operation.py::test_adversarial_startup_without_explicit_auth_is_refused` |
