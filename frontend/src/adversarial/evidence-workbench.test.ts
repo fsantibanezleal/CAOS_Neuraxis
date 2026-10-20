@@ -4,16 +4,11 @@
 // text-width function, and the measurements the gate compares.
 import { widestLabel } from '@fasl-work/caos-app-shell';
 import { createHash, webcrypto } from 'node:crypto';
-import katex from 'katex';
 import { afterEach, describe, expect, it, vi } from 'vitest';
 import { loadEpisode } from '../api/artifacts';
-import { CITATIONS } from '../data/citations';
 import type { ContentPage } from '../data/content.types';
-import { experiments } from '../data/experiments';
-import { implementation } from '../data/implementation';
-import { introduction } from '../data/introduction';
-import { methodology } from '../data/methodology';
 import { COPY } from '../i18n';
+import { KNOWN, PAGES, contentProblems } from './content-checks';
 import { hiddenReferences, scrollTraps, wideControls, widthCaps } from './css-checks';
 import { productCss, read } from './support';
 
@@ -22,26 +17,6 @@ const serve = (bytes: string) => {
   vi.stubGlobal('crypto', webcrypto);
   vi.stubGlobal('fetch', vi.fn(async () => new Response(bytes, { headers: { 'Content-Type': 'application/json' } })));
 };
-
-// ---- EW-003: a section's equations parse and its final references resolve
-const contentProblems = (pages: Record<string, ContentPage>, known: Set<string>) => {
-  const out: string[] = [];
-  for (const [name, page] of Object.entries(pages))
-    for (const s of page.sections) {
-      for (const eq of s.equations) {
-        try {
-          katex.renderToString(eq.tex, { throwOnError: true });
-        } catch {
-          out.push(`${name}/${s.id}: equation does not parse`);
-        }
-      }
-      if (s.refs.length === 0) out.push(`${name}/${s.id}: no final reference`);
-      for (const id of s.refs) if (!known.has(id)) out.push(`${name}/${s.id}: final reference ${id} is not defined`);
-    }
-  return out;
-};
-const PAGES = { introduction, methodology, implementation, experiments };
-const KNOWN = new Set(CITATIONS.map((c) => c.id));
 
 // ---- EW-004: the evidence view is presented as 240 pairs only when the index holds every method-case pair
 type Entry = { method_id: string; case_id: string; variant: string; seed: number };
