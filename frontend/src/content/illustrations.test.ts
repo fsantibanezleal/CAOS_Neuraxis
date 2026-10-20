@@ -2,25 +2,11 @@
 // coloured by the shell's theme tokens only, bilingual labels at size 22 or more, the pain animated with its reduced-motion block.
 import { existsSync, readFileSync } from 'node:fs';
 import { describe, expect, it } from 'vitest';
+import { attr, colourProblems, labelProblems } from './illustrations.checks';
 
 const NAMES = ['pain', 'situation', 'proposal'] as const;
 const dir = new URL('../../public/executive/', import.meta.url);
-const shellCss = readFileSync(
-  new URL('../../node_modules/@fasl-work/caos-app-shell/styles.css', import.meta.url),
-  'utf8',
-);
-const defined = new Set([...shellCss.matchAll(/(--color-[a-z0-9-]+)\s*:/g)].map((m) => m[1]));
-
 const load = (name: string) => readFileSync(new URL(`${name}.svg`, dir), 'utf8');
-const attr = (tag: string, name: string) =>
-  new RegExp(String.raw`(?:^|\s)${name}\s*=\s*"([^"]*)"`).exec(tag)?.[1];
-const tags = (svg: string) => [...svg.matchAll(/<([a-zA-Z][\w:-]*)\b([^>]*?)\/?>/g)];
-const texts = (svg: string) =>
-  [...svg.matchAll(/<text\b([^>]*)>([\s\S]*?)<\/text>/g)].map((m) => ({
-    open: m[1],
-    body: m[2].replace(/<[^>]+>/g, ''),
-  }));
-
 describe.each(NAMES)('the %s illustration', (name) => {
   it('exists and parses with a viewBox, a role, an English aria-label and a title', () => {
     expect(existsSync(new URL(`${name}.svg`, dir))).toBe(true);
@@ -35,35 +21,11 @@ describe.each(NAMES)('the %s illustration', (name) => {
   });
 
   it('colours only by theme tokens, none or currentColor, and every token exists in the shell', () => {
-    const svg = load(name);
-    const ok = /^(none|currentColor|var\((--color-[a-z0-9-]+)\))$/;
-    for (const [, tag, rest] of tags(svg)) {
-      for (const p of ['fill', 'stroke']) {
-        const v = attr(rest, p);
-        if (v === undefined) continue;
-        expect(v, `<${tag} ${p}="${v}">`).toMatch(ok);
-      }
-    }
-    expect(svg).not.toMatch(/#[0-9a-fA-F]{3,8}\b|rgba?\(|hsla?\(/);
-    for (const m of svg.matchAll(/var\((--color-[a-z0-9-]+)\)/g)) {
-      expect(defined.has(m[1]), `${m[1]} is not defined by the shell`).toBe(true);
-    }
+    expect(colourProblems(load(name))).toEqual([]);
   });
 
   it('labels: every text has data-lang en or es, the sets match, size 22 or more, no font-family', () => {
-    const all = texts(load(name));
-    expect(all.length).toBeGreaterThan(6);
-    const by: Record<string, string[]> = { en: [], es: [] };
-    for (const t of all) {
-      const lang = attr(t.open, 'data-lang');
-      expect(['en', 'es'], `text "${t.body}"`).toContain(lang);
-      by[lang as string].push(t.body);
-      expect(Number(attr(t.open, 'font-size')), `text "${t.body}"`).toBeGreaterThanOrEqual(22);
-      expect(t.open).not.toMatch(/font-family/);
-      expect(t.body.trim().length).toBeGreaterThan(0);
-      expect(t.body).not.toMatch(/[\u2014\u2192]/);
-    }
-    expect(by.en.length).toBe(by.es.length);
+    expect(labelProblems(load(name))).toEqual([]);
   });
 
   it('has no chart, image, link or event attribute, and no font-family at all', () => {

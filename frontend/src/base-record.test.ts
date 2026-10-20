@@ -1,6 +1,7 @@
 // The product's record of the base it follows (ADR-0078): identity, template release, deploy place, one version source.
-import { readFileSync } from 'node:fs';
+import { readFileSync, readdirSync } from 'node:fs';
 import { describe, expect, it } from 'vitest';
+import { deployPlaceProblems, templateRecordProblems } from './base-record.checks';
 
 const read = (path: string) => readFileSync(new URL(`../../${path}`, import.meta.url), 'utf8');
 
@@ -27,13 +28,16 @@ describe('the base record', () => {
   });
 
   it('.template-version records the template release in the template format', () => {
-    expect(read('.template-version').trim()).toMatch(
-      /^CAOS_PRODUCT_TEMPLATE (\d+\.\d{2}\.\d{3}) \(tag v\1\)$/,
-    );
+    expect(templateRecordProblems(read('.template-version'))).toEqual([]);
   });
 
   it('deploy/TARGET is the one deploy place', () => {
-    expect(read('deploy/TARGET').trim()).toBe('vps');
+    expect(
+      deployPlaceProblems(
+        read('deploy/TARGET'),
+        readdirSync(new URL('../../deploy/', import.meta.url)),
+      ),
+    ).toEqual([]);
   });
 
   it('the frontend version follows VERSION and the shell is pinned exactly', () => {

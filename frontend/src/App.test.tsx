@@ -8,6 +8,7 @@ import { renderToString } from 'react-dom/server';
 import { MemoryRouter } from 'react-router-dom';
 import { describe, expect, it } from 'vitest';
 import App from './App';
+import { headerOrderProblems } from './App.checks';
 
 const html = (path: string) =>
   renderToString(
@@ -34,19 +35,7 @@ describe('the route table', () => {
   });
 
   it('the header lists the six routes in the standard order, the App leftmost', () => {
-    const page = html('/introduction');
-    const order = [
-      '/app',
-      '/introduction',
-      '/methodology',
-      '/implementation',
-      '/experiments',
-      '/benchmark',
-    ];
-    const hrefs = [...page.matchAll(/<a [^>]*href="(\/[a-z]*)(?:[?#][^"]*)?"/g)].map((m) => m[1]);
-    const seen = order.map((p) => hrefs.indexOf(p));
-    expect(seen.every((i) => i >= 0)).toBe(true);
-    expect([...seen].sort((a, b) => a - b)).toEqual(seen);
+    expect(headerOrderProblems(html('/introduction'))).toEqual([]);
   });
 
   it('the root and the catch-all render the shell landing, and /app renders the App', () => {

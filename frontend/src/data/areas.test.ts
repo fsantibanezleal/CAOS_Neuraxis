@@ -10,6 +10,7 @@ import { implementation } from './implementation';
 import { introduction } from './introduction';
 import { methodology } from './methodology';
 import { glossaryEntries } from '../pages/Science';
+import { reproducibilityProblems } from './areas.checks';
 
 const pages: Array<[string, ContentPage]> = [
   ['/introduction', introduction],
@@ -46,16 +47,7 @@ describe('every section declares its area', () => {
     expect(areas).toContain('reproducibility');
     const reproducibility = implementation.sections.filter((s) => s.area === 'reproducibility');
     expect(reproducibility).toHaveLength(1);
-    const [section] = reproducibility;
-    for (const lang of LANGS) {
-      expect(
-        section.paragraphs.filter((p) => words(p[lang]) >= 40).length,
-        lang,
-      ).toBeGreaterThanOrEqual(2);
-      expect(section.limit[lang].length, lang).toBeGreaterThan(20);
-      expect((section.steps ?? []).length, lang).toBeGreaterThanOrEqual(4);
-    }
-    expect(section.table?.rows.length ?? 0).toBeGreaterThanOrEqual(4);
+    expect(reproducibilityProblems(reproducibility[0])).toEqual([]);
   });
 
   it('adversarial: only Methodology carries a kind', () => {

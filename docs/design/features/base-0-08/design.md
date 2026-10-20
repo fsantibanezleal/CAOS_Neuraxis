@@ -55,5 +55,5 @@ comma and a no-break space before a percent sign.
 ## What is not here
 
 The Focus mode of the App on the stage views (shell 0.16.0), the Methodology page at its floors and the Experiments and Benchmark pages at their
-floors are other units of the sizing and are not in this tree. The browser simulation's parity with the committed episode of the same case is a
-boundary of the sizing with no test yet.
+floors are other units of the sizing and are not in this tree. Decision parity of the browser simulation with the committed episode is not a property of the product (sizing boundary B13, decided
+2026-10-20): the simulation is its own lane, and requirement BR-036 holds that lane honesty.

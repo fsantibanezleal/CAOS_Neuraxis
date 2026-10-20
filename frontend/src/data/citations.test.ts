@@ -16,6 +16,7 @@ import { implementation } from './implementation';
 import { introduction } from './introduction';
 import { methodology } from './methodology';
 import { paragraphSources } from './paragraph-sources';
+import { duplicateIds, undefinedIds, unreferencedIds } from './citations.checks';
 
 const pageModules = {
   introduction: INTRODUCTION_CITATIONS,
@@ -44,7 +45,7 @@ const referencingText = sourceFiles(srcRoot)
 
 describe('citations', () => {
   it('every citation id is unique', () => {
-    expect(ids.filter((id, i) => ids.indexOf(id) !== i)).toEqual([]);
+    expect(duplicateIds(ids)).toEqual([]);
   });
 
   it('every citation carries a label, a text and a DOI or a URL', () => {
@@ -56,18 +57,12 @@ describe('citations', () => {
   });
 
   it('every id a page section or a paragraph names is defined', () => {
-    const defined = new Set(ids);
-    for (const [name, page] of Object.entries(pages)) {
-      const missing = [...used(page)].filter((id) => !defined.has(id));
-      expect(missing, name).toEqual([]);
-    }
+    for (const [name, page] of Object.entries(pages))
+      expect(undefinedIds(ids, used(page)), name).toEqual([]);
   });
 
   it('no citation is defined that nothing references', () => {
-    const unreferenced = ids.filter(
-      (id) => !referencingText.includes(`'${id}'`) && !referencingText.includes(`"${id}"`),
-    );
-    expect(unreferenced).toEqual([]);
+    expect(unreferencedIds(ids, referencingText)).toEqual([]);
   });
 
   it('the page modules hold only what their page uses, and no other page uses it (disjoint write scopes)', () => {

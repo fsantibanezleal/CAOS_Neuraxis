@@ -17,6 +17,7 @@ import { introduction } from '../data/introduction';
 import { methodology } from '../data/methodology';
 import { IntroductionPage } from './Introduction';
 import Science, { SectionContent } from './Science';
+import { executiveOpenProblems } from './documentation.checks';
 
 const wrap = (node: ReactNode) =>
   renderToString(
@@ -37,11 +38,7 @@ describe('the Introduction: two views, the executive first', () => {
   });
 
   it('refutes: no equation, glossary or section is in the page while the executive view is open', () => {
-    const html = wrap(<IntroductionPage data={executive} base="/" />);
-    expect(html).not.toContain('data-glossary');
-    expect(html).not.toContain('class="equation');
-    expect(html).not.toContain('data-doc-section');
-    expect(html).not.toContain('data-area');
+    expect(executiveOpenProblems(wrap(<IntroductionPage data={executive} base="/" />))).toEqual([]);
   });
 
   it('the technical view lists the five areas as its topics and opens on the first', () => {
