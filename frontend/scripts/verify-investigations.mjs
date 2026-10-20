@@ -12,7 +12,7 @@ try {
     const page = await browser.newPage({viewport:{width,height:900}});
     page.on('pageerror', e => errors.push({width,theme,lang,message:e.message}));
     await page.addInitScript(({theme,lang}) => { localStorage.setItem('caos.theme',theme); localStorage.setItem('caos.lang',lang); },{theme,lang});
-    await page.goto(`${base}/?mode=investigations&suite=semantic_transfer&incident=D01&controller=M12&compare=M09`);
+    await page.goto(`${base}/app?mode=investigations&suite=semantic_transfer&incident=D01&controller=M12&compare=M09`);
     await expect(page.locator('.invest-result')).toHaveCount(2,{timeout:20000});
     for (const family of ['D01','D02','D03','D04','D05','D06','D07','D08']) {
       await page.getByRole('combobox', {name:lang==='en'?'Software incident':'Incidente de software',exact:true}).selectOption(family);

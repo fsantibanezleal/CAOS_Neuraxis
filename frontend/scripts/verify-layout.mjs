@@ -34,7 +34,7 @@ for (const viewport of sizes) for (const theme of ['light', 'dark']) for (const 
     localStorage.setItem('caos.theme', theme);
     localStorage.setItem('caos.lang', lang);
   }, { theme, lang });
-  await page.goto(base);
+  await page.goto(`${base}/app`);
   for (const route of routes) {
     console.log(JSON.stringify({ route, viewport, theme, lang, phase: 'navigation' }));
     // Exercise navigation out of fixed mode, not only direct URL loads.
@@ -101,7 +101,7 @@ for (const viewport of sizes) for (const theme of ['light', 'dark']) for (const 
     if (lang === 'en' && [360, 1600].includes(viewport.width)) await page.screenshot({ path: `${qaRoot}/layout-${route.slice(1)}-${viewport.width}-${theme}-end.png` });
     checks.push({ route, viewport, theme, lang, verticalScrollVerified: true, finalSourceVisible: true, ...before });
   }
-  await page.locator('.site-header .nav-link[href="/"]').click();
+  await page.locator('.site-header .nav-link[href="/app"]').click();
   await expect(page.locator('.op-layout')).toBeVisible();
   await expect.poll(() => page.evaluate(() => scrollY)).toBe(0);
   await expect(page.locator('.app-shell')).toHaveClass(/contain/);

@@ -2,9 +2,10 @@ import { readFileSync,writeFileSync,mkdirSync } from 'node:fs';
 import { fileURLToPath } from 'node:url';
 import vm from 'node:vm';
 import ts from 'typescript';
-const source=fileURLToPath(new URL('./src/data/',import.meta.url));
-const destination=fileURLToPath(new URL('../docs/theory/',import.meta.url));mkdirSync(destination,{recursive:true});
-function load(name){const code=ts.transpileModule(readFileSync(`${source}/${name}.ts`,'utf8'),{compilerOptions:{module:ts.ModuleKind.CommonJS,target:ts.ScriptTarget.ES2022}}).outputText;const exports={};vm.runInNewContext(code,{exports,require:(name)=>{if(name!=='./registry')throw Error('Unexpected content dependency');return {bi:(en,es)=>({en,es})};}});return exports;}
+const source=fileURLToPath(new URL('../src/data/',import.meta.url));
+const destination=fileURLToPath(new URL('../../docs/theory/',import.meta.url));mkdirSync(destination,{recursive:true});
+const version=readFileSync(fileURLToPath(new URL('../../VERSION',import.meta.url)),'utf8').trim();
+function load(name){const code=ts.transpileModule(readFileSync(`${source}/${name}.ts`,'utf8'),{compilerOptions:{module:ts.ModuleKind.CommonJS,target:ts.ScriptTarget.ES2022}}).outputText;const exports={};vm.runInNewContext(code,{exports,__APP_VERSION__:version,require:(dep)=>{if(dep==='./registry')return {bi:(en,es)=>({en,es})};if(dep.startsWith('./citations/'))return load(dep.slice(2));throw Error('Unexpected content dependency');}});return exports;}
 const references=load('citations').CITATIONS;
 const pages=['introduction','methodology','implementation','experiments'];
 const index=['# Theory and experimental methods','','The same authored scientific content powers the bilingual application and these reviewable documents. Mathematical definitions, evidence limits and source links are preserved. Measured values remain in canonical artifacts rather than copied into prose.',''];

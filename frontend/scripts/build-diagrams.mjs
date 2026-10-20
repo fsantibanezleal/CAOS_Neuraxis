@@ -1,6 +1,6 @@
 import { writeFileSync,mkdirSync } from 'node:fs';
 import { fileURLToPath } from 'node:url';
-const destination=fileURLToPath(new URL('./public/svg/tech/',import.meta.url));mkdirSync(destination,{recursive:true});
+const destination=fileURLToPath(new URL('../public/svg/tech/',import.meta.url));mkdirSync(destination,{recursive:true});
 const diagrams=[
 ['01-the-app','A persistent software-control loop','Un ciclo persistente de control',[
 ['Observed workspace','Entorno observado','reflexmesh/environments/software.py','files / processes / local HTTP','archived observations','web'],['Causal state','Estado causal','reflexmesh/controller.py','resource revisions + pending effects','no evaluator-only truth','eng'],['Policy selection','Selección de política','reflexmesh/policies/','M01 ... M12; act / wait / delegate','typed proposals only','eng'],['Admission broker','Ejecutor con guardas','rust/core.rs','capability + revision + cancellation','recheck before effects','gate'],['Effect supervision','Supervisión de efectos','reflexmesh/effectors.py','registered arguments; verify outcome','unknown is not success','gate'],['Evidence and UI','Evidencia e interfaz','src/pages/Workbench.tsx','timeline + resources + predictions','selected-case readouts','store']]],

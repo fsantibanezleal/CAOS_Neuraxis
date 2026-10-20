@@ -11,7 +11,7 @@ for (const width of [1600, 360]) for (const theme of ['light', 'dark']) for (con
   const page = await browser.newPage({ viewport: { width, height: 900 } });
   page.on('pageerror', e => errors.push({ width, theme, lang, error: e.message }));
   await page.addInitScript(({ theme, lang }) => { localStorage.setItem('caos.theme', theme); localStorage.setItem('caos.lang', lang); }, { theme, lang });
-  await page.goto(base);
+  await page.goto(`${base}/app`);
   await expect(page.locator('.op-run')).toBeEnabled({ timeout: 15000 });
   await expect(page.locator('.op-node')).toHaveCount(9);
   await page.getByRole('button', { name: lang === 'en' ? 'Inspect input files' : 'Inspeccionar archivos' }).click();

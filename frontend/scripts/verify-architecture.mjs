@@ -12,7 +12,7 @@ try {
     const page = await browser.newPage({ viewport: { width, height: 900 } });
     page.on('pageerror', e => errors.push(e.message));
     await page.addInitScript(({ theme, lang }) => { localStorage.setItem('caos.theme', theme); localStorage.setItem('caos.lang', lang); }, { theme, lang });
-    await page.goto(base);
+    await page.goto(`${base}/app`);
     const trigger = page.getByRole('button', { name: /Architecture \/|Arquitectura \// });
     await trigger.click();
     const modal = page.getByRole('dialog');

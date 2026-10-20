@@ -16,7 +16,7 @@ for (const { language, theme, viewport } of matrix) {
     const page = await browser.newPage({ viewport, colorScheme: theme });
     const errors = [];
     page.on('pageerror', (error) => errors.push(error.message));
-    await page.goto(base);
+    await page.goto(`${base}/app`);
     await page.evaluate(({ language, theme }) => {
       localStorage.setItem('caos.lang', language);
       localStorage.setItem('caos.theme', theme);

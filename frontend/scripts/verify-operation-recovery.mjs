@@ -42,7 +42,7 @@ for (const width of [1600, 360]) for (const theme of ['light', 'dark']) for (con
     throw new Error('Execution capacity remained unavailable');
   }
   try {
-    await page.goto(base);
+    await page.goto(`${base}/app`);
     await expect(page.locator('.op-run')).toBeEnabled({ timeout: 20000 });
     await startRun();
     await page.locator('input[type=file]').first().setInputFiles([

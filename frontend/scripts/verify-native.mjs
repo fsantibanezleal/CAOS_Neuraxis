@@ -14,7 +14,7 @@ const errors=[];
 page.on('pageerror', e=>errors.push(e.message));
 try {
   await page.addInitScript(()=>localStorage.setItem('caos.lang','en'));
-  await page.goto(`${base}/?mode=investigations&suite=core&incident=C01&controller=M01&compare=M12&condition=nominal&seed=40000#local-session=${encodeURIComponent(token)}`);
+  await page.goto(`${base}/app?mode=investigations&suite=core&incident=C01&controller=M01&compare=M12&condition=nominal&seed=40000#local-session=${encodeURIComponent(token)}`);
   const fresh=page.getByRole('region',{name:'Fresh local investigation',exact:true});
   await expect(fresh.getByRole('button',{name:'Run selected controller',exact:true})).toBeEnabled();
   const start=page.waitForResponse(r=>r.url().endsWith('/api/run')&&r.request().method()==='POST');

@@ -8,7 +8,7 @@ import uvicorn
 from reflexmesh.effectors import ProcessTemplate
 from reflexmesh.processes import worker_python
 
-root = Path(__file__).resolve().parent
+root = Path(__file__).resolve().parents[1]  # the frontend directory (this script lives in frontend/scripts)
 # A test-only source API overlay keeps the installed evaluation wheel untouched.
 # It changes two modules in this disposable process, never files in site-packages.
 if '--source-api' in sys.argv:

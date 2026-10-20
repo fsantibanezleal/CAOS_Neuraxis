@@ -58,13 +58,13 @@ Gate: tests/test_application.py::test_product_has_no_installable_engine
 R-004 WHEN canonical trace bytes or identity differ, THE browser SHALL reject replay.
 Gate: frontend/src/test/artifact-integrity.test.ts
 R-005 WHILE viewing supported routes, THE interface SHALL fit the viewport in both languages and themes.
-Gate: frontend/verify-browser.mjs
+Gate: frontend/scripts/verify-browser.mjs
 R-006 WHEN deep scientific content is visited, THE content gate SHALL inspect the rendered methods and equations.
-Gate: frontend/verify-content.mjs
+Gate: frontend/scripts/verify-content.mjs
 R-007 WHEN a workspace recipe is executed, THE workbench SHALL display actual file evidence and receipts.
-Gate: frontend/verify-workspace.mjs
+Gate: frontend/scripts/verify-workspace.mjs
 R-008 WHEN an unknown effect is reconciled, THE workbench SHALL require current evidence and operator review.
-Gate: frontend/verify-recovery.mjs
+Gate: frontend/scripts/verify-recovery.mjs
 R-009 WHEN a deployment archive is invalid, THE installer SHALL reject it before replacing the active release.
 Gate: tests/test_static_deploy.py
 R-010 WHEN canonical evidence is packaged, THE package builder SHALL validate the complete trace matrix.
@@ -76,7 +76,7 @@ Gate: scripts/check_artifacts.py
 R-013 WHEN semantic-transfer results are packaged, THE product SHALL verify all 1,536 episode hashes, identities and lineage before release.
 Gate: scripts/check_semantic_transfer.py
 R-014 WHEN the default task route is displayed, THE interface SHALL identify its deterministic ReadyPolicy and distinguish it from learned-controller evidence.
-Gate: frontend/verify-benchmark.mjs
+Gate: frontend/scripts/verify-benchmark.mjs
 ```
 
 Feature convergence lives under [features](features/). Scientific conclusions are in [corrected results](../evaluation/corrected-results.md).

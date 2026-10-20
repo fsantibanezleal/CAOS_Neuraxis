@@ -47,7 +47,7 @@ try {
           const compound = /Compound|compuestas/.test(title);
           if (bibliography) {
             await expect(leaf.locator('[data-doc-section]').first()).toBeVisible();
-            expect(await leaf.locator('.th-refs a').count()).toBeGreaterThan(2);
+            expect(await leaf.locator('.th-refs a, .caos-doc-references a').count()).toBeGreaterThan(2);
           } else if (compound) {
             await expect(leaf.locator('select option')).toHaveCount(36);
             await expect(leaf.locator('table tbody tr')).toHaveCount(9);

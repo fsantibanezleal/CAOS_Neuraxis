@@ -13,7 +13,7 @@ try {
     });
     await page.addInitScript(lang => localStorage.setItem('caos.lang', lang), lang);
     try {
-      await page.goto(base);
+      await page.goto(`${base}/app`);
       await expect(page.locator('.op-run')).toBeEnabled();
       await page.locator('input[type=file]').first().setInputFiles({ name: 'release-manifest.json', mimeType: 'application/json', buffer: Buffer.from(JSON.stringify({ 'missing.py': 'a'.repeat(64) })) });
       await expect(page.locator('.op-file-content strong')).toHaveText('input/release-manifest.json');

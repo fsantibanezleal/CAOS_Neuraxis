@@ -26,7 +26,7 @@ try {
    await expect(tabs.last()).toHaveAttribute('aria-selected','true');
    const bibliography=tabs.filter({hasText:lang==='en'?'Bibliography':'Bibliografía'});
    await bibliography.click();
-   await expect(root.locator('[role="tabpanel"]:visible .th-refs a').first()).toBeVisible();
+   await expect(root.locator('[role="tabpanel"]:visible .th-refs a, [role="tabpanel"]:visible .caos-doc-references a').first()).toBeVisible();
    await tabs.first().click();
    const nested=root.locator('[role="tabpanel"]:visible [role="tablist"]').first();
    if(await nested.count()) {
