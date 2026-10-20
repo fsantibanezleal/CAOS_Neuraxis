@@ -1,10 +1,10 @@
 import type { Citation } from '@fasl-work/caos-app-shell';
+declare const __APP_VERSION__: string; // VERSION, injected at build (vite.config.ts)
 export const CITATIONS: Citation[] = [
   {
     id: 'neuraxis2026',
     label: 'Neuraxis implementation (2026)',
-    citation:
-      'Neuraxis. Product implementation and measured operation records, release 0.02.006. Source repository access requires authorization; measured artifacts are available in Experiments.',
+    citation: `Neuraxis. Product implementation and measured operation records, release ${__APP_VERSION__}. Source repository access requires authorization; measured artifacts are available in Experiments.`,
     url: 'https://github.com/fsantibanezleal/CAOS_Neuraxis',
   },
   {
@@ -12,7 +12,7 @@ export const CITATIONS: Citation[] = [
     label: 'reflexmesh 0.1.1',
     citation:
       'Santibáñez-Leal F. reflexmesh 0.1.1: native software-control runtime, corrected evaluation and semantic-transfer evidence (2026).',
-    url: 'https://github.com/fsantibanezleal/reflexmesh/tree/v0.01.001',
+    url: 'https://github.com/fsantibanezleal/reflexmesh/releases',
   },
   {
     id: 'amershi2019',

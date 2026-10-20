@@ -1,0 +1,13 @@
+{
+  "name": "Neuraxis",
+  "slug": "neuraxis",
+  "tagline": {
+    "en": "A scientific workbench and local software-control application for fast learned policies, real tools and asynchronous language-model coordination, on measured evidence.",
+    "es": "Un banco de trabajo científico y una aplicación local de control de software para políticas aprendidas rápidas, herramientas reales y coordinación asíncrona de modelos de lenguaje, sobre evidencia medida."
+  },
+  "repo": "https://github.com/fsantibanezleal/CAOS_Neuraxis",
+  "visibility": "private",
+  "license": "Apache-2.0",
+  "holder": "Felipe Santibáñez-Leal",
+  "year": 2026
+}

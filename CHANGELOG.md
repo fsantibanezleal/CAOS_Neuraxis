@@ -1,11 +1,11 @@
 # Changelog
 
-## 0.02.008 - 2026-10-08
+## [0.02.008] - 2026-10-08
 
 - Report the installed native engine version in service configuration, fresh task receipts and operation-study metadata.
 - Regenerate the complete 36-run native operation study against reflexmesh 0.1.2 and the current source. Earlier operation evidence remains preserved in Git; the core and semantic learned-controller matrices are unchanged.
 
-## 0.02.007 - 2026-10-08
+## [0.02.007] - 2026-10-08
 
 - Compare matched semantic controllers, capability descriptions, file effects and goal checks in App Investigations. Share selections and retain fresh authenticated runs separately.
 - Adopt exact shared shell 0.9.3, inline bilingual architecture and shared console/document layouts, removing local shell overrides.
@@ -13,7 +13,7 @@
 - Update patched frontend dependencies; preserve all frozen negative research results.
 
 
-## 0.02.006 - 2026-09-28
+## [0.02.006] - 2026-09-28
 
 ### Added
 
@@ -27,7 +27,7 @@
   local setup checkpoint tag, update the pinned native engine, and make the browser research gate
   exercise the actual routing result at phone and desktop widths in both languages.
 
-## 0.02.005 - 2026-09-27
+## [0.02.005] - 2026-09-27
 
 ### Fixed
 
@@ -35,25 +35,25 @@
 - Give long mobile topic rows visible touch and keyboard controls; preserve document scrolling and full-width rail layouts.
 - Keep per-section inline citations and references while removing redundant full bibliography lists below each section.
 
-## 0.02.004 - 2026-09-27
+## [0.02.004] - 2026-09-27
 
 ### Fixed
 
 - Make overflowing scientific and benchmark tabs visibly navigable on desktop and phone; keep the focused tab in view when navigating by keyboard.
 - Exercise actual pointer/touch navigation to Bibliography across both languages, themes and supported viewport sizes.
 
-## 0.02.003 - 2026-09-26
+## [0.02.003] - 2026-09-26
 
 - Lead completed task runs with their actual findings or accepted outputs while keeping the execution map and decision journal available for inspection.
 - Restore vertical source-file lines and accurate finding-line navigation in the file viewer; verify both desktop and phone behavior in English and Spanish.
 - Format investigation and benchmark measurements using the selected language rather than the browser's regional default.
 
-## 0.02.002 - 2026-09-26
+## [0.02.002] - 2026-09-26
 
 - Keep session history cleared when an older request completes after an expired-session response. The browser regression deliberately delivers that stale response late.
 - Complete the previously open release and live-recovery validation gate with source-bound evidence.
 
-## 0.02.001 - 2026-09-24
+## [0.02.001] - 2026-09-24
 
 - Keep all session-owned runs selectable and deletable; recover expired sessions without replaying uncertain submissions. Preserve cached evidence and mark incomplete verification explicitly.
 - Handle extra CSV values and physical multiline locations, propagate rejected parent references, scope table/workflow names, and reject JSON numeric overflow.
@@ -61,7 +61,7 @@
 - Isolate deployment interpreters per release, pin the measured dependency set and require exact source-commit health checks.
 - Regenerate the 36 operation experiments from the corrected analyzer; preserve all 19,488 frozen controller episodes.
 
-## 0.02.000 - 2026-09-24
+## [0.02.000] - 2026-09-24
 
 - Replace the default simulation with native source audit, CSV reconciliation and release-verification tasks on supplied files, including immutable inputs, findings, accepted outputs, receipts, cancellation, export and deletion.
 - Add bounded session-owned operation service, reproducible systemd/nginx deployment and local composition without account credentials.
@@ -79,7 +79,7 @@
 - Local authenticated execution API, explicit replay/browser/native lanes and provenance inspection.
 - Deep neuroscience, machine learning, reinforcement learning, systems and benchmark research documentation.
 
-## 0.01.000 - 2026-09-20
+## [0.01.000] - 2026-09-20
 
 ### Added
 
