@@ -1,1 +1,3 @@
 - The static builder refuses an archive member with no manifest digest and names the file (SR-001); the plant asserts the refusal.
+- The template version, the engine tag and the checkpoint release are no longer written as literals in code: the planted records read .template-version, the provenance test derives the tag from the reflexmesh pin, the Implementation page names the setup scripts.
+- The operations corpus (36 runs) is re-recorded with the current evaluator: every status, node state, verification result and native receipt count is unchanged; the index records the new evaluator digest.
