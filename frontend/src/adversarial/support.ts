@@ -1,7 +1,7 @@
 // Shared helpers of the planted-defect suite (ADR-0075): read the committed tree, parse the product CSS, render in a language.
 // Every plant works on a copy held in memory; nothing here writes to disk.
+import { useLangStore } from '@fasl-work/caos-app-shell';
 import { readFileSync } from 'node:fs';
-import { vi } from 'vitest';
 
 const repo = new URL('../../../', import.meta.url);
 export const read = (path: string) => readFileSync(new URL(path, repo), 'utf8');
@@ -47,22 +47,18 @@ export function parseCss(css: string): CssRule[] {
 export const productCss = () => read('frontend/src/neuraxis.css') + '\n' + read('frontend/src/operations.css');
 
 /**
- * Renders a component on the server in a fresh module graph with the stored language set to `lang`. The shell reads the language
- * from localStorage when it loads, and a server render always shows that first value, so a language is chosen by loading the
- * modules again after the storage answers. `prepare` runs after the reset and before the render, in the same graph (to preset
- * localSession); `load` imports the component.
+ * Renders a component on the server with the shell language set to `lang`. A server render reads the language from the store's
+ * initial state (the shell loads it once from localStorage), so the initial state is set here and put back afterwards.
+ * `prepare` runs before the render (to preset localSession); `load` imports the component.
  */
 export async function renderIn(
   lang: 'en' | 'es',
   load: () => Promise<{ default: unknown }>,
   options: { props?: Record<string, unknown>; route?: string; prepare?: () => Promise<void> } = {},
 ): Promise<string> {
-  vi.resetModules();
-  vi.stubGlobal('localStorage', {
-    getItem: (key: string) => (key === 'caos.lang' ? lang : null),
-    setItem: () => undefined,
-    removeItem: () => undefined,
-  });
+  const initial = useLangStore.getInitialState() as { lang: 'en' | 'es' };
+  const before = initial.lang;
+  initial.lang = lang;
   try {
     await options.prepare?.();
     const [{ createElement }, { renderToString }, { MemoryRouter }, mod] = await Promise.all([
@@ -79,6 +75,6 @@ export async function renderIn(
       ),
     );
   } finally {
-    vi.unstubAllGlobals();
+    initial.lang = before;
   }
 }
