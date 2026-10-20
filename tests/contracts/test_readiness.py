@@ -90,11 +90,10 @@ def test_catalog_rows_in_order_without_readiness():
 def test_the_committed_build_says_what_is_real():
     doc = readiness.compute(repo_root=ROOT)
     states = {e["id"]: (e["state"], e["provenance"]) for e in doc["contracts"]}
-    for rid in ("research-summary", "benchmark-adequacy", "routing-study", "semantic-transfer-report"):
-        assert states[rid] == ("provider", "fixture"), rid
     for rid in STATIC_MISSING:
         assert states[rid] == ("missing", None), rid
-    for rid in ("episode-index", "episode", "lineage", "semantic-transfer-index", "operation-index", "operation-run"):
+    for rid in ("episode-index", "episode", "lineage", "research-summary", "benchmark-adequacy", "routing-study",
+                "semantic-transfer-index", "semantic-transfer-report", "operation-index", "operation-run"):
         assert states[rid] == ("available", "real"), rid
 
 
