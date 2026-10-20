@@ -1,0 +1,16 @@
+# Adversarial validation: evidence workbench
+
+For each requirement of [`requirements.md`](requirements.md), the check that tries to break it: what was planted or refuted, and the test that plants it. `scripts/check_sdd.py` fails when a requirement has no row here (or two), when a check is empty, and when a gate names a test that does not exist. The gates under `tests/adversarial/` and `frontend/src/adversarial/` are the planted-defect tests of the suite that follows this document; until a test exists the guard reports its row, and the names here are the ones that suite is to create.
+
+| requirement | adversarial check | gate |
+|---|---|---|
+| EW-001 | one cell of the method, case, variant and seed matrix is removed from a copy of the index: the artifact check refuses the export as incomplete | `tests/adversarial/test_evidence_workbench.py::test_adversarial_an_index_missing_a_cell_fails_the_artifact_check` |
+| EW-002 | a trace whose raw bytes differ from its digest, and a trace whose reference identity differs from the index entry, are each refused by the viewer | `frontend/src/adversarial/evidence-workbench.test.ts::adversarial: a trace with changed bytes or a wrong identity is refused` |
+| EW-003 | a section whose equation does not parse and a section with no reachable final reference are planted: the content structure check reports each | `frontend/src/adversarial/evidence-workbench.test.ts::adversarial: an unparsable equation and a missing final reference are reported` |
+| EW-004 | the canonical results are planted with one method-family pair removed: the evidence view is not presented as the 240 pairs | `frontend/src/adversarial/evidence-workbench.test.ts::adversarial: results with one pair missing are not presented as 240` |
+| EW-005 | a control wider than a 360 px viewport is planted: the clipping detector reports it in English and in Spanish | `frontend/src/adversarial/evidence-workbench.test.ts::adversarial: a control clipped at a narrow viewport is detected` |
+| EW-006 | a reading page with a fixed height and hidden overflow is planted: the scroll reachability check fails it | `frontend/src/adversarial/evidence-workbench.test.ts::adversarial: a reading page with a fixed height is unreachable` |
+| EW-007 | a reading page with a custom section width cap is planted: the shared-measure check reports the cap | `frontend/src/adversarial/evidence-workbench.test.ts::adversarial: a custom section width cap is reported` |
+| EW-008 | a scientific section whose final references fall outside the viewport at phone size is planted: the reachability check fails it | `frontend/src/adversarial/evidence-workbench.test.ts::adversarial: references outside the viewport are reported` |
+| EW-009 | an index with an empty matrix and an index missing one method are planted: the validator rejects both | `tests/adversarial/test_evidence_workbench.py::test_adversarial_an_empty_or_incomplete_matrix_is_rejected` |
+| EW-010 | a route whose content overflows the viewport horizontally is planted in each language and theme: the fit check fails it | `frontend/src/adversarial/evidence-workbench.test.ts::adversarial: a route wider than the viewport is reported` |
