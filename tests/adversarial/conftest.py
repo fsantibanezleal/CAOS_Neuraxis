@@ -76,3 +76,21 @@ def first_episode_tree(tmp_path: Path) -> Path:
     (dest / first).parent.mkdir(parents=True, exist_ok=True)
     shutil.copy2(src / first, dest / first)
     return dest
+
+
+@pytest.fixture
+def operation_corpus(tmp_path: Path) -> Path:
+    """A throwaway copy of what ``scripts/check_operations.py`` reads: the guard, the recorded operation runs and the sources whose
+    digests the index records. The copy starts clean: a recorded source digest that no longer matches the committed file (the
+    corpus was recorded before that file last changed) is rebased in the copy, so the plant under test is the only defect. That
+    drift of the committed corpus is a finding of the unit's report, not something a planted-defect test may mask by passing."""
+    import hashlib
+    import json
+
+    index = json.loads((ROOT / "data" / "operations" / "index.json").read_bytes())
+    repo = make_tree(tmp_path / "repo", "scripts/check_operations.py", "data/operations", *index["source_sha256"])
+    copied = json.loads((repo / "data" / "operations" / "index.json").read_bytes())
+    for rel in copied["source_sha256"]:
+        copied["source_sha256"][rel] = hashlib.sha256((repo / rel).read_bytes()).hexdigest()
+    (repo / "data" / "operations" / "index.json").write_bytes(json.dumps(copied, indent=2).encode("utf-8") + b"\n")
+    return repo
