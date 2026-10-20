@@ -49,7 +49,7 @@ MEASURE exit=0 wall_s=134.1 peak_job_commit_mb=392 processes=80
 The suite includes the 87 contract tests of `tests/contracts`, which read the 15,981 committed documents and the provider tree.
 
 ```
-$ npm ci --cache D:/_Temp/npm-cache        (in frontend/, the cache warm)
+$ npm ci --cache <temp root>/npm-cache        (in frontend/, the cache warm)
 added 96 packages, and audited 97 packages in 18s
 MEASURE exit=0 wall_s=18.5 peak_job_commit_mb=363 processes=4
 

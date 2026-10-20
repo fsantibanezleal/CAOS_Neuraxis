@@ -107,13 +107,17 @@ def test_adversarial_a_file_outside_the_manifest_is_refused(packager, installer,
 
     monkeypatch.setattr(packager.json, "dumps", dumps_then_add_a_file)
     planted = tmp_path / "planted.tar.gz"
-    result = packager.package(planted, build)
+    with pytest.raises(ValueError, match="late.bin"):
+        packager.package(planted, build)
     monkeypatch.undo()
-    assert result["files"] == 2, "the manifest was enumerated before the file was added"
-    assert unbound(planted) == ["late.bin"], "the file with no digest is the planted one"
-    # the installer refuses the archive before the current release switches
+    assert not planted.exists(), "the builder wrote an archive that holds a file with no digest"
+    # the installer still refuses an archive built by hand with the same defect, before the current release switches
+    hand = tmp_path / "hand.tar.gz"
+    files = {"index.html": b"<html>app</html>", "data/index.json": b"{}"}
+    digest = archive_of(hand, [*files.items(), ("late.bin", b"added after the manifest"), ("release.json", manifest_of(files))])
+    assert unbound(hand) == ["late.bin"], "the file with no digest is the planted one"
     with pytest.raises(ValueError, match="manifest does not enumerate every static file"):
-        installer.install(planted, hashlib.sha256(planted.read_bytes()).hexdigest(), tmp_path / "site")
+        installer.install(hand, digest, tmp_path / "site")
     no_switch(installer, tmp_path / "site")
 
 

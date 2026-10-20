@@ -151,10 +151,13 @@ describe('base-0-08 planted defects', () => {
     const files = readdirSync(new URL('../../../deploy/', import.meta.url));
     expect(templateRecordProblems(record)).toEqual([]);
     expect(deployPlaceProblems(target, files)).toEqual([]);
+    // the planted records carry the version the repository records, read from .template-version, never written here
+    const recorded = /\d+\.\d{2}\.\d{3}/.exec(record)?.[0] ?? '';
+    expect(recorded).not.toBe('');
     expect(
-      templateRecordProblems('{"template":"CAOS_PRODUCT_TEMPLATE","version":"0.08.002"}'),
+      templateRecordProblems(`{"template":"CAOS_PRODUCT_TEMPLATE","version":"${recorded}"}`),
     ).toEqual(['.template-version is not in the template format']);
-    expect(templateRecordProblems('CAOS_PRODUCT_TEMPLATE 0.08.002')).toHaveLength(1);
+    expect(templateRecordProblems(`CAOS_PRODUCT_TEMPLATE ${recorded}`)).toHaveLength(1);
     expect(deployPlaceProblems('vps\nnetlify\n', files)).toEqual([
       'deploy/TARGET is "vps / netlify", not the one place vps',
     ]);

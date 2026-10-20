@@ -78,6 +78,12 @@ export default function Workbench() {
   const [pairMethod, setPairMethod] = useState('M02');
   const input = useRef<HTMLInputElement>(null);
   const mobileSwitch = useRef<HTMLButtonElement>(null);
+  // the focus follows the editor opening (a state change), never a restored open editor: the previous value starts at the restored one
+  const wasActive = useRef(workspaceActive);
+  useEffect(() => {
+    if (workspaceActive && !wasActive.current) mobileSwitch.current?.focus();
+    wasActive.current = workspaceActive;
+  }, [workspaceActive]);
   const frameClock = useRef(0);
   const configurationKey = JSON.stringify([caseId, methodId, variant, seed, parameters, lane]);
   const previousConfiguration = useRef(configurationKey);
@@ -595,7 +601,6 @@ export default function Workbench() {
               playback.pause();
               setWorkspaceActive(true);
               setMobileControls(false);
-              requestAnimationFrame(() => mobileSwitch.current?.focus());
             }}
           >
             {lang === 'en' ? 'Open workflow editor' : 'Abrir editor de flujos'}
