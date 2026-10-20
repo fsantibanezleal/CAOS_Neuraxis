@@ -1,5 +1,6 @@
 import { StrictMode } from 'react';
 import { createRoot } from 'react-dom/client';
+import { BrowserRouter } from 'react-router-dom';
 import App from './App';
 import { applyTheme, readTheme } from '@fasl-work/caos-app-shell';
 import '@fasl-work/caos-app-shell/styles.css';
@@ -14,6 +15,8 @@ const el = document.getElementById('root');
 if (el)
   createRoot(el).render(
     <StrictMode>
-      <App />
+      <BrowserRouter basename={import.meta.env.BASE_URL.replace(/\/$/, '') || undefined}>
+        <App />
+      </BrowserRouter>
     </StrictMode>,
   );
