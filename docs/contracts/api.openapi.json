@@ -1,0 +1,993 @@
+{
+  "openapi": "3.1.0",
+  "info": {
+    "title": "Neuraxis operations API",
+    "version": "1.0.0",
+    "description": "Catalog row operations-api 1.0.0: the nine routes of the bounded public operations service in app/operations_api.py, mounted under /operations-api. Not described here: the engine API under /api (reflexmesh.server, its own contract). The response schemas of the recorded documents are the files in docs/contracts/schemas/ (operation-run)."
+  },
+  "servers": [
+    {
+      "url": "/"
+    }
+  ],
+  "paths": {
+    "/operations-api/config": {
+      "get": {
+        "operationId": "getConfig",
+        "summary": "Service configuration",
+        "description": "Tasks, conditions, limits and retention of the bounded operations service.",
+        "responses": {
+          "200": {
+            "description": "The configuration.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ConfigResponse"
+                }
+              }
+            }
+          },
+          "403": {
+            "$ref": "#/components/responses/Forbidden"
+          }
+        }
+      }
+    },
+    "/operations-api/session": {
+      "post": {
+        "operationId": "createSession",
+        "summary": "Open a session",
+        "description": "Issues a bearer token that owns the runs started with it; at most 128 live sessions.",
+        "parameters": [
+          {
+            "$ref": "#/components/parameters/ClientHeader"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "The session.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/SessionResponse"
+                }
+              }
+            }
+          },
+          "403": {
+            "$ref": "#/components/responses/Forbidden"
+          },
+          "429": {
+            "$ref": "#/components/responses/TooManyRequests"
+          }
+        }
+      }
+    },
+    "/operations-api/fixture": {
+      "get": {
+        "operationId": "getFixture",
+        "summary": "Example input files",
+        "description": "The deterministic example bundle of a task, condition and seed, with the task graph.",
+        "parameters": [
+          {
+            "name": "task",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "$ref": "#/components/schemas/Task",
+              "default": "release"
+            }
+          },
+          {
+            "name": "variant",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "string",
+              "enum": [
+                "clean",
+                "corrupt",
+                "conflict",
+                "compound"
+              ],
+              "default": "compound"
+            }
+          },
+          {
+            "name": "seed",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "integer",
+              "minimum": 0,
+              "maximum": 99999,
+              "default": 17
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "The files and the graph.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/FixtureResponse"
+                }
+              }
+            }
+          },
+          "403": {
+            "$ref": "#/components/responses/Forbidden"
+          },
+          "422": {
+            "$ref": "#/components/responses/Invalid"
+          }
+        }
+      }
+    },
+    "/operations-api/runs": {
+      "post": {
+        "operationId": "startRun",
+        "summary": "Start a run",
+        "description": "Starts one verified operation on the example bundle or on the uploaded files; one active run per session.",
+        "parameters": [
+          {
+            "$ref": "#/components/parameters/ClientHeader"
+          }
+        ],
+        "requestBody": {
+          "required": false,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/StartRequest"
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "The queued run.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/RunSnapshot"
+                }
+              }
+            }
+          },
+          "401": {
+            "$ref": "#/components/responses/Unauthorized"
+          },
+          "403": {
+            "$ref": "#/components/responses/Forbidden"
+          },
+          "413": {
+            "$ref": "#/components/responses/PayloadTooLarge"
+          },
+          "422": {
+            "$ref": "#/components/responses/Invalid"
+          },
+          "429": {
+            "$ref": "#/components/responses/TooManyRequests"
+          },
+          "503": {
+            "$ref": "#/components/responses/Unavailable"
+          }
+        }
+      },
+      "get": {
+        "operationId": "listRuns",
+        "summary": "List the session runs",
+        "description": "The runs of this session, newest first.",
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "The runs.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/RunHistory"
+                }
+              }
+            }
+          },
+          "401": {
+            "$ref": "#/components/responses/Unauthorized"
+          },
+          "403": {
+            "$ref": "#/components/responses/Forbidden"
+          }
+        }
+      }
+    },
+    "/operations-api/runs/{run_id}": {
+      "get": {
+        "operationId": "getRun",
+        "summary": "Run snapshot",
+        "description": "The run with its events, nodes and, once finished, its result.",
+        "parameters": [
+          {
+            "name": "run_id",
+            "in": "path",
+            "required": true,
+            "description": "The 32-character hexadecimal run id.",
+            "schema": {
+              "type": "string",
+              "pattern": "^[0-9a-f]{32}$"
+            }
+          }
+        ],
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "The run.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/RunSnapshot"
+                }
+              }
+            }
+          },
+          "401": {
+            "$ref": "#/components/responses/Unauthorized"
+          },
+          "403": {
+            "$ref": "#/components/responses/Forbidden"
+          },
+          "404": {
+            "$ref": "#/components/responses/NotFound"
+          }
+        }
+      },
+      "delete": {
+        "operationId": "deleteRun",
+        "summary": "Delete a finished run",
+        "description": "Removes a terminal run and its workspace; a running run answers 409.",
+        "parameters": [
+          {
+            "name": "run_id",
+            "in": "path",
+            "required": true,
+            "description": "The 32-character hexadecimal run id.",
+            "schema": {
+              "type": "string",
+              "pattern": "^[0-9a-f]{32}$"
+            }
+          },
+          {
+            "$ref": "#/components/parameters/ClientHeader"
+          }
+        ],
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Deleted.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/DeletedResponse"
+                }
+              }
+            }
+          },
+          "401": {
+            "$ref": "#/components/responses/Unauthorized"
+          },
+          "403": {
+            "$ref": "#/components/responses/Forbidden"
+          },
+          "404": {
+            "$ref": "#/components/responses/NotFound"
+          },
+          "409": {
+            "$ref": "#/components/responses/Conflict"
+          }
+        }
+      }
+    },
+    "/operations-api/runs/{run_id}/cancel": {
+      "post": {
+        "operationId": "cancelRun",
+        "summary": "Cancel a run",
+        "description": "Requests cancellation of an active run and returns its snapshot (status cancelling).",
+        "parameters": [
+          {
+            "name": "run_id",
+            "in": "path",
+            "required": true,
+            "description": "The 32-character hexadecimal run id.",
+            "schema": {
+              "type": "string",
+              "pattern": "^[0-9a-f]{32}$"
+            }
+          },
+          {
+            "$ref": "#/components/parameters/ClientHeader"
+          }
+        ],
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "The run.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/RunSnapshot"
+                }
+              }
+            }
+          },
+          "401": {
+            "$ref": "#/components/responses/Unauthorized"
+          },
+          "403": {
+            "$ref": "#/components/responses/Forbidden"
+          },
+          "404": {
+            "$ref": "#/components/responses/NotFound"
+          }
+        }
+      }
+    },
+    "/operations-api/runs/{run_id}/export": {
+      "get": {
+        "operationId": "exportRun",
+        "summary": "Export a finished run",
+        "description": "A zip archive: execution.json, the per-step outputs, the accepted files and the inputs.",
+        "parameters": [
+          {
+            "name": "run_id",
+            "in": "path",
+            "required": true,
+            "description": "The 32-character hexadecimal run id.",
+            "schema": {
+              "type": "string",
+              "pattern": "^[0-9a-f]{32}$"
+            }
+          }
+        ],
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "The archive (neuraxis-<run id>.zip, Content-Disposition attachment).",
+            "content": {
+              "application/zip": {
+                "schema": {
+                  "type": "string",
+                  "format": "binary"
+                }
+              }
+            }
+          },
+          "401": {
+            "$ref": "#/components/responses/Unauthorized"
+          },
+          "403": {
+            "$ref": "#/components/responses/Forbidden"
+          },
+          "404": {
+            "$ref": "#/components/responses/NotFound"
+          },
+          "409": {
+            "$ref": "#/components/responses/Conflict"
+          }
+        }
+      }
+    }
+  },
+  "components": {
+    "schemas": {
+      "Task": {
+        "type": "string",
+        "enum": [
+          "release",
+          "source",
+          "data"
+        ]
+      },
+      "ErrorBody": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "detail"
+        ],
+        "properties": {
+          "detail": {
+            "type": "string"
+          }
+        },
+        "description": "Every error the service raises itself."
+      },
+      "ValidationErrorBody": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "detail"
+        ],
+        "description": "FastAPI request validation (a query parameter of the wrong type).",
+        "properties": {
+          "detail": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "required": [
+                "type",
+                "loc",
+                "msg"
+              ],
+              "properties": {
+                "type": {
+                  "type": "string"
+                },
+                "loc": {
+                  "type": "array",
+                  "items": {
+                    "type": [
+                      "string",
+                      "integer"
+                    ]
+                  }
+                },
+                "msg": {
+                  "type": "string"
+                },
+                "input": {},
+                "ctx": {
+                  "type": "object"
+                }
+              }
+            }
+          }
+        }
+      },
+      "InputFile": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "path",
+          "content"
+        ],
+        "properties": {
+          "path": {
+            "type": "string",
+            "minLength": 1
+          },
+          "content": {
+            "type": "string"
+          }
+        }
+      },
+      "StartRequest": {
+        "type": "object",
+        "additionalProperties": false,
+        "description": "A bounded JSON object (at most 1,600,000 bytes); an unknown field is a 422.",
+        "properties": {
+          "task": {
+            "$ref": "#/components/schemas/Task"
+          },
+          "variant": {
+            "type": "string",
+            "enum": [
+              "clean",
+              "corrupt",
+              "conflict",
+              "compound"
+            ]
+          },
+          "seed": {
+            "type": "integer",
+            "minimum": 0,
+            "maximum": 99999
+          },
+          "files": {
+            "type": "array",
+            "maxItems": 256,
+            "items": {
+              "$ref": "#/components/schemas/InputFile"
+            },
+            "description": "Uploaded files (at most 256, 1,048,576 bytes in all, 131,072 each); the example bundle is used when absent."
+          }
+        }
+      },
+      "ConfigResponse": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "schema_version",
+          "engine",
+          "commit",
+          "tasks",
+          "variants",
+          "max_files",
+          "max_bytes",
+          "retention_seconds",
+          "execution",
+          "model_available"
+        ],
+        "properties": {
+          "schema_version": {
+            "enum": [
+              1
+            ]
+          },
+          "engine": {
+            "type": "string",
+            "pattern": "^reflexmesh \\d+\\.\\d+\\.\\d+$"
+          },
+          "commit": {
+            "type": "string",
+            "minLength": 1
+          },
+          "tasks": {
+            "type": "object",
+            "minProperties": 1,
+            "propertyNames": {
+              "enum": [
+                "release",
+                "source",
+                "data"
+              ]
+            },
+            "additionalProperties": {
+              "type": "object",
+              "required": [
+                "en",
+                "es",
+                "nodes"
+              ],
+              "properties": {
+                "en": {
+                  "type": "string"
+                },
+                "es": {
+                  "type": "string"
+                },
+                "nodes": {
+                  "type": "array",
+                  "items": {
+                    "type": "string"
+                  }
+                }
+              }
+            }
+          },
+          "variants": {
+            "type": "array",
+            "items": {
+              "type": "string",
+              "enum": [
+                "clean",
+                "corrupt",
+                "conflict",
+                "compound"
+              ]
+            }
+          },
+          "max_files": {
+            "type": "integer"
+          },
+          "max_bytes": {
+            "type": "integer"
+          },
+          "retention_seconds": {
+            "type": "integer"
+          },
+          "execution": {
+            "type": "string"
+          },
+          "model_available": {
+            "type": "boolean"
+          }
+        }
+      },
+      "SessionResponse": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "token",
+          "retention_seconds"
+        ],
+        "properties": {
+          "token": {
+            "type": "string",
+            "minLength": 20
+          },
+          "retention_seconds": {
+            "type": "integer"
+          }
+        }
+      },
+      "RunNode": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "id",
+          "title",
+          "depends_on",
+          "output",
+          "state"
+        ],
+        "description": "A task-graph node: the five planning fields from the start; error, history and evidence once the node ran.",
+        "properties": {
+          "id": {
+            "type": "string"
+          },
+          "title": {
+            "type": "object",
+            "required": [
+              "en",
+              "es"
+            ],
+            "additionalProperties": false,
+            "properties": {
+              "en": {
+                "type": "string"
+              },
+              "es": {
+                "type": "string"
+              }
+            }
+          },
+          "depends_on": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "output": {
+            "type": "string"
+          },
+          "state": {
+            "type": "string"
+          },
+          "evidence": {
+            "type": "object"
+          },
+          "error": {
+            "type": [
+              "string",
+              "null"
+            ]
+          },
+          "history": {
+            "$ref": "schemas/operation-run.schema.json#/properties/nodes/items/properties/history"
+          }
+        }
+      },
+      "FixtureResponse": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "files",
+          "nodes"
+        ],
+        "properties": {
+          "files": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/InputFile"
+            }
+          },
+          "nodes": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/RunNode"
+            }
+          }
+        }
+      },
+      "RunSnapshot": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "id",
+          "created_at",
+          "status",
+          "task",
+          "variant",
+          "seed",
+          "events",
+          "result",
+          "inputs",
+          "nodes",
+          "error"
+        ],
+        "description": "A run as the service holds it. While it runs, result is null and the nodes are the planning view; once it finished, result is the operation-run document.",
+        "properties": {
+          "id": {
+            "type": "string",
+            "pattern": "^[0-9a-f]{32}$"
+          },
+          "created_at": {
+            "type": "number"
+          },
+          "status": {
+            "type": "string",
+            "enum": [
+              "queued",
+              "running",
+              "cancelling",
+              "succeeded",
+              "failed",
+              "cancelled"
+            ]
+          },
+          "task": {
+            "$ref": "#/components/schemas/Task"
+          },
+          "variant": {
+            "type": "string",
+            "enum": [
+              "clean",
+              "corrupt",
+              "conflict",
+              "compound",
+              "uploaded"
+            ]
+          },
+          "seed": {
+            "type": "integer",
+            "minimum": 0,
+            "maximum": 99999
+          },
+          "events": {
+            "type": "array",
+            "maxItems": 512,
+            "items": {
+              "$ref": "schemas/operation-run.schema.json#/properties/events/items"
+            }
+          },
+          "result": {
+            "oneOf": [
+              {
+                "$ref": "schemas/operation-run.schema.json"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
+          "inputs": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/InputFile"
+            }
+          },
+          "nodes": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/RunNode"
+            }
+          },
+          "error": {
+            "type": [
+              "string",
+              "null"
+            ],
+            "description": "ExceptionName: message when the worker failed."
+          }
+        }
+      },
+      "RunSummary": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "id",
+          "task",
+          "variant",
+          "seed",
+          "status",
+          "created_at",
+          "expires_at",
+          "findings",
+          "disposition"
+        ],
+        "properties": {
+          "id": {
+            "type": "string",
+            "pattern": "^[0-9a-f]{32}$"
+          },
+          "task": {
+            "$ref": "#/components/schemas/Task"
+          },
+          "variant": {
+            "type": "string"
+          },
+          "seed": {
+            "type": "integer"
+          },
+          "status": {
+            "type": "string",
+            "enum": [
+              "queued",
+              "running",
+              "cancelling",
+              "succeeded",
+              "failed",
+              "cancelled"
+            ]
+          },
+          "created_at": {
+            "type": "number"
+          },
+          "expires_at": {
+            "type": "number"
+          },
+          "findings": {
+            "type": "integer",
+            "minimum": 0
+          },
+          "disposition": {
+            "type": "string",
+            "enum": [
+              "checks_passed",
+              "attention_required",
+              "incomplete"
+            ]
+          }
+        }
+      },
+      "RunHistory": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "runs"
+        ],
+        "properties": {
+          "runs": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/RunSummary"
+            }
+          }
+        }
+      },
+      "DeletedResponse": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "deleted"
+        ],
+        "properties": {
+          "deleted": {
+            "const": true
+          }
+        }
+      }
+    },
+    "responses": {
+      "Unauthorized": {
+        "description": "The session token is missing or expired.",
+        "content": {
+          "application/json": {
+            "schema": {
+              "$ref": "#/components/schemas/ErrorBody"
+            }
+          }
+        }
+      },
+      "Forbidden": {
+        "description": "A different host or origin, or a non-GET request without the X-Neuraxis-Client: operations-v1 header.",
+        "content": {
+          "application/json": {
+            "schema": {
+              "$ref": "#/components/schemas/ErrorBody"
+            }
+          }
+        }
+      },
+      "NotFound": {
+        "description": "No such run for this session (an unknown id and another session id look the same).",
+        "content": {
+          "application/json": {
+            "schema": {
+              "$ref": "#/components/schemas/ErrorBody"
+            }
+          }
+        }
+      },
+      "Conflict": {
+        "description": "The run is still active (delete, export) or has not finished.",
+        "content": {
+          "application/json": {
+            "schema": {
+              "$ref": "#/components/schemas/ErrorBody"
+            }
+          }
+        }
+      },
+      "PayloadTooLarge": {
+        "description": "The request body exceeds 1,600,000 bytes.",
+        "content": {
+          "application/json": {
+            "schema": {
+              "$ref": "#/components/schemas/ErrorBody"
+            }
+          }
+        }
+      },
+      "Invalid": {
+        "description": "An unknown task, condition, seed, field or file, or a body that is not a bounded JSON object.",
+        "content": {
+          "application/json": {
+            "schema": {
+              "oneOf": [
+                {
+                  "$ref": "#/components/schemas/ErrorBody"
+                },
+                {
+                  "$ref": "#/components/schemas/ValidationErrorBody"
+                }
+              ]
+            }
+          }
+        }
+      },
+      "TooManyRequests": {
+        "description": "Session, execution, retention or rate capacity reached; try later.",
+        "content": {
+          "application/json": {
+            "schema": {
+              "$ref": "#/components/schemas/ErrorBody"
+            }
+          }
+        }
+      },
+      "Unavailable": {
+        "description": "The execution worker could not start; retry later.",
+        "content": {
+          "application/json": {
+            "schema": {
+              "$ref": "#/components/schemas/ErrorBody"
+            }
+          }
+        }
+      }
+    },
+    "parameters": {
+      "ClientHeader": {
+        "name": "X-Neuraxis-Client",
+        "in": "header",
+        "required": true,
+        "description": "Required on every request that is not GET or HEAD.",
+        "schema": {
+          "const": "operations-v1"
+        }
+      }
+    },
+    "securitySchemes": {
+      "bearerAuth": {
+        "type": "http",
+        "scheme": "bearer",
+        "description": "The token of POST /operations-api/session."
+      }
+    }
+  }
+}

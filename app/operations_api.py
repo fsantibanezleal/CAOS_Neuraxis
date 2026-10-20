@@ -14,9 +14,11 @@ import time
 import zipfile
 from contextlib import asynccontextmanager
 from pathlib import Path
+from typing import Any
 
 from fastapi import FastAPI, HTTPException, Request
 from fastapi.responses import JSONResponse, Response
+from pydantic import BaseModel
 from reflexmesh import __version__ as engine_version
 
 from app.services.operations import (
@@ -29,6 +31,68 @@ from app.services.operations import (
     strict_json,
     validate_files,
 )
+
+
+class ConfigResponse(BaseModel):
+    schema_version: int
+    engine: str
+    commit: str
+    tasks: dict[str, Any]
+    variants: list[str]
+    max_files: int
+    max_bytes: int
+    retention_seconds: int
+    execution: str
+    model_available: bool
+
+
+class SessionResponse(BaseModel):
+    token: str
+    retention_seconds: int
+
+
+class InputFile(BaseModel):
+    path: str
+    content: str
+
+
+class FixtureResponse(BaseModel):
+    files: list[InputFile]
+    nodes: list[dict[str, Any]]
+
+
+class RunSnapshot(BaseModel):
+    id: str
+    created_at: float
+    status: str
+    task: str
+    variant: str
+    seed: int
+    events: list[dict[str, Any]]
+    result: dict[str, Any] | None
+    inputs: list[InputFile]
+    nodes: list[dict[str, Any]]
+    error: str | None
+
+
+class RunSummary(BaseModel):
+    id: str
+    task: str
+    variant: str
+    seed: int
+    status: str
+    created_at: float
+    expires_at: float
+    findings: int
+    disposition: str
+
+
+class RunHistory(BaseModel):
+    runs: list[RunSummary]
+
+
+class DeletedResponse(BaseModel):
+    deleted: bool
 
 
 class Operations:
@@ -285,7 +349,7 @@ def create_app(root=None, host=None, prefix="/operations-api"):
         except (ValueError, TypeError, UnicodeDecodeError, RecursionError):
             raise HTTPException(422, "Expected a bounded JSON object") from None
 
-    @app.get(prefix + "/config")
+    @app.get(prefix + "/config", response_model=ConfigResponse)
     def config():
         commit_file = Path(__file__).resolve().parents[1] / "commit.txt"
         return {
@@ -301,18 +365,18 @@ def create_app(root=None, host=None, prefix="/operations-api"):
             "model_available": False,
         }
 
-    @app.post(prefix + "/session")
+    @app.post(prefix + "/session", response_model=SessionResponse)
     def session():
         return {"token": manager.session(), "retention_seconds": manager.ttl}
 
-    @app.get(prefix + "/fixture")
+    @app.get(prefix + "/fixture", response_model=FixtureResponse)
     def example(task: str = "release", variant: str = "compound", seed: int = 17):
         try:
             return {"files": fixture(task, variant, seed), "nodes": graph(task)}
         except (ValueError, KeyError):
             raise HTTPException(422, "Unknown fixture") from None
 
-    @app.post(prefix + "/runs")
+    @app.post(prefix + "/runs", response_model=RunSnapshot)
     async def start(request: Request):
         owner = manager.owner(request)
         try:
@@ -323,17 +387,17 @@ def create_app(root=None, host=None, prefix="/operations-api"):
                 422, "Invalid operation input; check names, counts and UTF-8 byte limits"
             ) from None
 
-    @app.get(prefix + "/runs")
+    @app.get(prefix + "/runs", response_model=RunHistory)
     def history(request: Request):
         return {"runs": manager.history(manager.owner(request))}
 
-    @app.get(prefix + "/runs/{run_id}")
+    @app.get(prefix + "/runs/{run_id}", response_model=RunSnapshot)
     def snapshot(run_id: str, request: Request):
         owner = manager.owner(request)
         with manager.lock:
             return manager.snapshot(manager.owned(run_id, owner))
 
-    @app.post(prefix + "/runs/{run_id}/cancel")
+    @app.post(prefix + "/runs/{run_id}/cancel", response_model=RunSnapshot)
     def cancel(run_id: str, request: Request):
         owner = manager.owner(request)
         with manager.lock:
@@ -343,7 +407,7 @@ def create_app(root=None, host=None, prefix="/operations-api"):
                 run["status"] = "cancelling"
         return manager.snapshot(run)
 
-    @app.delete(prefix + "/runs/{run_id}")
+    @app.delete(prefix + "/runs/{run_id}", response_model=DeletedResponse)
     def delete(run_id: str, request: Request):
         owner = manager.owner(request)
         with manager.lock:
