@@ -1,0 +1,54 @@
+{
+  "case_variant_method_cells": 1440,
+  "episodes_checked": 14400,
+  "index_sha256": "ec45fbdd1b6a6a899b27e9bf4712bf46988e3f84eef14603bd9b187592bca85c",
+  "interpretation": "Template-shared seed repetitions are not independent tasks. A perfect exact baseline prevents this matrix from demonstrating a success advantage for learned deferral. Keep this historical result separate from later stress evaluations.",
+  "m12_failures": [
+    {
+      "case_id": "C07",
+      "failures": 10,
+      "variant": "delayed_observation"
+    },
+    {
+      "case_id": "C07",
+      "failures": 10,
+      "variant": "duplicate_event"
+    },
+    {
+      "case_id": "C07",
+      "failures": 10,
+      "variant": "stale_conflict"
+    }
+  ],
+  "methods": [
+    {
+      "episodes": 1200,
+      "method_id": "M01",
+      "seed_invariant_case_variant_cells": 120,
+      "seed_variable_case_variant_cells": 0,
+      "successes": 1200
+    },
+    {
+      "episodes": 1200,
+      "method_id": "M02",
+      "seed_invariant_case_variant_cells": 120,
+      "seed_variable_case_variant_cells": 0,
+      "successes": 1200
+    },
+    {
+      "episodes": 1200,
+      "method_id": "M03",
+      "seed_invariant_case_variant_cells": 120,
+      "seed_variable_case_variant_cells": 0,
+      "successes": 1200
+    }
+  ],
+  "perfect_methods": [
+    "M01",
+    "M02",
+    "M03"
+  ],
+  "schema_version": 1,
+  "scope": "frozen canonical core; post-hoc discrimination diagnostic",
+  "seed_variable_cells": 71
+}

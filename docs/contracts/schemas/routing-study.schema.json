@@ -1,0 +1,209 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "routing-study.schema.json",
+  "title": "Routing study",
+  "description": "Catalog row routing-study 1.0.0: the held-out analysis of the delegation gate on the semantic-transfer suite, committed at data/derived/semantic-routing-study/analysis.json and checked by scripts/check_semantic_routing.py. No writer exists in this repository or in reflexmesh 0.1.2 (U3c).",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "algorithm",
+    "calibration_planner_budget",
+    "calibration_positives",
+    "features",
+    "fit_positives",
+    "held_out_predictions",
+    "limits",
+    "model_sha256",
+    "schema_version",
+    "scope",
+    "selected_threshold",
+    "source",
+    "split",
+    "status",
+    "test",
+    "test_positives"
+  ],
+  "properties": {
+    "algorithm": {
+      "type": "string"
+    },
+    "calibration_planner_budget": {
+      "type": "integer"
+    },
+    "calibration_positives": {
+      "type": "integer"
+    },
+    "features": {
+      "type": "string"
+    },
+    "fit_positives": {
+      "type": "integer"
+    },
+    "held_out_predictions": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "delegated",
+          "estimated_incremental_success_probability",
+          "family",
+          "fast_success",
+          "seed",
+          "slow_success",
+          "variant"
+        ],
+        "properties": {
+          "delegated": {
+            "type": "boolean"
+          },
+          "estimated_incremental_success_probability": {
+            "type": "number"
+          },
+          "family": {
+            "type": "string"
+          },
+          "fast_success": {
+            "type": "integer"
+          },
+          "seed": {
+            "type": "integer"
+          },
+          "slow_success": {
+            "type": "integer"
+          },
+          "variant": {
+            "type": "string"
+          }
+        }
+      },
+      "description": "The gate estimate and the two arm outcomes for every held-out environment."
+    },
+    "limits": {
+      "type": "string"
+    },
+    "model_sha256": {
+      "type": "string",
+      "pattern": "^[0-9a-f]{64}$"
+    },
+    "schema_version": {
+      "enum": [
+        1
+      ]
+    },
+    "scope": {
+      "type": "string"
+    },
+    "selected_threshold": {
+      "type": "number"
+    },
+    "source": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "index_sha256"
+      ],
+      "properties": {
+        "index_sha256": {
+          "type": "string",
+          "pattern": "^[0-9a-f]{64}$",
+          "description": "SHA-256 of data/derived/semantic-transfer/index.json the study read."
+        }
+      }
+    },
+    "split": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "calibration",
+        "fit",
+        "test"
+      ],
+      "properties": {
+        "calibration": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "fit": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "test": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        }
+      }
+    },
+    "status": {
+      "type": "string"
+    },
+    "test": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "always_fast_M04",
+        "always_planner_M09",
+        "hash_half",
+        "learned_gate",
+        "post_hoc_oracle_upper_bound"
+      ],
+      "properties": {
+        "always_fast_M04": {
+          "$ref": "#/$defs/AlwaysFastM04"
+        },
+        "always_planner_M09": {
+          "$ref": "#/$defs/AlwaysFastM04"
+        },
+        "hash_half": {
+          "$ref": "#/$defs/AlwaysFastM04"
+        },
+        "learned_gate": {
+          "$ref": "#/$defs/AlwaysFastM04"
+        },
+        "post_hoc_oracle_upper_bound": {
+          "$ref": "#/$defs/AlwaysFastM04"
+        }
+      },
+      "description": "The test-split result of each routing arm, including the post-hoc oracle upper bound."
+    },
+    "test_positives": {
+      "type": "integer"
+    }
+  },
+  "$defs": {
+    "AlwaysFastM04": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "episodes",
+        "invalid_policy_outputs",
+        "mean_wall_ms",
+        "planner_episodes",
+        "verified_successes"
+      ],
+      "properties": {
+        "episodes": {
+          "type": "integer"
+        },
+        "invalid_policy_outputs": {
+          "type": "integer"
+        },
+        "mean_wall_ms": {
+          "type": "number"
+        },
+        "planner_episodes": {
+          "type": "integer"
+        },
+        "verified_successes": {
+          "type": "integer"
+        }
+      }
+    }
+  }
+}

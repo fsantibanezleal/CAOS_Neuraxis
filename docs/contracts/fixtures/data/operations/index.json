@@ -1,0 +1,33 @@
+{
+  "boundary": "Application integration and fault detection, separate from frozen learned-policy experiments. No model calls or learned superiority claimed.",
+  "engine": "reflexmesh 0.1.2",
+  "platform": "Linux-6.8.0-117-generic-x86_64-with-glibc2.39",
+  "policy": "verified-operation-fsm",
+  "runs": [
+    {
+      "concurrency": 3,
+      "disposition": "checks_passed",
+      "files": 54,
+      "findings": 0,
+      "journal_sequence": 115,
+      "model_calls": 0,
+      "native_receipts": 7,
+      "path": "data-clean-70000.json",
+      "run_id": "data-clean-70000",
+      "seed": 70000,
+      "sha256": "5666becabb5cea783d464a96e419d7fcc3e5c160a553a362ade35a9ff9e7c594",
+      "status": "succeeded",
+      "task": "data",
+      "variant": "clean",
+      "verified_nodes": 7,
+      "wall_ms": 465.206
+    }
+  ],
+  "schema_version": 1,
+  "seeds": 3,
+  "source_sha256": {
+    "app/services/operations.py": "2d10520c0936309a6834a2dfb34ad80c24c7a089af43bd6a4105c768cc1a006b",
+    "scripts/evaluate_operations.py": "83ced2f9cebe65cf359009eb04736ed9a05d9c10b4800ec9c8bba8defb2fb896"
+  },
+  "study": "compound file operations"
+}

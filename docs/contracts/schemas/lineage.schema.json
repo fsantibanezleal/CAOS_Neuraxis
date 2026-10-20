@@ -1,0 +1,210 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "lineage.schema.json",
+  "title": "Lineage",
+  "description": "Catalog row lineage 1.0.0: the digests an evaluation ran with, written by reflexmesh `evaluate` as lineage.json (evaluation/runner.py:342-345, built by pipeline.py:85 `lineage()`): model files, code, native source and binary, package versions, the planner registry and the platform. Its SHA-256 (sorted keys) is the lineage_signature every episode carries.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "checkpoint_sha256",
+    "inference_device",
+    "native_binary",
+    "native_source_sha256",
+    "packages",
+    "planner",
+    "platform",
+    "python",
+    "source_sha256",
+    "spec_sha256",
+    "torch_inference_threads"
+  ],
+  "properties": {
+    "checkpoint_sha256": {
+      "type": "object",
+      "additionalProperties": {
+        "type": "string",
+        "pattern": "^[0-9a-f]{64}$"
+      },
+      "propertyNames": {
+        "pattern": "^[A-Za-z0-9_.\\-]+$"
+      },
+      "description": "File name to SHA-256 of every file of the checkpoint directory."
+    },
+    "inference_device": {
+      "type": "string"
+    },
+    "native_binary": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "name",
+        "sha256"
+      ],
+      "properties": {
+        "name": {
+          "type": "string"
+        },
+        "sha256": {
+          "type": "string",
+          "pattern": "^[0-9a-f]{64}$"
+        }
+      }
+    },
+    "native_source_sha256": {
+      "type": "object",
+      "additionalProperties": {
+        "type": "string",
+        "pattern": "^[0-9a-f]{64}$"
+      },
+      "propertyNames": {
+        "pattern": "^[A-Za-z0-9_.\\\\/\\-]+$"
+      },
+      "description": "Native source file to SHA-256."
+    },
+    "packages": {
+      "type": "object",
+      "additionalProperties": {
+        "type": "string",
+        "pattern": "^\\d+(\\.\\d+)*[A-Za-z0-9.+\\-]*$"
+      },
+      "propertyNames": {
+        "pattern": "^[A-Za-z0-9_.\\-]+$"
+      },
+      "description": "Package name to installed version for the packages the evaluation uses."
+    },
+    "planner": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "model",
+        "registry",
+        "runtime_version"
+      ],
+      "properties": {
+        "model": {
+          "type": "string"
+        },
+        "registry": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "additionalProperties": false,
+            "required": [
+              "capabilities",
+              "details",
+              "digest",
+              "model",
+              "modified_at",
+              "name",
+              "size"
+            ],
+            "properties": {
+              "capabilities": {
+                "type": "array",
+                "items": {
+                  "type": "string"
+                }
+              },
+              "details": {
+                "type": "object",
+                "additionalProperties": false,
+                "required": [
+                  "context_length",
+                  "embedding_length",
+                  "families",
+                  "family",
+                  "format",
+                  "parameter_size",
+                  "parent_model",
+                  "quantization_level"
+                ],
+                "properties": {
+                  "context_length": {
+                    "type": "integer"
+                  },
+                  "embedding_length": {
+                    "type": "integer"
+                  },
+                  "families": {
+                    "type": "array",
+                    "items": {
+                      "type": "string"
+                    }
+                  },
+                  "family": {
+                    "type": "string"
+                  },
+                  "format": {
+                    "type": "string"
+                  },
+                  "parameter_size": {
+                    "type": "string"
+                  },
+                  "parent_model": {
+                    "type": "string"
+                  },
+                  "quantization_level": {
+                    "type": "string"
+                  }
+                }
+              },
+              "digest": {
+                "type": "string",
+                "pattern": "^[0-9a-f]{64}$"
+              },
+              "model": {
+                "type": "string"
+              },
+              "modified_at": {
+                "type": "string"
+              },
+              "name": {
+                "type": "string"
+              },
+              "size": {
+                "type": "integer"
+              }
+            }
+          }
+        },
+        "runtime_version": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "version"
+          ],
+          "properties": {
+            "version": {
+              "type": "string"
+            }
+          }
+        }
+      },
+      "description": "The planner model and the registry of the local runtime that served it."
+    },
+    "platform": {
+      "type": "string"
+    },
+    "python": {
+      "type": "string"
+    },
+    "source_sha256": {
+      "type": "object",
+      "additionalProperties": {
+        "type": "string",
+        "pattern": "^[0-9a-f]{64}$"
+      },
+      "propertyNames": {
+        "pattern": "^[A-Za-z0-9_.\\\\/\\-]+$"
+      },
+      "description": "Engine source file (relative path) to SHA-256."
+    },
+    "spec_sha256": {
+      "type": "string",
+      "pattern": "^[0-9a-f]{64}$"
+    },
+    "torch_inference_threads": {
+      "type": "integer"
+    }
+  }
+}

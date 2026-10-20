@@ -1,0 +1,1325 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "research-summary.schema.json",
+  "title": "Research summary",
+  "description": "Catalog row research-summary 1.0.0: the corrected-science summary committed at data/derived/research.json: the core and transfer evaluations, the four ablations, paired M12 contrasts, training timings, routing, transition validation, native parity, the external benchmark audit and the verdict. No writer exists in this repository or in reflexmesh 0.1.2 (U3c); scripts/check_research.py reads it.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "ablations",
+    "audit_sha256",
+    "completed_episodes",
+    "core",
+    "external",
+    "generated_at",
+    "kind",
+    "limits",
+    "native_parity",
+    "paired_M12_minus_method",
+    "routing",
+    "schema_version",
+    "training",
+    "transfer",
+    "transition_validation",
+    "verdict"
+  ],
+  "properties": {
+    "ablations": {
+      "type": "object",
+      "additionalProperties": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "directory",
+          "episodes",
+          "index_sha256",
+          "lineage_signature",
+          "methods",
+          "paired_full_minus_ablation"
+        ],
+        "properties": {
+          "directory": {
+            "type": "string"
+          },
+          "episodes": {
+            "type": "integer"
+          },
+          "index_sha256": {
+            "type": "string",
+            "pattern": "^[0-9a-f]{64}$"
+          },
+          "lineage_signature": {
+            "type": "string",
+            "pattern": "^[0-9a-f]{64}$"
+          },
+          "methods": {
+            "type": "array",
+            "items": {
+              "$ref": "#/$defs/Methods"
+            }
+          },
+          "paired_full_minus_ablation": {
+            "$ref": "#/$defs/PairedFullMinusAblation"
+          }
+        }
+      },
+      "propertyNames": {
+        "pattern": "^no_[a-z_]+$"
+      },
+      "description": "One entry per ablation (no_deferral, no_effects, no_invalidation, no_memory) with its paired contrast with the full method."
+    },
+    "audit_sha256": {
+      "type": "string",
+      "pattern": "^[0-9a-f]{64}$"
+    },
+    "completed_episodes": {
+      "type": "integer"
+    },
+    "core": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "directory",
+        "episodes",
+        "index_sha256",
+        "lineage_signature",
+        "methods"
+      ],
+      "properties": {
+        "directory": {
+          "type": "string"
+        },
+        "episodes": {
+          "type": "integer"
+        },
+        "index_sha256": {
+          "type": "string",
+          "pattern": "^[0-9a-f]{64}$"
+        },
+        "lineage_signature": {
+          "type": "string",
+          "pattern": "^[0-9a-f]{64}$"
+        },
+        "methods": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/Methods"
+          }
+        }
+      },
+      "description": "The 14,400-episode core evaluation (digest of its index, per-method results)."
+    },
+    "external": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "acting_admission_ms",
+        "acting_effect_and_finish_ms",
+        "aggregates",
+        "cases",
+        "limitations",
+        "run_inventory",
+        "schema_version",
+        "selected_runs"
+      ],
+      "properties": {
+        "acting_admission_ms": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "n",
+            "p50",
+            "p95",
+            "p99"
+          ],
+          "properties": {
+            "n": {
+              "type": "integer"
+            },
+            "p50": {
+              "type": "number"
+            },
+            "p95": {
+              "type": "number"
+            },
+            "p99": {
+              "type": "number"
+            }
+          }
+        },
+        "acting_effect_and_finish_ms": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "n",
+            "p50",
+            "p95",
+            "p99"
+          ],
+          "properties": {
+            "n": {
+              "type": "integer"
+            },
+            "p50": {
+              "type": "number"
+            },
+            "p95": {
+              "type": "number"
+            },
+            "p99": {
+              "type": "number"
+            }
+          }
+        },
+        "aggregates": {
+          "type": "object",
+          "additionalProperties": {
+            "type": "object",
+            "additionalProperties": false,
+            "required": [
+              "evaluated_cases",
+              "mean_upstream_metric"
+            ],
+            "properties": {
+              "evaluated_cases": {
+                "type": "integer"
+              },
+              "mean_upstream_metric": {
+                "type": "number"
+              }
+            }
+          },
+          "propertyNames": {
+            "pattern": "^[A-Za-z0-9_]+$"
+          }
+        },
+        "cases": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "additionalProperties": false,
+            "required": [
+              "acting_admission_ms",
+              "acting_native_calls",
+              "benchmark",
+              "case",
+              "elapsed_ms_including_evaluation",
+              "evaluator_replay_native_calls",
+              "metric",
+              "model_calls_agent_and_user",
+              "phase_evidence",
+              "policy",
+              "run"
+            ],
+            "properties": {
+              "acting_admission_ms": {
+                "type": "object",
+                "additionalProperties": false,
+                "required": [
+                  "n",
+                  "p50",
+                  "p95",
+                  "p99"
+                ],
+                "properties": {
+                  "n": {
+                    "type": "integer"
+                  },
+                  "p50": {
+                    "type": "number"
+                  },
+                  "p95": {
+                    "type": "number"
+                  },
+                  "p99": {
+                    "type": "number"
+                  }
+                }
+              },
+              "acting_native_calls": {
+                "type": "integer"
+              },
+              "benchmark": {
+                "type": "string"
+              },
+              "case": {
+                "type": "string"
+              },
+              "elapsed_ms_including_evaluation": {
+                "type": "number"
+              },
+              "evaluator_replay_native_calls": {
+                "type": "integer"
+              },
+              "metric": {
+                "type": "object",
+                "additionalProperties": false,
+                "required": [
+                  "name",
+                  "value"
+                ],
+                "properties": {
+                  "basis": {
+                    "type": "array",
+                    "items": {
+                      "type": "string"
+                    }
+                  },
+                  "failed_action_checks": {
+                    "type": "integer"
+                  },
+                  "minefield_similarity": {
+                    "type": "integer"
+                  },
+                  "name": {
+                    "type": "string"
+                  },
+                  "value": {
+                    "type": "number"
+                  }
+                }
+              },
+              "model_calls_agent_and_user": {
+                "type": "integer"
+              },
+              "phase_evidence": {
+                "type": "object",
+                "additionalProperties": false,
+                "required": [
+                  "method"
+                ],
+                "properties": {
+                  "method": {
+                    "type": "string"
+                  },
+                  "roles": {
+                    "type": "array",
+                    "items": {
+                      "type": "object",
+                      "additionalProperties": false,
+                      "required": [
+                        "journal",
+                        "role"
+                      ],
+                      "properties": {
+                        "journal": {
+                          "type": "string"
+                        },
+                        "role": {
+                          "type": "string"
+                        }
+                      }
+                    }
+                  }
+                }
+              },
+              "policy": {
+                "type": "string"
+              },
+              "run": {
+                "type": "string"
+              }
+            }
+          }
+        },
+        "limitations": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "run_inventory": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "additionalProperties": false,
+            "required": [
+              "benchmark",
+              "declared",
+              "errors",
+              "evaluated",
+              "manifest_complete",
+              "model",
+              "model_options",
+              "platform",
+              "provenance_sha256",
+              "python",
+              "recorded",
+              "results_sha256",
+              "run",
+              "seed",
+              "selected",
+              "source"
+            ],
+            "properties": {
+              "benchmark": {
+                "type": "string"
+              },
+              "declared": {
+                "type": "integer"
+              },
+              "errors": {
+                "type": "array",
+                "items": {
+                  "type": "object",
+                  "additionalProperties": false,
+                  "required": [
+                    "case",
+                    "error",
+                    "error_type"
+                  ],
+                  "properties": {
+                    "case": {
+                      "type": "string"
+                    },
+                    "error": {
+                      "type": "string"
+                    },
+                    "error_type": {
+                      "type": "string"
+                    }
+                  }
+                }
+              },
+              "evaluated": {
+                "type": "integer"
+              },
+              "manifest_complete": {
+                "type": "boolean"
+              },
+              "model": {
+                "type": "object",
+                "additionalProperties": false,
+                "required": [
+                  "capabilities",
+                  "details",
+                  "digest",
+                  "model",
+                  "modified_at",
+                  "name",
+                  "size"
+                ],
+                "properties": {
+                  "capabilities": {
+                    "type": "array",
+                    "items": {
+                      "type": "string"
+                    }
+                  },
+                  "details": {
+                    "type": "object",
+                    "additionalProperties": false,
+                    "required": [
+                      "context_length",
+                      "embedding_length",
+                      "families",
+                      "family",
+                      "format",
+                      "parameter_size",
+                      "parent_model",
+                      "quantization_level"
+                    ],
+                    "properties": {
+                      "context_length": {
+                        "type": "integer"
+                      },
+                      "embedding_length": {
+                        "type": "integer"
+                      },
+                      "families": {
+                        "type": "array",
+                        "items": {
+                          "type": "string"
+                        }
+                      },
+                      "family": {
+                        "type": "string"
+                      },
+                      "format": {
+                        "type": "string"
+                      },
+                      "parameter_size": {
+                        "type": "string"
+                      },
+                      "parent_model": {
+                        "type": "string"
+                      },
+                      "quantization_level": {
+                        "type": "string"
+                      }
+                    }
+                  },
+                  "digest": {
+                    "type": "string",
+                    "pattern": "^[0-9a-f]{64}$"
+                  },
+                  "model": {
+                    "type": "string"
+                  },
+                  "modified_at": {
+                    "type": "string"
+                  },
+                  "name": {
+                    "type": "string"
+                  },
+                  "size": {
+                    "type": "integer"
+                  }
+                }
+              },
+              "model_options": {
+                "type": "object",
+                "additionalProperties": false,
+                "required": [
+                  "num_ctx",
+                  "num_predict",
+                  "temperature",
+                  "think"
+                ],
+                "properties": {
+                  "num_ctx": {
+                    "type": "integer"
+                  },
+                  "num_predict": {
+                    "type": "integer"
+                  },
+                  "temperature": {
+                    "type": "integer"
+                  },
+                  "think": {
+                    "type": "boolean"
+                  }
+                }
+              },
+              "platform": {
+                "type": "string"
+              },
+              "provenance_sha256": {
+                "type": "string",
+                "pattern": "^[0-9a-f]{64}$"
+              },
+              "python": {
+                "type": "string"
+              },
+              "recorded": {
+                "type": "integer"
+              },
+              "results_sha256": {
+                "type": "string",
+                "pattern": "^[0-9a-f]{64}$"
+              },
+              "run": {
+                "type": "string"
+              },
+              "seed": {
+                "type": "integer"
+              },
+              "selected": {
+                "type": "boolean"
+              },
+              "source": {
+                "type": "object",
+                "additionalProperties": false,
+                "required": [
+                  "archive_sha256",
+                  "archive_url",
+                  "license_note",
+                  "name",
+                  "reference",
+                  "repository",
+                  "revision"
+                ],
+                "properties": {
+                  "archive_sha256": {
+                    "type": "string",
+                    "pattern": "^[0-9a-f]{64}$"
+                  },
+                  "archive_url": {
+                    "type": "string"
+                  },
+                  "license_note": {
+                    "type": "string"
+                  },
+                  "name": {
+                    "type": "string"
+                  },
+                  "reference": {
+                    "type": "string"
+                  },
+                  "repository": {
+                    "type": "string"
+                  },
+                  "revision": {
+                    "type": "string"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "schema_version": {
+          "enum": [
+            1
+          ]
+        },
+        "selected_runs": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        }
+      }
+    },
+    "generated_at": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "kind": {
+      "type": "string",
+      "enum": [
+        "reflexmesh-corrected-science"
+      ]
+    },
+    "limits": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      },
+      "description": "What the analysis does not establish."
+    },
+    "native_parity": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "extension",
+        "extension_sha256",
+        "native_engine",
+        "note",
+        "results",
+        "schema_version",
+        "seed"
+      ],
+      "properties": {
+        "extension": {
+          "type": "string"
+        },
+        "extension_sha256": {
+          "type": "string",
+          "pattern": "^[0-9a-f]{64}$"
+        },
+        "native_engine": {
+          "type": "string"
+        },
+        "note": {
+          "type": "string"
+        },
+        "results": {
+          "type": "object",
+          "additionalProperties": {
+            "type": "object",
+            "additionalProperties": false,
+            "required": [
+              "batch_size",
+              "cached_constructor_ms",
+              "cached_max_abs_probability_error",
+              "call_latency_ms",
+              "feature_dimension",
+              "max_abs_probability_error",
+              "mean_abs_probability_error",
+              "model_sha256",
+              "passed",
+              "split_thresholds",
+              "timing_scope",
+              "tolerance",
+              "vectors",
+              "warmed_candidate_count",
+              "warmed_latency_ms",
+              "warmed_repetitions",
+              "warmed_timing_scope"
+            ],
+            "properties": {
+              "batch_size": {
+                "type": "integer"
+              },
+              "cached_constructor_ms": {
+                "type": "number"
+              },
+              "cached_max_abs_probability_error": {
+                "type": "number"
+              },
+              "call_latency_ms": {
+                "type": "object",
+                "additionalProperties": false,
+                "required": [
+                  "50",
+                  "95",
+                  "99"
+                ],
+                "properties": {
+                  "50": {
+                    "type": "number"
+                  },
+                  "95": {
+                    "type": "number"
+                  },
+                  "99": {
+                    "type": "number"
+                  }
+                }
+              },
+              "feature_dimension": {
+                "type": "integer"
+              },
+              "max_abs_probability_error": {
+                "type": "number"
+              },
+              "mean_abs_probability_error": {
+                "type": "number"
+              },
+              "model_sha256": {
+                "type": "string",
+                "pattern": "^[0-9a-f]{64}$"
+              },
+              "passed": {
+                "type": "boolean"
+              },
+              "split_thresholds": {
+                "type": "integer"
+              },
+              "timing_scope": {
+                "type": "string"
+              },
+              "tolerance": {
+                "type": "number"
+              },
+              "vectors": {
+                "type": "integer"
+              },
+              "warmed_candidate_count": {
+                "type": "integer"
+              },
+              "warmed_latency_ms": {
+                "type": "object",
+                "additionalProperties": false,
+                "required": [
+                  "native_cached",
+                  "python_reference"
+                ],
+                "properties": {
+                  "native_cached": {
+                    "type": "object",
+                    "additionalProperties": false,
+                    "required": [
+                      "50",
+                      "95",
+                      "99"
+                    ],
+                    "properties": {
+                      "50": {
+                        "type": "number"
+                      },
+                      "95": {
+                        "type": "number"
+                      },
+                      "99": {
+                        "type": "number"
+                      }
+                    }
+                  },
+                  "python_reference": {
+                    "type": "object",
+                    "additionalProperties": false,
+                    "required": [
+                      "50",
+                      "95",
+                      "99"
+                    ],
+                    "properties": {
+                      "50": {
+                        "type": "number"
+                      },
+                      "95": {
+                        "type": "number"
+                      },
+                      "99": {
+                        "type": "number"
+                      }
+                    }
+                  }
+                }
+              },
+              "warmed_repetitions": {
+                "type": "integer"
+              },
+              "warmed_timing_scope": {
+                "type": "string"
+              }
+            }
+          },
+          "propertyNames": {
+            "pattern": "^M\\d{2}$"
+          }
+        },
+        "schema_version": {
+          "enum": [
+            1
+          ]
+        },
+        "seed": {
+          "type": "integer"
+        }
+      }
+    },
+    "paired_M12_minus_method": {
+      "type": "object",
+      "additionalProperties": {
+        "$ref": "#/$defs/PairedFullMinusAblation"
+      },
+      "propertyNames": {
+        "pattern": "^M\\d{2}$"
+      },
+      "description": "M12 minus each other method: paired success and wall-time differences with seed-group bootstrap intervals."
+    },
+    "routing": {
+      "type": "object",
+      "additionalProperties": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "calibration",
+          "calibration_net_incremental_utility",
+          "calibration_seed",
+          "calibration_states",
+          "expected_gain_model",
+          "fast_action",
+          "fit_seed",
+          "fit_states",
+          "kind",
+          "pairing_attempts",
+          "pairing_excluded_before_outcome",
+          "pairing_scope",
+          "planner_model",
+          "positive_calibration_states",
+          "positive_fit_states",
+          "probability_calibration",
+          "scope",
+          "target",
+          "threshold",
+          "threshold_selection_seed"
+        ],
+        "properties": {
+          "calibration": {
+            "type": "object",
+            "additionalProperties": false,
+            "required": [
+              "bins",
+              "brier",
+              "log_loss",
+              "n",
+              "target"
+            ],
+            "properties": {
+              "bins": {
+                "type": "array",
+                "items": {
+                  "type": "object",
+                  "additionalProperties": false,
+                  "required": [
+                    "accuracy",
+                    "confidence",
+                    "count",
+                    "lower",
+                    "upper"
+                  ],
+                  "properties": {
+                    "accuracy": {
+                      "type": "number"
+                    },
+                    "confidence": {
+                      "type": "number"
+                    },
+                    "count": {
+                      "type": "integer"
+                    },
+                    "lower": {
+                      "type": "number"
+                    },
+                    "upper": {
+                      "type": "number"
+                    }
+                  }
+                }
+              },
+              "brier": {
+                "type": "number"
+              },
+              "log_loss": {
+                "type": "number"
+              },
+              "n": {
+                "type": "integer"
+              },
+              "target": {
+                "type": "string"
+              }
+            }
+          },
+          "calibration_net_incremental_utility": {
+            "type": "number"
+          },
+          "calibration_seed": {
+            "type": "integer"
+          },
+          "calibration_states": {
+            "type": "integer"
+          },
+          "expected_gain_model": {
+            "type": "string"
+          },
+          "fast_action": {
+            "type": "string"
+          },
+          "fit_seed": {
+            "type": "integer"
+          },
+          "fit_states": {
+            "type": "integer"
+          },
+          "kind": {
+            "type": "string"
+          },
+          "pairing_attempts": {
+            "type": "object",
+            "additionalProperties": false,
+            "required": [
+              "calibration",
+              "fit",
+              "selection"
+            ],
+            "properties": {
+              "calibration": {
+                "type": "integer"
+              },
+              "fit": {
+                "type": "integer"
+              },
+              "selection": {
+                "type": "integer"
+              }
+            }
+          },
+          "pairing_excluded_before_outcome": {
+            "type": "object",
+            "additionalProperties": false,
+            "required": [
+              "calibration",
+              "fit",
+              "selection"
+            ],
+            "properties": {
+              "calibration": {
+                "type": "integer"
+              },
+              "fit": {
+                "type": "integer"
+              },
+              "selection": {
+                "type": "integer"
+              }
+            }
+          },
+          "pairing_scope": {
+            "type": "string"
+          },
+          "planner_model": {
+            "type": "string"
+          },
+          "positive_calibration_states": {
+            "type": "integer"
+          },
+          "positive_fit_states": {
+            "type": "integer"
+          },
+          "probability_calibration": {
+            "type": "string"
+          },
+          "scope": {
+            "type": "string"
+          },
+          "target": {
+            "type": "string"
+          },
+          "threshold": {
+            "type": "number"
+          },
+          "threshold_selection_seed": {
+            "type": "integer"
+          }
+        }
+      },
+      "propertyNames": {
+        "pattern": "^M\\d{2}$"
+      }
+    },
+    "schema_version": {
+      "enum": [
+        1
+      ]
+    },
+    "training": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "collect",
+        "gates",
+        "ppo",
+        "train"
+      ],
+      "properties": {
+        "collect": {
+          "$ref": "#/$defs/Collect"
+        },
+        "gates": {
+          "$ref": "#/$defs/Collect"
+        },
+        "ppo": {
+          "$ref": "#/$defs/Collect"
+        },
+        "train": {
+          "$ref": "#/$defs/Collect"
+        }
+      }
+    },
+    "transfer": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "directory",
+        "episodes",
+        "index_sha256",
+        "lineage_signature",
+        "methods"
+      ],
+      "properties": {
+        "directory": {
+          "type": "string"
+        },
+        "episodes": {
+          "type": "integer"
+        },
+        "index_sha256": {
+          "type": "string",
+          "pattern": "^[0-9a-f]{64}$"
+        },
+        "lineage_signature": {
+          "type": "string",
+          "pattern": "^[0-9a-f]{64}$"
+        },
+        "methods": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/Methods"
+          }
+        }
+      },
+      "description": "The structural-transfer evaluation."
+    },
+    "transition_validation": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "validation_mse",
+        "validation_reward_mse",
+        "validation_state_mse",
+        "validation_terminal_mse"
+      ],
+      "properties": {
+        "validation_mse": {
+          "type": "number"
+        },
+        "validation_reward_mse": {
+          "type": "number"
+        },
+        "validation_state_mse": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "attempts",
+            "cancel_requested",
+            "config_missing",
+            "confirmed",
+            "conflict",
+            "dependency_missing",
+            "destination_exists",
+            "drift",
+            "duplicate",
+            "failed",
+            "index_stale",
+            "input_ready",
+            "job_ready",
+            "last_action_failed",
+            "needs_validation",
+            "pressure",
+            "progress",
+            "recovered",
+            "result_ready",
+            "running",
+            "source_exists",
+            "stale",
+            "test_passed",
+            "transformed",
+            "uncertain",
+            "valid",
+            "write_unknown"
+          ],
+          "properties": {
+            "attempts": {
+              "type": "number"
+            },
+            "cancel_requested": {
+              "type": "number"
+            },
+            "config_missing": {
+              "type": "number"
+            },
+            "confirmed": {
+              "type": "number"
+            },
+            "conflict": {
+              "type": "number"
+            },
+            "dependency_missing": {
+              "type": "number"
+            },
+            "destination_exists": {
+              "type": "number"
+            },
+            "drift": {
+              "type": "number"
+            },
+            "duplicate": {
+              "type": "number"
+            },
+            "failed": {
+              "type": "number"
+            },
+            "index_stale": {
+              "type": "number"
+            },
+            "input_ready": {
+              "type": "number"
+            },
+            "job_ready": {
+              "type": "number"
+            },
+            "last_action_failed": {
+              "type": "number"
+            },
+            "needs_validation": {
+              "type": "number"
+            },
+            "pressure": {
+              "type": "number"
+            },
+            "progress": {
+              "type": "number"
+            },
+            "recovered": {
+              "type": "number"
+            },
+            "result_ready": {
+              "type": "number"
+            },
+            "running": {
+              "type": "number"
+            },
+            "source_exists": {
+              "type": "number"
+            },
+            "stale": {
+              "type": "number"
+            },
+            "test_passed": {
+              "type": "number"
+            },
+            "transformed": {
+              "type": "number"
+            },
+            "uncertain": {
+              "type": "number"
+            },
+            "valid": {
+              "type": "number"
+            },
+            "write_unknown": {
+              "type": "number"
+            }
+          }
+        },
+        "validation_terminal_mse": {
+          "type": "number"
+        }
+      }
+    },
+    "verdict": {
+      "type": "string",
+      "description": "The conclusion the analysis supports, in prose."
+    }
+  },
+  "$defs": {
+    "Collect": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "elapsed_seconds",
+        "finished_at",
+        "sha256",
+        "started_at"
+      ],
+      "properties": {
+        "elapsed_seconds": {
+          "type": "number"
+        },
+        "finished_at": {
+          "type": "string"
+        },
+        "sha256": {
+          "type": "string",
+          "pattern": "^[0-9a-f]{64}$"
+        },
+        "started_at": {
+          "type": "string"
+        }
+      }
+    },
+    "Methods": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "applied_planner_decisions",
+        "contract_violations",
+        "decision_latency_ms",
+        "delegation_triggers",
+        "discarded_proposals",
+        "episodes",
+        "failed_by_case",
+        "invalid_policy_output_episodes",
+        "mean_wall_ms",
+        "method_id",
+        "recorded_delegation_starts",
+        "success_rate",
+        "successes",
+        "total_wall_seconds"
+      ],
+      "properties": {
+        "applied_planner_decisions": {
+          "type": "integer"
+        },
+        "contract_violations": {
+          "type": "integer"
+        },
+        "decision_latency_ms": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "p50",
+            "p95",
+            "p99"
+          ],
+          "properties": {
+            "p50": {
+              "type": "number"
+            },
+            "p95": {
+              "type": "number"
+            },
+            "p99": {
+              "type": "number"
+            }
+          }
+        },
+        "delegation_triggers": {
+          "type": "object",
+          "additionalProperties": {
+            "type": "integer"
+          },
+          "propertyNames": {
+            "pattern": "^[A-Za-z0-9_]+$"
+          }
+        },
+        "discarded_proposals": {
+          "type": "integer"
+        },
+        "episodes": {
+          "type": "integer"
+        },
+        "failed_by_case": {
+          "type": "object",
+          "additionalProperties": {
+            "type": "integer"
+          },
+          "propertyNames": {
+            "pattern": "^[A-Z]\\d{2}$"
+          }
+        },
+        "invalid_policy_output_episodes": {
+          "type": "integer"
+        },
+        "mean_wall_ms": {
+          "type": "number"
+        },
+        "method_id": {
+          "type": "string",
+          "pattern": "^M\\d{2}$"
+        },
+        "recorded_delegation_starts": {
+          "type": "integer"
+        },
+        "success_rate": {
+          "type": "number"
+        },
+        "successes": {
+          "type": "integer"
+        },
+        "total_wall_seconds": {
+          "type": "number"
+        }
+      }
+    },
+    "PairedFullMinusAblation": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "mean_wall_difference_ms_left_minus_right",
+        "paired_cells",
+        "paired_seed_bootstrap95",
+        "scope",
+        "seed_groups",
+        "success_difference_left_minus_right"
+      ],
+      "properties": {
+        "mean_wall_difference_ms_left_minus_right": {
+          "type": "number"
+        },
+        "paired_cells": {
+          "type": "integer"
+        },
+        "paired_seed_bootstrap95": {
+          "type": "array",
+          "items": {
+            "type": "number"
+          }
+        },
+        "scope": {
+          "type": "string"
+        },
+        "seed_groups": {
+          "type": "integer"
+        },
+        "success_difference_left_minus_right": {
+          "type": "number"
+        }
+      }
+    }
+  }
+}

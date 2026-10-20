@@ -1,0 +1,1019 @@
+{
+  "schema_version": 1,
+  "kind": "reflexmesh-corrected-science",
+  "generated_at": "2026-09-24T01:31:43.976987+00:00",
+  "audit_sha256": "428b104638b07b9ede8d9dcf8c166997a1ee99be742cb44dba14ca0d012f835f",
+  "completed_episodes": 19488,
+  "core": {
+    "directory": "artifacts/evaluation",
+    "episodes": 14400,
+    "index_sha256": "ec45fbdd1b6a6a899b27e9bf4712bf46988e3f84eef14603bd9b187592bca85c",
+    "lineage_signature": "0a37d32ca828aa0765738cf92b649413d8a3a2de9b3e5c2d0751e7d727ae8960",
+    "methods": [
+      {
+        "method_id": "M01",
+        "episodes": 1200,
+        "successes": 1200,
+        "success_rate": 1.0,
+        "total_wall_seconds": 192.67587420134805,
+        "mean_wall_ms": 160.56322850112338,
+        "decision_latency_ms": {
+          "p50": 0.021899992134422064,
+          "p95": 0.03940500901080665,
+          "p99": 0.0575819727964699
+        },
+        "contract_violations": 0,
+        "invalid_policy_output_episodes": 0,
+        "recorded_delegation_starts": 0,
+        "applied_planner_decisions": 0,
+        "delegation_triggers": {},
+        "discarded_proposals": 0,
+        "failed_by_case": {}
+      },
+      {
+        "method_id": "M02",
+        "episodes": 1200,
+        "successes": 1200,
+        "success_rate": 1.0,
+        "total_wall_seconds": 220.41613190004136,
+        "mean_wall_ms": 183.68010991670113,
+        "decision_latency_ms": {
+          "p50": 0.06890000076964498,
+          "p95": 0.11769996781367809,
+          "p99": 0.21888200251851228
+        },
+        "contract_violations": 0,
+        "invalid_policy_output_episodes": 0,
+        "recorded_delegation_starts": 0,
+        "applied_planner_decisions": 0,
+        "delegation_triggers": {},
+        "discarded_proposals": 0,
+        "failed_by_case": {}
+      },
+      {
+        "method_id": "M03",
+        "episodes": 1200,
+        "successes": 1200,
+        "success_rate": 1.0,
+        "total_wall_seconds": 227.84304240060737,
+        "mean_wall_ms": 189.86920200050614,
+        "decision_latency_ms": {
+          "p50": 2.5695000076666474,
+          "p95": 4.211399995256215,
+          "p99": 4.7138800378888845
+        },
+        "contract_violations": 0,
+        "invalid_policy_output_episodes": 0,
+        "recorded_delegation_starts": 0,
+        "applied_planner_decisions": 0,
+        "delegation_triggers": {},
+        "discarded_proposals": 0,
+        "failed_by_case": {}
+      }
+    ]
+  },
+  "transfer": {
+    "directory": "artifacts/structural-transfer",
+    "episodes": 288,
+    "index_sha256": "bd1c1e0f02c5360d268a130e541199351d9f67cbab8a41ee8e754d880d5e1ec8",
+    "lineage_signature": "0746945aa990b42121622f0d2fd58dd87d5e54dcfcb91bafff4fd6a9c98bd915",
+    "methods": [
+      {
+        "method_id": "M01",
+        "episodes": 24,
+        "successes": 0,
+        "success_rate": 0.0,
+        "total_wall_seconds": 2.55456520000007,
+        "mean_wall_ms": 106.44021666666958,
+        "decision_latency_ms": {
+          "p50": 0.011299969628453255,
+          "p95": 0.018839977565221475,
+          "p99": 0.021533989347517494
+        },
+        "contract_violations": 0,
+        "invalid_policy_output_episodes": 0,
+        "recorded_delegation_starts": 0,
+        "applied_planner_decisions": 0,
+        "delegation_triggers": {},
+        "discarded_proposals": 0,
+        "failed_by_case": {
+          "S01": 6,
+          "S02": 6,
+          "S03": 6,
+          "S04": 6
+        }
+      },
+      {
+        "method_id": "M02",
+        "episodes": 24,
+        "successes": 0,
+        "success_rate": 0.0,
+        "total_wall_seconds": 2.5587643000180833,
+        "mean_wall_ms": 106.61517916742014,
+        "decision_latency_ms": {
+          "p50": 0.041799998143687844,
+          "p95": 0.057200019364245236,
+          "p99": 0.09032698930241173
+        },
+        "contract_violations": 0,
+        "invalid_policy_output_episodes": 0,
+        "recorded_delegation_starts": 0,
+        "applied_planner_decisions": 0,
+        "delegation_triggers": {},
+        "discarded_proposals": 0,
+        "failed_by_case": {
+          "S01": 6,
+          "S02": 6,
+          "S03": 6,
+          "S04": 6
+        }
+      },
+      {
+        "method_id": "M03",
+        "episodes": 24,
+        "successes": 0,
+        "success_rate": 0.0,
+        "total_wall_seconds": 7.158576500136405,
+        "mean_wall_ms": 298.2740208390169,
+        "decision_latency_ms": {
+          "p50": 0.8822499949019402,
+          "p95": 1.2391450058203188,
+          "p99": 1.6550010192440823
+        },
+        "contract_violations": 0,
+        "invalid_policy_output_episodes": 0,
+        "recorded_delegation_starts": 0,
+        "applied_planner_decisions": 0,
+        "delegation_triggers": {},
+        "discarded_proposals": 0,
+        "failed_by_case": {
+          "S01": 6,
+          "S02": 6,
+          "S03": 6,
+          "S04": 6
+        }
+      }
+    ]
+  },
+  "ablations": {
+    "no_memory": {
+      "directory": "artifacts/ablations/no_memory",
+      "episodes": 1200,
+      "index_sha256": "067b5313d090c3bd4fa16d76bfc4ebff35aca58ee01fd8c9207e5fad883bb47b",
+      "lineage_signature": "eb6dfd33e9beb4139aae1309d70dc31dc23ad839cd07de55632d5f3e170693bf",
+      "methods": [
+        {
+          "method_id": "M12",
+          "episodes": 1200,
+          "successes": 1160,
+          "success_rate": 0.9666666666666667,
+          "total_wall_seconds": 396.2118521997472,
+          "mean_wall_ms": 330.1765434997894,
+          "decision_latency_ms": {
+            "p50": 18.165849993238226,
+            "p95": 158.92743497388437,
+            "p99": 176.82372596580535
+          },
+          "contract_violations": 0,
+          "invalid_policy_output_episodes": 0,
+          "recorded_delegation_starts": 140,
+          "applied_planner_decisions": 120,
+          "delegation_triggers": {
+            "insufficient_evidence": 140
+          },
+          "discarded_proposals": 20,
+          "failed_by_case": {
+            "C07": 40
+          }
+        }
+      ],
+      "paired_full_minus_ablation": {
+        "paired_cells": 1200,
+        "seed_groups": 10,
+        "success_difference_left_minus_right": 0.0,
+        "paired_seed_bootstrap95": [
+          0.0,
+          0.0
+        ],
+        "mean_wall_difference_ms_left_minus_right": 2.588468000952465,
+        "scope": "designed shared templates; small seed-group population; compute budgets are not equalized"
+      }
+    },
+    "no_effects": {
+      "directory": "artifacts/ablations/no_effects",
+      "episodes": 1200,
+      "index_sha256": "88a94b18696a0e066a6da24ed23e94ea784214b4ff7d61fe1e51cd252668ada5",
+      "lineage_signature": "2e486ca3d49978918d0c4f0cb686daa8ae30931e977fd8c56b6ae0bca39db64f",
+      "methods": [
+        {
+          "method_id": "M12",
+          "episodes": 1200,
+          "successes": 1160,
+          "success_rate": 0.9666666666666667,
+          "total_wall_seconds": 352.1823343000142,
+          "mean_wall_ms": 293.4852785833452,
+          "decision_latency_ms": {
+            "p50": 3.65949998376891,
+            "p95": 157.78333997586742,
+            "p99": 162.82216404099017
+          },
+          "contract_violations": 0,
+          "invalid_policy_output_episodes": 0,
+          "recorded_delegation_starts": 140,
+          "applied_planner_decisions": 120,
+          "delegation_triggers": {
+            "insufficient_evidence": 140
+          },
+          "discarded_proposals": 20,
+          "failed_by_case": {
+            "C07": 40
+          }
+        }
+      ],
+      "paired_full_minus_ablation": {
+        "paired_cells": 1200,
+        "seed_groups": 10,
+        "success_difference_left_minus_right": 0.0,
+        "paired_seed_bootstrap95": [
+          0.0,
+          0.0
+        ],
+        "mean_wall_difference_ms_left_minus_right": 39.279732917396665,
+        "scope": "designed shared templates; small seed-group population; compute budgets are not equalized"
+      }
+    },
+    "no_deferral": {
+      "directory": "artifacts/ablations/no_deferral",
+      "episodes": 1200,
+      "index_sha256": "9305cbdb7ec685344c0c22c3a157874bf9e8a4385c7eae8ec654c8d5e2665f3d",
+      "lineage_signature": "e171eace985f82e65d3cea6d7e7e2d074f3277c1fc513ea9eaaeb1d9916514ba",
+      "methods": [
+        {
+          "method_id": "M12",
+          "episodes": 1200,
+          "successes": 1160,
+          "success_rate": 0.9666666666666667,
+          "total_wall_seconds": 241.0504791997373,
+          "mean_wall_ms": 200.87539933311442,
+          "decision_latency_ms": {
+            "p50": 17.9022999946028,
+            "p95": 19.327849964611232,
+            "p99": 25.482750008814048
+          },
+          "contract_violations": 0,
+          "invalid_policy_output_episodes": 0,
+          "recorded_delegation_starts": 0,
+          "applied_planner_decisions": 0,
+          "delegation_triggers": {},
+          "discarded_proposals": 0,
+          "failed_by_case": {
+            "C07": 40
+          }
+        }
+      ],
+      "paired_full_minus_ablation": {
+        "paired_cells": 1200,
+        "seed_groups": 10,
+        "success_difference_left_minus_right": 0.0,
+        "paired_seed_bootstrap95": [
+          0.0,
+          0.0
+        ],
+        "mean_wall_difference_ms_left_minus_right": 131.8896121676274,
+        "scope": "designed shared templates; small seed-group population; compute budgets are not equalized"
+      }
+    },
+    "no_invalidation": {
+      "directory": "artifacts/ablations/no_invalidation",
+      "episodes": 1200,
+      "index_sha256": "4590c2b220aad3ded63afd535c78c036164c6bfd9056c1ea14023fa26e69164e",
+      "lineage_signature": "33bf53743e3c91adebff541c743e8c462dfdfc36e0dc656201078d9878231640",
+      "methods": [
+        {
+          "method_id": "M12",
+          "episodes": 1200,
+          "successes": 1160,
+          "success_rate": 0.9666666666666667,
+          "total_wall_seconds": 393.3182206991478,
+          "mean_wall_ms": 327.76518391595647,
+          "decision_latency_ms": {
+            "p50": 18.07420002296567,
+            "p95": 158.8000999763608,
+            "p99": 175.89249997399747
+          },
+          "contract_violations": 0,
+          "invalid_policy_output_episodes": 0,
+          "recorded_delegation_starts": 136,
+          "applied_planner_decisions": 136,
+          "delegation_triggers": {
+            "insufficient_evidence": 136
+          },
+          "discarded_proposals": 0,
+          "failed_by_case": {
+            "C07": 40
+          }
+        }
+      ],
+      "paired_full_minus_ablation": {
+        "paired_cells": 1200,
+        "seed_groups": 10,
+        "success_difference_left_minus_right": 0.0,
+        "paired_seed_bootstrap95": [
+          0.0,
+          0.0
+        ],
+        "mean_wall_difference_ms_left_minus_right": 4.999827584785332,
+        "scope": "designed shared templates; small seed-group population; compute budgets are not equalized"
+      }
+    }
+  },
+  "paired_M12_minus_method": {
+    "M01": {
+      "paired_cells": 1200,
+      "seed_groups": 10,
+      "success_difference_left_minus_right": -0.03333333333333333,
+      "paired_seed_bootstrap95": [
+        -0.03333333333333333,
+        -0.03333333333333333
+      ],
+      "mean_wall_difference_ms_left_minus_right": 172.20178299961844,
+      "scope": "designed shared templates; small seed-group population; compute budgets are not equalized"
+    },
+    "M02": {
+      "paired_cells": 1200,
+      "seed_groups": 10,
+      "success_difference_left_minus_right": -0.03333333333333333,
+      "paired_seed_bootstrap95": [
+        -0.03333333333333333,
+        -0.03333333333333333
+      ],
+      "mean_wall_difference_ms_left_minus_right": 149.0849015840407,
+      "scope": "designed shared templates; small seed-group population; compute budgets are not equalized"
+    },
+    "M03": {
+      "paired_cells": 1200,
+      "seed_groups": 10,
+      "success_difference_left_minus_right": -0.03333333333333333,
+      "paired_seed_bootstrap95": [
+        -0.03333333333333333,
+        -0.03333333333333333
+      ],
+      "mean_wall_difference_ms_left_minus_right": 142.89580950023569,
+      "scope": "designed shared templates; small seed-group population; compute budgets are not equalized"
+    },
+    "M04": {
+      "paired_cells": 1200,
+      "seed_groups": 10,
+      "success_difference_left_minus_right": -0.03333333333333333,
+      "paired_seed_bootstrap95": [
+        -0.03333333333333333,
+        -0.03333333333333333
+      ],
+      "mean_wall_difference_ms_left_minus_right": 139.86159058321695,
+      "scope": "designed shared templates; small seed-group population; compute budgets are not equalized"
+    },
+    "M05": {
+      "paired_cells": 1200,
+      "seed_groups": 10,
+      "success_difference_left_minus_right": -0.03333333333333333,
+      "paired_seed_bootstrap95": [
+        -0.03333333333333333,
+        -0.03333333333333333
+      ],
+      "mean_wall_difference_ms_left_minus_right": 149.52390133412942,
+      "scope": "designed shared templates; small seed-group population; compute budgets are not equalized"
+    },
+    "M06": {
+      "paired_cells": 1200,
+      "seed_groups": 10,
+      "success_difference_left_minus_right": 0.7558333333333334,
+      "paired_seed_bootstrap95": [
+        0.7533333333333333,
+        0.7583333333333332
+      ],
+      "mean_wall_difference_ms_left_minus_right": 70.48777133401018,
+      "scope": "designed shared templates; small seed-group population; compute budgets are not equalized"
+    },
+    "M07": {
+      "paired_cells": 1200,
+      "seed_groups": 10,
+      "success_difference_left_minus_right": -0.008333333333333335,
+      "paired_seed_bootstrap95": [
+        -0.023333333333333334,
+        0.006666666666666666
+      ],
+      "mean_wall_difference_ms_left_minus_right": 176.40740466774636,
+      "scope": "designed shared templates; small seed-group population; compute budgets are not equalized"
+    },
+    "M08": {
+      "paired_cells": 1200,
+      "seed_groups": 10,
+      "success_difference_left_minus_right": 0.4133333333333333,
+      "paired_seed_bootstrap95": [
+        0.3966666666666666,
+        0.4291666666666667
+      ],
+      "mean_wall_difference_ms_left_minus_right": 7.752334332762985,
+      "scope": "designed shared templates; small seed-group population; compute budgets are not equalized"
+    },
+    "M09": {
+      "paired_cells": 1200,
+      "seed_groups": 10,
+      "success_difference_left_minus_right": 0.4708333333333333,
+      "paired_seed_bootstrap95": [
+        0.4541666666666666,
+        0.48916666666666664
+      ],
+      "mean_wall_difference_ms_left_minus_right": -12748.74825099847,
+      "scope": "designed shared templates; small seed-group population; compute budgets are not equalized"
+    },
+    "M10": {
+      "paired_cells": 1200,
+      "seed_groups": 10,
+      "success_difference_left_minus_right": -0.03333333333333333,
+      "paired_seed_bootstrap95": [
+        -0.03333333333333333,
+        -0.03333333333333333
+      ],
+      "mean_wall_difference_ms_left_minus_right": -982.1162053321314,
+      "scope": "designed shared templates; small seed-group population; compute budgets are not equalized"
+    },
+    "M11": {
+      "paired_cells": 1200,
+      "seed_groups": 10,
+      "success_difference_left_minus_right": -0.03333333333333333,
+      "paired_seed_bootstrap95": [
+        -0.03333333333333333,
+        -0.03333333333333333
+      ],
+      "mean_wall_difference_ms_left_minus_right": 185.71263558308905,
+      "scope": "designed shared templates; small seed-group population; compute budgets are not equalized"
+    }
+  },
+  "training": {
+    "collect": {
+      "sha256": "d599c1c4258467595ea2ada173636a7f222942b1f029e38c149ce8b97b1005e4",
+      "elapsed_seconds": 186.17291960003786,
+      "started_at": "2026-09-20T23:20:40.768899+00:00",
+      "finished_at": "2026-09-20T23:23:46.939202+00:00"
+    },
+    "train": {
+      "sha256": "9cb4374a29fbcd2f21bcc0c1b4183957c054204911a843c2bac50e712f682c26",
+      "elapsed_seconds": 46.601525000005495,
+      "started_at": "2026-09-20T23:23:48.287110+00:00",
+      "finished_at": "2026-09-20T23:24:34.880351+00:00"
+    },
+    "ppo": {
+      "sha256": "011e030f87f78806d0a812c62c1e03459d2c102cf97e84f4e97ad85aafc412fc",
+      "elapsed_seconds": 841.9544983000378,
+      "started_at": "2026-09-20T23:24:36.544234+00:00",
+      "finished_at": "2026-09-20T23:38:38.496545+00:00"
+    },
+    "gates": {
+      "sha256": "4540450871c31eb9a19a5a16f7ad14241eb52c4e560b8883a4b4a0e01dbc5dc6",
+      "elapsed_seconds": 1340.1626825000276,
+      "started_at": "2026-09-20T23:38:39.586386+00:00",
+      "finished_at": "2026-09-21T00:00:59.749312+00:00"
+    }
+  },
+  "routing": {
+    "M11": {
+      "kind": "logistic_incremental_benefit",
+      "fit_states": 228,
+      "pairing_attempts": {
+        "fit": 228,
+        "calibration": 228,
+        "selection": 228
+      },
+      "pairing_excluded_before_outcome": {
+        "fit": 0,
+        "calibration": 0,
+        "selection": 0
+      },
+      "pairing_scope": "exact candidate feature matrix and causal history equality at branch start; hidden OS state not cloned",
+      "positive_fit_states": 7,
+      "calibration_states": 228,
+      "positive_calibration_states": 7,
+      "threshold": 1.01,
+      "calibration_net_incremental_utility": 0.0,
+      "calibration": {
+        "n": 228,
+        "target": "positive_incremental_utility",
+        "bins": [
+          {
+            "lower": 0.0,
+            "upper": 0.1,
+            "count": 228,
+            "confidence": 0.031139472003465937,
+            "accuracy": 0.03070175438596491
+          }
+        ],
+        "brier": 0.029557339640144273,
+        "log_loss": 0.1331274767607803
+      },
+      "planner_model": "qwen3.5:4b",
+      "target": "positive executed one-decision incremental utility including measured planner cost",
+      "scope": "resettable owned environments; shared teacher continuation; not whole-policy causal effect",
+      "fit_seed": 50000,
+      "calibration_seed": 60000,
+      "threshold_selection_seed": 70000,
+      "probability_calibration": "Platt fit on60000; empirical constant if one class; reliability on70000; no safety bound",
+      "expected_gain_model": "Ridge on actual paired incremental utility including measured local planner cost",
+      "fast_action": "actual M03 action"
+    },
+    "M12": {
+      "kind": "logistic_incremental_benefit",
+      "fit_states": 228,
+      "pairing_attempts": {
+        "fit": 228,
+        "calibration": 228,
+        "selection": 228
+      },
+      "pairing_excluded_before_outcome": {
+        "fit": 0,
+        "calibration": 0,
+        "selection": 0
+      },
+      "pairing_scope": "exact candidate feature matrix and causal history equality at branch start; hidden OS state not cloned",
+      "positive_fit_states": 7,
+      "calibration_states": 228,
+      "positive_calibration_states": 7,
+      "threshold": 1.01,
+      "calibration_net_incremental_utility": 0.0,
+      "calibration": {
+        "n": 228,
+        "target": "positive_incremental_utility",
+        "bins": [
+          {
+            "lower": 0.0,
+            "upper": 0.1,
+            "count": 228,
+            "confidence": 0.030634254493779465,
+            "accuracy": 0.03070175438596491
+          }
+        ],
+        "brier": 0.02936563225850082,
+        "log_loss": 0.13028732223505912
+      },
+      "planner_model": "qwen3.5:4b",
+      "target": "positive executed one-decision incremental utility including measured planner cost",
+      "scope": "resettable owned environments; shared teacher continuation; not whole-policy causal effect",
+      "fit_seed": 50000,
+      "calibration_seed": 60000,
+      "threshold_selection_seed": 70000,
+      "probability_calibration": "Platt fit on60000; empirical constant if one class; reliability on70000; no safety bound",
+      "expected_gain_model": "Ridge on actual paired incremental utility including measured local planner cost",
+      "fast_action": "actual recurrent/effect blended action"
+    }
+  },
+  "transition_validation": {
+    "validation_mse": 0.007109377067536116,
+    "validation_state_mse": {
+      "stale": 0.04302163049578667,
+      "duplicate": 8.645825801067986e-06,
+      "dependency_missing": 2.755352579697501e-05,
+      "uncertain": 0.0024505213368684053,
+      "cancel_requested": 0.0001632592175155878,
+      "running": 0.005108949728310108,
+      "failed": 0.012514003552496433,
+      "write_unknown": 0.0050247483886778355,
+      "confirmed": 0.012000837363302708,
+      "pressure": 0.002566481474786997,
+      "job_ready": 0.002571321092545986,
+      "needs_validation": 0.0026311499532312155,
+      "valid": 0.005198425147682428,
+      "source_exists": 0.002596383448690176,
+      "destination_exists": 0.002606142545118928,
+      "index_stale": 0.002804531017318368,
+      "config_missing": 0.0025403806939721107,
+      "test_passed": 0.00010008802928496152,
+      "input_ready": 0.0026599490083754063,
+      "transformed": 0.00025872269179672003,
+      "result_ready": 0.002567633520811796,
+      "conflict": 0.0004592358018271625,
+      "recovered": 0.00261169346049428,
+      "drift": 0.011483222246170044,
+      "attempts": 0.0004280177818145603,
+      "progress": 0.00226827384904027,
+      "last_action_failed": 0.046732936054468155
+    },
+    "validation_reward_mse": 0.01807933673262596,
+    "validation_terminal_mse": 0.01468784548342228
+  },
+  "native_parity": {
+    "extension": "_native.cp312-win_amd64.pyd",
+    "extension_sha256": "f1ed93084ccb5081e247bb14952d17a7ab3c162a8f940c993bd96aa84be1880c",
+    "native_engine": "rust-pyo3",
+    "note": "Numerical export parity, not outcome generalization or safety calibration evidence",
+    "results": {
+      "M03": {
+        "batch_size": 32,
+        "cached_constructor_ms": 0.0945,
+        "cached_max_abs_probability_error": 2.2537527399890678e-14,
+        "call_latency_ms": {
+          "50": 0.67035,
+          "95": 1.03665,
+          "99": 1.21365
+        },
+        "feature_dimension": 934,
+        "max_abs_probability_error": 3.1308289294429414e-14,
+        "mean_abs_probability_error": 1.4656872447662357e-16,
+        "model_sha256": "aaf9d9362f10c5cd984ec00babf215e3019e6761c38cbb2e6df8662322fdfd78",
+        "passed": true,
+        "split_thresholds": 76,
+        "timing_scope": "JSON model parse + feature parse + Rust batch scoring + return decode; excludes Python feature construction",
+        "tolerance": 1e-05,
+        "vectors": 484,
+        "warmed_candidate_count": 7,
+        "warmed_latency_ms": {
+          "native_cached": {
+            "50": 0.009,
+            "95": 0.0118,
+            "99": 0.015505999999999994
+          },
+          "python_reference": {
+            "50": 0.10905000000000001,
+            "95": 0.1334849999999999,
+            "99": 0.17525799999999994
+          }
+        },
+        "warmed_repetitions": 500,
+        "warmed_timing_scope": "Native: packed feature serialization + cached Rust scoring + return list; Python: fitted model predict + Platt; both exclude shared feature construction and effect execution"
+      },
+      "M04": {
+        "batch_size": 32,
+        "cached_constructor_ms": 0.9952,
+        "cached_max_abs_probability_error": 3.7825163745619506e-07,
+        "call_latency_ms": {
+          "50": 1.634,
+          "95": 2.779675,
+          "99": 2.959375
+        },
+        "feature_dimension": 934,
+        "max_abs_probability_error": 3.7825163745619506e-07,
+        "mean_abs_probability_error": 1.1501766326063734e-08,
+        "model_sha256": "9ae8af37fa9b97f5e8f80be42c0b142119dcffcb1900989040f30a12e7373b09",
+        "passed": true,
+        "split_thresholds": 76,
+        "timing_scope": "JSON model parse + feature parse + Rust batch scoring + return decode; excludes Python feature construction",
+        "tolerance": 1e-05,
+        "vectors": 484,
+        "warmed_candidate_count": 7,
+        "warmed_latency_ms": {
+          "native_cached": {
+            "50": 0.0185,
+            "95": 0.0231,
+            "99": 0.02911199999999999
+          },
+          "python_reference": {
+            "50": 0.2917,
+            "95": 0.38110499999999975,
+            "99": 0.41519899999999993
+          }
+        },
+        "warmed_repetitions": 500,
+        "warmed_timing_scope": "Native: packed feature serialization + cached Rust scoring + return list; Python: fitted model predict + Platt; both exclude shared feature construction and effect execution"
+      }
+    },
+    "schema_version": 1,
+    "seed": 44128
+  },
+  "external": {
+    "acting_admission_ms": {
+      "n": 47,
+      "p50": 0.1124,
+      "p95": 0.22063999999999995,
+      "p99": 0.5338959999999995
+    },
+    "acting_effect_and_finish_ms": {
+      "n": 47,
+      "p50": 35.7659,
+      "p95": 46.45319999999998,
+      "p99": 264.80270799999994
+    },
+    "aggregates": {
+      "ToolSandbox": {
+        "evaluated_cases": 8,
+        "mean_upstream_metric": 0.9546040024634541
+      },
+      "tau2": {
+        "evaluated_cases": 4,
+        "mean_upstream_metric": 0.75
+      }
+    },
+    "cases": [
+      {
+        "acting_admission_ms": {
+          "n": 6,
+          "p50": 0.15595,
+          "p95": 0.639875,
+          "p99": 0.7546950000000001
+        },
+        "acting_native_calls": 6,
+        "benchmark": "tau2",
+        "case": "0",
+        "elapsed_ms_including_evaluation": 47126.2258,
+        "evaluator_replay_native_calls": 6,
+        "metric": {
+          "basis": [
+            "DB",
+            "COMMUNICATE"
+          ],
+          "failed_action_checks": 0,
+          "name": "upstream_reward",
+          "value": 1.0
+        },
+        "model_calls_agent_and_user": 15,
+        "phase_evidence": {
+          "method": "explicit_environment_roles",
+          "roles": [
+            {
+              "journal": "native\\environment-0\\journal.json",
+              "role": "acting"
+            },
+            {
+              "journal": "native\\environment-1\\journal.json",
+              "role": "evaluation_replay"
+            },
+            {
+              "journal": "native\\environment-2\\journal.json",
+              "role": "evaluation_replay"
+            }
+          ]
+        },
+        "policy": "local_system_two_with_native_admission",
+        "run": "tau2-causal-final-retail-seed0"
+      },
+      {
+        "acting_admission_ms": {
+          "n": 6,
+          "p50": 0.12259999999999999,
+          "p95": 0.211475,
+          "p99": 0.22269500000000003
+        },
+        "acting_native_calls": 6,
+        "benchmark": "tau2",
+        "case": "1",
+        "elapsed_ms_including_evaluation": 53654.0372,
+        "evaluator_replay_native_calls": 6,
+        "metric": {
+          "basis": [
+            "DB",
+            "COMMUNICATE"
+          ],
+          "failed_action_checks": 0,
+          "name": "upstream_reward",
+          "value": 1.0
+        },
+        "model_calls_agent_and_user": 19,
+        "phase_evidence": {
+          "method": "explicit_environment_roles",
+          "roles": [
+            {
+              "journal": "native\\environment-3\\journal.json",
+              "role": "acting"
+            },
+            {
+              "journal": "native\\environment-4\\journal.json",
+              "role": "evaluation_replay"
+            },
+            {
+              "journal": "native\\environment-5\\journal.json",
+              "role": "evaluation_replay"
+            }
+          ]
+        },
+        "policy": "local_system_two_with_native_admission",
+        "run": "tau2-causal-final-retail-seed0"
+      },
+      {
+        "acting_admission_ms": {
+          "n": 10,
+          "p50": 0.13195,
+          "p95": 0.15818,
+          "p99": 0.16667600000000002
+        },
+        "acting_native_calls": 10,
+        "benchmark": "tau2",
+        "case": "2",
+        "elapsed_ms_including_evaluation": 41117.1199,
+        "evaluator_replay_native_calls": 10,
+        "metric": {
+          "basis": [
+            "DB",
+            "COMMUNICATE"
+          ],
+          "failed_action_checks": 2,
+          "name": "upstream_reward",
+          "value": 1.0
+        },
+        "model_calls_agent_and_user": 17,
+        "phase_evidence": {
+          "method": "explicit_environment_roles",
+          "roles": [
+            {
+              "journal": "native\\environment-6\\journal.json",
+              "role": "acting"
+            },
+            {
+              "journal": "native\\environment-7\\journal.json",
+              "role": "evaluation_replay"
+            },
+            {
+              "journal": "native\\environment-8\\journal.json",
+              "role": "evaluation_replay"
+            }
+          ]
+        },
+        "policy": "local_system_two_with_native_admission",
+        "run": "tau2-causal-final-retail-seed0"
+      }
+    ],
+    "limitations": [
+      "Local System Two acting agent with native admission; no learned-policy transfer claim",
+      "Eligible upstream subsets only; inspect selected case identities and categories",
+      "Official upstream evaluators used; local model/transport/subset differ from leaderboard protocols"
+    ],
+    "run_inventory": [
+      {
+        "benchmark": "tau2",
+        "declared": 4,
+        "errors": [],
+        "evaluated": 4,
+        "manifest_complete": true,
+        "model": {
+          "capabilities": [
+            "vision",
+            "completion",
+            "tools"
+          ],
+          "details": {
+            "context_length": 262144,
+            "embedding_length": 2560,
+            "families": [
+              "qwen35"
+            ],
+            "family": "qwen35",
+            "format": "gguf",
+            "parameter_size": "4.7B",
+            "parent_model": "",
+            "quantization_level": "Q4_K_M"
+          },
+          "digest": "2a654d98e6fba55d452b7043684e9b57a947e393bbffa62485a7aac05ee4eefd",
+          "model": "qwen3.5:4b",
+          "modified_at": "2026-09-20T13:35:49.4851444-03:00",
+          "name": "qwen3.5:4b",
+          "size": 3389983735
+        },
+        "model_options": {
+          "num_ctx": 16384,
+          "num_predict": 1024,
+          "temperature": 0,
+          "think": false
+        },
+        "platform": "Windows-11-10.0.26200-SP0",
+        "provenance_sha256": "e23e1635a6a7d42939c58895c26aac2af3c07094ddd757188a740fab43197322",
+        "python": "3.12.10 (tags/v3.12.10:0cc8128, Apr  8 2025, 12:21:36) [MSC v.1943 64 bit (AMD64)]",
+        "recorded": 4,
+        "results_sha256": "bdd6ea4557fe337aa8b9cdb4d3bb5888865ae3f0a5677eaf67b2be2196e7dffc",
+        "run": "tau2-causal-final-retail-seed0",
+        "seed": 0,
+        "selected": true,
+        "source": {
+          "archive_sha256": "7e6ba284c65613ce9b02ada0ff017845e0b96cf53a0fe4fff338a1d5a563f389",
+          "archive_url": "https://codeload.github.com/sierra-research/tau2-bench/zip/5ba9e3e56db57c5e4114bf7f901291f09b2c5619",
+          "license_note": "MIT; retain upstream LICENSE; data and third-party terms remain applicable",
+          "name": "tau2",
+          "reference": "v0.1.3",
+          "repository": "sierra-research/tau2-bench",
+          "revision": "5ba9e3e56db57c5e4114bf7f901291f09b2c5619"
+        }
+      },
+      {
+        "benchmark": "tau2",
+        "declared": 1,
+        "errors": [
+          {
+            "case": "0",
+            "error": "'NoneType' object is not iterable",
+            "error_type": "TypeError"
+          }
+        ],
+        "evaluated": 0,
+        "manifest_complete": true,
+        "model": {
+          "capabilities": [
+            "vision",
+            "completion",
+            "tools"
+          ],
+          "details": {
+            "context_length": 262144,
+            "embedding_length": 2560,
+            "families": [
+              "qwen35"
+            ],
+            "family": "qwen35",
+            "format": "gguf",
+            "parameter_size": "4.7B",
+            "parent_model": "",
+            "quantization_level": "Q4_K_M"
+          },
+          "digest": "2a654d98e6fba55d452b7043684e9b57a947e393bbffa62485a7aac05ee4eefd",
+          "model": "qwen3.5:4b",
+          "modified_at": "2026-09-20T13:35:49.4851444-03:00",
+          "name": "qwen3.5:4b",
+          "size": 3389983735
+        },
+        "model_options": {
+          "num_ctx": 16384,
+          "num_predict": 1024,
+          "temperature": 0,
+          "think": false
+        },
+        "platform": "Windows-11-10.0.26200-SP0",
+        "provenance_sha256": "a1766e7c4ba67f202938a7b43aa85e18cdfaf71fbe05da31a2c3227cdac7ec9b",
+        "python": "3.12.10 (tags/v3.12.10:0cc8128, Apr  8 2025, 12:21:36) [MSC v.1943 64 bit (AMD64)]",
+        "recorded": 1,
+        "results_sha256": "744eb350417d395f793e5b229626219a6b03a0cd403b9b386e41c6bed825b51f",
+        "run": "tau2-probe",
+        "seed": 0,
+        "selected": false,
+        "source": {
+          "archive_sha256": "7e6ba284c65613ce9b02ada0ff017845e0b96cf53a0fe4fff338a1d5a563f389",
+          "archive_url": "https://codeload.github.com/sierra-research/tau2-bench/zip/5ba9e3e56db57c5e4114bf7f901291f09b2c5619",
+          "license_note": "MIT; retain upstream LICENSE; data and third-party terms remain applicable",
+          "name": "tau2",
+          "reference": "v0.1.3",
+          "repository": "sierra-research/tau2-bench",
+          "revision": "5ba9e3e56db57c5e4114bf7f901291f09b2c5619"
+        }
+      },
+      {
+        "benchmark": "tau2",
+        "declared": 2,
+        "errors": [],
+        "evaluated": 2,
+        "manifest_complete": true,
+        "model": {
+          "capabilities": [
+            "vision",
+            "completion",
+            "tools"
+          ],
+          "details": {
+            "context_length": 262144,
+            "embedding_length": 2560,
+            "families": [
+              "qwen35"
+            ],
+            "family": "qwen35",
+            "format": "gguf",
+            "parameter_size": "4.7B",
+            "parent_model": "",
+            "quantization_level": "Q4_K_M"
+          },
+          "digest": "2a654d98e6fba55d452b7043684e9b57a947e393bbffa62485a7aac05ee4eefd",
+          "model": "qwen3.5:4b",
+          "modified_at": "2026-09-20T13:35:49.4851444-03:00",
+          "name": "qwen3.5:4b",
+          "size": 3389983735
+        },
+        "model_options": {
+          "num_ctx": 16384,
+          "num_predict": 1024,
+          "temperature": 0,
+          "think": false
+        },
+        "platform": "Windows-11-10.0.26200-SP0",
+        "provenance_sha256": "b1db728d025bbfbc9f1d080a5fee65676fbd376a1f7ef1c64570146cddf0f893",
+        "python": "3.12.10 (tags/v3.12.10:0cc8128, Apr  8 2025, 12:21:36) [MSC v.1943 64 bit (AMD64)]",
+        "recorded": 2,
+        "results_sha256": "d3112629d8f6f837c86cb8ed3b413f4506bec5612efd2100c20f5777ab5431e1",
+        "run": "tau2-retail-remaining-seed0",
+        "seed": 0,
+        "selected": false,
+        "source": {
+          "archive_sha256": "7e6ba284c65613ce9b02ada0ff017845e0b96cf53a0fe4fff338a1d5a563f389",
+          "archive_url": "https://codeload.github.com/sierra-research/tau2-bench/zip/5ba9e3e56db57c5e4114bf7f901291f09b2c5619",
+          "license_note": "MIT; retain upstream LICENSE; data and third-party terms remain applicable",
+          "name": "tau2",
+          "reference": "v0.1.3",
+          "repository": "sierra-research/tau2-bench",
+          "revision": "5ba9e3e56db57c5e4114bf7f901291f09b2c5619"
+        }
+      }
+    ],
+    "schema_version": 1,
+    "selected_runs": [
+      "toolsandbox-causal-final-seed0",
+      "tau2-causal-final-retail-seed0"
+    ]
+  },
+  "verdict": "Implemented integration; no demonstrated M12 core success advantage or learned-delegation utility on this suite.",
+  "limits": [
+    "Designed software templates; core train/test instance separation is not task-family holdout.",
+    "Ten core seed groups and three structural seeds; paired seed-bootstrap intervals describe this fixed suite.",
+    "Fixed-gate ablations; no refit and no held-out retuning. Compute budgets are not equalized."
+  ]
+}

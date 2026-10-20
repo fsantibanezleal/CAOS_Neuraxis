@@ -1,0 +1,111 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "benchmark-adequacy.schema.json",
+  "title": "Benchmark adequacy",
+  "description": "Catalog row benchmark-adequacy 1.0.0: the audit of seed variability per case, variant and method, committed at data/derived/benchmark-adequacy.json and checked by scripts/check_artifacts.py:107. No writer exists in this repository or in reflexmesh 0.1.2 (U3c).",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "case_variant_method_cells",
+    "episodes_checked",
+    "index_sha256",
+    "interpretation",
+    "m12_failures",
+    "methods",
+    "perfect_methods",
+    "schema_version",
+    "scope",
+    "seed_variable_cells"
+  ],
+  "properties": {
+    "case_variant_method_cells": {
+      "type": "integer"
+    },
+    "episodes_checked": {
+      "type": "integer"
+    },
+    "index_sha256": {
+      "type": "string",
+      "pattern": "^[0-9a-f]{64}$",
+      "description": "SHA-256 of data/derived/index.json the audit was computed from."
+    },
+    "interpretation": {
+      "type": "string"
+    },
+    "m12_failures": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "case_id",
+          "failures",
+          "variant"
+        ],
+        "properties": {
+          "case_id": {
+            "type": "string"
+          },
+          "failures": {
+            "type": "integer"
+          },
+          "variant": {
+            "type": "string"
+          }
+        }
+      },
+      "description": "The case and variant cells where M12 failed episodes."
+    },
+    "methods": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "episodes",
+          "method_id",
+          "seed_invariant_case_variant_cells",
+          "seed_variable_case_variant_cells",
+          "successes"
+        ],
+        "properties": {
+          "episodes": {
+            "type": "integer"
+          },
+          "method_id": {
+            "type": "string",
+            "pattern": "^M\\d{2}$"
+          },
+          "seed_invariant_case_variant_cells": {
+            "type": "integer"
+          },
+          "seed_variable_case_variant_cells": {
+            "type": "integer"
+          },
+          "successes": {
+            "type": "integer"
+          }
+        }
+      },
+      "description": "One record per method: episodes, successes and how many case-variant cells vary with the seed."
+    },
+    "perfect_methods": {
+      "type": "array",
+      "items": {
+        "type": "string",
+        "pattern": "^M\\d{2}$"
+      }
+    },
+    "schema_version": {
+      "enum": [
+        1
+      ]
+    },
+    "scope": {
+      "type": "string"
+    },
+    "seed_variable_cells": {
+      "type": "integer"
+    }
+  }
+}

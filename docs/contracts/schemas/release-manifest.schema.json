@@ -1,0 +1,77 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "release-manifest.schema.json",
+  "title": "Release manifest",
+  "description": "Catalog row release-manifest 1.0.0: release.json, the manifest of a static deployment archive, written into the static build by scripts/package_static.py:52 at packaging time (never committed): the commit and version it was built from, every file of the build with its size and SHA-256, and the coverage record each validator returned before packaging (scripts/check_artifacts.py, check_operations.py, check_semantic_transfer.py, check_semantic_routing.py). release.json itself is not in its file list.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["schema_version", "commit", "version", "files", "canonical_coverage", "operation_coverage", "semantic_coverage", "routing_coverage"],
+  "properties": {
+    "schema_version": {"enum": [1]},
+    "commit": {"type": "string", "pattern": "^[0-9a-f]{40}$", "description": "The git commit (`git rev-parse HEAD`) the archive was built from."},
+    "version": {"type": "string", "pattern": "^\\d+\\.\\d{2}\\.\\d{3}$", "description": "The product VERSION (X.XX.XXX)."},
+    "files": {
+      "type": "array",
+      "minItems": 1,
+      "description": "Every file of the build except release.json, sorted by path.",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["path", "size", "sha256"],
+        "properties": {
+          "path": {"type": "string", "minLength": 1, "description": "Path relative to the build root, '/' separated."},
+          "size": {"type": "integer", "minimum": 0},
+          "sha256": {"type": "string", "pattern": "^[0-9a-f]{64}$"}
+        }
+      }
+    },
+    "canonical_coverage": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["episodes", "cells", "methods", "cases", "minimum_seeds"],
+      "description": "What scripts/check_artifacts.py validated in the canonical evidence.",
+      "properties": {
+        "episodes": {"type": "integer", "minimum": 0},
+        "cells": {"type": "integer", "minimum": 0},
+        "methods": {"type": "integer", "minimum": 0},
+        "cases": {"type": "integer", "minimum": 0},
+        "minimum_seeds": {"type": "integer", "minimum": 0}
+      }
+    },
+    "operation_coverage": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["runs", "coverage", "verified"],
+      "description": "What scripts/check_operations.py validated in the recorded operations.",
+      "properties": {
+        "runs": {"type": "integer", "minimum": 0},
+        "coverage": {"type": "string", "minLength": 1, "description": "The matrix in words, for example '3 tasks x 4 fault conditions x 3 seeds'."},
+        "verified": {"type": "boolean"}
+      }
+    },
+    "semantic_coverage": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["episodes", "methods", "families", "seed_variable_cells"],
+      "description": "What scripts/check_semantic_transfer.py validated in the semantic-transfer evidence.",
+      "properties": {
+        "episodes": {"type": "integer", "minimum": 0},
+        "methods": {"type": "integer", "minimum": 0},
+        "families": {"type": "integer", "minimum": 0},
+        "seed_variable_cells": {"type": "integer", "minimum": 0}
+      }
+    },
+    "routing_coverage": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["paired_environments", "held_out", "held_out_incremental_positives", "learned_delegations"],
+      "description": "What scripts/check_semantic_routing.py validated in the routing study.",
+      "properties": {
+        "paired_environments": {"type": "integer", "minimum": 0},
+        "held_out": {"type": "integer", "minimum": 0},
+        "held_out_incremental_positives": {"type": "integer", "minimum": 0},
+        "learned_delegations": {"type": "integer", "minimum": 0}
+      }
+    }
+  }
+}

@@ -1,0 +1,59 @@
+{
+  "schema_version": 1,
+  "engine": "reflexmesh 0.1.2",
+  "commit": "local",
+  "tasks": {
+    "release": {
+      "en": "Verify a software release",
+      "es": "Verificar una entrega de software",
+      "nodes": [
+        "inventory",
+        "syntax",
+        "tables",
+        "dependencies",
+        "integrity",
+        "normalize",
+        "manifest",
+        "report",
+        "verify"
+      ]
+    },
+    "source": {
+      "en": "Audit a source workspace",
+      "es": "Auditar un proyecto de código",
+      "nodes": [
+        "inventory",
+        "syntax",
+        "dependencies",
+        "integrity",
+        "manifest",
+        "report",
+        "verify"
+      ]
+    },
+    "data": {
+      "en": "Reconcile a data delivery",
+      "es": "Conciliar una entrega de datos",
+      "nodes": [
+        "inventory",
+        "tables",
+        "integrity",
+        "normalize",
+        "manifest",
+        "report",
+        "verify"
+      ]
+    }
+  },
+  "variants": [
+    "clean",
+    "corrupt",
+    "conflict",
+    "compound"
+  ],
+  "max_files": 256,
+  "max_bytes": 1048576,
+  "retention_seconds": 3600,
+  "execution": "native isolated run directory",
+  "model_available": false
+}

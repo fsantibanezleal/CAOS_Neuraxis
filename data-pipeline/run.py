@@ -6,6 +6,7 @@ import argparse
 import hashlib
 import importlib.util
 import json
+import os
 import shutil
 import subprocess
 import sys
@@ -47,7 +48,7 @@ def export(source: Path, destination: Path) -> dict:
 
 def main(argv=None):
     parser = argparse.ArgumentParser(description=__doc__)
-    parser.add_argument("stage", choices=["collect", "train", "ppo", "gates", "evaluate", "export", "all"])
+    parser.add_argument("stage", choices=["collect", "train", "ppo", "gates", "evaluate", "export", "readiness", "all"])
     parser.add_argument("--artifacts", type=Path, default=ROOT / "data" / "cache" / "science")
     parser.add_argument("--source", type=Path)
     parser.add_argument("--output", type=Path, default=ROOT / "data" / "derived")
@@ -56,6 +57,16 @@ def main(argv=None):
     args = parser.parse_args(argv)
     if args.stage == "export":
         print(json.dumps(export(args.source or args.artifacts / "evaluation", args.output)))
+        return 0
+    if args.stage == "readiness":
+        # computed from docs/contracts/catalog.md and the committed documents: no bake, no training stack
+        sys.path.insert(0, str(Path(__file__).resolve().parent))
+        from core import readiness
+
+        doc = readiness.compute(repo_root=ROOT, data_root=args.output.parent)
+        written = readiness.write(args.output, doc)
+        print(json.dumps({"readiness": os.path.relpath(args.output / "readiness.json", ROOT).replace(os.sep, "/"),
+                          "bytes": written, "states": sorted({e["state"] for e in doc["contracts"]})}))
         return 0
     stages = ["collect", "train", "ppo", "gates", "evaluate"] if args.stage == "all" else [args.stage]
     for stage in stages:
