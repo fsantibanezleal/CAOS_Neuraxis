@@ -33,8 +33,8 @@ HERE = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(HERE / "tests" / "contracts"))
 sys.path.insert(0, str(Path(__file__).resolve().parent))
 
-import contract_schemas as cs  # noqa: E402  (the schema registry, shared with the contract tests)
-from check_contracts import RELEASE_COLUMNS, parse_catalog, parse_document_glob, split_documents  # noqa: E402
+import contract_schemas as cs
+from check_contracts import RELEASE_COLUMNS, parse_catalog, parse_document_glob, split_documents
 
 CATALOG_REL = "docs/contracts/catalog.md"
 FIXTURES_REL = "docs/contracts/fixtures"
@@ -76,7 +76,7 @@ class Report:
 def schema_name(schema_file: str) -> str:
     """``docs/contracts/schemas/<name>.schema.json`` to ``<name>`` (the key of the registry)."""
     name = Path(schema_file.strip().strip("`")).name
-    return name[: -len(".schema.json")] if name.endswith(".schema.json") else name
+    return name.removesuffix(".schema.json")
 
 
 def matches(root: Path, glob: str) -> set[Path]:
