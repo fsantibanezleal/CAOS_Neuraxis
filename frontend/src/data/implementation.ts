@@ -79,6 +79,7 @@ export const implementation: ContentPage = {
   sections: [
     section({
       id: 'runtime',
+      area: 'architecture',
       title: b('Runtime and event admission', 'Motor y admisión de eventos'),
       paragraphs: [
         b(
@@ -107,6 +108,7 @@ export const implementation: ContentPage = {
     }),
     section({
       id: 'features',
+      area: 'contract',
       title: b('Feature and artifact contracts', 'Contratos de características y artefactos'),
       paragraphs: [
         b(
@@ -168,6 +170,7 @@ export const implementation: ContentPage = {
     }),
     section({
       id: 'classical',
+      area: 'engine',
       title: b('Linear, tree and bandit engines', 'Motores lineales, árboles y bandidos'),
       paragraphs: [
         b(
@@ -196,6 +199,7 @@ export const implementation: ContentPage = {
     }),
     section({
       id: 'recurrent',
+      area: 'engine',
       title: b('Recurrent and reinforcement engines', 'Motores recurrentes y por refuerzo'),
       paragraphs: [
         b(
@@ -224,6 +228,7 @@ export const implementation: ContentPage = {
     }),
     section({
       id: 'planning',
+      area: 'engine',
       title: b('Prediction, planning and deferral', 'Predicción, planificación y derivación'),
       paragraphs: [
         b(
@@ -252,6 +257,7 @@ export const implementation: ContentPage = {
     }),
     section({
       id: 'browser',
+      area: 'lanes',
       title: b('Tasks and browser interaction', 'Tareas e interacción del navegador'),
       paragraphs: [
         b(
@@ -292,6 +298,7 @@ export const implementation: ContentPage = {
     }),
     section({
       id: 'pipeline',
+      area: 'architecture',
       title: b('Offline evidence pipeline', 'Canalización de evidencia fuera de línea'),
       paragraphs: [
         b(
@@ -342,6 +349,7 @@ export const implementation: ContentPage = {
     }),
     section({
       id: 'deployment',
+      area: 'deployment',
       title: b('API, deployment and reproducibility', 'API, despliegue y reproducibilidad'),
       paragraphs: [
         b(

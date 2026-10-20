@@ -9,6 +9,7 @@ export const introduction: ContentPage = {
   sections: [
     {
       id: 'problem',
+      area: 'problem',
       title: b('The control problem', 'El problema de control'),
       paragraphs: [
         b(
@@ -52,6 +53,7 @@ export const introduction: ContentPage = {
     },
     {
       id: 'biology',
+      area: 'principles',
       title: b(
         'Biological inspiration, bounded claims',
         'Inspiración biológica, afirmaciones acotadas',
@@ -108,6 +110,7 @@ export const introduction: ContentPage = {
     },
     {
       id: 'formal',
+      area: 'math',
       title: b('State, action and computation', 'Estado, acción y cómputo'),
       paragraphs: [
         b(
@@ -168,6 +171,7 @@ export const introduction: ContentPage = {
     },
     {
       id: 'workflow',
+      area: 'pipeline',
       title: b('End-to-end workflow', 'Flujo completo'),
       paragraphs: [
         b(
@@ -221,6 +225,7 @@ export const introduction: ContentPage = {
     },
     {
       id: 'honesty',
+      area: 'honesty',
       title: b('Scope and evidence', 'Alcance y evidencia'),
       paragraphs: [
         b(

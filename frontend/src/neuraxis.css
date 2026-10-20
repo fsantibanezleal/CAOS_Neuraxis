@@ -541,15 +541,6 @@ select:disabled {
   min-width: 0;
   scroll-margin-top: calc(56px + 1rem);
 }
-.nx-doc-symbols {
-  display: grid;
-  grid-template-columns: repeat(2, minmax(0, 1fr));
-  gap: 0.3rem 1.5rem;
-  font-size: 0.83rem;
-}
-.nx-doc-symbols li {
-  line-height: 1.6;
-}
 .nx-doc-section figure {
   margin-inline: 0;
 }
@@ -708,9 +699,6 @@ select:disabled {
   }
   .nx-main {
     height: 100%;
-  }
-  .nx-doc-symbols {
-    grid-template-columns: 1fr;
   }
   .nx-bottom-readout span:last-child {
     display: none;
@@ -1048,9 +1036,6 @@ select:disabled {
   }
   .nx-benchmark .nx-inline-controls select {
     flex-basis: 100%;
-  }
-  .nx-doc .nx-doc-symbols {
-    grid-template-columns: 1fr;
   }
 }
 
