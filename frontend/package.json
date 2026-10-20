@@ -12,12 +12,14 @@
     "predev": "node scripts/copy-data.mjs",
     "dev": "vite",
     "prebuild": "node scripts/copy-data.mjs",
-    "build": "tsc --noEmit && vite build",
+    "contracts:types": "node scripts/gen-contract-types.mjs",
+    "contracts:check": "node scripts/gen-contract-types.mjs --check",
+    "build": "node scripts/gen-contract-types.mjs --check && tsc --noEmit && vite build",
     "preview": "vite preview",
     "gate": "node scripts/gate.mjs",
     "test": "vitest run",
-    "format": "prettier --write \"src/**/*.{ts,tsx}\" vite.config.ts",
-    "format:check": "prettier --check \"src/**/*.{ts,tsx}\" vite.config.ts"
+    "format": "prettier --write \"src/**/*.{ts,tsx}\" \"!src/lib/contract.gen.ts\" vite.config.ts",
+    "format:check": "prettier --check \"src/**/*.{ts,tsx}\" \"!src/lib/contract.gen.ts\" vite.config.ts"
   },
   "dependencies": {
     "@fasl-work/caos-app-shell": "0.15.0",
@@ -37,6 +39,7 @@
     "@types/react": "^19.0.0",
     "@types/react-dom": "^19.0.0",
     "@vitejs/plugin-react": "6.1.1",
+    "openapi-typescript": "7.13.0",
     "prettier": "3.9.8",
     "typescript": "^5.7.2",
     "vite": "8.3.0",
