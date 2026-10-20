@@ -16,6 +16,7 @@ import { implementation } from './implementation';
 import { introduction } from './introduction';
 import { methodology } from './methodology';
 import { paragraphSources } from './paragraph-sources';
+import { duplicateIds, undefinedIds, unreferencedIds } from './citations.checks';
 
 const pageModules = {
   introduction: INTRODUCTION_CITATIONS,
@@ -41,16 +42,6 @@ const referencingText = sourceFiles(srcRoot)
   .filter((file) => !/^data\/citations(\.ts|\/)/.test(relative(srcRoot, file).split(sep).join('/')))
   .map((file) => readFileSync(file, 'utf8'))
   .join('\n');
-
-/** The three id checks of BR-014, exported so the planted-defect suite runs the gate's own functions. */
-export const duplicateIds = (list: string[]): string[] =>
-  list.filter((id, i) => list.indexOf(id) !== i);
-export const undefinedIds = (list: string[], named: Set<string>): string[] => {
-  const defined = new Set(list);
-  return [...named].filter((id) => !defined.has(id));
-};
-export const unreferencedIds = (list: string[], text: string): string[] =>
-  list.filter((id) => !text.includes(`'${id}'`) && !text.includes(`"${id}"`));
 
 describe('citations', () => {
   it('every citation id is unique', () => {

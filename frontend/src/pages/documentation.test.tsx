@@ -17,17 +17,13 @@ import { introduction } from '../data/introduction';
 import { methodology } from '../data/methodology';
 import { IntroductionPage } from './Introduction';
 import Science, { SectionContent } from './Science';
+import { executiveOpenProblems } from './documentation.checks';
 
 const wrap = (node: ReactNode) =>
   renderToString(
     <MemoryRouter>
       <CitationsProvider items={CITATIONS}>{node}</CitationsProvider>
     </MemoryRouter>,
-  );
-/** The refutation of BR-007, exported so the planted-defect suite runs the gate's own function: what must not be in the page while the executive view is open. */
-export const executiveOpenProblems = (page: string): string[] =>
-  ['data-glossary', 'class="equation', 'data-doc-section', 'data-area'].filter((marker) =>
-    page.includes(marker),
   );
 const text = (file: string) => readFileSync(new URL(file, import.meta.url), 'utf8');
 

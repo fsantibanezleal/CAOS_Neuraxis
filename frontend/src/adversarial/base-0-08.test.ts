@@ -1,8 +1,9 @@
 // Planted-defect tests of the base-0-08 requirements (docs/design/features/base-0-08/validation.md, ADR-0075). Each test plants the
-// defect its row states in a copy held in memory and runs the requirement's own gate function on it. The gate functions are exported
-// by the gate test modules (App.test.tsx, base-record.test.ts, documentation.test.tsx, executive.test.ts, illustrations.test.ts,
-// citations.test.ts, areas.test.ts, simulator.lanes.test.ts), so importing them also runs those modules' tests in this file. BR-003's
-// gate is a browser script; its plant runs the shell's own Landing function and is a gate of the requirement beside it.
+// defect its row states in a copy held in memory and runs the requirement's own gate function on it. The gate functions live in plain
+// `*.checks.ts` modules beside the gate tests (App.checks.ts, base-record.checks.ts, documentation.checks.ts, executive.checks.ts,
+// illustrations.checks.ts, citations.checks.ts, areas.checks.ts, simulator.lanes.checks.ts), imported by both the gate test and this file, so no
+// test is registered twice. BR-003's gate is a browser script; its plant runs the shell's own Landing function and is a gate of the
+// requirement beside it.
 import { APP_ROUTE, CitationsProvider, LANDING_ROUTE, Landing } from '@fasl-work/caos-app-shell';
 import { readdirSync } from 'node:fs';
 import { relative, sep } from 'node:path';
@@ -13,13 +14,13 @@ import { MemoryRouter } from 'react-router-dom';
 import { describe, expect, it } from 'vitest';
 import executive from '../../../content/executive.json';
 import App from '../App';
-import { headerOrderProblems } from '../App.test';
-import { deployPlaceProblems, templateRecordProblems } from '../base-record.test';
-import { languageProblems, vendorProblems } from '../content/executive.test';
-import { colourProblems, labelProblems } from '../content/illustrations.test';
+import { headerOrderProblems } from '../App.checks';
+import { deployPlaceProblems, templateRecordProblems } from '../base-record.checks';
+import { languageProblems, vendorProblems } from '../content/executive.checks';
+import { colourProblems, labelProblems } from '../content/illustrations.checks';
 import { CITATIONS } from '../data/citations';
-import { duplicateIds, undefinedIds, unreferencedIds } from '../data/citations.test';
-import { reproducibilityProblems } from '../data/areas.test';
+import { duplicateIds, undefinedIds, unreferencedIds } from '../data/citations.checks';
+import { reproducibilityProblems } from '../data/areas.checks';
 import type { ContentSection } from '../data/content.types';
 import { experiments } from '../data/experiments';
 import { implementation } from '../data/implementation';
@@ -27,10 +28,10 @@ import { introduction } from '../data/introduction';
 import { methodology } from '../data/methodology';
 import { paragraphSources } from '../data/paragraph-sources';
 import { COPY } from '../i18n';
-import { episodeLaneProblems, laneViewProblems } from '../lib/simulator.lanes.test';
+import { episodeLaneProblems, laneViewProblems } from '../lib/simulator.lanes.checks';
 import { advanceSimulation, startSimulation } from '../lib/simulator';
 import { DEFAULT_PARAMETERS } from '../lib/types';
-import { executiveOpenProblems } from '../pages/documentation.test';
+import { executiveOpenProblems } from '../pages/documentation.checks';
 import { IntroductionPage } from '../pages/Introduction';
 import { read } from './support';
 
