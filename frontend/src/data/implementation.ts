@@ -57,6 +57,13 @@ const moduleNodes: Record<string, ReturnType<typeof b>[]> = {
     b('Bounded native service', 'Servicio nativo limitado'),
     b('Browser result review', 'Revisión del resultado'),
   ],
+  reproducibility: [
+    b('Pinned engine and checkpoints', 'Motor y modelos fijados'),
+    b('Disjoint seed groups', 'Grupos de semillas disjuntos'),
+    b('Lineage digests', 'Huellas de linaje'),
+    b('Artifact verification', 'Verificación de artefactos'),
+    b('Same result or named drift', 'Mismo resultado o desvío nombrado'),
+  ],
 };
 const section = (
   s: Omit<ContentSection, 'nodes' | 'figure'> & Partial<Pick<ContentSection, 'nodes' | 'figure'>>,
@@ -378,6 +385,100 @@ export const implementation: ContentPage = {
       limit: b(
         'Successful compilation, HTTP availability and policy unit tests are separate from authenticated runtime integration, route hydration and browser interaction validation.',
         'Compilación, disponibilidad HTTP y pruebas unitarias son distintas de integración autenticada, hidratación de rutas y validación de interacción.',
+      ),
+    }),
+    section({
+      id: 'reproducibility',
+      area: 'reproducibility',
+      title: b('Determinism, seeds and versions', 'Determinismo, semillas y versiones'),
+      paragraphs: [
+        b(
+          'Every episode is identified by a method, a case, a variant and an integer seed, and the seed groups are disjoint by construction. The standard fixture split starts train seeds at 10000, validation at 20000, calibration at 30000 and test at 40000, and the split name and seed group are recorded in the episode identifier. The canonical matrix repeats all 12 methods, 20 cases and 6 variants over the ten test seeds 40000 to 40009, which gives 1,200 episodes per method and 14,400 in all. The semantic transfer study uses its own held-out seeds, 82000 to 82007, for 128 episodes per controller. Fitting a policy or generating demonstrations from test outcomes invalidates the held-out reading, so the split is part of the result and not a convenience.',
+          'Cada episodio se identifica por método, caso, variante y una semilla entera, y los grupos de semillas son disjuntos por construcción. La partición estándar inicia las semillas de entrenamiento en 10000, validación en 20000, calibración en 30000 y prueba en 40000, y el nombre de la partición y el grupo de semillas quedan en el identificador del episodio. La matriz canónica repite los 12 métodos, 20 casos y 6 variantes sobre las diez semillas de prueba, de 40000 a 40009, lo que da 1.200 episodios por método y 14.400 en total. El estudio de transferencia semántica usa sus propias semillas reservadas, de 82000 a 82007, con 128 episodios por controlador. Ajustar una política o generar demostraciones con resultados de prueba invalida la lectura reservada, de modo que la partición forma parte del resultado y no es una comodidad.',
+        ),
+        b(
+          'The versions that produced the published numbers are pinned and committed. The requirements files pin reflexmesh 0.1.2 and the setup scripts install the audited checkpoints from reflexmesh release v0.01.000. The committed lineage file, data/derived/lineage.json, records Python 3.12.10, the platform Windows-11-10.0.26200-SP0, twelve package versions (among them numpy 2.5.3, torch 2.14.0, scikit-learn 1.9.1, xgboost 3.4.1, onnxruntime 1.30.0 and stable-baselines3 2.9.0), two Torch inference threads and CPU inference for the fitted policies. It also holds SHA-256 digests of 27 Python source files, 7 native source files including Cargo.lock, 18 checkpoint and training-report files, the compiled native binary and the specification (spec_sha256, which begins aaff188a). The local planner is recorded as qwen3.5:4b with registry digest 2a654d98 and runtime version 0.34.0.',
+          'Las versiones que produjeron los números publicados están fijadas y versionadas. Los archivos de requisitos fijan reflexmesh 0.1.2 y los scripts de instalación obtienen los modelos auditados de la versión v0.01.000 de reflexmesh. El archivo de linaje, data/derived/lineage.json, registra Python 3.12.10, la plataforma Windows-11-10.0.26200-SP0, doce versiones de paquetes (entre ellas numpy 2.5.3, torch 2.14.0, scikit-learn 1.9.1, xgboost 3.4.1, onnxruntime 1.30.0 y stable-baselines3 2.9.0), dos hilos de inferencia de Torch e inferencia en CPU para las políticas ajustadas. También contiene resúmenes SHA-256 de 27 archivos fuente Python, 7 archivos fuente nativos incluido Cargo.lock, 18 archivos de modelos e informes de entrenamiento, el binario nativo compilado y la especificación (spec_sha256, que empieza con aaff188a). El planificador local figura como qwen3.5:4b con resumen de registro 2a654d98 y versión de ejecución 0.34.0.',
+        ),
+        b(
+          'Reproduction is checked, not assumed. scripts/check_artifacts.py requires all 12 methods and 20 cases, every variant and the declared test seeds for every cell, recomputes the SHA-256 of each episode file against the index, and compares each episode lineage signature (a SHA-256 over the canonically sorted lineage) with the frozen one. It also requires native receipt evidence for every successful episode, recomputes the aggregate counts from the raw traces and, for ten seeds, recomputes the benchmark adequacy audit from the canonical episodes and the index digest. The pipeline records source, model and split lineage and refuses to resume a result directory against changed lineage, so drift is reported by name and never absorbed.',
+          'La reproducción se comprueba, no se supone. scripts/check_artifacts.py exige los 12 métodos y los 20 casos, todas las variantes y las semillas de prueba declaradas en cada celda, recalcula el SHA-256 de cada episodio contra el índice y compara la firma de linaje de cada episodio (un SHA-256 sobre el linaje ordenado canónicamente) con la congelada. También exige evidencia de recibo nativo para cada episodio exitoso, recalcula los totales desde las trazas originales y, con diez semillas, recalcula la auditoría de suficiencia del benchmark desde los episodios canónicos y el resumen del índice. El proceso registra el linaje de fuentes, modelos y particiones y se niega a reanudar un directorio de resultados con un linaje distinto, de modo que el desvío se informa por nombre y nunca se absorbe.',
+        ),
+      ],
+      equations: [],
+      steps: [
+        b(
+          'Run scripts/setup.ps1 (or bash scripts/setup.sh) to create an isolated environment with the pinned engine and the verified checkpoints; pass the skip-models option to refit offline instead.',
+          'Ejecute scripts/setup.ps1 (o bash scripts/setup.sh) para crear un entorno aislado con el motor fijado y los modelos verificados; use la opción de omitir modelos para reajustar sin conexión.',
+        ),
+        b(
+          'Install the planner model explicitly (qwen3.5:4b in the committed lineage), then run python data-pipeline/run.py all --model qwen3.5:4b: it collects disjoint datasets, trains the policies, fits the routing gates, executes the held-out matrix and exports the canonical results.',
+          'Instale explícitamente el modelo del planificador (qwen3.5:4b en el linaje versionado) y ejecute python data-pipeline/run.py all --model qwen3.5:4b: reúne conjuntos disjuntos, entrena las políticas, ajusta las puertas de enrutamiento, ejecuta la matriz reservada y exporta los resultados canónicos.',
+        ),
+        b(
+          'Run the stages one at a time when inspecting a failure, and never copy a partial evaluation directory over the canonical export.',
+          'Ejecute las etapas por separado al inspeccionar un fallo y nunca copie un directorio de evaluación parcial sobre la exportación canónica.',
+        ),
+        b(
+          'Run python scripts/check_artifacts.py: it verifies the coverage of the matrix, the episode and lineage digests, the native receipts, the held-out provenance and the aggregate counts.',
+          'Ejecute python scripts/check_artifacts.py: verifica la cobertura de la matriz, los resúmenes de episodios y linaje, los recibos nativos, la procedencia reservada y los totales.',
+        ),
+        b(
+          'Build the frontend with Node 24 and npm run build from frontend/; the browser only consumes the verified artifacts.',
+          'Compile la interfaz con Node 24 y npm run build desde frontend/; el navegador solo consume los artefactos verificados.',
+        ),
+        b(
+          'To reproduce one case without the pipeline, save the run_case.py example of its case page and run it; M01 and M02 need no checkpoint, and a missing checkpoint for a learned method is reported explicitly. Use a seed of the test group (for example 40000) to compare with the frozen matrix.',
+          'Para reproducir un caso sin el proceso completo, guarde el ejemplo run_case.py de su página y ejecútelo; M01 y M02 no necesitan modelo y un modelo ausente en un método aprendido se informa explícitamente. Use una semilla del grupo de prueba (por ejemplo 40000) para comparar con la matriz congelada.',
+        ),
+      ],
+      table: {
+        headers: [
+          b('Seed group', 'Grupo de semillas'),
+          b('Seeds', 'Semillas'),
+          b('Scope', 'Alcance'),
+        ],
+        rows: [
+          [
+            b('Train', 'Entrenamiento'),
+            b('from 10000', 'desde 10000'),
+            b(
+              'Fixture split, disjoint from the others',
+              'Partición estándar, disjunta de las demás',
+            ),
+          ],
+          [
+            b('Validation', 'Validación'),
+            b('from 20000', 'desde 20000'),
+            b(
+              'Fixture split, disjoint from the others',
+              'Partición estándar, disjunta de las demás',
+            ),
+          ],
+          [
+            b('Calibration', 'Calibración'),
+            b('from 30000', 'desde 30000'),
+            b(
+              'Fixture split, disjoint from the others',
+              'Partición estándar, disjunta de las demás',
+            ),
+          ],
+          [
+            b('Test (core matrix)', 'Prueba (matriz principal)'),
+            b('40000 to 40009', '40000 a 40009'),
+            b('Held-out matrix: 14,400 episodes', 'Matriz reservada: 14.400 episodios'),
+          ],
+          [
+            b('Semantic transfer', 'Transferencia semántica'),
+            b('82000 to 82007', '82000 a 82007'),
+            b('Separate study: 1,536 episodes', 'Estudio aparte: 1.536 episodios'),
+          ],
+        ],
+      },
+      refs: ['reflexmesh2026', 'neuraxis2026'],
+      limit: b(
+        'Decisions on seeded virtual workloads are reproducible from the same inputs, seed, code and checkpoints, but wall-clock latency is not: native timing remains a measured random quantity that depends on the hardware, the load and concurrent scheduling, so every published timing carries the platform it was measured on and is never compared bit for bit. The local planner is a probabilistic model whose responses are not guaranteed identical between runs, and the committed lineage was measured on one Windows machine with CPU inference. A GPU label or an installed driver does not prove that a computation ran on GPU, so each device is recorded separately.',
+        'Las decisiones sobre cargas virtuales con semilla son reproducibles con las mismas entradas, semilla, código y modelos, pero la latencia de reloj no lo es: el tiempo nativo sigue siendo una cantidad medida y aleatoria que depende del equipo, la carga y la planificación concurrente, por lo que cada tiempo publicado lleva la plataforma donde se midió y nunca se compara bit a bit. El planificador local es un modelo probabilístico cuyas respuestas no se garantizan idénticas entre ejecuciones, y el linaje versionado se midió en una máquina Windows con inferencia en CPU. Una etiqueta de GPU o un controlador instalado no prueba que un cálculo se ejecutó en GPU, por lo que cada dispositivo se registra por separado.',
       ),
     }),
   ],

@@ -41,6 +41,23 @@ describe('every section declares its area', () => {
     );
   });
 
+  it('Implementation: the page covers the reproducibility area, with a dense paragraph in both languages and an honest limit', () => {
+    const areas = implementation.sections.map((s) => s.area);
+    expect(areas).toContain('reproducibility');
+    const reproducibility = implementation.sections.filter((s) => s.area === 'reproducibility');
+    expect(reproducibility).toHaveLength(1);
+    const [section] = reproducibility;
+    for (const lang of LANGS) {
+      expect(
+        section.paragraphs.filter((p) => words(p[lang]) >= 40).length,
+        lang,
+      ).toBeGreaterThanOrEqual(2);
+      expect(section.limit[lang].length, lang).toBeGreaterThan(20);
+      expect((section.steps ?? []).length, lang).toBeGreaterThanOrEqual(4);
+    }
+    expect(section.table?.rows.length ?? 0).toBeGreaterThanOrEqual(4);
+  });
+
   it('adversarial: only Methodology carries a kind', () => {
     for (const [route, page] of pages.filter(([r]) => r !== '/methodology'))
       for (const s of page.sections) expect(s.kind, `${route} ${s.id}`).toBeUndefined();
