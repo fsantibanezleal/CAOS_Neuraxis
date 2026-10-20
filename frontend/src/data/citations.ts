@@ -1,6 +1,14 @@
 import type { Citation } from '@fasl-work/caos-app-shell';
+import { INTRODUCTION_CITATIONS } from './citations/introduction';
+import { METHODOLOGY_CITATIONS } from './citations/methodology';
+import { IMPLEMENTATION_CITATIONS } from './citations/implementation';
+import { EXPERIMENTS_CITATIONS } from './citations/experiments';
+import { BENCHMARK_CITATIONS } from './citations/benchmark';
 declare const __APP_VERSION__: string; // VERSION, injected at build (vite.config.ts)
-export const CITATIONS: Citation[] = [
+/** The references shared by several pages, or by the application itself. A reference only one documentation page cites lives in
+ * citations/<page>.ts (the page units write disjoint files). The reference lists a reader sees are built by first appearance
+ * in the page, never from this array's order. */
+const SHARED_CITATIONS: Citation[] = [
   {
     id: 'neuraxis2026',
     label: 'Neuraxis implementation (2026)',
@@ -19,27 +27,6 @@ export const CITATIONS: Citation[] = [
     label: 'Amershi et al. 2019',
     citation: 'Amershi S et al. Guidelines for Human-AI Interaction. CHI 2019.',
     doi: '10.1145/3290605.3300233',
-  },
-  {
-    id: 'zhang2025',
-    label: 'Zhang et al. 2025',
-    citation:
-      'Zhang S et al. Leveraging Dual Process Theory in Language Agent Framework for Real-time Simultaneous Human-AI Collaboration (2025).',
-    url: 'https://arxiv.org/abs/2502.11882',
-  },
-  {
-    id: 'madras2018',
-    label: 'Madras et al. 2018',
-    citation:
-      'Madras D, Pitassi T, Zemel R. Predict Responsibly: Improving Fairness and Accuracy by Learning to Defer. NeurIPS 2018.',
-    url: 'https://arxiv.org/abs/1711.06664',
-  },
-  {
-    id: 'barres2025',
-    label: 'Barres et al. 2025',
-    citation:
-      'Barres V et al. tau2-Bench: Evaluating Conversational Agents in a Dual-Control Environment (2025).',
-    url: 'https://arxiv.org/abs/2506.07982',
   },
   {
     id: 'bago2017',
@@ -61,13 +48,6 @@ export const CITATIONS: Citation[] = [
     citation:
       'Daw ND, Niv Y, Dayan P. Uncertainty-based competition between prefrontal and dorsolateral striatal systems for behavioral control. Nature Neuroscience 8, 1704-1711 (2005).',
     doi: '10.1038/nn1560',
-  },
-  {
-    id: 'daw2011',
-    label: 'Daw et al. 2011',
-    citation:
-      'Daw ND et al. Model-based influences on humans choices and striatal prediction errors. Neuron 69, 1204-1215 (2011).',
-    doi: '10.1016/j.neuron.2011.02.027',
   },
   {
     id: 'lee2014',
@@ -98,20 +78,6 @@ export const CITATIONS: Citation[] = [
     doi: '10.1152/jn.00266.2007',
   },
   {
-    id: 'rao1999',
-    label: 'Rao and Ballard 1999',
-    citation:
-      'Rao RPN, Ballard DH. Predictive coding in the visual cortex: a functional interpretation of some extra-classical receptive-field effects. Nature Neuroscience 2, 79-87 (1999).',
-    doi: '10.1038/4580',
-  },
-  {
-    id: 'mante2013',
-    label: 'Mante et al. 2013',
-    citation:
-      'Mante V et al. Context-dependent computation by recurrent dynamics in prefrontal cortex. Nature 503, 78-84 (2013).',
-    doi: '10.1038/nature12742',
-  },
-  {
     id: 'murray2014',
     label: 'Murray et al. 2014',
     citation:
@@ -124,13 +90,6 @@ export const CITATIONS: Citation[] = [
     citation:
       "McClelland JL, McNaughton BL, O'Reilly RC. Why there are complementary learning systems in the hippocampus and neocortex. Psychological Review 102, 419-457 (1995).",
     doi: '10.1037/0033-295X.102.3.419',
-  },
-  {
-    id: 'mattar2018',
-    label: 'Mattar and Daw 2018',
-    citation:
-      'Mattar MG, Daw ND. Prioritized memory access explains planning and hippocampal replay. Nature Neuroscience 21, 1609-1617 (2018).',
-    doi: '10.1038/s41593-018-0232-z',
   },
   {
     id: 'yu2005',
@@ -172,13 +131,6 @@ export const CITATIONS: Citation[] = [
     label: 'Schulman et al. 2017',
     citation: 'Schulman J et al. Proximal Policy Optimization Algorithms (2017).',
     url: 'https://arxiv.org/abs/1707.06347',
-  },
-  {
-    id: 'huang2020',
-    label: 'Huang and Ontanon 2020',
-    citation:
-      'Huang S, Ontanon S. A closer look at invalid action masking in policy gradient algorithms (2020).',
-    url: 'https://arxiv.org/abs/2006.14171',
   },
   {
     id: 'guo2017',
@@ -252,17 +204,12 @@ export const CITATIONS: Citation[] = [
     citation: 'Stable Baselines3 Contrib. MaskablePPO official implementation documentation.',
     url: 'https://sb3-contrib.readthedocs.io/en/master/modules/ppo_mask.html',
   },
-  {
-    id: 'onnx2026',
-    label: 'ONNX Runtime documentation',
-    citation: 'ONNX Runtime. Inference runtime and execution providers. Official documentation.',
-    url: 'https://onnxruntime.ai/docs/',
-  },
-  {
-    id: 'pyo32026',
-    label: 'PyO3 documentation',
-    citation:
-      'PyO3. Python and Rust interoperability, parallelism and interpreter ownership. Official documentation.',
-    url: 'https://pyo3.rs/main/parallelism',
-  },
+];
+export const CITATIONS: Citation[] = [
+  ...SHARED_CITATIONS,
+  ...INTRODUCTION_CITATIONS,
+  ...METHODOLOGY_CITATIONS,
+  ...IMPLEMENTATION_CITATIONS,
+  ...EXPERIMENTS_CITATIONS,
+  ...BENCHMARK_CITATIONS,
 ];
