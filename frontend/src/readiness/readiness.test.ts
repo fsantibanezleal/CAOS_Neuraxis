@@ -85,15 +85,15 @@ describe('the committed documents', () => {
         ).toBe(true);
     }
   });
-  it('the committed build: four views say provider, the service says missing, the available views say nothing', () => {
+  it('the committed build: every evidence view is available (U3c gave the four evidence documents a producer), the service says missing, the available views say nothing', () => {
     const states = Object.fromEntries(
       Object.entries(VIEW_ROWS).map(([v, ids]) => [v, viewState(committed, ids).state]),
     );
     expect(states).toMatchObject({
-      'benchmark-adequacy': 'provider',
-      'research-results': 'provider',
-      'semantic-routing': 'provider',
-      'semantic-transfer': 'provider',
+      'benchmark-adequacy': 'available',
+      'research-results': 'available',
+      'semantic-routing': 'available',
+      'semantic-transfer': 'available',
       'operations-service': 'missing',
       'benchmark-matrix': 'available',
       investigations: 'available',
@@ -101,9 +101,9 @@ describe('the committed documents', () => {
     });
     expect(html(viewState(committed, VIEW_ROWS['benchmark-matrix']), 'en')).toBe('');
   });
-  it('the note of a provider view carries the reason the document gives, in both languages', () => {
-    const row = committed.contracts.find((c) => c.id === 'research-summary')!;
-    const view = viewState(committed, ['research-summary']);
+  it('the note of a provider view carries the reason the document gives, in both languages (the provider tree, where every document row is on its provider)', () => {
+    const row = fixture.contracts.find((c) => c.id === 'research-summary')!;
+    const view = viewState(fixture, ['research-summary']);
     expect(html(view, 'en')).toContain(row.reason!.en);
     expect(html(view, 'es')).toContain(row.reason!.es);
     expect(html(view, 'en')).toContain('data-readiness="provider"');
