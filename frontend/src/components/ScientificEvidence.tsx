@@ -1,5 +1,8 @@
+import { ReadinessNote } from '../readiness/ReadinessNote';
+import { VIEW_ROWS } from '../readiness/readiness';
 import { useEffect, useState } from 'react';
 import { Callout, Cite } from '@fasl-work/caos-app-shell';
+import type { OperationIndexRun } from '../lib/contract.types';
 import { useArtifacts } from '../api/artifacts';
 import { useCopy } from '../i18n';
 import { taskLabels, conditionLabels } from '../lib/operations';
@@ -92,21 +95,7 @@ export function MethodEvidence({ section }: { section: string }) {
     </section>
   );
 }
-type StudyRow = {
-  run_id: string;
-  task: keyof typeof taskLabels;
-  variant: string;
-  seed: number;
-  path: string;
-  sha256: string;
-  status: string;
-  disposition: string;
-  findings: number;
-  wall_ms: number;
-  files: number;
-  verified_nodes: number;
-  native_receipts: number;
-};
+type StudyRow = OperationIndexRun;
 export function OperationStudy() {
   const { lang } = useCopy();
   const c = (en: string, es: string) => (lang === 'en' ? en : es);
@@ -166,6 +155,7 @@ export function OperationStudy() {
   }, [study, selected]);
   return (
     <div>
+      <ReadinessNote ids={VIEW_ROWS['recorded-operations']} />
       <p className="measure">
         {c(
           'This additional study evaluates the operational application end to end. Three task graphs are executed against clean, corrupted, conflicting and combined deliveries with three distinct seeds. Each release bundle contains 54 text files, 400 initial table rows and an 18-job declared dependency graph. The nine-stage release operation checks source syntax, structured configuration, row identities, cross-table relationships, dependency cycles and declared file hashes before assembling and independently checking its deliverables.',

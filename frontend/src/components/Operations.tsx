@@ -1,3 +1,5 @@
+import { ReadinessNote } from '../readiness/ReadinessNote';
+import { VIEW_ROWS } from '../readiness/readiness';
 import { useEffect, useRef, useState } from 'react';
 import {
   ArrowRight,
@@ -523,11 +525,16 @@ export default function Operations() {
         </details>
         <div className={`op-service ${online ? 'online' : ''}`}>
           <i className="op-dot" />
-          {online === null
-            ? c('Checking execution service', 'Comprobando servicio')
-            : online
-              ? c('Native execution available', 'Ejecución nativa disponible')
-              : c('Execution service unavailable', 'Servicio no disponible')}
+          {online === null ? (
+            c('Checking execution service', 'Comprobando servicio')
+          ) : online ? (
+            c('Native execution available', 'Ejecución nativa disponible')
+          ) : (
+            <ReadinessNote
+              ids={VIEW_ROWS['operations-service']}
+              fallback={c('Execution service unavailable', 'Servicio no disponible')}
+            />
+          )}
         </div>
       </aside>
       <main className="op-main">
@@ -727,7 +734,8 @@ export default function Operations() {
               </p>
               <code>{selectedNode?.output}</code>
               {selectedNode?.error && <div className="nx-error">{selectedNode.error}</div>}
-              {selectedNode && result?.artifacts[selectedNode.id] ? (
+              {selectedNode &&
+              (result?.artifacts as Record<string, unknown> | undefined)?.[selectedNode.id] ? (
                 <>
                   <div className="op-inspector-stat">
                     <CheckCheck size={17} />

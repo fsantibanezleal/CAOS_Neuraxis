@@ -1,8 +1,11 @@
+import { ReadinessNote } from '../readiness/ReadinessNote';
+import { VIEW_ROWS } from '../readiness/readiness';
 import { useEffect, useState } from 'react';
 import { Callout } from '@fasl-work/caos-app-shell';
 import { Download } from 'lucide-react';
 import { downloadJSON } from '../api/artifacts';
 import { useCopy } from '../i18n';
+import type { RoutingStudy } from '../lib/contract.types';
 import { format, Panel } from './Instruments';
 
 const REPORT_SHA256 = '2caa9039f64ba57e41d453b826eef3b9d30f8b02bde706a477da833f42b69d86';
@@ -14,25 +17,7 @@ const ORDER = [
   'post_hoc_oracle_upper_bound',
 ] as const;
 
-interface Result {
-  episodes: number;
-  planner_episodes: number;
-  verified_successes: number;
-  invalid_policy_outputs: number;
-  mean_wall_ms: number;
-}
-interface Report {
-  schema_version: number;
-  status: string;
-  source: { index_sha256: string };
-  split: { fit: string[]; calibration: string[]; test: string[] };
-  fit_positives: number;
-  calibration_positives: number;
-  test_positives: number;
-  selected_threshold: number;
-  model_sha256: string;
-  test: Record<(typeof ORDER)[number], Result>;
-}
+type Report = RoutingStudy;
 
 const label = (key: (typeof ORDER)[number], en: boolean) =>
   ({
@@ -96,6 +81,7 @@ export default function SemanticRouting({ indexSha }: { indexSha: string }) {
   };
   return (
     <div className="nx-research-results">
+      <ReadinessNote ids={VIEW_ROWS['semantic-routing']} />
       <Callout
         variant="honest"
         title={en ? 'The fitted router did not hand off' : 'El umbral ajustado no delegó'}

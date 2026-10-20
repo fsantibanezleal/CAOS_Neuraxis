@@ -1,3 +1,5 @@
+import { ReadinessNote } from '../readiness/ReadinessNote';
+import { VIEW_ROWS } from '../readiness/readiness';
 import { useEffect, useMemo, useState } from 'react';
 import {
   ArrowRight,
@@ -220,6 +222,7 @@ export default function Investigations() {
           <GitCompareArrows size={18} />
           {c('Investigate measured behavior', 'Investigar conducta medida')}
         </div>
+        <ReadinessNote ids={VIEW_ROWS['investigations']} />
         <label className="nx-control">
           {c('Evidence suite', 'Estudio de evidencia')}
           <select
