@@ -50,11 +50,17 @@ def package(output: Path, build: Path | None = None):
         "routing_coverage": routing,
     }
     (build / "release.json").write_text(json.dumps(manifest, separators=(",", ":")), encoding="utf-8")
+    # SR-001: every published byte is bound to a digest. The members are listed once, after the manifest is written, and a file
+    # with no manifest entry stops the build before any archive exists.
+    members = sorted(path for path in build.rglob("*") if path.is_file())
+    bound = {row["path"] for row in files} | {"release.json"}
+    unbound = sorted(path.relative_to(build).as_posix() for path in members if path.relative_to(build).as_posix() not in bound)
+    if unbound:
+        raise ValueError("static build holds files with no manifest digest: " + ", ".join(unbound))
     output.parent.mkdir(parents=True, exist_ok=True)
     with tarfile.open(output, "w:gz") as archive:
-        for path in sorted(build.rglob("*")):
-            if path.is_file():
-                archive.add(path, arcname=path.relative_to(build).as_posix(), recursive=False)
+        for path in members:
+            archive.add(path, arcname=path.relative_to(build).as_posix(), recursive=False)
     return {
         "archive": str(output),
         "commit": commit,

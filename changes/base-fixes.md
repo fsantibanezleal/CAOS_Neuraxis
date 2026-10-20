@@ -1,0 +1,1 @@
+- The static builder refuses an archive member with no manifest digest and names the file (SR-001); the plant asserts the refusal.
