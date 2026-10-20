@@ -1,3 +1,5 @@
+import { ReadinessNote } from '../readiness/ReadinessNote';
+import { VIEW_ROWS } from '../readiness/readiness';
 import { useMemo, useState } from 'react';
 import { Callout, Cite, Refs, DocSection } from '@fasl-work/caos-app-shell';
 import { Download } from 'lucide-react';
@@ -381,6 +383,7 @@ export default function Benchmark() {
           <Cite id="agarwal2021" />
         </p>
       </div>
+      <ReadinessNote ids={VIEW_ROWS['benchmark-matrix']} />
       {!results.length ? (
         <div className="nx-empty">
           <h3>{loading ? t.loading : t.artifactUnavailable}</h3>

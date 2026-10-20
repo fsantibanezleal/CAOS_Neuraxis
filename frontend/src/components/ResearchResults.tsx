@@ -1,35 +1,14 @@
+import { ReadinessNote } from '../readiness/ReadinessNote';
+import { VIEW_ROWS } from '../readiness/readiness';
 import { useEffect, useState } from 'react';
 import { Callout } from '@fasl-work/caos-app-shell';
 import { useCopy } from '../i18n';
 import { downloadJSON } from '../api/artifacts';
+import type { ResearchSummary } from '../lib/contract.types';
 import { format, Panel } from './Instruments';
 
-interface Measurement {
-  method_id: string;
-  successes: number;
-  episodes: number;
-  mean_wall_ms: number;
-}
-interface ResearchReport {
-  kind: string;
-  completed_episodes: number;
-  transfer: { episodes: number; methods: Measurement[] };
-  ablations: Record<
-    string,
-    {
-      methods: Measurement[];
-      paired_full_minus_ablation: {
-        success_difference_left_minus_right: number;
-        paired_seed_bootstrap95: number[];
-        mean_wall_difference_ms_left_minus_right: number;
-      };
-    }
-  >;
-  routing: Record<string, { threshold: number; fit_states: number; positive_fit_states: number }>;
-  external: {
-    aggregates: Record<string, { evaluated_cases: number; mean_upstream_metric: number }>;
-  };
-}
+// The report document is the generated type (docs/contracts/schemas/research-summary.schema.json).
+type ResearchReport = ResearchSummary;
 
 export function ResearchResults() {
   const { lang } = useCopy();
@@ -60,6 +39,7 @@ export function ResearchResults() {
     );
   return (
     <div className="nx-research-results">
+      <ReadinessNote ids={VIEW_ROWS['research-results']} />
       <Callout
         variant="honest"
         title={en ? 'Measured contribution verdict' : 'Veredicto medido de contribución'}

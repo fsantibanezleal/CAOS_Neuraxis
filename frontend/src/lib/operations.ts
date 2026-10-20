@@ -1,69 +1,19 @@
+import type {
+  OperationRunDocument,
+  RunInput,
+  RunNode,
+  RunSnapshot,
+  RunSummary,
+} from './contract.types';
 import { localSession } from './session';
-export interface InputFile {
-  path: string;
-  content: string;
-}
-export interface Finding {
-  code: string;
-  path: string;
-  message: string;
-  severity: string;
-  line: number | null;
-  expected?: string;
-  actual?: string;
-}
-export interface OperationNode {
-  id: string;
-  title: { en: string; es: string };
-  depends_on: string[];
-  output: string;
-  state: string;
-  error?: string;
-  history?: Record<string, unknown>[];
-  evidence?: Record<string, unknown>;
-}
-export interface OperationResult {
-  status: string;
-  disposition: string;
-  findings: Finding[];
-  nodes: OperationNode[];
-  artifacts: Record<string, Record<string, unknown>>;
-  metrics: {
-    wall_ms: number;
-    files: number;
-    verified_nodes: number;
-    native_receipts: number;
-    model_calls: number;
-    journal_sequence: number;
-  };
-  input_sha256: string;
-  engine: string;
-  scope: string;
-}
-export interface OperationRun {
-  id: string;
-  created_at?: number;
-  task: string;
-  variant: string;
-  seed: number;
-  status: string;
-  nodes: OperationNode[];
-  events: Record<string, unknown>[];
-  inputs: InputFile[];
-  result: OperationResult | null;
-  error: string | null;
-}
-export interface OperationSummary {
-  id: string;
-  task: keyof typeof taskLabels;
-  variant: string;
-  seed: number;
-  status: string;
-  created_at: number;
-  expires_at: number;
-  findings: number;
-  disposition: string;
-}
+// The shapes of the operations documents and of the service's answers are generated from the schemas
+// (docs/contracts, ADR-0080): these names are aliases of the generated types, never hand-written interfaces.
+export type InputFile = RunInput;
+export type OperationResult = OperationRunDocument;
+export type Finding = OperationResult['findings'][number];
+export type OperationNode = RunNode;
+export type OperationRun = RunSnapshot;
+export type OperationSummary = RunSummary;
 export const taskLabels = {
   release: { en: 'Verify a software release', es: 'Verificar una entrega de software' },
   source: { en: 'Audit a source workspace', es: 'Auditar un proyecto de código' },

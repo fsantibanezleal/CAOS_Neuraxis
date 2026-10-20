@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react';
 import type { ArtifactIndex, Episode } from '../lib/types';
 const root = `${import.meta.env.BASE_URL}data/`;
-async function getJSON(path: string) {
+export async function getJSON<T = any>(path: string): Promise<T> {
   const r = await fetch(path);
   if (!r.ok) throw new Error(`HTTP ${r.status}`);
   if (!(r.headers.get('content-type') ?? '').includes('json'))
@@ -34,7 +34,8 @@ export interface EpisodeReference {
 }
 export function episodeReferences(index: ArtifactIndex | null): EpisodeReference[] {
   if (!index) return [];
-  const value = index.episodes ?? index.runs;
+  // The schema (episode-index) has `episodes` only; the earlier fallback to a `runs` key named a key no document carries.
+  const value: unknown = index.episodes;
   return Array.isArray(value)
     ? (value.filter((x) => x && typeof x === 'object') as EpisodeReference[])
     : [];

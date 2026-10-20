@@ -1,27 +1,15 @@
+import { ReadinessNote } from '../readiness/ReadinessNote';
+import { VIEW_ROWS } from '../readiness/readiness';
 import { useEffect, useState } from 'react';
 import { Callout } from '@fasl-work/caos-app-shell';
 import { Download } from 'lucide-react';
 import { downloadJSON } from '../api/artifacts';
 import { useCopy } from '../i18n';
+import type { BenchmarkAdequacy } from '../lib/contract.types';
 import { Panel } from './Instruments';
 
-interface MethodAudit {
-  method_id: string;
-  episodes: number;
-  successes: number;
-  seed_variable_case_variant_cells: number;
-}
-interface AdequacyAudit {
-  schema_version: number;
-  scope: string;
-  index_sha256: string;
-  episodes_checked: number;
-  case_variant_method_cells: number;
-  seed_variable_cells: number;
-  perfect_methods: string[];
-  m12_failures: { case_id: string; variant: string; failures: number }[];
-  methods: MethodAudit[];
-}
+// The audit document is the generated type (docs/contracts/schemas/benchmark-adequacy.schema.json).
+type AdequacyAudit = BenchmarkAdequacy;
 
 export default function BenchmarkAdequacy() {
   const { lang } = useCopy();
@@ -53,6 +41,7 @@ export default function BenchmarkAdequacy() {
     return <p role="status">{error || (en ? 'Loading audit...' : 'Cargando auditoría...')}</p>;
   return (
     <div className="nx-research-results">
+      <ReadinessNote ids={VIEW_ROWS['benchmark-adequacy']} />
       <Callout
         variant="honest"
         title={en ? 'What this matrix can establish' : 'Qué puede establecer esta matriz'}

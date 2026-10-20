@@ -1,3 +1,4 @@
+import type { EpisodeIndex } from './contract.types';
 export type Lang = 'en' | 'es';
 export type Bilingual = { en: string; es: string };
 export type Lane = 'browser' | 'canonical' | 'native' | 'imported';
@@ -76,16 +77,8 @@ export interface Episode {
   metrics: Record<string, unknown>;
   provenance: Record<string, unknown>;
 }
-export interface ArtifactIndex {
-  schema_version?: string;
-  generated_at?: string;
-  provenance?: Record<string, unknown>;
-  methods?: unknown[];
-  cases?: unknown[];
-  episodes?: unknown;
-  aggregate_results?: unknown;
-  [key: string]: unknown;
-}
+/** The episode index document (docs/contracts/schemas/episode-index.schema.json): generated, not hand-written. */
+export type ArtifactIndex = EpisodeIndex;
 export const DEFAULT_PARAMETERS: Parameters = {
   latency_ms: 80,
   reliability: 0.94,

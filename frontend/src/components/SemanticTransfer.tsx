@@ -1,39 +1,18 @@
+import { ReadinessNote } from '../readiness/ReadinessNote';
+import { VIEW_ROWS } from '../readiness/readiness';
 import { useEffect, useMemo, useState } from 'react';
 import { Callout } from '@fasl-work/caos-app-shell';
 import { Download } from 'lucide-react';
-import {
-  downloadJSON,
-  loadEpisode,
-  loadVerifiedIndex,
-  type EpisodeReference,
-} from '../api/artifacts';
+import { downloadJSON, loadEpisode, loadVerifiedIndex } from '../api/artifacts';
 import { METHODS } from '../data/registry';
 import { useCopy } from '../i18n';
 import type { Episode } from '../lib/types';
 import { format, Panel } from './Instruments';
+import type { SemanticTransferIndex, SemanticTransferReport } from '../lib/contract.types';
 import SemanticRouting from './SemanticRouting';
 
-interface MethodResult {
-  method_id: string;
-  episodes: number;
-  successes: number;
-  invalid_policy_outputs: number;
-  planner_delegations: number;
-  mean_wall_ms: number;
-}
-interface SemanticReport {
-  schema_version: number;
-  index_sha256: string;
-  episodes_checked: number;
-  seed_variable_cells: number;
-  perfect_methods: string[];
-  methods: MethodResult[];
-  by_family: { family: string; methods: Record<string, number>; episodes_per_method: number }[];
-  m12_paired: Record<string, { m12_wins?: number; m12_losses?: number; ties?: number }>;
-}
-interface SemanticIndex {
-  episodes: EpisodeReference[];
-}
+type SemanticReport = SemanticTransferReport;
+type SemanticIndex = SemanticTransferIndex;
 
 export default function SemanticTransfer() {
   const { lang } = useCopy();
@@ -115,6 +94,7 @@ export default function SemanticTransfer() {
     );
   return (
     <div className="nx-research-results">
+      <ReadinessNote ids={VIEW_ROWS['semantic-transfer']} />
       <Callout
         variant="honest"
         title={
