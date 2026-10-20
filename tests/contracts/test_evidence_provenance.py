@@ -30,7 +30,7 @@ CONTRACTS = {"research-summary", "benchmark-adequacy", "routing-study", "semanti
 
 def _pinned_engine_tag() -> str:
     """The engine's release tag, derived from the PyPI pin of requirements.txt (the single source): 0.1.2 is tag v0.01.002."""
-    pin = re.search(r"^reflexmesh==(\d+)\.(\d+)\.(\d+)$", (ROOT / "requirements.txt").read_text(encoding="utf-8"), re.M)
+    pin = re.search(r"^reflexmesh==(\d+)\.(\d+)\.(\d+)$", (ROOT / "requirements.txt").read_text(encoding="utf-8"), re.MULTILINE)
     assert pin, "requirements.txt does not pin reflexmesh"
     major, minor, patch = (int(x) for x in pin.groups())
     return f"v{major}.{minor:02d}.{patch:03d}"
