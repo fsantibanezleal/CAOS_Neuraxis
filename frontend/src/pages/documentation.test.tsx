@@ -24,6 +24,11 @@ const wrap = (node: ReactNode) =>
       <CitationsProvider items={CITATIONS}>{node}</CitationsProvider>
     </MemoryRouter>,
   );
+/** The refutation of BR-007, exported so the planted-defect suite runs the gate's own function: what must not be in the page while the executive view is open. */
+export const executiveOpenProblems = (page: string): string[] =>
+  ['data-glossary', 'class="equation', 'data-doc-section', 'data-area'].filter((marker) =>
+    page.includes(marker),
+  );
 const text = (file: string) => readFileSync(new URL(file, import.meta.url), 'utf8');
 
 describe('the Introduction: two views, the executive first', () => {
@@ -37,11 +42,7 @@ describe('the Introduction: two views, the executive first', () => {
   });
 
   it('refutes: no equation, glossary or section is in the page while the executive view is open', () => {
-    const html = wrap(<IntroductionPage data={executive} base="/" />);
-    expect(html).not.toContain('data-glossary');
-    expect(html).not.toContain('class="equation');
-    expect(html).not.toContain('data-doc-section');
-    expect(html).not.toContain('data-area');
+    expect(executiveOpenProblems(wrap(<IntroductionPage data={executive} base="/" />))).toEqual([]);
   });
 
   it('the technical view lists the five areas as its topics and opens on the first', () => {

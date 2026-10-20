@@ -9,7 +9,9 @@ type Bi = { en: string; es: string };
 type Lang = keyof Bi;
 const LANGS: Lang[] = ['en', 'es'];
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
-const executive: any = JSON.parse(readFileSync(new URL('../../../content/executive.json', import.meta.url), 'utf8'));
+const executive: any = JSON.parse(
+  readFileSync(new URL('../../../content/executive.json', import.meta.url), 'utf8'),
+);
 
 const words = (t: string) => t.split(/\s+/).filter((w) => /[\p{L}\p{N}]/u.test(w)).length;
 
@@ -24,17 +26,49 @@ const LABELS = {
 } satisfies Record<string, Bi>;
 
 type Row = Record<string, Bi>;
-type Group = { rows: Row[]; title: (r: Row) => Bi; back: (r: Row, i: number) => Array<[Bi | null, Bi]>; extra: number };
+type Group = {
+  rows: Row[];
+  title: (r: Row) => Bi;
+  back: (r: Row, i: number) => Array<[Bi | null, Bi]>;
+  extra: number;
+};
 const FLIP_GROUPS: Record<string, Group> = {
-  'pain.bearers': { rows: executive.pain.bearers, title: (r) => r.who, back: (r) => [[LABELS.cost, r.cost], [LABELS.measure, r.measure]], extra: 0 },
-  'situation.roles': { rows: executive.situation.roles, title: (r) => r.role, back: (r) => [[LABELS.decides, r.decides], [LABELS.needs, r.needs]], extra: 0 },
+  'pain.bearers': {
+    rows: executive.pain.bearers,
+    title: (r) => r.who,
+    back: (r) => [
+      [LABELS.cost, r.cost],
+      [LABELS.measure, r.measure],
+    ],
+    extra: 0,
+  },
+  'situation.roles': {
+    rows: executive.situation.roles,
+    title: (r) => r.role,
+    back: (r) => [
+      [LABELS.decides, r.decides],
+      [LABELS.needs, r.needs],
+    ],
+    extra: 0,
+  },
   'situation.state_of_the_art': {
     rows: executive.situation.state_of_the_art,
     title: (r) => r.approach,
-    back: (r) => [[LABELS.achieves, r.achieves], [LABELS.fallsShort, r.falls_short]],
+    back: (r) => [
+      [LABELS.achieves, r.achieves],
+      [LABELS.fallsShort, r.falls_short],
+    ],
     extra: 2, // the label "Source" and its numbered mark
   },
-  'proposal.four_cs': { rows: executive.proposal.four_cs, title: (r) => r.c, back: (r, i) => [[null, FOUR_CS[i].definition], [null, r.applies]], extra: 0 },
+  'proposal.four_cs': {
+    rows: executive.proposal.four_cs,
+    title: (r) => r.c,
+    back: (r, i) => [
+      [null, FOUR_CS[i].definition],
+      [null, r.applies],
+    ],
+    extra: 0,
+  },
 };
 
 /** Counts of every flip card, one entry per card and language. */
@@ -43,7 +77,11 @@ export function flipCounts() {
   for (const [path, g] of Object.entries(FLIP_GROUPS)) {
     g.rows.forEach((row, i) => {
       for (const lang of LANGS) {
-        const back = g.back(row, i).reduce((n, [label, t]) => n + (label ? words(label[lang]) : 0) + words(t[lang]), 0) + g.extra;
+        const back =
+          g
+            .back(row, i)
+            .reduce((n, [label, t]) => n + (label ? words(label[lang]) : 0) + words(t[lang]), 0) +
+          g.extra;
         out.push({ path: `${path}[${i}]`, lang, title: words(g.title(row)[lang]), back });
       }
     });
@@ -69,14 +107,66 @@ const citations = (): string[] => {
 /** Model and vendor names: the agents the long-workflow benchmark paper evaluates, the model families of the routing and
  * guardrail papers of the dossier, and the vendors behind them. The view says "the best agent". */
 const NAMED = [
-  'Claude', 'Anthropic', 'Opus', 'Sonnet', 'Haiku', 'GPT', 'OpenAI', 'ChatGPT', 'Gemini', 'Google', 'Llama', 'Meta AI', 'Qwen',
-  'DeepSeek', 'Mistral', 'Grok', 'xAI', 'Microsoft', 'Amazon', 'LangChain', 'LangGraph', 'Temporal',
+  'Claude',
+  'Anthropic',
+  'Opus',
+  'Sonnet',
+  'Haiku',
+  'GPT',
+  'OpenAI',
+  'ChatGPT',
+  'Gemini',
+  'Google',
+  'Llama',
+  'Meta AI',
+  'Qwen',
+  'DeepSeek',
+  'Mistral',
+  'Grok',
+  'xAI',
+  'Microsoft',
+  'Amazon',
+  'LangChain',
+  'LangGraph',
+  'Temporal',
 ];
+
+/** The vendor check of BR-009, exported so the planted-defect suite runs the gate's own function. */
+export function vendorProblems(doc: any): string[] {
+  const body = JSON.stringify({
+    ...doc,
+    sources: doc.sources.map((s: { title: Bi; note?: Bi }) => ({ title: s.title, note: s.note })),
+  });
+  const out = NAMED.filter((n) => new RegExp(`\\b${n}\\b`).test(body)).map((n) => `names ${n}`);
+  if (/\b(our client|nuestro cliente|this product|este producto|Neuraxis)\b/i.test(body))
+    out.push('names a client or the product');
+  return out;
+}
+
+/** The language check of BR-009, exported for the same reason: every bilingual text has both languages. */
+export function languageProblems(doc: unknown): string[] {
+  const out: string[] = [];
+  const walk = (n: unknown, path: string): void => {
+    if (Array.isArray(n)) n.forEach((v, i) => walk(v, `${path}[${i}]`));
+    else if (n && typeof n === 'object') {
+      const o = n as Record<string, unknown>;
+      if (typeof o.en === 'string' && typeof o.es === 'string' && Object.keys(o).length === 2) {
+        if (!(o.en.trim() && o.es.trim())) out.push(`${path} lacks a language`);
+        return;
+      }
+      for (const [k, v] of Object.entries(o)) walk(v, `${path}.${k}`);
+    }
+  };
+  walk(doc, 'executive');
+  return out;
+}
 
 describe('the executive view data file', () => {
   it('is valid against schema 2.0.0 and its writing limits', () => {
     const problems = validateExecutive(executive);
-    expect(problems.map((p: { path: string; message: string }) => `${p.path}: ${p.message}`)).toEqual([]);
+    expect(
+      problems.map((p: { path: string; message: string }) => `${p.path}: ${p.message}`),
+    ).toEqual([]);
   });
 
   it("has the 4 C's as Choice, Context, Cost, Control, in that order, in both languages", () => {
@@ -97,7 +187,10 @@ describe('the executive view data file', () => {
   it('names every action owner as a role of the current situation, in both languages', () => {
     const roles: Bi[] = executive.situation.roles.map((r: { role: Bi }) => r.role);
     for (const a of executive.proposal.actions as { owner: Bi }[]) {
-      expect(roles.some((r) => r.en === a.owner.en && r.es === a.owner.es), a.owner.en).toBe(true);
+      expect(
+        roles.some((r) => r.en === a.owner.en && r.es === a.owner.es),
+        a.owner.en,
+      ).toBe(true);
     }
   });
 
@@ -110,11 +203,16 @@ describe('the executive view data file', () => {
     const per: Record<string, string[]> = {
       pain: executive.pain.figures.map((f: { source: string }) => f.source),
       context: executive.context.evidence.map((e: { source: string }) => e.source),
-      situation: [...executive.situation.state_of_the_art.map((a: { source: string }) => a.source), executive.situation.status.source],
+      situation: [
+        ...executive.situation.state_of_the_art.map((a: { source: string }) => a.source),
+        executive.situation.status.source,
+      ],
       trends: executive.trends.items.map((t: { signal: { source: string } }) => t.signal.source),
     };
-    for (const [tab, list] of Object.entries(per)) expect(new Set(list).size, tab).toBeLessThanOrEqual(6);
-    for (const s of executive.sources as { url: string }[]) expect(s.url).toMatch(/^https:\/\/\S+$/);
+    for (const [tab, list] of Object.entries(per))
+      expect(new Set(list).size, tab).toBeLessThanOrEqual(6);
+    for (const s of executive.sources as { url: string }[])
+      expect(s.url).toMatch(/^https:\/\/\S+$/);
   });
 
   it('puts the three illustrations under frontend/public/', () => {
@@ -136,24 +234,11 @@ describe('the executive view data file', () => {
   });
 
   it('carries both languages in every text', () => {
-    const walk = (n: unknown, path: string): void => {
-      if (Array.isArray(n)) n.forEach((v, i) => walk(v, `${path}[${i}]`));
-      else if (n && typeof n === 'object') {
-        const o = n as Record<string, unknown>;
-        if (typeof o.en === 'string' && typeof o.es === 'string' && Object.keys(o).length === 2) {
-          expect(Boolean(o.en.trim() && o.es.trim()), path).toBe(true);
-          return;
-        }
-        for (const [k, v] of Object.entries(o)) walk(v, `${path}.${k}`);
-      }
-    };
-    walk(executive, 'executive');
+    expect(languageProblems(executive)).toEqual([]);
   });
 
   it('names no model, no AI vendor and no client (the view says "the best agent")', () => {
-    const body = JSON.stringify({ ...executive, sources: executive.sources.map((s: { title: Bi; note?: Bi }) => ({ title: s.title, note: s.note })) });
-    for (const n of NAMED) expect(body, n).not.toMatch(new RegExp(`\\b${n}\\b`));
-    expect(body).not.toMatch(/\b(our client|nuestro cliente|this product|este producto|Neuraxis)\b/i);
+    expect(vendorProblems(executive)).toEqual([]);
   });
 
   it('holds no item the research marks unverified', () => {

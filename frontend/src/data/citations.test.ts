@@ -42,9 +42,19 @@ const referencingText = sourceFiles(srcRoot)
   .map((file) => readFileSync(file, 'utf8'))
   .join('\n');
 
+/** The three id checks of BR-014, exported so the planted-defect suite runs the gate's own functions. */
+export const duplicateIds = (list: string[]): string[] =>
+  list.filter((id, i) => list.indexOf(id) !== i);
+export const undefinedIds = (list: string[], named: Set<string>): string[] => {
+  const defined = new Set(list);
+  return [...named].filter((id) => !defined.has(id));
+};
+export const unreferencedIds = (list: string[], text: string): string[] =>
+  list.filter((id) => !text.includes(`'${id}'`) && !text.includes(`"${id}"`));
+
 describe('citations', () => {
   it('every citation id is unique', () => {
-    expect(ids.filter((id, i) => ids.indexOf(id) !== i)).toEqual([]);
+    expect(duplicateIds(ids)).toEqual([]);
   });
 
   it('every citation carries a label, a text and a DOI or a URL', () => {
@@ -56,18 +66,12 @@ describe('citations', () => {
   });
 
   it('every id a page section or a paragraph names is defined', () => {
-    const defined = new Set(ids);
-    for (const [name, page] of Object.entries(pages)) {
-      const missing = [...used(page)].filter((id) => !defined.has(id));
-      expect(missing, name).toEqual([]);
-    }
+    for (const [name, page] of Object.entries(pages))
+      expect(undefinedIds(ids, used(page)), name).toEqual([]);
   });
 
   it('no citation is defined that nothing references', () => {
-    const unreferenced = ids.filter(
-      (id) => !referencingText.includes(`'${id}'`) && !referencingText.includes(`"${id}"`),
-    );
-    expect(unreferenced).toEqual([]);
+    expect(unreferencedIds(ids, referencingText)).toEqual([]);
   });
 
   it('the page modules hold only what their page uses, and no other page uses it (disjoint write scopes)', () => {

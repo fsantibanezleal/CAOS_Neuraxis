@@ -1,24 +1,25 @@
 // Planted-defect tests of the base-0-08 requirements (docs/design/features/base-0-08/validation.md, ADR-0075). Each test plants the
-// defect its row states in a copy held in memory (a route table, a document, an SVG, a section) and shows that the check the
-// requirement relies on reports it. The check is the gate's own where the product exports it; where the gate is a test body or a
-// browser script, the check restates the gate's assertion and the first assertion of every test shows it passes on the clean copy.
-import {
-  APP_ROUTE,
-  CitationsProvider,
-  LANDING_ROUTE,
-  Landing,
-  STANDARD_ROUTES,
-} from '@fasl-work/caos-app-shell';
+// defect its row states in a copy held in memory and runs the requirement's own gate function on it. The gate functions are exported
+// by the gate test modules (App.test.tsx, base-record.test.ts, documentation.test.tsx, executive.test.ts, illustrations.test.ts,
+// citations.test.ts, areas.test.ts, simulator.lanes.test.ts), so importing them also runs those modules' tests in this file. BR-003's
+// gate is a browser script; its plant runs the shell's own Landing function and is a gate of the requirement beside it.
+import { APP_ROUTE, CitationsProvider, LANDING_ROUTE, Landing } from '@fasl-work/caos-app-shell';
 import { readdirSync } from 'node:fs';
 import { relative, sep } from 'node:path';
 import { fileURLToPath } from 'node:url';
-import { createElement, type ComponentType } from 'react';
+import { createElement, createElement as h, type ComponentType } from 'react';
 import { renderToString } from 'react-dom/server';
 import { MemoryRouter } from 'react-router-dom';
 import { describe, expect, it } from 'vitest';
 import executive from '../../../content/executive.json';
 import App from '../App';
+import { headerOrderProblems } from '../App.test';
+import { deployPlaceProblems, templateRecordProblems } from '../base-record.test';
+import { languageProblems, vendorProblems } from '../content/executive.test';
+import { colourProblems, labelProblems } from '../content/illustrations.test';
 import { CITATIONS } from '../data/citations';
+import { duplicateIds, undefinedIds, unreferencedIds } from '../data/citations.test';
+import { reproducibilityProblems } from '../data/areas.test';
 import type { ContentSection } from '../data/content.types';
 import { experiments } from '../data/experiments';
 import { implementation } from '../data/implementation';
@@ -26,44 +27,18 @@ import { introduction } from '../data/introduction';
 import { methodology } from '../data/methodology';
 import { paragraphSources } from '../data/paragraph-sources';
 import { COPY } from '../i18n';
+import { episodeLaneProblems, laneViewProblems } from '../lib/simulator.lanes.test';
 import { advanceSimulation, startSimulation } from '../lib/simulator';
 import { DEFAULT_PARAMETERS } from '../lib/types';
+import { executiveOpenProblems } from '../pages/documentation.test';
 import { IntroductionPage } from '../pages/Introduction';
 import { read } from './support';
 
-const ORDER = [
-  '/app',
-  '/introduction',
-  '/methodology',
-  '/implementation',
-  '/experiments',
-  '/benchmark',
-];
-
-// ---- BR-002: the route table and the header order
-const tableProblems = (paths: string[]) => {
-  const out: string[] = [];
-  for (const p of ORDER) if (!paths.includes(p)) out.push(`missing route ${p}`);
-  const present = paths.filter((p) => ORDER.includes(p));
-  if (present.join() !== ORDER.filter((p) => present.includes(p)).join())
-    out.push('routes out of order');
-  if (paths[0] !== '/app') out.push(`the App is not first (${paths[0]})`);
-  return out;
-};
+const pageAt = (path: string) =>
+  renderToString(createElement(MemoryRouter, { initialEntries: [path] }, createElement(App)));
 const headerAnchors = (html: string) => [
   ...html.matchAll(/<a [^>]*href="(\/[a-z]*)(?:[?#][^"]*)?"[^>]*>[^<]*<\/a>/g),
 ];
-const headerProblems = (html: string) => {
-  const hrefs = headerAnchors(html).map((m) => m[1]);
-  const seen = ORDER.map((p) => hrefs.indexOf(p));
-  const out = ORDER.filter((_, i) => seen[i] < 0).map((p) => `no header link for ${p}`);
-  const found = seen.filter((i) => i >= 0);
-  if (found.join() !== [...found].sort((a, b) => a - b).join())
-    out.push('header links out of order');
-  return out;
-};
-const pageAt = (path: string) =>
-  renderToString(createElement(MemoryRouter, { initialEntries: [path] }, createElement(App)));
 
 // ---- BR-003: the forward of an old App link (the shell's own Landing function, evaluated with a planted copy of its source)
 const landingSource = Landing.toString();
@@ -95,30 +70,12 @@ const lostParts = (from: { search: string; hash: string }, to: string) => {
   return lost;
 };
 
-// ---- BR-005: the record of the base
-const TEMPLATE_RECORD = /^CAOS_PRODUCT_TEMPLATE (\d+\.\d{2}\.\d{3}) \(tag v\1\)$/;
-const recordProblems = (templateVersion: string, target: string, deployFiles: string[]) => {
-  const out: string[] = [];
-  if (!TEMPLATE_RECORD.test(templateVersion.trim()))
-    out.push('.template-version is not in the template format');
-  if (target.trim() !== 'vps')
-    out.push(`deploy/TARGET is "${target.trim().replace(/\n/g, ' / ')}", not the one place vps`);
-  if (deployFiles.filter((f) => /^TARGET/i.test(f)).length !== 1)
-    out.push('more than one deploy place file');
-  return out;
-};
-
-// ---- BR-007: the executive view while it is open
-const executiveOpenProblems = (page: string) =>
-  ['data-glossary', 'class="equation', 'data-doc-section', 'data-area'].filter((marker) =>
-    page.includes(marker),
-  );
 const renderIntroduction = (initial?: 'technical') =>
   renderToString(
     createElement(
       MemoryRouter,
       null,
-      createElement(
+      h(
         CitationsProvider as ComponentType<{ items: typeof CITATIONS }>,
         { items: CITATIONS },
         createElement(IntroductionPage, {
@@ -130,68 +87,11 @@ const renderIntroduction = (initial?: 'technical') =>
     ),
   );
 
-// ---- BR-009: no vendor name, both languages
-const NAMED = [
-  'Claude',
-  'Anthropic',
-  'Opus',
-  'Sonnet',
-  'Haiku',
-  'GPT',
-  'OpenAI',
-  'ChatGPT',
-  'Gemini',
-  'Google',
-  'Llama',
-  'Meta AI',
-  'Qwen',
-  'DeepSeek',
-  'Mistral',
-  'Grok',
-  'xAI',
-  'Microsoft',
-  'Amazon',
-  'LangChain',
-  'LangGraph',
-  'Temporal',
-];
-const executiveContentProblems = (doc: any) => {
-  const out: string[] = [];
-  const body = JSON.stringify({
-    ...doc,
-    sources: doc.sources.map((s: any) => ({ title: s.title, note: s.note })),
-  });
-  for (const n of NAMED) if (new RegExp(`\\b${n}\\b`).test(body)) out.push(`names ${n}`);
-  const walk = (node: unknown, path: string): void => {
-    if (Array.isArray(node)) node.forEach((v, i) => walk(v, `${path}[${i}]`));
-    else if (node && typeof node === 'object') {
-      const o = node as Record<string, unknown>;
-      if (typeof o.en === 'string' && typeof o.es === 'string' && Object.keys(o).length === 2) {
-        if (!(o.en.trim() && o.es.trim())) out.push(`${path} lacks a language`);
-        return;
-      }
-      for (const [k, v] of Object.entries(o)) walk(v, `${path}.${k}`);
-    }
-  };
-  walk(doc, 'executive');
-  return out;
-};
-
-// ---- BR-010: the illustrations
 const ILLUSTRATIONS = ['pain', 'situation', 'proposal'].map(
   (n) => [n, read(`frontend/public/executive/${n}.svg`)] as const,
 );
-const illustrationProblems = (svg: string) => {
-  const out: string[] = [];
-  if (/#[0-9a-fA-F]{3,8}\b|rgba?\(|hsla?\(/.test(svg)) out.push('a literal colour');
-  for (const m of svg.matchAll(/<text\b([^>]*)>/g)) {
-    const size = Number(/font-size\s*=\s*"([^"]*)"/.exec(m[1])?.[1]);
-    if (!(size >= 22)) out.push(`a label of size ${size}`);
-  }
-  return out;
-};
 
-// ---- BR-014: the citations
+// the source text the citation gate searches for references (as citations.test.ts builds it)
 const srcRoot = fileURLToPath(new URL('../', import.meta.url));
 const sourceFiles = (dir: string): string[] =>
   readdirSync(dir, { withFileTypes: true }).flatMap((entry) => {
@@ -204,75 +104,18 @@ const referencingText = sourceFiles(srcRoot)
   .filter((file) => !/^data\/citations(\.ts|\/)/.test(file))
   .map((file) => read(`frontend/src/${file}`))
   .join('\n');
+const ids = CITATIONS.map((c) => c.id);
 const usedIds = new Set(
   [introduction, methodology, implementation, experiments].flatMap((p) =>
     p.sections.flatMap((s) => [...s.refs, ...(paragraphSources[s.id] ?? []).flat()]),
   ),
 );
-const citationProblems = (items: Array<{ id: string }>, used: Set<string>) => {
-  const ids = items.map((c) => c.id);
-  const out = ids.filter((id, i) => ids.indexOf(id) !== i).map((id) => `duplicate id ${id}`);
-  const defined = new Set(ids);
-  for (const id of used) if (!defined.has(id)) out.push(`undefined id ${id}`);
-  for (const id of ids)
-    if (!referencingText.includes(`'${id}'`) && !referencingText.includes(`"${id}"`))
-      out.push(`orphan id ${id}`);
-  return out;
-};
-
-// ---- BR-015: the reproducibility area
-const words = (t: string) => t.split(/\s+/).filter((w) => /[\p{L}\p{N}]/u.test(w)).length;
-const reproducibilityProblems = (section: ContentSection) => {
-  const out: string[] = [];
-  for (const lang of ['en', 'es'] as const) {
-    if (section.paragraphs.filter((p) => words(p[lang]) >= 40).length < 2)
-      out.push(`${lang}: fewer than two dense paragraphs`);
-    if (section.limit[lang].length <= 20) out.push(`${lang}: no limit`);
-    if ((section.steps ?? []).length < 4) out.push(`${lang}: fewer than four steps`);
-  }
-  if ((section.table?.rows.length ?? 0) < 4) out.push('fewer than four table rows');
-  return out;
-};
-
-// ---- BR-036: the browser simulation is its own lane
-type LaneEpisode = {
-  lane: string;
-  metrics: Record<string, unknown>;
-  provenance: Record<string, unknown>;
-};
-const laneProblems = (
-  episode: LaneEpisode,
-  browserLabel: { en: string; es: string },
-  workbench: string,
-) => {
-  const out: string[] = [];
-  if (episode.lane !== 'browser') out.push(`the simulation carries lane ${episode.lane}`);
-  if (episode.metrics.host_effects !== 0 || episode.provenance.host_effects !== false)
-    out.push('a host effect on the browser lane');
-  for (const lang of ['en', 'es'] as const) {
-    if (!/virtual/i.test(browserLabel[lang]) || /measured|medida|replay/i.test(browserLabel[lang]))
-      out.push(`${lang}: the browser lane is not labelled as the virtual workspace`);
-  }
-  if (!workbench.includes("const episode = lane === 'browser' ? simulation.episode : record;"))
-    out.push('the view does not keep the simulation and the record apart');
-  return out;
-};
 
 describe('base-0-08 planted defects', () => {
   it('adversarial: a route table whose App is not first, or that lacks a route, is rejected', () => {
-    const paths: string[] = STANDARD_ROUTES.map((r) => r.path);
-    expect(tableProblems(paths)).toEqual([]);
-    expect(headerProblems(pageAt('/introduction'))).toEqual([]);
-    const moved = [paths[1], paths[0], ...paths.slice(2)];
-    expect(tableProblems(moved)).toEqual([
-      'routes out of order',
-      'the App is not first (/introduction)',
-    ]);
-    expect(tableProblems(paths.filter((p) => p !== '/benchmark'))).toEqual([
-      'missing route /benchmark',
-    ]);
-    // the rendered header: the App link moved after the Introduction link, and the Benchmark link removed
     const page = pageAt('/introduction');
+    expect(headerOrderProblems(page)).toEqual([]);
+    // planted: the App link moved after the Introduction link, and the Benchmark link removed
     const anchors = headerAnchors(page);
     const [app, intro] = [anchors[0], anchors[1]];
     const bench = anchors.find((m) => m[1] === '/benchmark')!;
@@ -281,8 +124,10 @@ describe('base-0-08 planted defects', () => {
       .replace(app[0], '@@A@@')
       .replace(intro[0], app[0])
       .replace('@@A@@', intro[0]);
-    expect(headerProblems(swapped)).toEqual(['header links out of order']);
-    expect(headerProblems(page.replace(bench[0], ''))).toEqual(['no header link for /benchmark']);
+    expect(headerOrderProblems(swapped)).toEqual(['header links out of order']);
+    expect(headerOrderProblems(page.replace(bench[0], ''))).toEqual([
+      'no header link for /benchmark',
+    ]);
   });
 
   it('adversarial: a forward that drops a query key or the hash is reported', () => {
@@ -303,15 +148,16 @@ describe('base-0-08 planted defects', () => {
     const record = read('.template-version');
     const target = read('deploy/TARGET');
     const files = readdirSync(new URL('../../../deploy/', import.meta.url));
-    expect(recordProblems(record, target, files)).toEqual([]);
+    expect(templateRecordProblems(record)).toEqual([]);
+    expect(deployPlaceProblems(target, files)).toEqual([]);
     expect(
-      recordProblems('{"template":"CAOS_PRODUCT_TEMPLATE","version":"0.08.002"}', target, files),
+      templateRecordProblems('{"template":"CAOS_PRODUCT_TEMPLATE","version":"0.08.002"}'),
     ).toEqual(['.template-version is not in the template format']);
-    expect(recordProblems('CAOS_PRODUCT_TEMPLATE 0.08.002', target, files)).toHaveLength(1);
-    expect(recordProblems(record, 'vps\nnetlify\n', files)).toEqual([
+    expect(templateRecordProblems('CAOS_PRODUCT_TEMPLATE 0.08.002')).toHaveLength(1);
+    expect(deployPlaceProblems('vps\nnetlify\n', files)).toEqual([
       'deploy/TARGET is "vps / netlify", not the one place vps',
     ]);
-    expect(recordProblems(record, target, [...files, 'TARGET.netlify'])).toEqual([
+    expect(deployPlaceProblems(target, [...files, 'TARGET.netlify'])).toEqual([
       'more than one deploy place file',
     ]);
   });
@@ -335,41 +181,47 @@ describe('base-0-08 planted defects', () => {
   });
 
   it('adversarial: a vendor name or a missing Spanish text in the executive file is reported', () => {
-    expect(executiveContentProblems(executive)).toEqual([]);
+    expect(vendorProblems(executive)).toEqual([]);
+    expect(languageProblems(executive)).toEqual([]);
     const vendor = structuredClone(executive) as any;
     const firstAction = vendor.proposal.actions[0];
     firstAction.action.en = `${firstAction.action.en} with Claude`;
-    expect(executiveContentProblems(vendor)).toEqual(['names Claude']);
+    expect(vendorProblems(vendor)).toEqual(['names Claude']);
     const noSpanish = structuredClone(executive) as any;
     noSpanish.pain.figures[0].heading.es = '';
-    expect(executiveContentProblems(noSpanish)).toEqual([
+    expect(languageProblems(noSpanish)).toEqual([
       'executive.pain.figures[0].heading lacks a language',
     ]);
   });
 
   it('adversarial: a hex fill or a label under size 22 in an illustration fails the test', () => {
-    for (const [name, svg] of ILLUSTRATIONS) expect(illustrationProblems(svg), name).toEqual([]);
+    for (const [name, svg] of ILLUSTRATIONS) {
+      expect(colourProblems(svg), name).toEqual([]);
+      expect(labelProblems(svg), name).toEqual([]);
+    }
     const pain = ILLUSTRATIONS[0][1];
     const fill = pain.replace(/fill="var\(--color-[a-z0-9-]+\)"/, 'fill="#ff0000"');
     expect(fill).not.toBe(pain);
-    expect(illustrationProblems(fill)).toEqual(['a literal colour']);
+    expect(colourProblems(fill)).toEqual([
+      '<path fill="#ff0000"'.replace('path', /<(\w+)[^>]*fill="#ff0000"/.exec(fill)![1]),
+      'a literal colour',
+    ]);
     const small = pain.replace(/(<text\b[^>]*font-size=")\d+(")/, '$120$2');
     expect(small).not.toBe(pain);
-    expect(illustrationProblems(small)).toEqual(['a label of size 20']);
+    const found = labelProblems(small);
+    expect(found).toHaveLength(1);
+    expect(found[0]).toMatch(/has a label of size 20$/);
   });
 
   it('adversarial: a planted orphan citation and a duplicate id each fail', () => {
-    expect(citationProblems(CITATIONS, usedIds)).toEqual([]);
-    const first = CITATIONS[0].id;
-    expect(citationProblems([...CITATIONS, CITATIONS[0]], usedIds)).toEqual([
-      `duplicate id ${first}`,
+    expect(duplicateIds(ids)).toEqual([]);
+    expect(undefinedIds(ids, usedIds)).toEqual([]);
+    expect(unreferencedIds(ids, referencingText)).toEqual([]);
+    expect(duplicateIds([...ids, ids[0]])).toEqual([ids[0]]);
+    expect(unreferencedIds([...ids, 'zz-planted-orphan'], referencingText)).toEqual([
+      'zz-planted-orphan',
     ]);
-    expect(citationProblems([...CITATIONS, { id: 'zz-planted-orphan' }], usedIds)).toEqual([
-      'orphan id zz-planted-orphan',
-    ]);
-    expect(citationProblems(CITATIONS, new Set([...usedIds, 'zz-undefined']))).toEqual([
-      'undefined id zz-undefined',
-    ]);
+    expect(undefinedIds(ids, new Set([...usedIds, 'zz-undefined']))).toEqual(['zz-undefined']);
   });
 
   it('adversarial: a reproducibility section without its limit or steps fails the area test', () => {
@@ -394,43 +246,41 @@ describe('base-0-08 planted defects', () => {
       reproducibilityProblems({ ...clean, limit: { en: 'short', es: clean.limit.es } }),
     ).toEqual(['en: no limit']);
   });
+
   it('adversarial: a browser episode presented as a replay, or a host effect on the browser lane, is caught', () => {
     let sim = startSimulation('C05', 'M02', 'stale_conflict', 17, DEFAULT_PARAMETERS);
     for (let i = 0; i < 40 && !['completed', 'failed'].includes(sim.episode.status); i++)
       sim = advanceSimulation(sim);
-    const episode = sim.episode as unknown as LaneEpisode;
-    const label = { en: COPY.en.browser, es: COPY.es.browser };
+    const episode = sim.episode as unknown as Parameters<typeof episodeLaneProblems>[0];
+    const browser = { en: COPY.en.browser, es: COPY.es.browser };
+    const measured = { en: COPY.en.canonical, es: COPY.es.canonical };
     const workbench = read('frontend/src/pages/Workbench.tsx');
-    expect(laneProblems(episode, label, workbench)).toEqual([]);
-    expect(laneProblems({ ...episode, lane: 'canonical' }, label, workbench)).toEqual([
+    expect(episodeLaneProblems(episode)).toEqual([]);
+    expect(laneViewProblems(browser, measured, workbench)).toEqual([]);
+    expect(episodeLaneProblems({ ...episode, lane: 'canonical' })).toEqual([
       'the simulation carries lane canonical',
     ]);
     expect(
-      laneProblems(
-        { ...episode, metrics: { ...episode.metrics, host_effects: 1 } },
-        label,
-        workbench,
-      ),
+      episodeLaneProblems({ ...episode, metrics: { ...episode.metrics, host_effects: 1 } }),
     ).toEqual(['a host effect on the browser lane']);
     expect(
-      laneProblems(
-        { ...episode, provenance: { ...episode.provenance, host_effects: true } },
-        label,
-        workbench,
-      ),
+      episodeLaneProblems({
+        ...episode,
+        provenance: { ...episode.provenance, host_effects: true },
+      }),
     ).toEqual(['a host effect on the browser lane']);
-    expect(
-      laneProblems(episode, { en: COPY.en.canonical, es: COPY.es.browser }, workbench),
-    ).toEqual(['en: the browser lane is not labelled as the virtual workspace']);
-    expect(
-      laneProblems(episode, { en: COPY.en.browser, es: COPY.es.canonical }, workbench),
-    ).toEqual(['es: the browser lane is not labelled as the virtual workspace']);
+    expect(laneViewProblems({ en: measured.en, es: browser.es }, measured, workbench)).toContain(
+      'en: the browser lane is not labelled as the virtual workspace',
+    );
+    expect(laneViewProblems({ en: browser.en, es: measured.es }, measured, workbench)).toContain(
+      'es: the browser lane is not labelled as the virtual workspace',
+    );
     const replayed = workbench.replace(
       "const episode = lane === 'browser' ? simulation.episode : record;",
       'const episode = record ?? simulation.episode;',
     );
     expect(replayed).not.toBe(workbench);
-    expect(laneProblems(episode, label, replayed)).toEqual([
+    expect(laneViewProblems(browser, measured, replayed)).toEqual([
       'the view does not keep the simulation and the record apart',
     ]);
   });
