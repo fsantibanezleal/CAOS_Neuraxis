@@ -63,5 +63,5 @@ def test_the_contract_files_are_utf8_without_bom_and_lf():
 def test_no_em_dash_or_emoji_in_the_contract_files():
     for path in sorted(cs.CONTRACTS.rglob("*.md")) + sorted(cs.SCHEMAS.glob("*.json")):
         text = path.read_text(encoding="utf-8")
-        assert "—" not in text and "→" not in text, path
+        assert "\u2014" not in text and "\u2192" not in text, path
         assert not any(ord(c) > 0x1F000 for c in text), path
