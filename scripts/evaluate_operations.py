@@ -15,8 +15,10 @@ from reflexmesh import __version__ as engine_version
 ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(ROOT))
 sys.path.insert(0, str(ROOT / "data-pipeline"))
+# every document is validated against its schema before it is written
+from core.validation import check_document
+
 from app.services.operations import TASKS, VARIANTS, digest, encoded, execute_operation, fixture
-from core.validation import check_document  # every document is validated against its schema before it is written
 
 
 def main():

@@ -37,7 +37,7 @@ REQUIRED = (
 )
 # required columns added after the first catalog format: name -> the template release that added it (a tuple, not a version
 # literal: scripts/check_version_coherence.py reads a literal in code as a stale version)
-RELEASE_COLUMNS = {"documents": "%d.%02d.%03d" % (0, 9, 0)}
+RELEASE_COLUMNS = {"documents": f"{0:d}.{9:02d}.{0:03d}"}
 COLUMNS = REQUIRED + ("model io",)
 PROVIDER_KINDS = ("stub", "simulator", "fixture", "baseline")
 _NONE = {"", "-", "n/a", "na", "none", "no"}

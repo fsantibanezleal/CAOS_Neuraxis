@@ -15,7 +15,7 @@ from planting import ROOT
 pytest.importorskip("reflexmesh")  # a precondition of the documented setup (requirements-operations.txt), not a bake
 pytest.importorskip("fastapi")
 
-from fastapi.testclient import TestClient  # noqa: E402
+from fastapi.testclient import TestClient
 
 TOKEN = "workspace-token-with-more-than-24-characters"
 RUN = {"case_id": "C01", "method_id": "M01"}

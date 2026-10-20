@@ -30,7 +30,8 @@ def guard(repo: Path, script: str, *args: str, ok_marker: str | None = None) -> 
     returned an exit code and wrote to stdout. A guard that was never run cannot satisfy a caller's assertions."""
     path = repo / "scripts" / script
     assert path.is_file(), f"{script} is not in the copy"
-    r = subprocess.run([sys.executable, str(path), *args], capture_output=True, encoding="utf-8", errors="replace", cwd=repo, timeout=120)
+    r = subprocess.run([sys.executable, str(path), *args], capture_output=True, encoding="utf-8", errors="replace", cwd=repo, timeout=120,
+                       check=False)
     # a guard of this product reports a refusal on stderr (check_artifacts.py) or on stdout (check_sdd.py): either proves it ran
     assert isinstance(r.returncode, int) and (r.stdout.strip() or r.stderr.strip()), f"{script} printed nothing (exit {r.returncode})"
     if ok_marker is not None and r.returncode == 0:

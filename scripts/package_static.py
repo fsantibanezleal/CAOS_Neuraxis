@@ -10,8 +10,8 @@ from pathlib import Path
 from check_artifacts import validate
 from check_operations import validate as validate_operations
 from check_research import validate as validate_research
-from check_semantic_transfer import validate as validate_semantic_transfer
 from check_semantic_routing import validate as validate_semantic_routing
+from check_semantic_transfer import validate as validate_semantic_transfer
 
 ROOT = Path(__file__).resolve().parents[1]
 

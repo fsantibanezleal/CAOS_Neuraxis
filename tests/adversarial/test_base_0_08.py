@@ -223,7 +223,7 @@ def test_adversarial_a_schema_change_without_regenerated_types_fails_the_build_c
 
     def check() -> subprocess.CompletedProcess:
         return subprocess.run([NODE, "scripts/gen-contract-types.mjs", "--check"], cwd=repo / "frontend", capture_output=True,
-                              encoding="utf-8", errors="replace", timeout=120)
+                              encoding="utf-8", errors="replace", timeout=120, check=False)
 
     clean = check()
     assert clean.returncode == 0 and "contract types: current" in clean.stdout, clean.stdout + clean.stderr

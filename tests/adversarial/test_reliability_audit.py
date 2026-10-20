@@ -26,7 +26,7 @@ from planting import ROOT, guard
 pytest.importorskip("reflexmesh")  # a precondition of the documented setup (requirements-operations.txt), not a bake
 pytest.importorskip("fastapi")
 
-from fastapi.testclient import TestClient  # noqa: E402
+from fastapi.testclient import TestClient
 
 HEADERS = {"X-Neuraxis-Client": "operations-v1"}
 COMMIT = "a" * 40
