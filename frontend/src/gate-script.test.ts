@@ -29,6 +29,12 @@ describe('the gate script', () => {
     ).toBe(false);
   });
 
+  it('walks dist through the static host that follows the nginx rules, unless --url names a deployed origin', () => {
+    expect(gate).toContain('serveStaticHost');
+    expect(gate).toContain("extra.includes('--url')");
+    expect(existsSync(new URL('scripts/serve-static-host.mjs', frontend))).toBe(true);
+  });
+
   it('reads the brand from product.json, writes to GATE_OUT when set, and the npm script runs it', () => {
     expect(gate).toContain('product.json');
     expect(gate).toContain('process.env.GATE_OUT');
@@ -52,6 +58,7 @@ describe('the scripts folder', () => {
       'build-diagrams.mjs',
       'export-theory.mjs',
       'qa-server.py',
+      'serve-static-host.mjs',
       'verify-routes.mjs',
       ...[
         'architecture',
