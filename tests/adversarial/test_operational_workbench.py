@@ -140,7 +140,7 @@ def test_adversarial_invalid_requests_leave_no_effect(client) -> None:
     assert client.post("/operations-api/runs", headers=expired, json=SMALL).status_code == 401
     assert not manager.runs and list(root.iterdir()) == [], "a refused request left a run or a file behind"
     # a request past capacity: the owner has one active run, so a second is refused and adds no directory
-    first = client.post("/operations-api/runs", headers=owner, json=SMALL)
+    first = client.post("/operations-api/runs", headers=owner, json={})  # the default delivery: seconds of work, still active below
     assert first.status_code == 200, first.text
     wait_for_directories(root, first.json()["id"])
     after_first = sorted(p.name for p in root.iterdir())
@@ -191,8 +191,8 @@ def test_adversarial_requests_past_the_service_bounds_are_refused(client) -> Non
     root = manager.root
     first, second, third = session(client), session(client), session(client)
     # a third concurrent run: capacity is two, one active run per owner
-    one = client.post("/operations-api/runs", headers=first, json=SMALL)
-    two = client.post("/operations-api/runs", headers=second, json=SMALL)
+    one = client.post("/operations-api/runs", headers=first, json={})  # the default delivery: seconds of work, still active below
+    two = client.post("/operations-api/runs", headers=second, json={})
     assert one.status_code == 200 and two.status_code == 200, (one.text, two.text)
     wait_for_directories(root, one.json()["id"], two.json()["id"])
     before = sorted(p.name for p in root.iterdir())
