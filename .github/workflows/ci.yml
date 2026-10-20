@@ -24,6 +24,16 @@ jobs:
       - uses: actions/setup-python@v5
         with:
           python-version: '3.12'
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '24'
+          cache: npm
+          cache-dependency-path: frontend/package-lock.json
+      - name: Install the web dependencies (the SDD guard validates the executive view against the shell's installed schema, and the planted-defect suite reads it)
+        working-directory: frontend
+        run: npm ci
+      - name: The schema validator (the SDD guard validates the executive view with it)
+        run: pip install jsonschema==4.26.0
       - run: python scripts/check_ci_budget.py
       - name: VERSION is the single source (T4)
         run: python scripts/check_version_coherence.py
@@ -67,19 +77,21 @@ jobs:
       - name: Every path a document names exists
         run: python scripts/check_doc_paths.py
       - run: python scripts/check_content_standards.py
-      - uses: actions/setup-node@v4
-        with:
-          node-version: '24'
-          cache: npm
-          cache-dependency-path: frontend/package-lock.json
-      - working-directory: frontend
-        run: npm ci
+      - name: Lint, a cheap check on committed files (ADR-0074)
+        run: pip install ruff==0.17.1 && ruff check app data-pipeline scripts tests
+      - name: Dependencies of the planted-defect suite (the operation service pins, with the native engine)
+        run: pip install -r requirements-operations.txt
+      - name: Every guard and every service boundary rejects its planted defect (cheap, on copies of the guards' inputs, with no bake and no browser)
+        run: pip install pytest==9.1.1 && python -m pytest tests/adversarial -q
       - name: An animated SVG carries its reduced-motion block and plays ten seconds at most (shell 0.14.0, reuses the shell's analysis)
         run: python scripts/check_svg_animation.py
       - working-directory: frontend
         run: npm run format:check
       - working-directory: frontend
         run: npm run build
+      - name: Unit tests (the contract both ways, the routes, the readiness views, the planted-defect tests of the web side)
+        working-directory: frontend
+        run: npm test
       - name: Web baseline (tokens, classes, numbers, images, animation loops)
         run: python scripts/check_web_baseline.py
       - name: Base-integrity guards (the regressions this archetype forbids)
