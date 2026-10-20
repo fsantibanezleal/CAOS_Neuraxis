@@ -28,6 +28,14 @@ ENTRY_KEYS = {"contract", "neuraxis_path", "engine_repository", "engine_tag", "e
 CONTRACTS = {"research-summary", "benchmark-adequacy", "routing-study", "semantic-transfer-report"}
 
 
+def _pinned_engine_tag() -> str:
+    """The engine's release tag, derived from the PyPI pin of requirements.txt (the single source): 0.1.2 is tag v0.01.002."""
+    pin = re.search(r"^reflexmesh==(\d+)\.(\d+)\.(\d+)$", (ROOT / "requirements.txt").read_text(encoding="utf-8"), re.M)
+    assert pin, "requirements.txt does not pin reflexmesh"
+    major, minor, patch = (int(x) for x in pin.groups())
+    return f"v{major}.{minor:02d}.{patch:03d}"
+
+
 def _doc() -> dict:
     return cs.load_json(PROVENANCE)
 
@@ -38,7 +46,7 @@ def test_provenance_has_one_complete_entry_per_document():
     for e in entries:
         assert set(e) == ENTRY_KEYS, e
         assert re.fullmatch(r"[0-9a-f]{64}", e["sha256"]) and re.fullmatch(r"[0-9a-f]{40}", e["engine_commit"])
-        assert e["engine_repository"] == "fsantibanezleal/reflexmesh" and e["engine_tag"] == "v0.01.002"
+        assert e["engine_repository"] == "fsantibanezleal/reflexmesh" and e["engine_tag"] == _pinned_engine_tag()
         assert e["engine_script"].startswith("scripts/") and e["engine_script"].endswith(".py")
     assert len({e["neuraxis_path"] for e in entries}) == 4
 
