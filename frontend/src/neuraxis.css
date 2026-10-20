@@ -1053,3 +1053,7 @@ select:disabled {
     grid-template-columns: 1fr;
   }
 }
+
+/* Structural hooks: classes the code and the browser gates select by. They carry no style of their own. */
+.nx-research-results { }
+.gauge { }

@@ -15,3 +15,20 @@ The [research dossiers](research/README.md) preserve the initial primary-source 
 The interface contains six routes: App, Intro, Methodology, Implementation, Experiments and Benchmark. Content is bilingual and supports light/dark themes. It displays execution lane, raw decision evidence, calibration targets, unresolved outcomes, workload limitations and source citations. See the workbench and theory subdirectories for their linked explanations.
 
 The reusable engine's [runtime documentation](https://github.com/fsantibanezleal/reflexmesh/blob/main/docs/runtime.md) is authoritative for registered-tool contracts, native admission and recovery semantics.
+
+## Repository structure
+
+- `frontend/`: React/Vite shared CAOS shell, bilingual workbench, browser execution and trace rendering. Its browser gates and generators are in `frontend/scripts/`.
+- `app/`: FastAPI composition of the separately published reflexmesh service. No internal engine package.
+- `data-pipeline/run.py`: script orchestration for scientific stages and verified export.
+- `data/raw/`: external source acquisitions, excluded from Git.
+- `data/cache/`: training/evaluation workspace, excluded from Git.
+- `data/derived/`: compact canonical index, episode manifests, execution traces and evaluation summaries.
+- `models/`: model acquisition/lineage documentation; binary training outputs are release assets.
+- `manifests/`: release and data lineage contracts.
+- `scripts/`: setup, service, validation, build and reproduction entry points.
+- `tests/`: application composition and artifact-boundary checks.
+- `docs/`: research, scientific method, cases, architecture, operation and workbench documentation.
+- `deploy/`: static serving configurations and independent deployment instructions.
+
+The offline scientific lane generates immutable artifacts. Frontend builds only validate/copy them. Request handlers load checkpoints and run bounded instances; they never train or silently rewrite canonical benchmark results.

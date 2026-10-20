@@ -19,7 +19,6 @@ Scanned set = git-tracked text files only. Exit 1 on any hit, printing file:line
 """
 from __future__ import annotations
 
-import re
 import subprocess
 import sys
 from pathlib import Path
@@ -29,7 +28,6 @@ SELF = "scripts/check_content_standards.py"
 
 BANNED_DASHES = {0x2014, 0x2015}  # em dash, horizontal bar
 EMOJI_SELECTOR = 0xFE0F
-CONTENT_MATCH = re.compile(r"[\u2014\u2015\uFE0F\U0001F000-\U0001FAFF]")
 
 
 def is_emoji(cp: int) -> bool:
@@ -59,8 +57,7 @@ def main() -> int:
         except (OSError, UnicodeDecodeError):
             continue
         for lineno, line in enumerate(lines, 1):
-            for match in CONTENT_MATCH.finditer(line):
-                col, ch = match.start() + 1, match.group()
+            for col, ch in enumerate(line, 1):
                 cp = ord(ch)
                 if cp in BANNED_DASHES:
                     hits.append(f"  {rel}:{lineno}:{col}  em-dash (U+{cp:04X})")

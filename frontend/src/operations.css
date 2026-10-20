@@ -147,3 +147,7 @@ button:focus-visible, summary:focus-visible { outline: 2px solid var(--color-acc
 .invest-file code { white-space: normal; overflow-wrap: anywhere; }
 .invest-file small { color: var(--color-accent); }
 .invest-file:hover:not(:disabled), .invest-file:focus-visible { border-color: var(--color-accent); }
+
+/* Structural hooks: classes the code and the browser gates select by. They carry no style of their own (the layout comes from op-layout and the shared shell). */
+.invest-layout { }
+.invest-files { }

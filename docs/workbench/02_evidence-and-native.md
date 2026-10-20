@@ -2,7 +2,7 @@
 
 ## Canonical records
 
-The application loads `data/index.json`, which references immutable episode JSON and measured aggregate results. Episode references include case, method, variant, seed, path, status and checksum. Episode provenance includes the execution lane, split, source and checkpoint lineage. The loader rejects absolute and parent-traversing artifact paths.
+The application loads the canonical index, `data/derived/index.json` (served at `/data/index.json`), which references immutable episode JSON and measured aggregate results. Episode references include case, method, variant, seed, path, status and checksum. Episode provenance includes the execution lane, split, source and checkpoint lineage. The loader rejects absolute and parent-traversing artifact paths.
 
 Canonical playback moves a cursor over saved observations. It never repeats a file write, process launch or network operation. Scenario parameters are locked because editing them would no longer describe the measured record. To change native execution, start a new run with a new run identity.
 
