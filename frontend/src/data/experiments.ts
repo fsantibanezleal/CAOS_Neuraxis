@@ -9,6 +9,7 @@ export const experiments: ContentPage = {
   sections: [
     {
       id: 'design',
+      area: 'question',
       title: b('Paired evaluation design', 'Diseño de evaluación emparejada'),
       paragraphs: [
         b(
@@ -56,6 +57,7 @@ export const experiments: ContentPage = {
     },
     {
       id: 'splits',
+      area: 'protocol',
       title: b('Leakage and grouping', 'Contaminación y agrupación'),
       paragraphs: [
         b(
@@ -99,6 +101,7 @@ export const experiments: ContentPage = {
     },
     {
       id: 'metrics',
+      area: 'metrics',
       title: b('Outcome and timing metrics', 'Métricas de resultados y tiempo'),
       paragraphs: [
         b(
@@ -149,6 +152,7 @@ export const experiments: ContentPage = {
     },
     {
       id: 'robustness',
+      area: 'question',
       title: b('Robustness and interventions', 'Robustez e intervenciones'),
       paragraphs: [
         b(
@@ -192,6 +196,7 @@ export const experiments: ContentPage = {
     },
     {
       id: 'ablations',
+      area: 'question',
       title: b('Ablation and uncertainty', 'Ablación e incertidumbre'),
       paragraphs: [
         b(
@@ -235,6 +240,7 @@ export const experiments: ContentPage = {
     },
     {
       id: 'data',
+      area: 'datasets',
       title: b('Data sources and redistribution', 'Fuentes y redistribución'),
       paragraphs: [
         b(

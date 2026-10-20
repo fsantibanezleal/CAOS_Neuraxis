@@ -1,75 +1,16 @@
-/** Authored attribution by paragraph. Product implementation is cited to released source,
- * never randomly assigned to a paper merely because it shares the section. */
+import { BENCHMARK_SOURCES } from './sources/benchmark';
+import { EXPERIMENTS_SOURCES } from './sources/experiments';
+import { IMPLEMENTATION_SOURCES } from './sources/implementation';
+import { INTRODUCTION_SOURCES } from './sources/introduction';
+import { METHODOLOGY_SOURCES } from './sources/methodology';
+
+/** Authored attribution by paragraph, composed from one file per documentation page (data/sources/<page>.ts, so the page units
+ * write disjoint files, as for data/citations/). Product implementation is cited to released source, never randomly assigned to a
+ * paper merely because it shares the section. Section ids are unique across the pages. */
 export const paragraphSources: Record<string, string[][]> = {
-  problem: [['lu2024'], ['reflexmesh2026'], ['reflexmesh2026']],
-  biology: [
-    ['bago2017', 'melnikoff2018'],
-    ['lee2014', 'tseng2007', 'mante2013', 'murray2014', 'mcclelland1995'],
-    ['heston2020', 'daw2011', 'yu2005'],
-  ],
-  formal: [
-    ['sutton1999', 'reflexmesh2026'],
-    ['daw2005', 'kool2016'],
-  ],
-  workflow: [['reflexmesh2026', 'amershi2019'], ['reflexmesh2026']],
-  honesty: [
-    ['typesafe2026', 'typesafeconfidence2026'],
-    ['reflexmesh2026', 'agarwal2021'],
-  ],
-  exact: [
-    ['reflexmesh2026'],
-    ['behaviortree2026', 'reflexmesh2026'],
-    ['sutton1999'],
-    ['reflexmesh2026'],
-  ],
-  supervised: [
-    ['reflexmesh2026'],
-    ['chen2016', 'reflexmesh2026'],
-    ['guo2017'],
-    ['guo2017', 'reflexmesh2026'],
-  ],
-  sequential: [
-    ['cho2014', 'ross2011'],
-    ['li2010'],
-    ['schulman2017', 'huang2020', 'maskableppo2026'],
-    ['reflexmesh2026'],
-  ],
-  modelbased: [
-    ['reflexmesh2026'],
-    ['reflexmesh2026'],
-    ['tseng2007', 'rao1999'],
-    ['reflexmesh2026'],
-  ],
-  slow: [
-    ['reflexmesh2026'],
-    ['zhang2025', 'reflexmesh2026'],
-    ['reflexmesh2026'],
-    ['bago2017', 'melnikoff2018'],
-  ],
-  metacontrol: [
-    ['madras2018', 'reflexmesh2026'],
-    ['reflexmesh2026'],
-    ['lee2014', 'murray2014', 'mcclelland1995'],
-    ['agarwal2021', 'kool2016'],
-  ],
-  runtime: [['reflexmesh2026', 'pyo32026'], ['reflexmesh2026']],
-  features: [['reflexmesh2026'], ['reflexmesh2026']],
-  classical: [
-    ['reflexmesh2026', 'chen2016'],
-    ['guo2017', 'li2010'],
-  ],
-  recurrent: [
-    ['reflexmesh2026', 'cho2014'],
-    ['onnx2026', 'reflexmesh2026'],
-  ],
-  planning: [['reflexmesh2026'], ['reflexmesh2026'], ['reflexmesh2026']],
-  browser: [['neuraxis2026'], ['neuraxis2026', 'amershi2019'], ['neuraxis2026'], ['neuraxis2026']],
-  pipeline: [['reflexmesh2026', 'ross2011', 'guo2017'], ['reflexmesh2026']],
-  deployment: [['neuraxis2026'], ['reflexmesh2026'], ['neuraxis2026'], ['reflexmesh2026']],
-  design: [['reflexmesh2026'], ['agarwal2021', 'lu2024'], ['reflexmesh2026']],
-  splits: [['ross2011', 'guo2017'], ['reflexmesh2026'], ['agarwal2021']],
-  metrics: [['reflexmesh2026'], ['reflexmesh2026'], ['guo2017']],
-  robustness: [['reflexmesh2026'], ['reflexmesh2026'], ['lu2024']],
-  ablations: [['reflexmesh2026'], ['agarwal2021'], ['kool2016', 'agarwal2021']],
-  data: [['reflexmesh2026'], ['lu2024', 'barres2025'], ['reflexmesh2026']],
+  ...INTRODUCTION_SOURCES,
+  ...METHODOLOGY_SOURCES,
+  ...IMPLEMENTATION_SOURCES,
+  ...EXPERIMENTS_SOURCES,
+  ...BENCHMARK_SOURCES,
 };

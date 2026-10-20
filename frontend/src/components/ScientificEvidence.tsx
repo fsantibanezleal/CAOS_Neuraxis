@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import { Callout, Cite, Refs } from '@fasl-work/caos-app-shell';
+import { Callout, Cite } from '@fasl-work/caos-app-shell';
 import { useArtifacts } from '../api/artifacts';
 import { useCopy } from '../i18n';
 import { taskLabels, conditionLabels } from '../lib/operations';
@@ -74,9 +74,10 @@ export function MethodEvidence({ section }: { section: string }) {
           </tbody>
         </table>
       </div>
+      {/* A note, not the section's honest callout: a method section carries exactly one honest callout (its limit, ADR-0017 section 2.1). */}
       {section === 'metacontrol' && (
         <Callout
-          variant="honest"
+          variant="note"
           title={
             lang === 'en'
               ? 'Negative learned-advantage finding'
@@ -164,13 +165,7 @@ export function OperationStudy() {
     };
   }, [study, selected]);
   return (
-    <article className="nx-doc-section">
-      <h2>
-        {c(
-          'Compound tasks: executed files, faults and deliverables',
-          'Tareas compuestas: archivos, fallos y entregables ejecutados',
-        )}
-      </h2>
+    <div>
       <p className="measure">
         {c(
           'This additional study evaluates the operational application end to end. Three task graphs are executed against clean, corrupted, conflicting and combined deliveries with three distinct seeds. Each release bundle contains 54 text files, 400 initial table rows and an 18-job declared dependency graph. The nine-stage release operation checks source syntax, structured configuration, row identities, cross-table relationships, dependency cycles and declared file hashes before assembling and independently checking its deliverables.',
@@ -275,7 +270,6 @@ export function OperationStudy() {
           'Estas ejecuciones establecen operación y detección en la carga propia declarada. No son resultados de un benchmark externo, una comparación aprendida ni prueba de reparación general de código. El tiempo varía con sincronización del disco y carga del equipo.',
         )}
       </Callout>
-      <Refs ids={['neuraxis2026', 'reflexmesh2026']} label={c('Sources', 'Fuentes')} />
-    </article>
+    </div>
   );
 }
