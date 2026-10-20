@@ -34,9 +34,14 @@ export function parseCss(css: string): CssRule[] {
         const decl: Record<string, string> = {};
         for (const d of body.split(';')) {
           const k = d.indexOf(':');
-          if (k > 0) decl[d.slice(0, k).trim().toLowerCase()] = d.slice(k + 1).trim().toLowerCase();
+          if (k > 0)
+            decl[d.slice(0, k).trim().toLowerCase()] = d
+              .slice(k + 1)
+              .trim()
+              .toLowerCase();
         }
-        for (const selector of head.split(',')) rules.push({ media, selector: selector.trim(), decl });
+        for (const selector of head.split(','))
+          rules.push({ media, selector: selector.trim(), decl });
       }
       i = j;
     }
@@ -44,7 +49,8 @@ export function parseCss(css: string): CssRule[] {
   walk(text, '');
   return rules;
 }
-export const productCss = () => read('frontend/src/neuraxis.css') + '\n' + read('frontend/src/operations.css');
+export const productCss = () =>
+  read('frontend/src/neuraxis.css') + '\n' + read('frontend/src/operations.css');
 
 /**
  * Renders a component on the server with the shell language set to `lang`. A server render reads the language from the store's

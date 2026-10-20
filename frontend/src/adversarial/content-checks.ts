@@ -9,7 +9,12 @@ import { implementation } from '../data/implementation';
 import { introduction } from '../data/introduction';
 import { methodology } from '../data/methodology';
 
-export const PAGES: Record<string, ContentPage> = { introduction, methodology, implementation, experiments };
+export const PAGES: Record<string, ContentPage> = {
+  introduction,
+  methodology,
+  implementation,
+  experiments,
+};
 export const KNOWN = new Set(CITATIONS.map((c) => c.id));
 
 export function contentProblems(pages: Record<string, ContentPage>, known: Set<string>): string[] {
@@ -24,13 +29,16 @@ export function contentProblems(pages: Record<string, ContentPage>, known: Set<s
         }
       }
       if (s.refs.length === 0) out.push(`${name}/${s.id}: no final reference`);
-      for (const id of s.refs) if (!known.has(id)) out.push(`${name}/${s.id}: final reference ${id} is not defined`);
+      for (const id of s.refs)
+        if (!known.has(id)) out.push(`${name}/${s.id}: final reference ${id} is not defined`);
     }
   return out;
 }
 
 /** A reference is a full entry when it has a label, the citation text and a DOI or a primary URL. */
-export function entryProblems(items: Array<{ id: string; label?: string; citation?: string; doi?: string; url?: string }>): string[] {
+export function entryProblems(
+  items: Array<{ id: string; label?: unknown; citation?: unknown; doi?: string; url?: string }>,
+): string[] {
   const out: string[] = [];
   for (const c of items) {
     if (!c.label) out.push(`${c.id}: no label`);

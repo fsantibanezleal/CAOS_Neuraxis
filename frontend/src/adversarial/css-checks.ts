@@ -5,9 +5,11 @@
 import { parseCss, type CssRule } from './support';
 
 /** Reading-page roots: the product's own and the shell's, never the App workbench (`.nx-layout`, scoped to the desktop App). */
-const READING = /(^|[\s>])(\.nx-doc(-pane|-section)?|\.nx-benchmark(-body)?|\.page-body|\.prose|\.measure|\.lede|\.caos-doc-[a-z-]+|\[data-doc-[a-z-]+\])(?![\w-])/;
+const READING =
+  /(^|[\s>])(\.nx-doc(-pane|-section)?|\.nx-benchmark(-body)?|\.page-body|\.prose|\.measure|\.lede|\.caos-doc-[a-z-]+|\[data-doc-[a-z-]+\])(?![\w-])/;
 const PAGE_ROOT = /^(html|body)$/;
-const CONTROL = /(^|[\s>])(button|select|input|textarea|\.nx-button|\.btn|\.nx-control|\.tab|\[role="?tab"?\])(?![\w-])/;
+const CONTROL =
+  /(^|[\s>])(button|select|input|textarea|\.nx-button|\.btn|\.nx-control|\.tab|\[role="?tab"?\])(?![\w-])/;
 
 /** Whether a rule's @media condition holds at a viewport width (height conditions are taken as holding). */
 export function mediaApplies(media: string, vw: number): boolean {
@@ -34,7 +36,8 @@ export function scrollTraps(css: string, vw: number): string[] {
     const hidden = ['overflow', 'overflow-y'].some((k) => /^(hidden|clip)\b/.test(r.decl[k] ?? ''));
     if (!hidden) continue;
     const fixedHeight = ['height', 'max-height'].some((k) => FIXED_LENGTH.test(r.decl[k] ?? ''));
-    if (READING.test(r.selector) && fixedHeight) out.push(`${describe(r)}: fixed height with hidden overflow`);
+    if (READING.test(r.selector) && fixedHeight)
+      out.push(`${describe(r)}: fixed height with hidden overflow`);
     if (PAGE_ROOT.test(r.selector)) out.push(`${describe(r)}: the page root hides its overflow`);
   }
   return out;
@@ -47,7 +50,12 @@ export function widthCaps(css: string, vw: number): string[] {
     if (!READING.test(r.selector)) continue;
     for (const k of ['max-width', 'width']) {
       const v = r.decl[k];
-      if (v && !/^(100%|none|auto|min-content|max-content|fit-content)$/.test(v) && !/^var\(--(maxw|maxw-wide|measure|measure-text)\)$/.test(v) && !/^min\(100%/.test(v))
+      if (
+        v &&
+        !/^(100%|none|auto|min-content|max-content|fit-content)$/.test(v) &&
+        !/^var\(--(maxw|maxw-wide|measure|measure-text)\)$/.test(v) &&
+        !/^min\(100%/.test(v)
+      )
         out.push(`${describe(r)}: ${k} ${v}`);
     }
   }
@@ -61,7 +69,8 @@ export function wideControls(css: string, vw: number): string[] {
     if (!CONTROL.test(r.selector)) continue;
     for (const k of ['width', 'min-width']) {
       const n = px(r.decl[k]);
-      if (n !== undefined && n > vw - 32) out.push(`${describe(r)}: ${k} ${n}px in a ${vw}px viewport`);
+      if (n !== undefined && n > vw - 32)
+        out.push(`${describe(r)}: ${k} ${n}px in a ${vw}px viewport`);
     }
   }
   return out;
@@ -71,10 +80,19 @@ export function wideControls(css: string, vw: number): string[] {
 export function hiddenReferences(css: string, vw: number): string[] {
   const out: string[] = [];
   for (const r of active(parseCss(css), vw)) {
-    if (!/(doc-references|data-doc-references|\.references|\.nx-doc-section)/.test(r.selector)) continue;
+    if (!/(doc-references|data-doc-references|\.references|\.nx-doc-section)/.test(r.selector))
+      continue;
     const d = r.decl;
-    const offscreen = ['top', 'left', 'inset-block-start', 'inset-inline-start'].some((k) => (px(d[k]) ?? 0) < 0 || /^-/.test(d[k] ?? ''));
-    if (d.display === 'none' || d.visibility === 'hidden' || (/^(fixed|absolute)$/.test(d.position ?? '') && offscreen) || (d['max-height'] === '0' || d.height === '0'))
+    const offscreen = ['top', 'left', 'inset-block-start', 'inset-inline-start'].some(
+      (k) => (px(d[k]) ?? 0) < 0 || /^-/.test(d[k] ?? ''),
+    );
+    if (
+      d.display === 'none' ||
+      d.visibility === 'hidden' ||
+      (/^(fixed|absolute)$/.test(d.position ?? '') && offscreen) ||
+      d['max-height'] === '0' ||
+      d.height === '0'
+    )
       out.push(`${describe(r)}: the references would not be reachable`);
   }
   return out;

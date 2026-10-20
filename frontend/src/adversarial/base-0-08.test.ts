@@ -2,11 +2,17 @@
 // defect its row states in a copy held in memory (a route table, a document, an SVG, a section) and shows that the check the
 // requirement relies on reports it. The check is the gate's own where the product exports it; where the gate is a test body or a
 // browser script, the check restates the gate's assertion and the first assertion of every test shows it passes on the clean copy.
-import { APP_ROUTE, CitationsProvider, LANDING_ROUTE, Landing, STANDARD_ROUTES } from '@fasl-work/caos-app-shell';
+import {
+  APP_ROUTE,
+  CitationsProvider,
+  LANDING_ROUTE,
+  Landing,
+  STANDARD_ROUTES,
+} from '@fasl-work/caos-app-shell';
 import { readdirSync } from 'node:fs';
 import { relative, sep } from 'node:path';
 import { fileURLToPath } from 'node:url';
-import { createElement } from 'react';
+import { createElement, type ComponentType } from 'react';
 import { renderToString } from 'react-dom/server';
 import { MemoryRouter } from 'react-router-dom';
 import { describe, expect, it } from 'vitest';
@@ -22,25 +28,35 @@ import { paragraphSources } from '../data/paragraph-sources';
 import { IntroductionPage } from '../pages/Introduction';
 import { read } from './support';
 
-const ORDER = ['/app', '/introduction', '/methodology', '/implementation', '/experiments', '/benchmark'];
+const ORDER = [
+  '/app',
+  '/introduction',
+  '/methodology',
+  '/implementation',
+  '/experiments',
+  '/benchmark',
+];
 
 // ---- BR-002: the route table and the header order
 const tableProblems = (paths: string[]) => {
   const out: string[] = [];
   for (const p of ORDER) if (!paths.includes(p)) out.push(`missing route ${p}`);
   const present = paths.filter((p) => ORDER.includes(p));
-  if (present.join() !== ORDER.filter((p) => present.includes(p)).join()) out.push('routes out of order');
+  if (present.join() !== ORDER.filter((p) => present.includes(p)).join())
+    out.push('routes out of order');
   if (paths[0] !== '/app') out.push(`the App is not first (${paths[0]})`);
   return out;
 };
-const headerAnchors = (html: string) =>
-  [...html.matchAll(/<a [^>]*href="(\/[a-z]*)(?:[?#][^"]*)?"[^>]*>[^<]*<\/a>/g)];
+const headerAnchors = (html: string) => [
+  ...html.matchAll(/<a [^>]*href="(\/[a-z]*)(?:[?#][^"]*)?"[^>]*>[^<]*<\/a>/g),
+];
 const headerProblems = (html: string) => {
   const hrefs = headerAnchors(html).map((m) => m[1]);
   const seen = ORDER.map((p) => hrefs.indexOf(p));
   const out = ORDER.filter((_, i) => seen[i] < 0).map((p) => `no header link for ${p}`);
   const found = seen.filter((i) => i >= 0);
-  if (found.join() !== [...found].sort((a, b) => a - b).join()) out.push('header links out of order');
+  if (found.join() !== [...found].sort((a, b) => a - b).join())
+    out.push('header links out of order');
   return out;
 };
 const pageAt = (path: string) =>
@@ -49,7 +65,14 @@ const pageAt = (path: string) =>
 // ---- BR-003: the forward of an old App link (the shell's own Landing function, evaluated with a planted copy of its source)
 const landingSource = Landing.toString();
 const forwardWith = (source: string, search: string, hash: string): string => {
-  const make = new Function('useLocation', 'jsx', 'Navigate', 'APP_ROUTE', 'LANDING_ROUTE', `return (${source});`);
+  const make = new Function(
+    'useLocation',
+    'jsx',
+    'Navigate',
+    'APP_ROUTE',
+    'LANDING_ROUTE',
+    `return (${source});`,
+  );
   const component = make(
     () => ({ pathname: '/', search, hash }),
     (_: unknown, props: { to: string }) => props.to,
@@ -73,36 +96,68 @@ const lostParts = (from: { search: string; hash: string }, to: string) => {
 const TEMPLATE_RECORD = /^CAOS_PRODUCT_TEMPLATE (\d+\.\d{2}\.\d{3}) \(tag v\1\)$/;
 const recordProblems = (templateVersion: string, target: string, deployFiles: string[]) => {
   const out: string[] = [];
-  if (!TEMPLATE_RECORD.test(templateVersion.trim())) out.push('.template-version is not in the template format');
-  if (target.trim() !== 'vps') out.push(`deploy/TARGET is "${target.trim().replace(/\n/g, ' / ')}", not the one place vps`);
-  if (deployFiles.filter((f) => /^TARGET/i.test(f)).length !== 1) out.push('more than one deploy place file');
+  if (!TEMPLATE_RECORD.test(templateVersion.trim()))
+    out.push('.template-version is not in the template format');
+  if (target.trim() !== 'vps')
+    out.push(`deploy/TARGET is "${target.trim().replace(/\n/g, ' / ')}", not the one place vps`);
+  if (deployFiles.filter((f) => /^TARGET/i.test(f)).length !== 1)
+    out.push('more than one deploy place file');
   return out;
 };
 
 // ---- BR-007: the executive view while it is open
 const executiveOpenProblems = (page: string) =>
-  ['data-glossary', 'class="equation', 'data-doc-section', 'data-area'].filter((marker) => page.includes(marker));
+  ['data-glossary', 'class="equation', 'data-doc-section', 'data-area'].filter((marker) =>
+    page.includes(marker),
+  );
 const renderIntroduction = (initial?: 'technical') =>
   renderToString(
     createElement(
       MemoryRouter,
       null,
       createElement(
-        CitationsProvider,
+        CitationsProvider as ComponentType<{ items: typeof CITATIONS }>,
         { items: CITATIONS },
-        createElement(IntroductionPage, { data: executive, base: '/', ...(initial ? { initial } : {}) }),
+        createElement(IntroductionPage, {
+          data: executive,
+          base: '/',
+          ...(initial ? { initial } : {}),
+        }),
       ),
     ),
   );
 
 // ---- BR-009: no vendor name, both languages
 const NAMED = [
-  'Claude', 'Anthropic', 'Opus', 'Sonnet', 'Haiku', 'GPT', 'OpenAI', 'ChatGPT', 'Gemini', 'Google', 'Llama', 'Meta AI', 'Qwen',
-  'DeepSeek', 'Mistral', 'Grok', 'xAI', 'Microsoft', 'Amazon', 'LangChain', 'LangGraph', 'Temporal',
+  'Claude',
+  'Anthropic',
+  'Opus',
+  'Sonnet',
+  'Haiku',
+  'GPT',
+  'OpenAI',
+  'ChatGPT',
+  'Gemini',
+  'Google',
+  'Llama',
+  'Meta AI',
+  'Qwen',
+  'DeepSeek',
+  'Mistral',
+  'Grok',
+  'xAI',
+  'Microsoft',
+  'Amazon',
+  'LangChain',
+  'LangGraph',
+  'Temporal',
 ];
 const executiveContentProblems = (doc: any) => {
   const out: string[] = [];
-  const body = JSON.stringify({ ...doc, sources: doc.sources.map((s: any) => ({ title: s.title, note: s.note })) });
+  const body = JSON.stringify({
+    ...doc,
+    sources: doc.sources.map((s: any) => ({ title: s.title, note: s.note })),
+  });
   for (const n of NAMED) if (new RegExp(`\\b${n}\\b`).test(body)) out.push(`names ${n}`);
   const walk = (node: unknown, path: string): void => {
     if (Array.isArray(node)) node.forEach((v, i) => walk(v, `${path}[${i}]`));
@@ -120,7 +175,9 @@ const executiveContentProblems = (doc: any) => {
 };
 
 // ---- BR-010: the illustrations
-const ILLUSTRATIONS = ['pain', 'situation', 'proposal'].map((n) => [n, read(`frontend/public/executive/${n}.svg`)] as const);
+const ILLUSTRATIONS = ['pain', 'situation', 'proposal'].map(
+  (n) => [n, read(`frontend/public/executive/${n}.svg`)] as const,
+);
 const illustrationProblems = (svg: string) => {
   const out: string[] = [];
   if (/#[0-9a-fA-F]{3,8}\b|rgba?\(|hsla?\(/.test(svg)) out.push('a literal colour');
@@ -155,7 +212,8 @@ const citationProblems = (items: Array<{ id: string }>, used: Set<string>) => {
   const defined = new Set(ids);
   for (const id of used) if (!defined.has(id)) out.push(`undefined id ${id}`);
   for (const id of ids)
-    if (!referencingText.includes(`'${id}'`) && !referencingText.includes(`"${id}"`)) out.push(`orphan id ${id}`);
+    if (!referencingText.includes(`'${id}'`) && !referencingText.includes(`"${id}"`))
+      out.push(`orphan id ${id}`);
   return out;
 };
 
@@ -164,7 +222,8 @@ const words = (t: string) => t.split(/\s+/).filter((w) => /[\p{L}\p{N}]/u.test(w
 const reproducibilityProblems = (section: ContentSection) => {
   const out: string[] = [];
   for (const lang of ['en', 'es'] as const) {
-    if (section.paragraphs.filter((p) => words(p[lang]) >= 40).length < 2) out.push(`${lang}: fewer than two dense paragraphs`);
+    if (section.paragraphs.filter((p) => words(p[lang]) >= 40).length < 2)
+      out.push(`${lang}: fewer than two dense paragraphs`);
     if (section.limit[lang].length <= 20) out.push(`${lang}: no limit`);
     if ((section.steps ?? []).length < 4) out.push(`${lang}: fewer than four steps`);
   }
@@ -178,15 +237,23 @@ describe('base-0-08 planted defects', () => {
     expect(tableProblems(paths)).toEqual([]);
     expect(headerProblems(pageAt('/introduction'))).toEqual([]);
     const moved = [paths[1], paths[0], ...paths.slice(2)];
-    expect(tableProblems(moved)).toEqual(['routes out of order', 'the App is not first (/introduction)']);
-    expect(tableProblems(paths.filter((p) => p !== '/benchmark'))).toEqual(['missing route /benchmark']);
+    expect(tableProblems(moved)).toEqual([
+      'routes out of order',
+      'the App is not first (/introduction)',
+    ]);
+    expect(tableProblems(paths.filter((p) => p !== '/benchmark'))).toEqual([
+      'missing route /benchmark',
+    ]);
     // the rendered header: the App link moved after the Introduction link, and the Benchmark link removed
     const page = pageAt('/introduction');
     const anchors = headerAnchors(page);
     const [app, intro] = [anchors[0], anchors[1]];
     const bench = anchors.find((m) => m[1] === '/benchmark')!;
     expect(app[1]).toBe('/app');
-    const swapped = page.replace(app[0], '@@A@@').replace(intro[0], app[0]).replace('@@A@@', intro[0]);
+    const swapped = page
+      .replace(app[0], '@@A@@')
+      .replace(intro[0], app[0])
+      .replace('@@A@@', intro[0]);
     expect(headerProblems(swapped)).toEqual(['header links out of order']);
     expect(headerProblems(page.replace(bench[0], ''))).toEqual(['no header link for /benchmark']);
   });
@@ -210,12 +277,16 @@ describe('base-0-08 planted defects', () => {
     const target = read('deploy/TARGET');
     const files = readdirSync(new URL('../../../deploy/', import.meta.url));
     expect(recordProblems(record, target, files)).toEqual([]);
-    expect(recordProblems('{"template":"CAOS_PRODUCT_TEMPLATE","version":"0.08.002"}', target, files)).toEqual([
-      '.template-version is not in the template format',
-    ]);
+    expect(
+      recordProblems('{"template":"CAOS_PRODUCT_TEMPLATE","version":"0.08.002"}', target, files),
+    ).toEqual(['.template-version is not in the template format']);
     expect(recordProblems('CAOS_PRODUCT_TEMPLATE 0.08.002', target, files)).toHaveLength(1);
-    expect(recordProblems(record, 'vps\nnetlify\n', files)).toEqual(['deploy/TARGET is "vps / netlify", not the one place vps']);
-    expect(recordProblems(record, target, [...files, 'TARGET.netlify'])).toEqual(['more than one deploy place file']);
+    expect(recordProblems(record, 'vps\nnetlify\n', files)).toEqual([
+      'deploy/TARGET is "vps / netlify", not the one place vps',
+    ]);
+    expect(recordProblems(record, target, [...files, 'TARGET.netlify'])).toEqual([
+      'more than one deploy place file',
+    ]);
   });
 
   it('adversarial: the executive view open shows no equation, glossary or section', () => {
@@ -223,9 +294,17 @@ describe('base-0-08 planted defects', () => {
     expect(open).toContain('data-executive-view');
     expect(executiveOpenProblems(open)).toEqual([]);
     // planted: the technical view open instead, and a glossary or an equation injected into the executive markup
-    expect(executiveOpenProblems(renderIntroduction('technical'))).toEqual(expect.arrayContaining(['data-doc-section', 'data-area']));
-    expect(executiveOpenProblems(open.replace('data-executive-view', 'data-executive-view data-glossary'))).toEqual(['data-glossary']);
-    expect(executiveOpenProblems(open + '<div class="equation">x</div>')).toEqual(['class="equation']);
+    expect(executiveOpenProblems(renderIntroduction('technical'))).toEqual(
+      expect.arrayContaining(['data-doc-section', 'data-area']),
+    );
+    expect(
+      executiveOpenProblems(
+        open.replace('data-executive-view', 'data-executive-view data-glossary'),
+      ),
+    ).toEqual(['data-glossary']);
+    expect(executiveOpenProblems(open + '<div class="equation">x</div>')).toEqual([
+      'class="equation',
+    ]);
   });
 
   it('adversarial: a vendor name or a missing Spanish text in the executive file is reported', () => {
@@ -236,7 +315,9 @@ describe('base-0-08 planted defects', () => {
     expect(executiveContentProblems(vendor)).toEqual(['names Claude']);
     const noSpanish = structuredClone(executive) as any;
     noSpanish.pain.figures[0].heading.es = '';
-    expect(executiveContentProblems(noSpanish)).toEqual(['executive.pain.figures[0].heading lacks a language']);
+    expect(executiveContentProblems(noSpanish)).toEqual([
+      'executive.pain.figures[0].heading lacks a language',
+    ]);
   });
 
   it('adversarial: a hex fill or a label under size 22 in an illustration fails the test', () => {
@@ -253,15 +334,27 @@ describe('base-0-08 planted defects', () => {
   it('adversarial: a planted orphan citation and a duplicate id each fail', () => {
     expect(citationProblems(CITATIONS, usedIds)).toEqual([]);
     const first = CITATIONS[0].id;
-    expect(citationProblems([...CITATIONS, CITATIONS[0]], usedIds)).toEqual([`duplicate id ${first}`]);
-    expect(citationProblems([...CITATIONS, { id: 'zz-planted-orphan' }], usedIds)).toEqual(['orphan id zz-planted-orphan']);
-    expect(citationProblems(CITATIONS, new Set([...usedIds, 'zz-undefined']))).toEqual(['undefined id zz-undefined']);
+    expect(citationProblems([...CITATIONS, CITATIONS[0]], usedIds)).toEqual([
+      `duplicate id ${first}`,
+    ]);
+    expect(citationProblems([...CITATIONS, { id: 'zz-planted-orphan' }], usedIds)).toEqual([
+      'orphan id zz-planted-orphan',
+    ]);
+    expect(citationProblems(CITATIONS, new Set([...usedIds, 'zz-undefined']))).toEqual([
+      'undefined id zz-undefined',
+    ]);
   });
 
   it('adversarial: a reproducibility section without its limit or steps fails the area test', () => {
     const [clean] = implementation.sections.filter((s) => s.area === 'reproducibility');
     expect(reproducibilityProblems(clean)).toEqual([]);
-    const thin: ContentSection = { ...clean, paragraphs: clean.paragraphs.slice(0, 1), limit: { en: '', es: '' }, steps: [], table: undefined };
+    const thin: ContentSection = {
+      ...clean,
+      paragraphs: clean.paragraphs.slice(0, 1),
+      limit: { en: '', es: '' },
+      steps: [],
+      table: undefined,
+    };
     expect(reproducibilityProblems(thin)).toEqual(
       expect.arrayContaining([
         'en: fewer than two dense paragraphs',
@@ -270,6 +363,8 @@ describe('base-0-08 planted defects', () => {
         'fewer than four table rows',
       ]),
     );
-    expect(reproducibilityProblems({ ...clean, limit: { en: 'short', es: clean.limit.es } })).toEqual(['en: no limit']);
+    expect(
+      reproducibilityProblems({ ...clean, limit: { en: 'short', es: clean.limit.es } }),
+    ).toEqual(['en: no limit']);
   });
 });

@@ -23,7 +23,10 @@ const run = (observed: string, expected: string) => ({
               started_ms: 1,
               finished_ms: 5,
               intent: { action_id: 'a1', arguments: { path: 'x.txt' } },
-              outcome: { status: 'succeeded', evidence: { path: 'x.txt', bytes: 3, sha256: observed, expected_sha256: expected } },
+              outcome: {
+                status: 'succeeded',
+                evidence: { path: 'x.txt', bytes: 3, sha256: observed, expected_sha256: expected },
+              },
             },
           },
         ],
@@ -56,17 +59,42 @@ const recoveryProblems = (source: string) => {
   const out: string[] = [];
   const reconcile = /async function reconcile\(\) \{[\s\S]*?\n  \}\n/.exec(source)?.[0] ?? '';
   const edit = /function edit\(index: number[\s\S]*?\n  \}\n/.exec(source)?.[0] ?? '';
-  const button = /className="btn primary"\s*disabled=\{[\s\S]*?\}\s*onClick=\{\(\) => void reconcile\(\)\}/.exec(source)?.[0] ?? '';
-  for (const guard of ['!intent', '!validChecks', '!reviewed', '!quiescent', '!resolution', 'note.trim().length < 10']) {
-    if (!reconcile.includes(guard)) out.push(`reconcile() does not require ${guard.replace('!', '')}`);
+  const button =
+    /className="btn primary"\s*disabled=\{[\s\S]*?\}\s*onClick=\{\(\) => void reconcile\(\)\}/.exec(
+      source,
+    )?.[0] ?? '';
+  for (const guard of [
+    '!intent',
+    '!validChecks',
+    '!reviewed',
+    '!quiescent',
+    '!resolution',
+    'note.trim().length < 10',
+  ]) {
+    if (!reconcile.includes(guard))
+      out.push(`reconcile() does not require ${guard.replace('!', '')}`);
   }
-  for (const guard of ['!validChecks', '!reviewed', '!quiescent', '!resolution', 'note.trim().length < 10']) {
+  for (const guard of [
+    '!validChecks',
+    '!reviewed',
+    '!quiescent',
+    '!resolution',
+    'note.trim().length < 10',
+  ]) {
     if (!button.includes(guard)) out.push(`the button does not wait for ${guard.replace('!', '')}`);
   }
-  if (!/setReviewed\(false\);\s*setQuiescent\(false\)/.test(edit)) out.push('editing the evidence does not invalidate the review');
-  if (!/catch \(e\) \{\s*setError\(String\(e\)\);\s*setReviewed\(false\);\s*setQuiescent\(false\)/.test(reconcile)) out.push('a refused reconciliation keeps its review');
-  if (!/intent_id: intent\.intent_id,\s*record_sha256: intent\.record_sha256/.test(reconcile)) out.push('the request is not bound to the intent record');
-  if (!/\/\^\[a-f0-9\]\{64\}\$\/i\.test\(c\.sha256\.trim\(\)\)/.test(source)) out.push('a digest of another form is accepted');
+  if (!/setReviewed\(false\);\s*setQuiescent\(false\)/.test(edit))
+    out.push('editing the evidence does not invalidate the review');
+  if (
+    !/catch \(e\) \{\s*setError\(String\(e\)\);\s*setReviewed\(false\);\s*setQuiescent\(false\)/.test(
+      reconcile,
+    )
+  )
+    out.push('a refused reconciliation keeps its review');
+  if (!/intent_id: intent\.intent_id,\s*record_sha256: intent\.record_sha256/.test(reconcile))
+    out.push('the request is not bound to the intent record');
+  if (!/\/\^\[a-f0-9\]\{64\}\$\/i\.test\(c\.sha256\.trim\(\)\)/.test(source))
+    out.push('a digest of another form is accepted');
   return out;
 };
 
@@ -83,25 +111,53 @@ describe('workspace-operation planted defects', () => {
     expect(different).toContain('Verified effects and native receipts');
     expect(comparisonProblems(different, true)).toEqual([]);
     // planted in the view itself: a panel that shows the pass for a difference, and one that drops the difference
-    expect(comparisonProblems(different.replace('Digest mismatch', 'Exact byte digest match'), true)).toEqual(['the difference is not shown', 'a mismatch is shown as a pass']);
-    expect(comparisonProblems(different.replace('Digest mismatch', 'See the separately recorded goal predicate'), true)).toEqual(['the difference is not shown']);
-    expect(comparisonProblems(`${different}Exact byte digest match`, true)).toEqual(['a mismatch is shown as a pass']);
+    expect(
+      comparisonProblems(different.replace('Digest mismatch', 'Exact byte digest match'), true),
+    ).toEqual(['the difference is not shown', 'a mismatch is shown as a pass']);
+    expect(
+      comparisonProblems(
+        different.replace('Digest mismatch', 'See the separately recorded goal predicate'),
+        true,
+      ),
+    ).toEqual(['the difference is not shown']);
+    expect(comparisonProblems(`${different}Exact byte digest match`, true)).toEqual([
+      'a mismatch is shown as a pass',
+    ]);
   });
 
   it('adversarial: stale or unrelated recovery evidence is refused', () => {
     const source = read('frontend/src/components/Recovery.tsx');
     expect(recoveryProblems(source)).toEqual([]);
     // each guard removed in turn: the stale review, the unrelated record, the unreviewed request
-    expect(recoveryProblems(source.replace('    setReviewed(false);\n    setQuiescent(false);\n  }\n  async function reconcile', '  }\n  async function reconcile'))).toEqual([
-      'editing the evidence does not invalidate the review',
+    expect(
+      recoveryProblems(
+        source.replace(
+          '    setReviewed(false);\n    setQuiescent(false);\n  }\n  async function reconcile',
+          '  }\n  async function reconcile',
+        ),
+      ),
+    ).toEqual(['editing the evidence does not invalidate the review']);
+    expect(recoveryProblems(source.replace('record_sha256: intent.record_sha256,', ''))).toEqual([
+      'the request is not bound to the intent record',
     ]);
-    expect(recoveryProblems(source.replace('record_sha256: intent.record_sha256,', ''))).toEqual(['the request is not bound to the intent record']);
-    expect(recoveryProblems(source.replace('      !reviewed ||\n      !quiescent ||\n      note.trim().length < 10 ||', '      !quiescent ||\n      note.trim().length < 10 ||'))).toEqual([
-      'reconcile() does not require reviewed',
+    expect(
+      recoveryProblems(
+        source.replace(
+          '      !reviewed ||\n      !quiescent ||\n      note.trim().length < 10 ||',
+          '      !quiescent ||\n      note.trim().length < 10 ||',
+        ),
+      ),
+    ).toEqual(['reconcile() does not require reviewed']);
+    expect(
+      recoveryProblems(
+        source.replace(
+          '      setError(String(e));\n      setReviewed(false);\n      setQuiescent(false);',
+          '      setError(String(e));',
+        ),
+      ),
+    ).toEqual(['a refused reconciliation keeps its review']);
+    expect(recoveryProblems(source.replace(/\/\^\[a-f0-9\]\{64\}\$\/i/, '/^.+$/'))).toEqual([
+      'a digest of another form is accepted',
     ]);
-    expect(recoveryProblems(source.replace('      setError(String(e));\n      setReviewed(false);\n      setQuiescent(false);', '      setError(String(e));'))).toEqual([
-      'a refused reconciliation keeps its review',
-    ]);
-    expect(recoveryProblems(source.replace(/\/\^\[a-f0-9\]\{64\}\$\/i/, '/^.+$/'))).toEqual(['a digest of another form is accepted']);
   });
 });
