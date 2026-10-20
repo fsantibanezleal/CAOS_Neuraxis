@@ -25,6 +25,9 @@ import { implementation } from '../data/implementation';
 import { introduction } from '../data/introduction';
 import { methodology } from '../data/methodology';
 import { paragraphSources } from '../data/paragraph-sources';
+import { COPY } from '../i18n';
+import { advanceSimulation, startSimulation } from '../lib/simulator';
+import { DEFAULT_PARAMETERS } from '../lib/types';
 import { IntroductionPage } from '../pages/Introduction';
 import { read } from './support';
 
@@ -231,6 +234,30 @@ const reproducibilityProblems = (section: ContentSection) => {
   return out;
 };
 
+// ---- BR-036: the browser simulation is its own lane
+type LaneEpisode = {
+  lane: string;
+  metrics: Record<string, unknown>;
+  provenance: Record<string, unknown>;
+};
+const laneProblems = (
+  episode: LaneEpisode,
+  browserLabel: { en: string; es: string },
+  workbench: string,
+) => {
+  const out: string[] = [];
+  if (episode.lane !== 'browser') out.push(`the simulation carries lane ${episode.lane}`);
+  if (episode.metrics.host_effects !== 0 || episode.provenance.host_effects !== false)
+    out.push('a host effect on the browser lane');
+  for (const lang of ['en', 'es'] as const) {
+    if (!/virtual/i.test(browserLabel[lang]) || /measured|medida|replay/i.test(browserLabel[lang]))
+      out.push(`${lang}: the browser lane is not labelled as the virtual workspace`);
+  }
+  if (!workbench.includes("const episode = lane === 'browser' ? simulation.episode : record;"))
+    out.push('the view does not keep the simulation and the record apart');
+  return out;
+};
+
 describe('base-0-08 planted defects', () => {
   it('adversarial: a route table whose App is not first, or that lacks a route, is rejected', () => {
     const paths: string[] = STANDARD_ROUTES.map((r) => r.path);
@@ -366,5 +393,45 @@ describe('base-0-08 planted defects', () => {
     expect(
       reproducibilityProblems({ ...clean, limit: { en: 'short', es: clean.limit.es } }),
     ).toEqual(['en: no limit']);
+  });
+  it('adversarial: a browser episode presented as a replay, or a host effect on the browser lane, is caught', () => {
+    let sim = startSimulation('C05', 'M02', 'stale_conflict', 17, DEFAULT_PARAMETERS);
+    for (let i = 0; i < 40 && !['completed', 'failed'].includes(sim.episode.status); i++)
+      sim = advanceSimulation(sim);
+    const episode = sim.episode as unknown as LaneEpisode;
+    const label = { en: COPY.en.browser, es: COPY.es.browser };
+    const workbench = read('frontend/src/pages/Workbench.tsx');
+    expect(laneProblems(episode, label, workbench)).toEqual([]);
+    expect(laneProblems({ ...episode, lane: 'canonical' }, label, workbench)).toEqual([
+      'the simulation carries lane canonical',
+    ]);
+    expect(
+      laneProblems(
+        { ...episode, metrics: { ...episode.metrics, host_effects: 1 } },
+        label,
+        workbench,
+      ),
+    ).toEqual(['a host effect on the browser lane']);
+    expect(
+      laneProblems(
+        { ...episode, provenance: { ...episode.provenance, host_effects: true } },
+        label,
+        workbench,
+      ),
+    ).toEqual(['a host effect on the browser lane']);
+    expect(
+      laneProblems(episode, { en: COPY.en.canonical, es: COPY.es.browser }, workbench),
+    ).toEqual(['en: the browser lane is not labelled as the virtual workspace']);
+    expect(
+      laneProblems(episode, { en: COPY.en.browser, es: COPY.es.canonical }, workbench),
+    ).toEqual(['es: the browser lane is not labelled as the virtual workspace']);
+    const replayed = workbench.replace(
+      "const episode = lane === 'browser' ? simulation.episode : record;",
+      'const episode = record ?? simulation.episode;',
+    );
+    expect(replayed).not.toBe(workbench);
+    expect(laneProblems(episode, label, replayed)).toEqual([
+      'the view does not keep the simulation and the record apart',
+    ]);
   });
 });

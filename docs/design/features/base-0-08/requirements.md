@@ -42,11 +42,13 @@ doi:10.1109/RE.2009.9).
 | BR-033 | IF the readiness document cannot be read, THEN THE site SHALL keep every view working and say readiness unknown in both languages. | `frontend/src/readiness/readiness.test.ts::a fetch that fails resolves to null, names the cause on the console, and is asked for once` |
 | BR-034 | WHEN a pinned dependency and the technology table of the SDD disagree, THE technology guard SHALL fail naming the package. | `scripts/check_tech_matrix.py` |
 | BR-035 | WHEN a requirement names a gate that does not exist, is skipped or is not a test or a script, THE SDD guard SHALL fail naming the requirement. | `scripts/check_sdd.py` |
+| BR-036 | THE browser simulation of the exact policies M01 and M02 SHALL be its own execution lane: its episode SHALL carry lane `browser` and no host effects, THE Engine view SHALL label it as the browser's virtual workspace and a loaded committed record as a canonical measured run, and THE view SHALL NOT present the simulation as a replay of a committed episode. | `frontend/src/lib/simulator.lanes.test.ts::every case and variant of M01 and M02 runs on lane browser with no host effects` |
 
 Not in this table, on purpose:
 
 - Focus mode of the App. It belongs to the surface unit on shell 0.16.0, which is not in this tree, and has no gate yet; the gate runner's
   hold on the requirement is BR-006. Its requirement is written when that unit lands.
 - The Methodology page unit and the Experiments and Benchmark unit, for the same reason.
-- The parity of the browser simulation with the committed episode of the same case, variant and seed (boundary B13 of the sizing): no test
-  of it exists in this tree.
+- Decision parity of the browser simulation with the committed episode of the same case, variant and seed (boundary B13 of the sizing, amended
+  2026-10-20): it is not a property of the product. The measurement of 2026-10-20 found all 2400 committed M01 and M02 episodes differing from
+  the simulation from step 1, by design; BR-036 holds the lane honesty that replaces it.
