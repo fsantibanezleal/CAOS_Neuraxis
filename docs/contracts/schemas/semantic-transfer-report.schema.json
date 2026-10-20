@@ -1,0 +1,147 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "semantic-transfer-report.schema.json",
+  "title": "Semantic-transfer report",
+  "description": "Catalog row semantic-transfer-report 1.0.0: the audit of the semantic-transfer matrix committed at data/derived/semantic-transfer/report.json: per-method and per-family totals and the paired M12 contrasts. Read by scripts/check_semantic_transfer.py:22 and frontend/src/api/semantic.ts:13. No writer exists in this repository or in reflexmesh 0.1.2 (U3c).",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "by_family",
+    "episodes_checked",
+    "index_sha256",
+    "lineage_signature",
+    "m12_paired",
+    "methods",
+    "perfect_methods",
+    "schema_version",
+    "scope",
+    "seed_variable_cells"
+  ],
+  "properties": {
+    "by_family": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "episodes_per_method",
+          "family",
+          "methods"
+        ],
+        "properties": {
+          "episodes_per_method": {
+            "type": "integer"
+          },
+          "family": {
+            "type": "string"
+          },
+          "methods": {
+            "type": "object",
+            "additionalProperties": {
+              "type": "integer"
+            },
+            "propertyNames": {
+              "pattern": "^M\\d{2}$"
+            }
+          }
+        }
+      }
+    },
+    "episodes_checked": {
+      "type": "integer"
+    },
+    "index_sha256": {
+      "type": "string",
+      "pattern": "^[0-9a-f]{64}$",
+      "description": "SHA-256 of data/derived/semantic-transfer/index.json."
+    },
+    "lineage_signature": {
+      "type": "string",
+      "pattern": "^[0-9a-f]{64}$",
+      "description": "The lineage signature the audited episodes carry."
+    },
+    "m12_paired": {
+      "type": "object",
+      "additionalProperties": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "m12_wins",
+          "ties"
+        ],
+        "properties": {
+          "m12_losses": {
+            "type": "integer"
+          },
+          "m12_wins": {
+            "type": "integer"
+          },
+          "ties": {
+            "type": "integer"
+          }
+        }
+      },
+      "propertyNames": {
+        "pattern": "^M\\d{2}$"
+      }
+    },
+    "methods": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "episodes",
+          "invalid_policy_outputs",
+          "mean_steps",
+          "mean_wall_ms",
+          "method_id",
+          "native_receipts",
+          "planner_delegations",
+          "successes"
+        ],
+        "properties": {
+          "episodes": {
+            "type": "integer"
+          },
+          "invalid_policy_outputs": {
+            "type": "integer"
+          },
+          "mean_steps": {
+            "type": "number"
+          },
+          "mean_wall_ms": {
+            "type": "number"
+          },
+          "method_id": {
+            "type": "string",
+            "pattern": "^M\\d{2}$"
+          },
+          "native_receipts": {
+            "type": "integer"
+          },
+          "planner_delegations": {
+            "type": "integer"
+          },
+          "successes": {
+            "type": "integer"
+          }
+        }
+      }
+    },
+    "perfect_methods": {
+      "type": "array"
+    },
+    "schema_version": {
+      "enum": [
+        1
+      ]
+    },
+    "scope": {
+      "type": "string"
+    },
+    "seed_variable_cells": {
+      "type": "integer"
+    }
+  }
+}

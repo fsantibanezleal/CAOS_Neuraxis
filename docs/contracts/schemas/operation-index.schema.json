@@ -1,0 +1,154 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "operation-index.schema.json",
+  "title": "Operation index",
+  "description": "Catalog row operation-index 1.0.0: the index of the recorded operation runs, written by scripts/evaluate_operations.py:51-65 to data/operations/index.json; one row per run file with its digest and the run metrics.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "boundary",
+    "engine",
+    "platform",
+    "policy",
+    "runs",
+    "schema_version",
+    "seeds",
+    "source_sha256",
+    "study"
+  ],
+  "properties": {
+    "boundary": {
+      "type": "string"
+    },
+    "engine": {
+      "type": "string",
+      "pattern": "^reflexmesh \\d+\\.\\d+\\.\\d+$"
+    },
+    "platform": {
+      "type": "string"
+    },
+    "policy": {
+      "type": "string",
+      "enum": [
+        "verified-operation-fsm"
+      ]
+    },
+    "runs": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "concurrency",
+          "disposition",
+          "files",
+          "findings",
+          "journal_sequence",
+          "model_calls",
+          "native_receipts",
+          "path",
+          "run_id",
+          "seed",
+          "sha256",
+          "status",
+          "task",
+          "variant",
+          "verified_nodes",
+          "wall_ms"
+        ],
+        "properties": {
+          "concurrency": {
+            "type": "integer"
+          },
+          "disposition": {
+            "type": "string",
+            "enum": [
+              "checks_passed",
+              "attention_required",
+              "incomplete"
+            ]
+          },
+          "files": {
+            "type": "integer"
+          },
+          "findings": {
+            "type": "integer"
+          },
+          "journal_sequence": {
+            "type": "integer"
+          },
+          "model_calls": {
+            "type": "integer"
+          },
+          "native_receipts": {
+            "type": "integer"
+          },
+          "path": {
+            "type": "string",
+            "pattern": "^[^/\\\\]+\\.json$"
+          },
+          "run_id": {
+            "type": "string",
+            "pattern": "^(data|release|source)-[a-z]+-\\d+$"
+          },
+          "seed": {
+            "type": "integer"
+          },
+          "sha256": {
+            "type": "string",
+            "pattern": "^[0-9a-f]{64}$"
+          },
+          "status": {
+            "type": "string",
+            "enum": [
+              "succeeded",
+              "failed",
+              "cancelled"
+            ]
+          },
+          "task": {
+            "type": "string",
+            "enum": [
+              "data",
+              "release",
+              "source"
+            ]
+          },
+          "variant": {
+            "type": "string"
+          },
+          "verified_nodes": {
+            "type": "integer"
+          },
+          "wall_ms": {
+            "type": "number"
+          }
+        }
+      },
+      "minItems": 1,
+      "description": "One row per run: identity, the path relative to the index, the SHA-256 of the run file, status, disposition, findings and the run metrics."
+    },
+    "schema_version": {
+      "enum": [
+        1
+      ]
+    },
+    "seeds": {
+      "type": "integer"
+    },
+    "source_sha256": {
+      "type": "object",
+      "additionalProperties": {
+        "type": "string",
+        "pattern": "^[0-9a-f]{64}$"
+      },
+      "propertyNames": {
+        "pattern": "^[A-Za-z0-9_./\\-]+$"
+      },
+      "description": "The two source files whose digests identify the code that produced the runs."
+    },
+    "study": {
+      "type": "string"
+    }
+  }
+}

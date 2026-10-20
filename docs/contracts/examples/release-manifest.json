@@ -1,0 +1,46 @@
+{
+  "schema_version": 1,
+  "commit": "c22d0c15da43d28d4a635abab797444066984b46",
+  "version": "0.02.008",
+  "files": [
+    {
+      "path": "assets/index.js",
+      "size": 24,
+      "sha256": "e5d1e96d06033566e045511cc307e907b123f390925d45f5e101cbaec48bd6cb"
+    },
+    {
+      "path": "data/index.json",
+      "size": 2,
+      "sha256": "44136fa355b3678a1146ad16f7e8649e94fb4fc21fe77e8310c060f61caaff8a"
+    },
+    {
+      "path": "index.html",
+      "size": 28,
+      "sha256": "ad5141d367c05081f6f668a11f85655d6e5acbdf4bec269c9fe27017f6a89836"
+    }
+  ],
+  "canonical_coverage": {
+    "episodes": 14400,
+    "cells": 1440,
+    "methods": 12,
+    "cases": 20,
+    "minimum_seeds": 10
+  },
+  "operation_coverage": {
+    "runs": 36,
+    "coverage": "3 tasks x 4 fault conditions x 3 seeds",
+    "verified": true
+  },
+  "semantic_coverage": {
+    "episodes": 1536,
+    "methods": 12,
+    "families": 8,
+    "seed_variable_cells": 35
+  },
+  "routing_coverage": {
+    "paired_environments": 128,
+    "held_out": 32,
+    "held_out_incremental_positives": 10,
+    "learned_delegations": 0
+  }
+}
