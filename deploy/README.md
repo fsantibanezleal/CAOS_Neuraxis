@@ -14,7 +14,7 @@ Before release, verify in-app navigation and bookmarked routes, canonical hydrat
 After validated sources are committed, run `python scripts/deploy_operations.py
 --identity /path/to/operator/ssh/key` (one command). The installer accepts only its
 seven explicitly named regular files, checks the archive digest and source commit,
-installs the published `reflexmesh[server]==0.1.1`, and runs under the dedicated
+installs the published `reflexmesh[server]==0.1.2`, and runs under the dedicated
 `neuraxis-operations` account. Code and venv are read-only to the service. Only
 `/var/lib/neuraxis-operations` is persistent writable state.
 
