@@ -4,15 +4,15 @@ export const CITATIONS: Citation[] = [
     id: 'neuraxis2026',
     label: 'Neuraxis implementation (2026)',
     citation:
-      'Neuraxis. Product implementation and measured operation records, release 0.02.006. Source repository access requires authorization; measured artifacts are available in Experiments.',
+      'Neuraxis. Product implementation and measured operation records, release 0.02.009. Source repository access requires authorization; measured artifacts are available in Experiments.',
     url: 'https://github.com/fsantibanezleal/CAOS_Neuraxis',
   },
   {
     id: 'reflexmesh2026',
-    label: 'reflexmesh 0.1.1',
+    label: 'reflexmesh 0.1.2',
     citation:
-      'Santibáñez-Leal F. reflexmesh 0.1.1: native software-control runtime, corrected evaluation and semantic-transfer evidence (2026).',
-    url: 'https://github.com/fsantibanezleal/reflexmesh/tree/v0.01.001',
+      'Santibáñez-Leal F. reflexmesh 0.1.2: native software-control runtime, corrected evaluation and semantic-transfer evidence (2026).',
+    url: 'https://github.com/fsantibanezleal/reflexmesh/tree/v0.01.002',
   },
   {
     id: 'amershi2019',

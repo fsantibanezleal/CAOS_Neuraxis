@@ -7,7 +7,7 @@ const errors=[]; page.on('pageerror', error=>errors.push(error.message));
 const response=await page.request.get(`${base}/data/index.json`);
 const index=await response.json();
 if(index.episodes.length!==14400) throw Error('Incomplete live evidence index');
-await page.goto(base);await page.getByRole('tab',{name:/Engine & local workspace|Motor y espacio local/}).click();
+await page.goto(base+'/app');await page.getByRole('tab',{name:/Engine & local workspace|Motor y espacio local/}).click();
 await page.getByLabel('Execution lane').selectOption('canonical');
 const verified=[];
 for(let method=1;method<=12;method++) {

@@ -3,6 +3,7 @@ import { createRoot } from 'react-dom/client';
 import App from './App';
 import { applyTheme, readTheme } from '@fasl-work/caos-app-shell';
 import '@fasl-work/caos-app-shell/styles.css';
+import '@fasl-work/caos-app-shell/chart.css';
 import 'katex/dist/katex.min.css';
 import './i18n';
 import './neuraxis.css';
