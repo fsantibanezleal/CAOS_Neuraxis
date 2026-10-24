@@ -1,7 +1,7 @@
 {
   "name": "neuraxis-frontend",
   "private": true,
-  "version": "0.2.8",
+  "version": "0.2.9",
   "type": "module",
   "overrides": {
     "@fasl-work/caos-app-shell": {
@@ -19,7 +19,7 @@
     "format:check": "prettier --check \"src/**/*.{ts,tsx}\" vite.config.ts"
   },
   "dependencies": {
-    "@fasl-work/caos-app-shell": "0.9.3",
+    "@fasl-work/caos-app-shell": "0.19.1",
     "i18next": "^26.4.2",
     "katex": "0.19.0",
     "lucide-react": "^1.47.0",
@@ -28,6 +28,7 @@
     "react-i18next": "^17.0.14",
     "react-router": "7.18.4",
     "react-router-dom": "^7.18.4",
+    "uplot": "1.6.32",
     "zustand": "^5.0.15"
   },
   "devDependencies": {
@@ -38,7 +39,7 @@
     "@vitejs/plugin-react": "6.1.1",
     "prettier": "3.9.8",
     "typescript": "^5.7.2",
-    "vite": "8.3.0",
-    "vitest": "5.0.1"
+    "vite": "8.3.5",
+    "vitest": "5.0.5"
   }
 }

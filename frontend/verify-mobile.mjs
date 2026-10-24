@@ -7,7 +7,7 @@ const report=[]; const failures=[];
 for(const size of [{width:360,height:800},{width:390,height:844},{width:430,height:932}]) for(const theme of ['light','dark']) for(const lang of ['en','es']) {
  const page=await browser.newPage({viewport:size}); const errors=[];
  page.on('pageerror',e=>errors.push(e.message));
- await page.goto(base);
+ await page.goto(base+'/app');
  await page.evaluate(({theme,lang})=>{localStorage.setItem('caos.theme',theme);localStorage.setItem('caos.lang',lang);},{theme,lang});
  await page.reload();await page.getByRole('tab',{name:/Engine & local workspace|Motor y espacio local/}).click();
  const toggle=page.locator('.nx-mobile-switch button');

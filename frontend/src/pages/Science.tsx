@@ -1,5 +1,5 @@
 import { useEffect, useRef } from 'react';
-import { Callout, Cite, DocPage, Equation, Refs, DocSection } from '@fasl-work/caos-app-shell';
+import { Callout, Cite, DocPage, Equation, DocSection } from '@fasl-work/caos-app-shell';
 import { useCopy } from '../i18n';
 import type { ContentPage, ContentSection } from '../data/content.types';
 import type { Bilingual } from '../lib/types';
@@ -9,6 +9,42 @@ import { MethodEvidence, OperationStudy } from '../components/ScientificEvidence
 import OverflowTabs, { OverflowSubTabs } from '../components/OverflowTabs';
 
 type SectionGroup = { id: string; label: Bilingual; sections: string[] };
+
+const areaByPage: Record<string, Record<string, string>> = {
+  Introduction: {
+    problem: 'problem',
+    biology: 'principles',
+    formal: 'math',
+    workflow: 'pipeline',
+    honesty: 'honesty',
+  },
+  Methodology: {
+    exact: 'method',
+    supervised: 'method',
+    sequential: 'method',
+    modelbased: 'method',
+    slow: 'method',
+    metacontrol: 'method',
+  },
+  Implementation: {
+    runtime: 'architecture',
+    features: 'contract',
+    classical: 'engine',
+    recurrent: 'engine',
+    planning: 'engine',
+    browser: 'lanes',
+    pipeline: 'reproducibility',
+    deployment: 'deployment',
+  },
+  Experiments: {
+    design: 'question',
+    splits: 'protocol',
+    metrics: 'metrics',
+    robustness: 'protocol',
+    ablations: 'metrics',
+    data: 'datasets',
+  },
+};
 
 const groupsByPage: Record<string, SectionGroup[]> = {
   Introduction: [
@@ -70,7 +106,13 @@ const groupsByPage: Record<string, SectionGroup[]> = {
     },
   ],
 };
-export function SectionContent({ section }: { section: ContentSection }) {
+export function SectionContent({
+  section,
+  pageTitle,
+}: {
+  section: ContentSection;
+  pageTitle: string;
+}) {
   const { lang, t } = useCopy();
   const article = useRef<HTMLElement>(null);
   const sourceIds = [...new Set([...section.refs, ...(paragraphSources[section.id] ?? []).flat()])];
@@ -79,82 +121,107 @@ export function SectionContent({ section }: { section: ContentSection }) {
       article.current.scrollIntoView({ block: 'start', behavior: 'instant' });
     }
   }, [section.id]);
+  const area = areaByPage[pageTitle]?.[section.id];
+  if (!area) throw new Error(`Missing ADR-0017 area for ${pageTitle}/${section.id}`);
+  const references = sourceIds.length
+    ? { refs: sourceIds }
+    : {
+        noRefsReason: {
+          en: 'This section reports product implementation or measured evidence and makes no external claim.',
+          es: 'Esta sección informa implementación o evidencia medida del producto, sin afirmaciones externas.',
+        },
+      };
   return (
-    <article ref={article} className="nx-doc-section">
-      <h2>{section.title[lang]}</h2>
-      {section.paragraphs.map((p, i) => (
-        <p key={i} className="measure">
-          {p[lang]}{' '}
-          {(paragraphSources[section.id]?.[i] ?? []).map((id) => (
-            <span key={id}>
-              {' '}
-              <Cite id={id} />
-            </span>
-          ))}
-        </p>
-      ))}
-      <ScientificFigure section={section} />
-      {section.equations.map((eq, i) => (
-        <Equation key={i} tex={eq.tex} caption={eq.caption[lang]} />
-      ))}
-      {section.symbols && (
-        <ul className="nx-doc-symbols">
-          {section.symbols.map((s, i) => (
-            <li key={i}>{s[lang]}</li>
-          ))}
-        </ul>
-      )}
-      {section.steps && (
-        <ol>
-          {section.steps.map((s, i) => (
-            <li key={i}>{s[lang]}</li>
-          ))}
-        </ol>
-      )}
-      {section.table && (
-        <div className="nx-table-scroll">
-          <table className="nx-table">
-            <thead>
-              <tr>
-                {section.table.headers.map((h, i) => (
-                  <th key={i}>{h[lang]}</th>
-                ))}
-              </tr>
-            </thead>
-            <tbody>
-              {section.table.rows.map((r, i) => (
-                <tr key={i}>
-                  {r.map((c, j) => (
-                    <td key={j}>{c[lang]}</td>
+    <DocSection title={section.title} id={section.id} area={area} {...references}>
+      <article ref={article} className="nx-doc-section">
+        {section.paragraphs.map((p, i) => (
+          <p key={i} className="measure">
+            {p[lang]}{' '}
+            {(paragraphSources[section.id]?.[i] ?? []).map((id) => (
+              <span key={id}>
+                {' '}
+                <Cite id={id} />
+              </span>
+            ))}
+          </p>
+        ))}
+        <ScientificFigure section={section} />
+        {section.equations.map((eq, i) => (
+          <Equation key={i} tex={eq.tex} caption={eq.caption[lang]} />
+        ))}
+        {section.symbols && (
+          <ul className="nx-doc-symbols">
+            {section.symbols.map((s, i) => (
+              <li key={i}>{s[lang]}</li>
+            ))}
+          </ul>
+        )}
+        {section.steps && (
+          <ol>
+            {section.steps.map((s, i) => (
+              <li key={i}>{s[lang]}</li>
+            ))}
+          </ol>
+        )}
+        {section.table && (
+          <div className="nx-table-scroll">
+            <table className="nx-table">
+              <thead>
+                <tr>
+                  {section.table.headers.map((h, i) => (
+                    <th key={i}>{h[lang]}</th>
                   ))}
                 </tr>
-              ))}
-            </tbody>
-          </table>
-        </div>
-      )}
-      <Callout variant="honest" title={t.assumptions}>
-        {section.limit[lang]}
-      </Callout>
-      {['exact', 'supervised', 'sequential', 'modelbased', 'slow', 'metacontrol'].includes(
-        section.id,
-      ) && <MethodEvidence section={section.id} />}
-      <Refs ids={sourceIds} label={t.refs} />
-    </article>
+              </thead>
+              <tbody>
+                {section.table.rows.map((r, i) => (
+                  <tr key={i}>
+                    {r.map((c, j) => (
+                      <td key={j}>{c[lang]}</td>
+                    ))}
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </div>
+        )}
+        <Callout variant="honest" title={t.assumptions}>
+          {section.limit[lang]}
+        </Callout>
+        {['exact', 'supervised', 'sequential', 'modelbased', 'slow', 'metacontrol'].includes(
+          section.id,
+        ) && <MethodEvidence section={section.id} />}
+      </article>
+    </DocSection>
   );
 }
-export default function Science({ page }: { page: ContentPage }) {
+export default function Science({
+  page,
+  embedded = false,
+}: {
+  page: ContentPage;
+  embedded?: boolean;
+}) {
   const { lang, t } = useCopy();
   const sections = page.sections.map((s) => ({
     id: s.id,
     label: s.title[lang],
-    content: <SectionContent section={s} />,
+    content: <SectionContent section={s} pageTitle={page.title.en} />,
   }));
   if (page.title.en === 'Experiments')
     sections.push({
       id: 'compound',
       label: lang === 'en' ? 'Compound task study' : 'Estudio de tareas compuestas',
-      content: <OperationStudy />,
+      content: (
+        <DocSection
+          title={{ en: 'Compound task study', es: 'Estudio de tareas compuestas' }}
+          id="compound"
+          area="datasets"
+          refs={['neuraxis2026']}
+        >
+          <OperationStudy />
+        </DocSection>
+      ),
     });
   const groups = groupsByPage[page.title.en];
   const groupedIds = groups.flatMap((group) => group.sections);
@@ -178,26 +245,12 @@ export default function Science({ page }: { page: ContentPage }) {
       />
     ),
   }));
-  tabs.push({
-    id: 'bibliography',
-    label: lang === 'en' ? 'Bibliography' : 'Bibliografía',
-    content: (
-      <div>
-        {page.sections.map((section) => (
-          <DocSection
-            key={section.id}
-            title={section.title}
-            refs={[...new Set([...section.refs, ...(paragraphSources[section.id] ?? []).flat()])]}
-          >
-            <p>{section.paragraphs[0]?.[lang]}</p>
-          </DocSection>
-        ))}
-      </div>
-    ),
-  });
-  return (
-    <DocPage title={page.title} lede={page.lede[lang]} wide>
-      <OverflowTabs key={page.title.en} ariaLabel={t.content} tabs={tabs} />
+  const content = <OverflowTabs key={page.title.en} ariaLabel={t.content} tabs={tabs} />;
+  return embedded ? (
+    content
+  ) : (
+    <DocPage title={page.title} lede={page.lede[lang]}>
+      {content}
     </DocPage>
   );
 }

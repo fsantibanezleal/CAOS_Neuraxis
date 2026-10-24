@@ -1,18 +1,23 @@
 import { BrowserRouter, Route, Routes, useLocation } from 'react-router-dom';
-import { Suspense, useEffect } from 'react';
+import { lazy, Suspense, useLayoutEffect } from 'react';
 import { Network } from 'lucide-react';
-import { AppShell, CitationsProvider, type ShellConfig } from '@fasl-work/caos-app-shell';
+import {
+  AppShell,
+  CitationsProvider,
+  Landing,
+  STANDARD_ROUTES,
+  type ShellConfig,
+} from '@fasl-work/caos-app-shell';
 import { CITATIONS } from './data/citations';
 import { architecture } from './architecture';
-import OperationsWorkbench from './pages/OperationsWorkbench';
 import { useCopy } from './i18n';
-import Science from './pages/Science';
-import { introduction } from './data/introduction';
 import { methodology } from './data/methodology';
 import { implementation } from './data/implementation';
 import { experiments } from './data/experiments';
-import Benchmark from './pages/Benchmark';
-const Introduction = () => <Science page={introduction} />;
+const OperationsWorkbench = lazy(() => import('./pages/OperationsWorkbench'));
+const Science = lazy(() => import('./pages/Science'));
+const Benchmark = lazy(() => import('./pages/Benchmark'));
+const Introduction = lazy(() => import('./pages/Introduction'));
 const Methodology = () => <Science page={methodology} />;
 const Implementation = () => <Science page={implementation} />;
 const Experiments = () => <Science page={experiments} />;
@@ -21,15 +26,8 @@ const config: ShellConfig = {
   visibility: 'private',
   contain: true,
   product: { name: 'Neuraxis', mark: <Network size={18} aria-hidden="true" /> },
-  version: '0.02.008',
-  routes: [
-    { path: '/', en: 'App', es: 'App' },
-    { path: '/introduction', en: 'Introduction', es: 'Introducción' },
-    { path: '/methodology', en: 'Methodology', es: 'Metodología' },
-    { path: '/implementation', en: 'Implementation', es: 'Implementación' },
-    { path: '/experiments', en: 'Experiments', es: 'Experimentos' },
-    { path: '/benchmark', en: 'Benchmark', es: 'Benchmark' },
-  ],
+  version: '0.02.009',
+  routes: STANDARD_ROUTES,
   links: { github: 'https://github.com/fsantibanezleal/CAOS_Neuraxis' },
   architecture,
   footer: {
@@ -47,27 +45,33 @@ const config: ShellConfig = {
 function RoutedApp() {
   const { t } = useCopy();
   const { pathname } = useLocation();
-  useEffect(() => {
+  useLayoutEffect(() => {
     window.scrollTo({ top: 0, left: 0, behavior: 'instant' });
+    document.querySelector<HTMLElement>('.app-shell > main.page')?.scrollTo({
+      top: 0,
+      left: 0,
+      behavior: 'instant',
+    });
   }, [pathname]);
   return (
     <CitationsProvider items={CITATIONS}>
       <AppShell config={config}>
         <Suspense
           fallback={
-            <div className="page-body nx-empty" role="status">
+            <div className="page-body nx-empty" data-state="loading" role="status">
               {t.loading}
             </div>
           }
         >
           <Routes>
-            <Route path="/" element={<OperationsWorkbench />} />
+            <Route path="/" element={<Landing />} />
+            <Route path="/app" element={<OperationsWorkbench />} />
             <Route path="/introduction" element={<Introduction />} />
             <Route path="/methodology" element={<Methodology />} />
             <Route path="/implementation" element={<Implementation />} />
             <Route path="/experiments" element={<Experiments />} />
             <Route path="/benchmark" element={<Benchmark />} />
-            <Route path="*" element={<OperationsWorkbench />} />
+            <Route path="*" element={<Landing />} />
           </Routes>
         </Suspense>
       </AppShell>

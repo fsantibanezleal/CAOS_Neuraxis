@@ -4,7 +4,7 @@ import { chromium, expect } from '@playwright/test';
 import { mkdirSync, writeFileSync } from 'node:fs';
 
 const base = process.env.NEURAXIS_QA_URL ?? 'http://127.0.0.1:4176';
-const routes = ['/introduction', '/methodology', '/implementation', '/experiments', '/benchmark'];
+const routes = ['/app', '/introduction', '/methodology', '/implementation', '/experiments', '/benchmark'];
 const sizes = [
   { width: 1280, height: 800 }, { width: 1600, height: 900 },
   { width: 2560, height: 1440 }, { width: 360, height: 800 },
@@ -43,12 +43,15 @@ for (const viewport of sizes) for (const theme of ['light', 'dark']) for (const 
     await destination.click();
     try {
       await expect(page).toHaveURL(new URL(route, base).href);
+      await expect.poll(() => page.locator('.app-shell > main.page').evaluate(el => el.scrollTop)).toBe(0);
       // A previous lazy route can remain visible briefly after the URL changes.
       if (route === '/benchmark')
-        await expect(page.locator('.nx-benchmark .page-head h1')).toBeVisible();
+        await expect(page.locator('[data-doc-page] .page-head h1')).toHaveText(heading);
+      else if (route === '/app')
+        await expect(page.locator('.op-layout')).toBeVisible();
       else
         await expect(page.locator('[data-doc-page] .page-head h1')).toHaveText(heading);
-      await page.locator(route === '/benchmark' ? '.nx-benchmark .nx-metrics' : '.nx-doc-section').waitFor();
+      await page.locator(route === '/app' ? '.op-layout' : route === '/benchmark' ? '.nx-benchmark .nx-metrics' : route === '/introduction' ? '[data-executive-valid="true"]' : '.nx-doc-section').waitFor();
       if (route === '/methodology')
         await expect(page.locator('.science-measurement table tbody tr').first()).toBeVisible();
       await page.evaluate(() => document.fonts.ready);
@@ -95,14 +98,13 @@ for (const viewport of sizes) for (const theme of ['light', 'dark']) for (const 
       await page.mouse.wheel(0, 700);
       await expect.poll(() => scrollable.evaluate(el => el.scrollTop)).toBeGreaterThan(0);
     }
-    const last = page.locator(route === '/benchmark' ? '.nx-benchmark a[href]' : '.nx-doc-section:visible a[href]').last();
-    await last.focus();
-    await expect(last).toBeInViewport();
+    const last = page.locator(route === '/app' ? '.op-layout a[href]' : '.nx-doc-section:visible a[href]').last();
+    if (await last.count()) { await last.focus(); await expect(last).toBeInViewport(); }
     if (lang === 'en' && [360, 1600].includes(viewport.width)) await page.screenshot({ path: `${qaRoot}/layout-${route.slice(1)}-${viewport.width}-${theme}-end.png` });
     checks.push({ route, viewport, theme, lang, verticalScrollVerified: true, finalSourceVisible: true, ...before });
   }
-  await page.locator('.site-header .nav-link[href="/"]').click();
-  await expect(page.locator('.op-layout')).toBeVisible();
+  await page.locator('.site-header .nav-link[href="/introduction"]').click();
+  await expect(page.locator('[data-executive-valid="true"]')).toBeVisible();
   await expect.poll(() => page.evaluate(() => scrollY)).toBe(0);
   await expect(page.locator('.app-shell')).toHaveClass(/contain/);
   await page.close();

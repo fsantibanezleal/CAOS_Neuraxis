@@ -9,11 +9,11 @@ mkdirSync(qaRoot, { recursive: true });
 const browser = await chromium.launch();
 const sections = [], errors = [];
 const expectedGroups = {
-  introduction: [3, 2, 0],
-  methodology: [4, 2, 0],
-  implementation: [2, 3, 3, 0],
-  experiments: [3, 2, 2, 0],
-  benchmark: [5, 2, 0, 0],
+  introduction: [5, 3],
+  methodology: [4, 2],
+  implementation: [2, 3, 3],
+  experiments: [3, 2, 2],
+  benchmark: [5, 2, 0],
 };
 try {
   for (const width of [1600, 360]) for (const theme of ['light', 'dark']) for (const lang of ['en', 'es']) {
@@ -26,13 +26,14 @@ try {
       await page.goto(`${base}/${route}`);
       const root = page.locator(route === 'benchmark' ? '.nx-benchmark' : '[data-doc-page]');
       const tabs = root.locator('.tabs > .tablist > .tab');
+      if (route === 'introduction') await expect(root.locator('.tabs > .tabpanel:visible [data-executive-valid="true"]')).toBeVisible();
       await expect(tabs).toHaveCount(groups.length);
       expect(groups.length).toBeLessThanOrEqual(6);
       let leafIndex = 0;
       for (let i = 0; i < groups.length; i++) {
         await tabs.nth(i).click();
         await expect(tabs.nth(i)).toHaveAttribute('aria-selected', 'true');
-        const panel = root.locator('.tabs > .tabpanel:visible');
+        const panel = root.locator('.tabs > .tabpanel:visible').first();
         await expect(panel).toBeVisible();
         const subtabs = panel.locator('.subtabs > .subtablist > .subtab');
         await expect(subtabs).toHaveCount(groups[i]);
@@ -41,9 +42,11 @@ try {
             await subtabs.nth(j).click();
             await expect(subtabs.nth(j)).toHaveAttribute('aria-selected', 'true');
           }
-          const leaf = groups[i] ? panel.locator('.subtabpanel:visible') : panel;
+          const leaf = groups[i] ? panel.locator('.subtabpanel:visible').first() : panel;
           const title = groups[i] ? await subtabs.nth(j).innerText() : await tabs.nth(i).innerText();
-          const bibliography = /Bibliograph|Bibliograf/.test(title);
+          const bibliography = false;
+          expect(await tabs.filter({ hasText: /Bibliograph|Bibliograf/ }).count()).toBe(0);
+          const executiveTab = route === 'introduction' && i === 0;
           const compound = /Compound|compuestas/.test(title);
           if (bibliography) {
             await expect(leaf.locator('[data-doc-section]').first()).toBeVisible();
@@ -55,14 +58,15 @@ try {
             await expect(leaf.getByText(lang === 'en' ? 'Hash-checked episodes' : 'Episodios verificados por hash')).toBeVisible();
           } else if (/Semantic transfer|Transferencia semántica/.test(title)) {
             await expect(leaf.getByText(lang === 'en' ? 'Inspect an executed choice' : 'Inspeccionar una elección ejecutada')).toBeVisible();
-          } else if (route !== 'benchmark') {
+          } else if (route !== 'benchmark' && !executiveTab) {
             const article = leaf.locator('.nx-doc-section');
             expect(await article.locator(':scope > p.measure').count()).toBeGreaterThanOrEqual(route === 'methodology' ? 4 : 2);
             expect(await article.locator('.katex-display').count()).toBeGreaterThanOrEqual(route === 'methodology' ? 2 : route === 'introduction' ? 0 : 1);
             await expect(article.locator('.science-figure')).toBeVisible();
-            expect(await article.locator('.th-refs a').count()).toBeGreaterThan(0);
+            expect(await leaf.locator('[data-doc-section][data-refs]').count()).toBeGreaterThan(0);
+            expect(await leaf.locator('.caos-doc-reference-list a').count()).toBeGreaterThan(0);
             expect(await article.locator('p.measure .cite-inline').count()).toBeGreaterThan(0);
-            await expect(article.locator('.reference-list')).toHaveCount(0);
+            await expect(leaf.locator('.reference-list')).toHaveCount(0);
           }
           expect(await leaf.locator('.katex-error').count()).toBe(0);
           if (route === 'methodology' && !bibliography)
