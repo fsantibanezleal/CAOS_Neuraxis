@@ -4,7 +4,21 @@ A scientific workbench and local software-control application for fast learned p
 
 The default Tasks view audits supplied source/configuration files, reconciles CSV deliveries, and verifies software-release manifests through native registered tools. Findings identify files and rows; accepted CSV data, checksums and the complete decision journal are downloadable. Investigations compares matched measured runs from the full scientific matrix. See [operational tasks](docs/workbench/operations.md) for formats and limits.
 
-Neuraxis exposes live decisions, candidate scores, exact resource state, effects, unresolved outcomes and planner delegations. Its scientific repository contains reproducible collection, training, calibration, inference, evaluation and export. The six bilingual workbench routes connect the implementation to neuroscience, machine learning, reinforcement learning and prior agent architectures. Scientific sections and bibliographies use shared tabs with visible controls when the one-row tab strip overflows.
+Neuraxis exposes live decisions, candidate scores, exact resource state, effects, unresolved outcomes and planner delegations. Its scientific repository contains reproducible collection, training, calibration, inference, evaluation and export. The six bilingual workbench routes connect the implementation to neuroscience, machine learning, reinforcement learning and prior agent architectures. The Introduction opens with an evidence-led executive view and a technical view. The operations workbench lives at `/app`; the benchmark and scientific pages preserve direct routes. Scientific sections use the shared shell tabs, with cited sources scoped to the currently open section rather than a duplicate bibliography page.
+
+## Areas
+
+| Area | Location | Status | Contents |
+| --- | --- | --- | --- |
+| Web app | [frontend](frontend/) | active | Bilingual research workbench and executive evidence view. |
+| API and native operations | [app](app/) | active | Authenticated local service and bounded effect execution. |
+| Core pipeline | [data-pipeline](data-pipeline/) | active | Collection, training, calibration, evaluation and artifact export. |
+| Package dependencies | [reflexmesh on PyPI](https://pypi.org/project/reflexmesh/0.1.2/) | active | Versioned native broker consumed by the product. |
+| Data and evidence | [data](data/) | active | Frozen results, manifests and hash-audited operation records. |
+| Contracts and cases | [docs/cases.md](docs/cases.md) | active | Action contracts, task cases and outcome verification. |
+| Documentation | [docs](docs/) | active | Architecture, scientific methods, operational guides and research dossiers. |
+| Tests and gates | [tests](tests/) | active | Product behavior, artifact integrity and release validation. |
+| Deployment | [deploy](deploy/) | active | Immutable static release packaging and installation. |
 
 ## Run locally
 

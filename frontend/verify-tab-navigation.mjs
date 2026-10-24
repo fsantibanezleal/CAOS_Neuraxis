@@ -24,9 +24,10 @@ try {
    expect(revealed).toBe(true);
    await tabs.last().click();
    await expect(tabs.last()).toHaveAttribute('aria-selected','true');
-   const bibliography=tabs.filter({hasText:lang==='en'?'Bibliography':'Bibliografía'});
-   await bibliography.click();
-   await expect(root.locator('[role="tabpanel"]:visible .th-refs a').first()).toBeVisible();
+   expect(await tabs.filter({hasText:/Bibliograph|Bibliograf/}).count()).toBe(0);
+   await expect(root.locator('[data-doc-section][data-area]').first()).toBeVisible();
+   const refs=root.locator('.caos-doc-reference-list a').first();
+   if(await refs.count()) await expect(refs).toBeVisible();
    await tabs.first().click();
    const nested=root.locator('[role="tabpanel"]:visible [role="tablist"]').first();
    if(await nested.count()) {
@@ -36,7 +37,7 @@ try {
     await expect(children.last()).toHaveAttribute('aria-selected','true');
    }
    expect(await page.evaluate(()=>document.documentElement.scrollWidth>innerWidth+1)).toBe(false);
-   checks.push({route,width,lang,theme,keyboard:true,bibliography:true,nested:true});
+   checks.push({route,width,lang,theme,keyboard:true,sectionScopedReferences:true,nested:true});
   }
   await page.close();
  }

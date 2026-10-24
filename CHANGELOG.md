@@ -1,5 +1,14 @@
 # Changelog
 
+## 0.02.009 - 2026-10-24
+
+- Adopt the published shared shell 0.19.1 and its keyboard, zoom, data-table, named-chart accessibility contract, narrow-table flow and Spanish date-axis labels.
+- Make the Introduction the product landing page; move operational tools to /app and retain all research pages as direct routes.
+- Replace the separate bibliography tab with source lists attached to the open research section; use accessible shell charts for calibration and risk-coverage diagnostics.
+- Add an evidence-led executive introduction that reports the measured controller limits and distinguishes the product from general intelligence claims.
+- Reset the shared shell's contained main scroll position on route changes, split the workbench, research and benchmark views into route-level chunks, and split the React and math runtimes into shared chunks. The main JS entry falls from 801 KB to 352 KB (252 KB to 115 KB gzip); all emitted chunks are below 500 KB.
+
+
 ## 0.02.008 - 2026-10-08
 
 - Report the installed native engine version in service configuration, fresh task receipts and operation-study metadata.

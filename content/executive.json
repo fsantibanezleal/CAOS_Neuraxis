@@ -1,0 +1,687 @@
+{
+  "title": {
+    "en": "Fast control for software agents",
+    "es": "Control rápido para agentes de software"
+  },
+  "key_statement": {
+    "en": "Software agents need quick, dependable control for familiar steps and a safe way to pause when evidence is weak. Neuraxis studies that boundary and reports where simpler policies still win.",
+    "es": "Los agentes de software necesitan control rápido y fiable para pasos conocidos, y una forma segura de detenerse cuando la evidencia es débil. Neuraxis estudia ese límite e informa dónde siguen ganando políticas más simples."
+  },
+  "headline_figures": [
+    {
+      "heading": {
+        "en": "Core episodes",
+        "es": "Episodios centrales"
+      },
+      "value": {
+        "en": "14,400",
+        "es": "14.400"
+      },
+      "unit": {
+        "en": "measured episodes across 12 methods, 20 task families, six variants and ten seeds",
+        "es": "episodios medidos entre 12 métodos, 20 familias de tareas, seis variantes y diez semillas"
+      },
+      "source": "study"
+    },
+    {
+      "heading": {
+        "en": "M12 core success",
+        "es": "Éxito central de M12"
+      },
+      "value": {
+        "en": "1,160 / 1,200",
+        "es": "1.160 / 1.200"
+      },
+      "unit": {
+        "en": "episodes solved; the guarded state-machine baseline solved 1,200",
+        "es": "episodios resueltos; la máquina de estados con guardas resolvió 1.200"
+      },
+      "source": "study"
+    },
+    {
+      "heading": {
+        "en": "Held-out transfer",
+        "es": "Transferencia reservada"
+      },
+      "value": {
+        "en": "24 vs 21",
+        "es": "24 vs 21"
+      },
+      "unit": {
+        "en": "episodes solved by XGBoost and M12 across new task compositions",
+        "es": "episodios resueltos por XGBoost y M12 en nuevas composiciones de tareas"
+      },
+      "source": "study"
+    }
+  ],
+  "pain": {
+    "key_message": {
+      "en": "A tool-using agent must choose quickly without letting speed turn into unchecked authority.",
+      "es": "Un agente que usa herramientas debe decidir rápido sin convertir la velocidad en autoridad sin control."
+    },
+    "paragraphs": [
+      {
+        "en": "Software workflows combine familiar operations with state changes, partial observations, retries and failures. A generative model can propose a useful next step, but prose fluency does not verify a file write, a process outcome or the current authority to act.",
+        "es": "Los flujos de software combinan operaciones conocidas con cambios de estado, observaciones parciales, reintentos y fallos. Un modelo generativo puede proponer un paso útil, pero la fluidez del texto no verifica una escritura, el resultado de un proceso ni la autoridad vigente para actuar."
+      },
+      {
+        "en": "The engineering question is how to keep routine control inexpensive while recognizing when uncertainty, conflict or an unfamiliar state deserves slower analysis. Any delegated proposal must return to the same admission checks and independent outcome verification.",
+        "es": "La pregunta de ingeniería es cómo mantener barato el control rutinario y reconocer cuándo la incertidumbre, el conflicto o un estado nuevo requieren un análisis más lento. Toda propuesta delegada debe volver a las mismas comprobaciones de admisión y verificación independiente del resultado."
+      }
+    ],
+    "bearers": [
+      {
+        "who": {
+          "en": "Software operators",
+          "es": "Operadores de software"
+        },
+        "cost": {
+          "en": "They wait for a general model to reason through routine steps, or risk acting on an incomplete proposal.",
+          "es": "Esperan que un modelo general razone pasos rutinarios, o arriesgan actuar sobre una propuesta incompleta."
+        },
+        "measure": {
+          "en": "Verified task completion, action latency and rejected unsafe proposals",
+          "es": "Tareas completadas y verificadas, latencia de acción y propuestas inseguras rechazadas"
+        }
+      },
+      {
+        "who": {
+          "en": "Product engineers",
+          "es": "Ingenieros de producto"
+        },
+        "cost": {
+          "en": "They must connect recommendations to current files, permissions, revisions and recoverable effects.",
+          "es": "Deben conectar recomendaciones con archivos, permisos, revisiones y efectos recuperables vigentes."
+        },
+        "measure": {
+          "en": "Effect receipts, stale-state rejections and recoveries after interruption",
+          "es": "Recibos de efectos, rechazos por estado obsoleto y recuperaciones tras una interrupción"
+        }
+      },
+      {
+        "who": {
+          "en": "Safety reviewers",
+          "es": "Revisores de seguridad"
+        },
+        "cost": {
+          "en": "A confident answer can conceal missing evidence, an expired capability or an unresolved effect.",
+          "es": "Una respuesta segura puede ocultar evidencia faltante, una capacidad vencida o un efecto sin resolver."
+        },
+        "measure": {
+          "en": "Independent postconditions and authority checks at dispatch",
+          "es": "Postcondiciones independientes y comprobaciones de autoridad al despachar"
+        }
+      },
+      {
+        "who": {
+          "en": "Research teams",
+          "es": "Equipos de investigación"
+        },
+        "cost": {
+          "en": "Aggregate success can hide saturated tasks, repeated seeds and components that add no value.",
+          "es": "El éxito agregado puede ocultar tareas saturadas, semillas repetidas y componentes que no aportan valor."
+        },
+        "measure": {
+          "en": "Held-out outcomes, seed variation and component ablations",
+          "es": "Resultados reservados, variación entre semillas y ablaciones de componentes"
+        }
+      }
+    ],
+    "figures": [
+      {
+        "heading": {
+          "en": "M12 core failures",
+          "es": "Fallos centrales de M12"
+        },
+        "value": {
+          "en": "40",
+          "es": "40"
+        },
+        "unit": {
+          "en": "all in the long-job cancellation family across four variants",
+          "es": "todos en la familia de cancelación de trabajos largos, entre cuatro variantes"
+        },
+        "source": "study"
+      },
+      {
+        "heading": {
+          "en": "Transfer advantage",
+          "es": "Ventaja en transferencia"
+        },
+        "value": {
+          "en": "3",
+          "es": "3"
+        },
+        "unit": {
+          "en": "more held-out episodes solved by XGBoost than M12",
+          "es": "episodios reservados más resueltos por XGBoost que por M12"
+        },
+        "source": "study"
+      }
+    ],
+    "causes": [
+      {
+        "cause": {
+          "en": "Tool proposals are not proof that an effect occurred.",
+          "es": "Una propuesta de herramienta no prueba que ocurrió un efecto."
+        },
+        "weight": 35
+      },
+      {
+        "cause": {
+          "en": "Workspace state and authority can change between observation and dispatch.",
+          "es": "El estado y la autoridad pueden cambiar entre observar y despachar."
+        },
+        "weight": 30
+      },
+      {
+        "cause": {
+          "en": "A slow reasoner has cost and can return after the task context changes.",
+          "es": "Un razonador lento tiene costo y puede volver cuando ya cambió el contexto."
+        },
+        "weight": 20
+      },
+      {
+        "cause": {
+          "en": "Benchmarks can reward a learned controller when a fixed policy already solves every task.",
+          "es": "Un benchmark puede premiar un controlador aprendido aunque una política fija ya resuelva todo."
+        },
+        "weight": 15
+      }
+    ]
+  },
+  "context": {
+    "key_message": {
+      "en": "Typed proposals and outcome-aware delegation are active research directions, while dual-process neuroscience is an analogy rather than an implementation recipe.",
+      "es": "Las propuestas tipadas y la delegación guiada por resultados son líneas activas de investigación, mientras que la neurociencia de doble proceso es una analogía y no una receta de implementación."
+    },
+    "paragraphs": [
+      {
+        "en": "TypeSafe AI's Jev frames model work as typed questions with choices, scores and confidence. Neuroscience studies arbitration among control systems under changing uncertainty, but those findings do not establish that a software architecture is biologically equivalent.",
+        "es": "Jev de TypeSafe AI formula el trabajo del modelo como preguntas tipadas con opciones, puntajes y confianza. La neurociencia estudia la arbitraje entre sistemas de control bajo incertidumbre cambiante, pero esos hallazgos no demuestran equivalencia biológica de una arquitectura de software."
+      },
+      {
+        "en": "Neuraxis turns the analogy into an engineering comparison. A fast policy proposes bounded work; a broker checks capabilities and resource versions. Slower deliberation runs only when declared evidence and cost conditions justify it.",
+        "es": "Neuraxis convierte la analogía en una comparación de ingeniería. Una política rápida propone trabajo acotado; un intermediario comprueba capacidades y versiones de recursos. La deliberación lenta se ejecuta sólo cuando la evidencia y el costo declarados la justifican."
+      }
+    ],
+    "setting": {
+      "en": "A controlled software-operations study with committed traces, executable local effects and separate browser, native and learned-policy lanes.",
+      "es": "Un estudio controlado de operaciones de software con trazas versionadas, efectos locales ejecutables y carriles separados para navegador, ejecución nativa y políticas aprendidas."
+    },
+    "forces": [
+      {
+        "force": {
+          "en": "More software agents are asked to call tools and coordinate multi-step work.",
+          "es": "Más agentes de software deben llamar herramientas y coordinar tareas de varios pasos."
+        },
+        "direction": "rising"
+      },
+      {
+        "force": {
+          "en": "Tool calls have stronger capability, resource-version and audit requirements.",
+          "es": "Las llamadas de herramientas requieren más control de capacidades, versiones de recursos y auditoría."
+        },
+        "direction": "rising"
+      },
+      {
+        "force": {
+          "en": "Typed model interfaces make constrained routing easier to inspect.",
+          "es": "Las interfaces tipadas de modelos facilitan inspeccionar el enrutamiento restringido."
+        },
+        "direction": "rising"
+      }
+    ],
+    "evidence": [
+      {
+        "statement": {
+          "en": "Jev introduces typed Choice, Score and Noul model questions for agent workflows.",
+          "es": "Jev presenta preguntas tipadas Choice, Score y Noul para flujos de agentes."
+        },
+        "source": "typesafe"
+      },
+      {
+        "statement": {
+          "en": "The published study includes deterministic, learned and deliberative baselines, and reports negative findings alongside successful outcomes.",
+          "es": "El estudio publicado incluye referencias deterministas, aprendidas y deliberativas, e informa resultados negativos junto a los exitosos."
+        },
+        "source": "study"
+      },
+      {
+        "statement": {
+          "en": "Arbitration research compares model-based and model-free control under uncertainty; it motivates a testable analogy, not a neural claim.",
+          "es": "La investigación sobre arbitraje compara control basado y libre de modelos bajo incertidumbre; motiva una analogía comprobable, no una afirmación neuronal."
+        },
+        "source": "daw"
+      }
+    ]
+  },
+  "situation": {
+    "key_message": {
+      "en": "The current evidence supports a guarded systems-engineering tool and a negative result about learned superiority on its saturated core benchmark.",
+      "es": "La evidencia actual respalda una herramienta de ingeniería con guardas y un resultado negativo sobre la superioridad aprendida en su benchmark central saturado."
+    },
+    "roles": [
+      {
+        "role": {
+          "en": "Software operators",
+          "es": "Operadores de software"
+        },
+        "decides": {
+          "en": "Whether a task may run in the selected workspace.",
+          "es": "Si una tarea puede ejecutarse en el espacio seleccionado."
+        },
+        "needs": {
+          "en": "A visible action trace, verified result and reliable cancellation state.",
+          "es": "Una traza visible, un resultado verificado y un estado fiable de cancelación."
+        }
+      },
+      {
+        "role": {
+          "en": "Product engineers",
+          "es": "Ingenieros de producto"
+        },
+        "decides": {
+          "en": "Which tools, arguments and resources the runtime registers.",
+          "es": "Qué herramientas, argumentos y recursos registra el motor."
+        },
+        "needs": {
+          "en": "Typed contracts, current revisions and durable receipts.",
+          "es": "Contratos tipados, revisiones vigentes y recibos duraderos."
+        }
+      },
+      {
+        "role": {
+          "en": "Safety reviewers",
+          "es": "Revisores de seguridad"
+        },
+        "decides": {
+          "en": "Which effects are allowed and what evidence proves completion.",
+          "es": "Qué efectos se permiten y qué evidencia demuestra su término."
+        },
+        "needs": {
+          "en": "Independent checks that remain authoritative over model confidence.",
+          "es": "Comprobaciones independientes que prevalecen sobre la confianza del modelo."
+        }
+      },
+      {
+        "role": {
+          "en": "Research teams",
+          "es": "Equipos de investigación"
+        },
+        "decides": {
+          "en": "Whether added learning or deliberation improves a measured frontier.",
+          "es": "Si el aprendizaje o la deliberación mejoran una frontera medida."
+        },
+        "needs": {
+          "en": "Held-out cases, variable seeds, ablations and honest denominators.",
+          "es": "Casos reservados, semillas variables, ablaciones y denominadores honestos."
+        }
+      }
+    ],
+    "interaction": {
+      "en": "Operators select registered tools; fast controllers propose; the broker admits or rejects; slower reasoning may suggest alternatives; independent postconditions decide whether an effect succeeded.",
+      "es": "Los operadores eligen herramientas registradas; controladores rápidos proponen; el intermediario admite o rechaza; el razonamiento lento puede sugerir alternativas; postcondiciones independientes determinan el éxito del efecto."
+    },
+    "state_of_the_art": [
+      {
+        "approach": {
+          "en": "Guarded finite-state and behavior-tree policies",
+          "es": "Políticas con guardas de estados finitos y árboles de comportamiento"
+        },
+        "achieves": {
+          "en": "Low-latency control with explicit states, branches and admissible actions.",
+          "es": "Control de baja latencia con estados, ramas y acciones admisibles explícitas."
+        },
+        "falls_short": {
+          "en": "They need maintained rules and can fail when a workflow state is genuinely unfamiliar.",
+          "es": "Requieren reglas mantenidas y pueden fallar ante estados de flujo realmente nuevos."
+        },
+        "source": "study"
+      },
+      {
+        "approach": {
+          "en": "Learned policies and model-based planning",
+          "es": "Políticas aprendidas y planificación basada en modelos"
+        },
+        "achieves": {
+          "en": "They fit action preferences or search predicted transitions from experience.",
+          "es": "Ajustan preferencias de acción o buscan transiciones predichas desde la experiencia."
+        },
+        "falls_short": {
+          "en": "They depend on coverage, calibration and a trustworthy transition model; this study finds no core gain over the strongest simple baseline.",
+          "es": "Dependen de cobertura, calibración y un modelo de transición fiable; este estudio no encuentra una mejora central frente a la referencia simple más fuerte."
+        },
+        "source": "study"
+      },
+      {
+        "approach": {
+          "en": "Language-model tool planning",
+          "es": "Planificación de herramientas con modelos de lenguaje"
+        },
+        "achieves": {
+          "en": "It interprets flexible requests and proposes actions in unfamiliar contexts.",
+          "es": "Interpreta solicitudes flexibles y propone acciones en contextos nuevos."
+        },
+        "falls_short": {
+          "en": "Fluent or typed output does not itself prove authorization, execution or task success.",
+          "es": "Una salida fluida o tipada no demuestra por sí misma autorización, ejecución ni éxito."
+        },
+        "source": "typesafe"
+      }
+    ],
+    "status": {
+      "heading": {
+        "en": "Current scientific finding",
+        "es": "Hallazgo científico actual"
+      },
+      "value": {
+        "en": "No learned advantage shown",
+        "es": "No se demuestra ventaja aprendida"
+      },
+      "unit": {
+        "en": "on the saturated core tasks; simple guarded methods also solved 1,200 / 1,200",
+        "es": "en tareas centrales saturadas; métodos simples con guardas también resolvieron 1.200 / 1.200"
+      },
+      "date": {
+        "en": "October 2026",
+        "es": "octubre de 2026"
+      },
+      "source": "study"
+    }
+  },
+  "trends": {
+    "key_message": {
+      "en": "The useful direction is verifiable coordination between fast code policies and slower generative reasoning, with costs and failures measured explicitly.",
+      "es": "La dirección útil es coordinar políticas rápidas de código y razonamiento generativo lento con verificación, midiendo costos y fallos explícitamente."
+    },
+    "items": [
+      {
+        "trend": {
+          "en": "Typed interfaces for agent decisions",
+          "es": "Interfaces tipadas para decisiones de agentes"
+        },
+        "kind": "technological",
+        "direction": "rising",
+        "horizon": "now",
+        "signal": {
+          "statement": {
+            "en": "Jev exposes model questions as typed choices, scores and confidence values.",
+            "es": "Jev expone preguntas del modelo como opciones, puntajes y valores de confianza tipados."
+          },
+          "source": "typesafe"
+        },
+        "effect": {
+          "en": "Teams can inspect the expected output shape before routing a proposal.",
+          "es": "Los equipos pueden inspeccionar la forma de salida esperada antes de enrutar una propuesta."
+        },
+        "confidence": "high"
+      },
+      {
+        "trend": {
+          "en": "Auditable tool execution",
+          "es": "Ejecución auditable de herramientas"
+        },
+        "kind": "practice",
+        "direction": "rising",
+        "horizon": "now",
+        "signal": {
+          "statement": {
+            "en": "The released runtime separates policy proposals, capability checks, effect receipts and independent outcome validation.",
+            "es": "El motor publicado separa propuestas de políticas, comprobaciones de capacidades, recibos de efectos y validación independiente de resultados."
+          },
+          "source": "reflexmesh"
+        },
+        "effect": {
+          "en": "A controller can remain fast without granting its model authority over the host.",
+          "es": "Un controlador puede seguir siendo rápido sin conceder al modelo autoridad sobre el equipo."
+        },
+        "confidence": "high"
+      },
+      {
+        "trend": {
+          "en": "Outcome-based comparison of delegation",
+          "es": "Comparación de delegación basada en resultados"
+        },
+        "kind": "practice",
+        "direction": "rising",
+        "horizon": "two_years",
+        "signal": {
+          "statement": {
+            "en": "Learning-to-defer research evaluates when a model should act and when it should route a case to another decision maker.",
+            "es": "La investigación sobre aprendizaje de derivación evalúa cuándo debe actuar un modelo y cuándo derivar un caso a otro decisor."
+          },
+          "source": "agarwal"
+        },
+        "effect": {
+          "en": "Future evaluations can measure the quality and cost of the handoff, not confidence alone.",
+          "es": "Las evaluaciones futuras pueden medir la calidad y el costo de la derivación, no sólo la confianza."
+        },
+        "confidence": "medium"
+      }
+    ]
+  },
+  "proposal": {
+    "key_message": {
+      "en": "Use an auditable fast controller for admitted work, and call a slower reasoner only when its expected value justifies the latency and cost.",
+      "es": "Usar un controlador rápido y auditable para trabajo admitido, y llamar a un razonador lento sólo cuando su valor esperado justifique la latencia y el costo."
+    },
+    "paragraphs": [
+      {
+        "en": "Neuraxis is a real research workbench and reflexmesh is its reusable native runtime. The product connects measured controller evidence with a guarded file-operation service and a local workspace, while keeping public replay separate from user authority.",
+        "es": "Neuraxis es un banco de investigación real y reflexmesh es su motor nativo reutilizable. El producto conecta evidencia medida de controladores con un servicio protegido de operaciones de archivos y un espacio local, manteniendo la reproducción pública separada de la autoridad del usuario."
+      },
+      {
+        "en": "The current evidence is mixed and should stay mixed: deterministic baselines saturate the core benchmark, M12 misses long-job cancellation cases, and XGBoost leads M12 on the small held-out transfer set. The next benchmark must make useful deliberation necessary before any superiority claim.",
+        "es": "La evidencia actual es mixta y debe seguir siéndolo: referencias deterministas saturan el benchmark central. M12 falla cancelaciones de trabajos largos y XGBoost supera a M12 en el pequeño conjunto de transferencia reservado. El próximo benchmark debe exigir deliberación útil antes de afirmar superioridad."
+      }
+    ],
+    "four_cs": [
+      {
+        "c": {
+          "en": "Choice",
+          "es": "Elección"
+        },
+        "applies": {
+          "en": "Choose from registered, typed actions; ask for deliberation when evidence or state novelty crosses a declared boundary.",
+          "es": "Elegir entre acciones registradas y tipadas; solicitar deliberación cuando evidencia o novedad superen un límite declarado."
+        }
+      },
+      {
+        "c": {
+          "en": "Context",
+          "es": "Contexto"
+        },
+        "applies": {
+          "en": "Keep exact observations, resource revisions, pending effects and learned summaries distinguishable.",
+          "es": "Mantener diferenciadas las observaciones exactas, revisiones, efectos pendientes y resúmenes aprendidos."
+        }
+      },
+      {
+        "c": {
+          "en": "Cost",
+          "es": "Costo"
+        },
+        "applies": {
+          "en": "Measure task success, action latency, planner calls and recovery costs together.",
+          "es": "Medir juntos el éxito de tarea, latencia, llamadas al planificador y costos de recuperación."
+        }
+      },
+      {
+        "c": {
+          "en": "Control",
+          "es": "Control"
+        },
+        "applies": {
+          "en": "The broker retains authority, rechecks each action and verifies effects independently of model confidence.",
+          "es": "El intermediario conserva autoridad, vuelve a comprobar cada acción y verifica efectos sin depender de la confianza del modelo."
+        }
+      }
+    ],
+    "actions": [
+      {
+        "action": {
+          "en": "Use the App to run a bounded task and inspect the verified output or its failure.",
+          "es": "Usar App para ejecutar una tarea acotada e inspeccionar la salida verificada o el fallo."
+        },
+        "owner": {
+          "en": "Software operators",
+          "es": "Operadores de software"
+        },
+        "horizon": {
+          "en": "During each operation",
+          "es": "Durante cada operación"
+        },
+        "check": {
+          "en": "Receipt, source finding and independent postcondition agree.",
+          "es": "El recibo, el hallazgo de origen y la postcondición independiente concuerdan."
+        }
+      },
+      {
+        "action": {
+          "en": "Compare every method on disjoint task families and preserve failures in the denominator.",
+          "es": "Comparar todos los métodos en familias separadas y conservar fallos en el denominador."
+        },
+        "owner": {
+          "en": "Research teams",
+          "es": "Equipos de investigación"
+        },
+        "horizon": {
+          "en": "Before fitting or release",
+          "es": "Antes de ajustar o liberar"
+        },
+        "check": {
+          "en": "Coverage, seed variation, confidence intervals and ablations are reported.",
+          "es": "Se informan cobertura, variación de semillas, intervalos de confianza y ablaciones."
+        }
+      },
+      {
+        "action": {
+          "en": "Keep capabilities and resource revisions authoritative when a model proposes an action.",
+          "es": "Mantener capacidades y revisiones como autoridad cuando un modelo proponga una acción."
+        },
+        "owner": {
+          "en": "Product engineers",
+          "es": "Ingenieros de producto"
+        },
+        "horizon": {
+          "en": "At every dispatch",
+          "es": "En cada despacho"
+        },
+        "check": {
+          "en": "Stale or unauthorized proposals are rejected before effects occur.",
+          "es": "Las propuestas obsoletas o no autorizadas se rechazan antes del efecto."
+        }
+      }
+    ],
+    "risks": [
+      {
+        "en": "An easier benchmark can make every method look successful and conceal whether learned coordination adds value.",
+        "es": "Un benchmark fácil puede hacer que todos los métodos parezcan exitosos y ocultar si la coordinación aprendida aporta valor."
+      },
+      {
+        "en": "Confidence can be miscalibrated or fail to reflect the consequence of an action.",
+        "es": "La confianza puede estar mal calibrada o ignorar las consecuencias de una acción."
+      }
+    ],
+    "unknowns": [
+      {
+        "en": "Whether outcome-aware delegation improves performance on genuinely novel workflows with changing tools remains unproven.",
+        "es": "Sigue sin probarse si la delegación guiada por resultados mejora tareas realmente nuevas con herramientas cambiantes."
+      },
+      {
+        "en": "The current episode seeds provide little variation for many method and task combinations.",
+        "es": "Las semillas actuales varían poco en muchas combinaciones de método y tarea."
+      }
+    ],
+    "handoff": {
+      "en": "Open Methodology for the controller ladder, Experiments for the protocol, and Benchmark for the full negative and positive evidence.",
+      "es": "Abrir Metodología para la secuencia de controladores, Experimentos para el protocolo y Benchmark para la evidencia positiva y negativa completa."
+    }
+  },
+  "illustrations": {
+    "pain": {
+      "file": "executive/pain.svg",
+      "caption": {
+        "en": "A proposed tool action crosses a changing workspace; capability and outcome checks close the evidence gap.",
+        "es": "Una acción propuesta cruza un espacio cambiante; las comprobaciones de capacidad y resultado cierran la brecha de evidencia."
+      }
+    },
+    "situation": {
+      "file": "executive/situation.svg",
+      "caption": {
+        "en": "Rule policies, learned controllers and language models trade off speed, flexibility and measured reliability.",
+        "es": "Políticas de reglas, controladores aprendidos y modelos de lenguaje intercambian velocidad, flexibilidad y fiabilidad medida."
+      }
+    },
+    "proposal": {
+      "file": "executive/proposal.svg",
+      "caption": {
+        "en": "The fast loop admits verified work; uncertainty can request slower reasoning, which returns only a proposal.",
+        "es": "El ciclo rápido admite trabajo verificado; la incertidumbre puede solicitar razonamiento lento, que devuelve sólo una propuesta."
+      }
+    }
+  },
+  "sources": [
+    {
+      "id": "study",
+      "title": {
+        "en": "Neuraxis: benchmark results and method comparison",
+        "es": "Neuraxis: resultados del benchmark y comparación de métodos"
+      },
+      "url": "https://neuraxis.ml.fasl-work.com/benchmark",
+      "note": {
+        "en": "Committed core results, transfer results and limitations; release 0.02.009.",
+        "es": "Resultados centrales, transferencia y limitaciones versionados; versión 0.02.009."
+      }
+    },
+    {
+      "id": "typesafe",
+      "title": {
+        "en": "TypeSafe AI, Introducing System One Models and Jev",
+        "es": "TypeSafe AI, presentación de modelos System One y Jev"
+      },
+      "url": "https://typesafe.ai/blog/introducing-system-one-models-and-jev",
+      "note": {
+        "en": "Typed question, choice, score and confidence pattern.",
+        "es": "Patrón tipado de preguntas, opciones, puntajes y confianza."
+      }
+    },
+    {
+      "id": "daw",
+      "title": {
+        "en": "Daw, Niv and Dayan, uncertainty-based competition between control systems",
+        "es": "Daw, Niv y Dayan, competencia entre sistemas de control basada en incertidumbre"
+      },
+      "url": "https://doi.org/10.1038/nn1560",
+      "note": {
+        "en": "Neuroscience analogy; not evidence of biological equivalence.",
+        "es": "Analogía neurocientífica; no prueba equivalencia biológica."
+      }
+    },
+    {
+      "id": "agarwal",
+      "title": {
+        "en": "Agarwal et al., open problems in contextual bandits and learning to defer",
+        "es": "Agarwal et al., problemas abiertos en bandidos contextuales y aprendizaje de derivación"
+      },
+      "url": "https://arxiv.org/abs/2108.13264",
+      "note": {
+        "en": "Prior methods and evaluation questions; not a result of this product.",
+        "es": "Métodos previos y preguntas de evaluación; no es un resultado de este producto."
+      }
+    },
+    {
+      "id": "reflexmesh",
+      "title": {
+        "en": "reflexmesh 0.1.2, native software-control runtime",
+        "es": "reflexmesh 0.1.2, motor nativo de control de software"
+      },
+      "url": "https://pypi.org/project/reflexmesh/0.1.2/",
+      "note": {
+        "en": "Versioned runtime and distribution metadata.",
+        "es": "Metadatos versionados del motor y su distribución."
+      }
+    }
+  ]
+}

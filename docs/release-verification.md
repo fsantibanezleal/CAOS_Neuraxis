@@ -2,14 +2,14 @@
 
 Public app: https://neuraxis.ml.fasl-work.com/
 
-Reusable package: https://pypi.org/project/reflexmesh/0.1.1/
+Reusable package: https://pypi.org/project/reflexmesh/0.1.2/
 
 The package's [0.1.1 release](https://github.com/fsantibanezleal/reflexmesh/releases/tag/v0.01.001) adds audited benchmark adequacy and a separate semantic-transfer/routing study. The historical model checkpoints remain versioned with [0.1.0](https://github.com/fsantibanezleal/reflexmesh/releases/tag/v0.01.000). The app's /release.json records the deployed commit and file digests. /data/index.json contains all 14,400 canonical core references; /data/research.json reports the frozen structural transfer, ablations, routing and upstream subsets. /data/semantic-transfer/ contains the separate 1,536-trace study.
 
 For a base installation:
 
 ```sh
-python -m pip install reflexmesh==0.1.1
+python -m pip install reflexmesh==0.1.2
 ```
 
 For the full local learned workbench, use this repository's setup script and requirements-api.txt. Actual tools remain local and require a session token and explicit workspace registration. No token is needed for public canonical replay, and the public /api path is disabled.
