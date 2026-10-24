@@ -55,26 +55,72 @@ function Reliability({ data }: { data: Aggregate }) {
         }
       >
         <UPlotChart
-          title={{ en: 'Reliability: confidence and demonstration agreement', es: 'Fiabilidad: confianza y acuerdo con demostración' }}
-          x={{ label: { en: 'Emitted confidence', es: 'Confianza emitida' }, values: [0, 1], range: [0, 1] }}
-          y={{ label: { en: 'Demonstration agreement', es: 'Acuerdo con demostración' }, range: [0, 1] }}
+          title={{
+            en: 'Reliability: confidence and demonstration agreement',
+            es: 'Fiabilidad: confianza y acuerdo con demostración',
+          }}
+          x={{
+            label: { en: 'Emitted confidence', es: 'Confianza emitida' },
+            values: [0, 1],
+            range: [0, 1],
+          }}
+          y={{
+            label: { en: 'Demonstration agreement', es: 'Acuerdo con demostración' },
+            range: [0, 1],
+          }}
           series={[
-            { id: 'calibration-identity', label: { en: 'Perfect calibration', es: 'Calibración perfecta' }, values: [0, 1], color: '--color-fg-subtle', dash: [5, 4] },
-            { id: 'observed-agreement', label: { en: 'Observed agreement', es: 'Acuerdo observado' }, x: bins.map((b) => b.confidence), values: bins.map((b) => b.accuracy), mode: 'points', size: 10, color: '--color-accent' },
+            {
+              id: 'calibration-identity',
+              label: { en: 'Perfect calibration', es: 'Calibración perfecta' },
+              values: [0, 1],
+              color: '--color-fg-subtle',
+              dash: [5, 4],
+            },
+            {
+              id: 'observed-agreement',
+              label: { en: 'Observed agreement', es: 'Acuerdo observado' },
+              x: bins.map((b) => b.confidence),
+              values: bins.map((b) => b.accuracy),
+              mode: 'points',
+              size: 10,
+              color: '--color-accent',
+            },
           ]}
           height={300}
-          readout={(i) => `${lang === 'en' ? 'Bin' : 'Intervalo'} ${i + 1}: n=${bins[i]?.count ?? 0}`}
+          readout={(i) =>
+            `${lang === 'en' ? 'Bin' : 'Intervalo'} ${i + 1}: n=${bins[i]?.count ?? 0}`
+          }
         />
         <p className="nx-caption">{data.calibration?.target ?? t.noResult}</p>
       </Panel>
       <Panel title={t.riskCoverage}>
         <UPlotChart
           title={t.riskCoverage}
-          x={{ label: { en: 'Accepted fraction (binned)', es: 'Fracción aceptada (por intervalos)' }, values: frontier.map((p) => p.coverage), range: [0, 1] }}
-          y={{ label: { en: 'Demonstration disagreement', es: 'Desacuerdo con demostración' }, range: [0, 1] }}
-          series={[{ id: 'risk-coverage', label: { en: 'Disagreement by coverage', es: 'Desacuerdo por cobertura' }, values: frontier.map((p) => p.risk), mode: 'line', dots: true, x: frontier.map((p) => p.coverage), size: 9, color: '--color-accent' }]}
+          x={{
+            label: { en: 'Accepted fraction (binned)', es: 'Fracción aceptada (por intervalos)' },
+            values: frontier.map((p) => p.coverage),
+            range: [0, 1],
+          }}
+          y={{
+            label: { en: 'Demonstration disagreement', es: 'Desacuerdo con demostración' },
+            range: [0, 1],
+          }}
+          series={[
+            {
+              id: 'risk-coverage',
+              label: { en: 'Disagreement by coverage', es: 'Desacuerdo por cobertura' },
+              values: frontier.map((p) => p.risk),
+              mode: 'line',
+              dots: true,
+              x: frontier.map((p) => p.coverage),
+              size: 9,
+              color: '--color-accent',
+            },
+          ]}
           height={300}
-          readout={(i) => `${lang === 'en' ? 'Threshold' : 'Umbral'} ${format(frontier[i]?.threshold, 3)}; n=${frontier[i]?.n ?? 0}`}
+          readout={(i) =>
+            `${lang === 'en' ? 'Threshold' : 'Umbral'} ${format(frontier[i]?.threshold, 3)}; n=${frontier[i]?.n ?? 0}`
+          }
         />
         <p className="nx-caption">
           {lang === 'en'
@@ -306,146 +352,156 @@ export default function Benchmark() {
         </>
       }
     >
-    <div className="nx-benchmark">
-      {!results.length ? (
-        <div className="nx-empty">
-          <h3>{loading ? t.loading : t.artifactUnavailable}</h3>
-          {error && <p>{error}</p>}
-          <button className="nx-button" onClick={reload}>
-            {t.retry}
-          </button>
-        </div>
-      ) : (
-        <>
-          <DocSection
-            title={{ en: 'Current measurement', es: 'Medición actual' }}
-            area="live"
-            refs={['neuraxis2026']}
-          >
-          <div className="nx-inline-controls">
-            <label htmlFor="benchmark-method">{t.method}</label>
-            <select
-              id="benchmark-method"
-              value={selected?.method_id ?? methodId}
-              onChange={(e) => setMethodId(e.target.value)}
-            >
-              {results.map((r) => (
-                <option key={r.method_id} value={r.method_id}>
-                  {r.method_id} {METHODS.find((m) => m.id === r.method_id)?.name[lang]}
-                </option>
-              ))}
-            </select>
-            <button
-              className="nx-button"
-              onClick={() => downloadJSON(index, 'neuraxis-evidence-index.json')}
-            >
-              <Download size={14} />
-              {t.downloadIndex}
+      <div className="nx-benchmark">
+        {!results.length ? (
+          <div className="nx-empty">
+            <h3>{loading ? t.loading : t.artifactUnavailable}</h3>
+            {error && <p>{error}</p>}
+            <button className="nx-button" onClick={reload}>
+              {t.retry}
             </button>
           </div>
-          <div className="nx-metrics">
-            <div className="nx-metric">
-              <span>{t.episodes}</span>
-              <b>{format(coverage.episodes, 0)}</b>
-            </div>
-            <div className="nx-metric">
-              <span>{t.method}</span>
-              <b>{coverage.methods}/12</b>
-            </div>
-            <div className="nx-metric">
-              <span>{t.case}</span>
-              <b>{coverage.cases}/20</b>
-            </div>
-            <div className="nx-metric">
-              <span>
-                {selected?.method_id} / {t.success}
-              </span>
-              <b>{selected ? `${format(selected.task_success * 100, 1)}%` : '--'}</b>
-            </div>
-          </div>
-          </DocSection>
-          <DocSection title={{ en: 'Benchmark evidence', es: 'Evidencia del benchmark' }} area="comparison" refs={['agarwal2021', 'guo2017', 'lu2024', 'schulman2017', 'ross2011']}>
-          <div className="nx-benchmark-body">
-            <OverflowTabs
-              ariaLabel={t.evidence}
-              tabs={[
-                {
-                  id: 'outcomes',
-                  label: lang === 'en' ? 'Outcomes' : 'Resultados',
-                  content: (
-                    <OverflowSubTabs
-                      ariaLabel={lang === 'en' ? 'Outcome views' : 'Vistas de resultados'}
-                      tabs={[
-                        { id: 'results', label: t.table, content: table },
-                        {
-                          id: 'adequacy',
-                          label: lang === 'en' ? 'Adequacy' : 'Adecuación',
-                          content: <BenchmarkAdequacy />,
-                        },
-                        {
-                          id: 'semantic',
-                          label: lang === 'en' ? 'Semantic transfer' : 'Transferencia semántica',
-                          content: <SemanticTransfer />,
-                        },
-                        {
-                          id: 'findings',
-                          label: lang === 'en' ? 'Findings' : 'Hallazgos',
-                          content: <ResearchResults />,
-                        },
-                        { id: 'robustness', label: t.robustness, content: robustness },
-                      ]}
-                    />
-                  ),
-                },
-                {
-                  id: 'diagnostics',
-                  label: lang === 'en' ? 'Diagnostics' : 'Diagnósticos',
-                  content: (
-                    <OverflowSubTabs
-                      ariaLabel={lang === 'en' ? 'Diagnostic views' : 'Vistas de diagnóstico'}
-                      tabs={[
-                        {
-                          id: 'calibration',
-                          label: t.probabilities,
-                          content: selected ? <Reliability data={selected} /> : null,
-                        },
-                        {
-                          id: 'confusion',
-                          label: t.confusion,
-                          content: selected ? <Confusion data={selected} /> : null,
-                        },
-                      ]}
-                    />
-                  ),
-                },
-                {
-                  id: 'provenance',
-                  label: t.provenance,
-                  content: (
-                    <Panel title={t.provenance}>
-                      <pre className="nx-code">{JSON.stringify(index?.provenance, null, 2)}</pre>
-                      <p>{index?.generated_at}</p>
-                    </Panel>
-                  ),
-                },
-              ]}
-            />
-            <Callout variant="honest" title={t.sourceBoundary}>
-              {lang === 'en'
-                ? 'Owned integration cases with real temporary files, processes and local HTTP. Quota pressure and planner availability include disclosed fixtures. Confidence and confusion target demonstration-action agreement, not safety. Wilson intervals are descriptive under an independent-episode assumption; designed families limit population inference.'
-                : 'Casos propios con archivos temporales, procesos y HTTP local reales. Presión de cuota y disponibilidad del planificador incluyen escenarios declarados. Confianza y confusión miden acuerdo demostrado, no seguridad. Wilson es descriptivo bajo independencia; familias diseñadas limitan inferencia.'}
-              {selected?.success_interval_descriptive && (
-                <p>
-                  {lang === 'en' ? 'Selected success interval' : 'Intervalo de éxito seleccionado'}:
-                  [{selected.success_interval_descriptive.map((n) => format(n, 3)).join(', ')}]
-                </p>
-              )}
-            </Callout>
-          </div>
-          </DocSection>
-        </>
-      )}
-    </div>
+        ) : (
+          <>
+            <DocSection
+              title={{ en: 'Current measurement', es: 'Medición actual' }}
+              area="live"
+              refs={['neuraxis2026']}
+            >
+              <div className="nx-inline-controls">
+                <label htmlFor="benchmark-method">{t.method}</label>
+                <select
+                  id="benchmark-method"
+                  value={selected?.method_id ?? methodId}
+                  onChange={(e) => setMethodId(e.target.value)}
+                >
+                  {results.map((r) => (
+                    <option key={r.method_id} value={r.method_id}>
+                      {r.method_id} {METHODS.find((m) => m.id === r.method_id)?.name[lang]}
+                    </option>
+                  ))}
+                </select>
+                <button
+                  className="nx-button"
+                  onClick={() => downloadJSON(index, 'neuraxis-evidence-index.json')}
+                >
+                  <Download size={14} />
+                  {t.downloadIndex}
+                </button>
+              </div>
+              <div className="nx-metrics">
+                <div className="nx-metric">
+                  <span>{t.episodes}</span>
+                  <b>{format(coverage.episodes, 0)}</b>
+                </div>
+                <div className="nx-metric">
+                  <span>{t.method}</span>
+                  <b>{coverage.methods}/12</b>
+                </div>
+                <div className="nx-metric">
+                  <span>{t.case}</span>
+                  <b>{coverage.cases}/20</b>
+                </div>
+                <div className="nx-metric">
+                  <span>
+                    {selected?.method_id} / {t.success}
+                  </span>
+                  <b>{selected ? `${format(selected.task_success * 100, 1)}%` : '--'}</b>
+                </div>
+              </div>
+            </DocSection>
+            <DocSection
+              title={{ en: 'Benchmark evidence', es: 'Evidencia del benchmark' }}
+              area="comparison"
+              refs={['agarwal2021', 'guo2017', 'lu2024', 'schulman2017', 'ross2011']}
+            >
+              <div className="nx-benchmark-body">
+                <OverflowTabs
+                  ariaLabel={t.evidence}
+                  tabs={[
+                    {
+                      id: 'outcomes',
+                      label: lang === 'en' ? 'Outcomes' : 'Resultados',
+                      content: (
+                        <OverflowSubTabs
+                          ariaLabel={lang === 'en' ? 'Outcome views' : 'Vistas de resultados'}
+                          tabs={[
+                            { id: 'results', label: t.table, content: table },
+                            {
+                              id: 'adequacy',
+                              label: lang === 'en' ? 'Adequacy' : 'Adecuación',
+                              content: <BenchmarkAdequacy />,
+                            },
+                            {
+                              id: 'semantic',
+                              label:
+                                lang === 'en' ? 'Semantic transfer' : 'Transferencia semántica',
+                              content: <SemanticTransfer />,
+                            },
+                            {
+                              id: 'findings',
+                              label: lang === 'en' ? 'Findings' : 'Hallazgos',
+                              content: <ResearchResults />,
+                            },
+                            { id: 'robustness', label: t.robustness, content: robustness },
+                          ]}
+                        />
+                      ),
+                    },
+                    {
+                      id: 'diagnostics',
+                      label: lang === 'en' ? 'Diagnostics' : 'Diagnósticos',
+                      content: (
+                        <OverflowSubTabs
+                          ariaLabel={lang === 'en' ? 'Diagnostic views' : 'Vistas de diagnóstico'}
+                          tabs={[
+                            {
+                              id: 'calibration',
+                              label: t.probabilities,
+                              content: selected ? <Reliability data={selected} /> : null,
+                            },
+                            {
+                              id: 'confusion',
+                              label: t.confusion,
+                              content: selected ? <Confusion data={selected} /> : null,
+                            },
+                          ]}
+                        />
+                      ),
+                    },
+                    {
+                      id: 'provenance',
+                      label: t.provenance,
+                      content: (
+                        <Panel title={t.provenance}>
+                          <pre className="nx-code">
+                            {JSON.stringify(index?.provenance, null, 2)}
+                          </pre>
+                          <p>{index?.generated_at}</p>
+                        </Panel>
+                      ),
+                    },
+                  ]}
+                />
+                <Callout variant="honest" title={t.sourceBoundary}>
+                  {lang === 'en'
+                    ? 'Owned integration cases with real temporary files, processes and local HTTP. Quota pressure and planner availability include disclosed fixtures. Confidence and confusion target demonstration-action agreement, not safety. Wilson intervals are descriptive under an independent-episode assumption; designed families limit population inference.'
+                    : 'Casos propios con archivos temporales, procesos y HTTP local reales. Presión de cuota y disponibilidad del planificador incluyen escenarios declarados. Confianza y confusión miden acuerdo demostrado, no seguridad. Wilson es descriptivo bajo independencia; familias diseñadas limitan inferencia.'}
+                  {selected?.success_interval_descriptive && (
+                    <p>
+                      {lang === 'en'
+                        ? 'Selected success interval'
+                        : 'Intervalo de éxito seleccionado'}
+                      : [{selected.success_interval_descriptive.map((n) => format(n, 3)).join(', ')}
+                      ]
+                    </p>
+                  )}
+                </Callout>
+              </div>
+            </DocSection>
+          </>
+        )}
+      </div>
     </DocPage>
   );
 }

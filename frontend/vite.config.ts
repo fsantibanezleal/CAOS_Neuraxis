@@ -15,8 +15,18 @@ export default defineConfig({
       output: {
         codeSplitting: {
           groups: [
-            { name: 'react-vendor', test: /node_modules[\\/](react|react-dom|scheduler)[\\/]/, priority: 20, includeDependenciesRecursively: false },
-            { name: 'math-vendor', test: /node_modules[\\/]katex[\\/]/, priority: 10, includeDependenciesRecursively: false },
+            {
+              name: 'react-vendor',
+              test: /node_modules[\\/](react|react-dom|scheduler)[\\/]/,
+              priority: 20,
+              includeDependenciesRecursively: false,
+            },
+            {
+              name: 'math-vendor',
+              test: /node_modules[\\/]katex[\\/]/,
+              priority: 10,
+              includeDependenciesRecursively: false,
+            },
           ],
         },
       },

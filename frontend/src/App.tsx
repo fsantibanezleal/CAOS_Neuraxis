@@ -1,7 +1,13 @@
 import { BrowserRouter, Route, Routes, useLocation } from 'react-router-dom';
 import { lazy, Suspense, useLayoutEffect } from 'react';
 import { Network } from 'lucide-react';
-import { AppShell, CitationsProvider, Landing, STANDARD_ROUTES, type ShellConfig } from '@fasl-work/caos-app-shell';
+import {
+  AppShell,
+  CitationsProvider,
+  Landing,
+  STANDARD_ROUTES,
+  type ShellConfig,
+} from '@fasl-work/caos-app-shell';
 import { CITATIONS } from './data/citations';
 import { architecture } from './architecture';
 import { useCopy } from './i18n';
