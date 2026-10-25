@@ -1,0 +1,53 @@
+{
+  "date": "2026-10-25",
+  "version": "0.02.010",
+  "tag": "v0.02.010",
+  "deployed_app_commit": "0f7891071836e1ebb10ec4561164beefece39f50",
+  "static_release": "0f7891071836-d89964f69aae",
+  "static_archive_sha256": "d89964f69aaea01b3c048d0fee63dd85ecfa7ffb8010c3a4993226fe914a4b44",
+  "native_release": "/opt/neuraxis-operations/releases/0f7891071836-32c207a61b35",
+  "native_archive_sha256": "32c207a61b3523bc674ed461538fa34dfea4896969c619fa731b19c9b9d39418",
+  "engine": "reflexmesh 0.1.2",
+  "shell": "@fasl-work/caos-app-shell 0.19.2",
+  "template": "0.11.002",
+  "hosted_checks": {
+    "product_develop_ci": 40193357965,
+    "product_main_ci": 40193447415,
+    "product_main_static_build": 40193447374,
+    "conclusion": "success"
+  },
+  "local_gates": {
+    "app_python_tests": "passed; three platform skips",
+    "frontend_unit_tests": 34,
+    "frontend_format_and_build": "passed",
+    "artifact_semantic_routing_operations_and_design_auditors": "passed",
+    "shared_shell_gate": "975 measured states; zero failures",
+    "package_audit": "npm audit reported zero vulnerabilities"
+  },
+  "live": {
+    "manifest_files": 16067,
+    "static_manifest_entries_verified": 20,
+    "direct_routes_verified": 5,
+    "browser_route_theme_language_checks": 84,
+    "tab_navigation_checks": 100,
+    "layout_scroll_checks": 144,
+    "layout_errors": 0,
+    "mobile_keyboard_end_fallbacks": 72,
+    "wheel_and_touch_reached_document_end": true,
+    "scientific_sections": 296,
+    "canonical_evidence_items": 240,
+    "evidence_findings": 4,
+    "page_errors": 0,
+    "native_runs": 2,
+    "native_findings": [10, 3],
+    "native_receipts_per_run": 9,
+    "exports_verified": true,
+    "cross_session_access_rejected": true,
+    "test_runs_deleted": true,
+    "static_and_native_commit_match": true,
+    "public_workspace_api_status": 404
+  },
+  "limitations": "Engineering and live checks do not establish user design acceptance, open-world performance, learned-method superiority, or AGI. The mobile layout audit found a Control+End keyboard-scroll fallback in 72 cases; real wheel/touch scrolling reached the document end in those cases. The public Tasks workbench remains deterministic; learned and LLM methods are inspectable research evidence rather than its task policy.",
+  "acceptance_issue": 28,
+  "acceptance_status": "open; owner review required"
+}
