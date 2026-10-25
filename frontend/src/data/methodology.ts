@@ -9,6 +9,7 @@ export const methodology: ContentPage = {
   sections: [
     {
       id: 'exact',
+      kind: 'classical',
       title: b('Exact control: M01 / M02', 'Control exacto: M01 / M02'),
       paragraphs: [
         b(
@@ -63,6 +64,7 @@ export const methodology: ContentPage = {
     },
     {
       id: 'supervised',
+      kind: 'learned',
       title: b('Supervised scores: M03 / M04', 'Puntajes supervisados: M03 / M04'),
       paragraphs: [
         b(
@@ -117,6 +119,7 @@ export const methodology: ContentPage = {
     },
     {
       id: 'sequential',
+      kind: 'learned',
       title: b('Sequential learning: M05 / M06 / M07', 'Aprendizaje secuencial: M05 / M06 / M07'),
       paragraphs: [
         b(
@@ -178,6 +181,7 @@ export const methodology: ContentPage = {
     },
     {
       id: 'modelbased',
+      kind: 'learned',
       title: b('Prediction and lookahead: M08', 'Predicción y anticipación: M08'),
       paragraphs: [
         b(
@@ -232,6 +236,7 @@ export const methodology: ContentPage = {
     },
     {
       id: 'slow',
+      kind: 'learned',
       title: b('Slow coordination: M09 / M10', 'Coordinación lenta: M09 / M10'),
       paragraphs: [
         b(
@@ -286,6 +291,7 @@ export const methodology: ContentPage = {
     },
     {
       id: 'metacontrol',
+      kind: 'learned',
       title: b('Deferral and metacontrol: M11 / M12', 'Derivación y metacontrol: M11 / M12'),
       paragraphs: [
         b(

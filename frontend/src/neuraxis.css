@@ -237,7 +237,9 @@ select:disabled {
   white-space: nowrap;
 }
 .nx-view-bar select {
-  width: 200px;
+  width: 300px;
+  min-width: 300px;
+  flex: 0 0 300px;
 }
 .nx-cursor-control {
   flex: 1;
@@ -687,7 +689,9 @@ select:disabled {
     gap: 0.5rem;
   }
   .nx-view-bar select {
-    width: 155px;
+    width: min(300px, 100%);
+    min-width: 0;
+    flex: 1 1 300px;
   }
   .nx-view-bar > label:first-child {
     font-size: 0;
@@ -982,6 +986,8 @@ select:disabled {
   }
   .nx-workspace .nx-view-bar select {
     width: min(100%, 300px);
+    min-width: 0;
+    flex: 1 1 260px;
   }
   .nx-workspace .nx-view-bar > label:first-child {
     flex: 1;

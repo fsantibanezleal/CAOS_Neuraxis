@@ -1,5 +1,5 @@
 import { useMemo, useState } from 'react';
-import { Callout, Cite, DocPage, DocSection } from '@fasl-work/caos-app-shell';
+import { BarChart, Callout, Cite, DocPage, DocSection } from '@fasl-work/caos-app-shell';
 import { UPlotChart } from '@fasl-work/caos-app-shell/chart';
 import { Download } from 'lucide-react';
 import { useArtifacts, episodeReferences, downloadJSON } from '../api/artifacts';
@@ -286,59 +286,176 @@ export default function Benchmark() {
     </Panel>
   );
   const robustness = (
-    <Panel title={t.robustness}>
-      <svg viewBox="0 0 980 420" className="nx-chart" role="img" aria-label={t.robustness}>
-        {[0, 0.25, 0.5, 0.75, 1].map((v) => (
-          <g key={format(v)}>
-            <line x1="70" x2="950" y1={340 - 280 * v} y2={340 - 280 * v} className="nx-grid" />
-            <text x="60" y={344 - 280 * v} textAnchor="end" className="nx-axis-label">
-              {format(v)}
-            </text>
-          </g>
-        ))}
-        {(selected?.by_variant ?? []).map((v, i) => {
-          const x = 100 + i * 145;
-          return (
-            <g
-              key={v.variant}
-              tabIndex={0}
-              onMouseEnter={() => setSelectedVariant(v.variant)}
-              onFocus={() => setSelectedVariant(v.variant)}
-            >
-              <rect
-                x={x}
-                y={340 - 280 * v.task_success}
-                width="82"
-                height={280 * v.task_success}
-                fill="var(--color-accent)"
-                opacity={selectedVariant === v.variant ? 1 : 0.65}
-              />
-              <text
-                x={x + 41}
-                y={327 - 280 * v.task_success}
-                textAnchor="middle"
-                className="nx-label"
-              >
-                {format(100 * v.task_success, 1)}%
-              </text>
-              <text x={x + 41} y="367" textAnchor="middle" className="nx-axis-label">
-                {VARIANTS[VARIANT_IDS.indexOf(v.variant)]?.[lang] ?? v.variant}
-              </text>
-              <text x={x + 41} y="389" textAnchor="middle" className="nx-axis-label">
-                n={v.episodes}
-              </text>
-              <title>{`${v.variant}: ${v.task_success}, n=${v.episodes}`}</title>
-            </g>
-          );
-        })}
-      </svg>
-      <div className="nx-readout">{selectedVariant ?? t.variant}</div>
+    <DocSection
+      title={{
+        en: 'Success across controlled conditions',
+        es: 'Éxito bajo condiciones controladas',
+      }}
+      area="robustness"
+      refs={['agarwal2021', 'neuraxis2026']}
+    >
+      <BarChart
+        title={{
+          en: `${t.robustness}: ${selected?.method_id ?? methodId}`,
+          es: `${t.robustness}: ${selected?.method_id ?? methodId}`,
+        }}
+        data={(selected?.by_variant ?? []).map((row) => ({
+          id: row.variant,
+          label: VARIANTS[VARIANT_IDS.indexOf(row.variant)] ?? { en: row.variant, es: row.variant },
+          value: row.task_success,
+          highlight: selectedVariant === row.variant,
+          hint: {
+            en: `${row.episodes} held-out episodes`,
+            es: `${row.episodes} episodios reservados`,
+          },
+          format: { percent: true, decimals: 1 },
+        }))}
+        axis={{
+          label: { en: 'Verified task success', es: 'Éxito verificado de la tarea' },
+          format: { percent: true, decimals: 0 },
+          range: [0, 1],
+        }}
+        onSelect={(id) => setSelectedVariant(id)}
+      />
       <p className="nx-caption">
         {lang === 'en'
-          ? 'Each bar is the selected policy on a measured perturbation family. These categorical conditions are not assumed to form a continuous severity scale.'
-          : 'Cada barra representa la política en una familia perturbada medida. Las categorías no se presumen una escala continua de severidad.'}
+          ? 'Bars show the selected controller on each measured perturbation family. The categories are distinct fault conditions, not points on a continuous severity scale; every denominator is shown in the chart table.'
+          : 'Las barras muestran el controlador en cada familia de perturbación medida. Son fallos distintos, no puntos de una escala continua; la tabla del gráfico muestra cada denominador.'}
       </p>
-    </Panel>
+    </DocSection>
+  );
+  const comparison = (
+    <DocSection
+      title={{
+        en: 'Exact, learned and proposed controllers',
+        es: 'Controladores exactos, aprendidos y propuesto',
+      }}
+      area="comparison"
+      refs={['neuraxis2026', 'agarwal2021']}
+    >
+      <BarChart
+        title={{ en: 'Matched core task success', es: 'Éxito en las mismas tareas centrales' }}
+        data={['M01', 'M04', 'M12']
+          .map((id) => results.find((row) => row.method_id === id))
+          .filter((row): row is Aggregate => Boolean(row))
+          .map((row) => ({
+            id: row.method_id,
+            label: METHODS.find((method) => method.id === row.method_id)?.name ?? {
+              en: row.method_id,
+              es: row.method_id,
+            },
+            value: row.task_success,
+            highlight: selected?.method_id === row.method_id,
+            hint: {
+              en: `${row.episodes} held-out episodes`,
+              es: `${row.episodes} episodios reservados`,
+            },
+            format: { percent: true, decimals: 1 },
+          }))}
+        axis={{
+          label: { en: 'Verified task success', es: 'Éxito verificado de la tarea' },
+          format: { percent: true, decimals: 0 },
+          range: [0, 1],
+        }}
+        onSelect={(id) => setMethodId(id)}
+      />
+      <p className="measure">
+        {lang === 'en'
+          ? 'M01 is the guarded state-machine baseline, M04 is XGBoost, and M12 is the proposed composite. All three use the same frozen 1,200 core episodes and independent effect checks. The separate transfer record is 24/24 for M04 and 21/24 for M12; it is not represented in this core-task chart.'
+          : 'M01 es la máquina de estados con guardas, M04 es XGBoost y M12 es la composición propuesta. Los tres usan los mismos 1.200 episodios centrales congelados y comprobaciones independientes. En el registro separado de transferencia, M04 resuelve 24/24 y M12 21/24; esos datos no aparecen en este gráfico central.'}
+      </p>
+    </DocSection>
+  );
+  const caveat = (
+    <DocSection
+      title={{ en: 'Limits of this comparison', es: 'Límites de esta comparación' }}
+      area="caveat"
+      refs={['neuraxis2026', 'agarwal2021']}
+    >
+      <Callout variant="honest" title={t.sourceBoundary}>
+        {lang === 'en'
+          ? 'These are owned controlled software workloads, not an external real-world benchmark. Five methods, including the guarded state machine, solve all 1,200 core episodes. M12 solves 1,160, its learned thresholds never defer, and its ten seeds repeat the same outcomes. These records support neither a general intelligence claim nor a learned-controller advantage.'
+          : 'Son cargas de software controladas y propias, no un benchmark externo. Cinco métodos, incluida la máquina de estados con guardas, resuelven los 1.200 episodios centrales. M12 resuelve 1.160, sus umbrales aprendidos nunca derivan y sus diez semillas repiten los mismos resultados. Esto no respalda inteligencia general ni ventaja del controlador aprendido.'}
+      </Callout>
+      {selected?.success_interval_descriptive && (
+        <p className="nx-caption">
+          {lang === 'en'
+            ? `Selected method ${selected.method_id}: descriptive success interval ${selected.success_interval_descriptive.map((value) => `${format(value * 100, 1)}%`).join('–')}. ${selected.interval_assumption ?? 'This interval is descriptive and does not account for episode dependence.'}`
+            : `Método seleccionado ${selected.method_id}: intervalo descriptivo de éxito ${selected.success_interval_descriptive.map((value) => `${format(value * 100, 1)}%`).join('–')}. ${selected.interval_assumption ?? 'Este intervalo es descriptivo y no considera la dependencia entre episodios.'}`}
+        </p>
+      )}
+    </DocSection>
+  );
+  const provenance = (
+    <DocSection
+      title={{ en: 'Dataset and difficulty provenance', es: 'Procedencia de datos y dificultad' }}
+      area="provenance"
+      refs={['neuraxis2026', 'reflexmesh2026']}
+    >
+      <div className="nx-table-scroll">
+        <table className="nx-table">
+          <thead>
+            <tr>
+              <th>{lang === 'en' ? 'Dataset' : 'Conjunto de datos'}</th>
+              <th>{lang === 'en' ? 'Rows' : 'Registros'}</th>
+              <th>{lang === 'en' ? 'Difficulty source' : 'Origen de dificultad'}</th>
+              <th>{lang === 'en' ? 'Redistribution' : 'Redistribución'}</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <th>
+                {lang === 'en' ? 'Core controller matrix' : 'Matriz central de controladores'}
+              </th>
+              <td>14,400</td>
+              <td>
+                {lang === 'en'
+                  ? '20 authored task families, six controlled variants and ten seeds'
+                  : '20 familias de tareas diseñadas, seis variantes controladas y diez semillas'}
+              </td>
+              <td>
+                {lang === 'en'
+                  ? 'Product-owned generated traces; no external benchmark records'
+                  : 'Trazas generadas por el producto; sin registros de benchmarks externos'}
+              </td>
+            </tr>
+            <tr>
+              <th>{lang === 'en' ? 'Semantic transfer' : 'Transferencia semántica'}</th>
+              <td>1,536</td>
+              <td>
+                {lang === 'en'
+                  ? 'Eight held-out compositions, nominal and boundary conditions, eight seeds'
+                  : 'Ocho composiciones reservadas, condiciones nominales y de frontera, ocho semillas'}
+              </td>
+              <td>
+                {lang === 'en'
+                  ? 'Product-owned scenarios and traces, committed with source hashes'
+                  : 'Escenarios y trazas del producto, versionados con hashes del código fuente'}
+              </td>
+            </tr>
+            <tr>
+              <th>{lang === 'en' ? 'Native operations' : 'Operaciones nativas'}</th>
+              <td>36</td>
+              <td>
+                {lang === 'en'
+                  ? 'Three registered tasks, four declared fault conditions and three seeds'
+                  : 'Tres tareas registradas, cuatro condiciones de fallo declaradas y tres semillas'}
+              </td>
+              <td>
+                {lang === 'en'
+                  ? 'Owned disposable workload; source-bound operation receipts and postconditions'
+                  : 'Carga desechable propia; recibos de operaciones y poscondiciones vinculados al código'}
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+      <p className="nx-caption">
+        {lang === 'en'
+          ? `Evidence index generated ${index?.generated_at ?? 'unavailable'}; ${Object.keys((index?.provenance?.lineage as { source_sha256?: Record<string, unknown> } | undefined)?.source_sha256 ?? {}).length} implementation files are source-hash bound. Validators: scripts/check_artifacts.py, scripts/check_semantic_transfer.py and scripts/check_operations.py.`
+          : `Índice generado ${index?.generated_at ?? 'no disponible'}; ${Object.keys((index?.provenance?.lineage as { source_sha256?: Record<string, unknown> } | undefined)?.source_sha256 ?? {}).length} archivos de implementación están vinculados por hash. Validadores: scripts/check_artifacts.py, scripts/check_semantic_transfer.py y scripts/check_operations.py.`}
+      </p>
+    </DocSection>
   );
   return (
     <DocPage
@@ -346,8 +463,8 @@ export default function Benchmark() {
       lede={
         <>
           {lang === 'en'
-            ? 'Compare exact and learned controllers on frozen software episodes with independently checked effects. Every value below is loaded from the measured artifact; task success, action agreement, timing and capability violations remain separate outcomes.'
-            : 'Comparar controladores exactos y aprendidos en episodios congelados con efectos comprobados independientemente. Cada valor se carga del artefacto medido; éxito, acuerdo, tiempo y violaciones permanecen separados.'}{' '}
+            ? 'Compare exact and learned controllers on frozen software episodes with independently checked effects. Every value comes from a measured artifact. The page separates success, action agreement, timing, violations, perturbation results and dataset provenance without inferring missing outcomes.'
+            : 'Comparar controladores exactos y aprendidos en episodios congelados con efectos comprobados independientemente. Cada valor proviene de un artefacto medido. La página separa éxito, acuerdo, tiempo, violaciones, perturbaciones y procedencia, sin inferir resultados ausentes.'}{' '}
           <Cite id="agarwal2021" />
         </>
       }
@@ -368,7 +485,7 @@ export default function Benchmark() {
               area="live"
               refs={['neuraxis2026']}
             >
-              <div className="nx-inline-controls">
+              <div className="nx-inline-controls" data-control="benchmark-method">
                 <label htmlFor="benchmark-method">{t.method}</label>
                 <select
                   id="benchmark-method"
@@ -410,11 +527,7 @@ export default function Benchmark() {
                 </div>
               </div>
             </DocSection>
-            <DocSection
-              title={{ en: 'Benchmark evidence', es: 'Evidencia del benchmark' }}
-              area="comparison"
-              refs={['agarwal2021', 'guo2017', 'lu2024', 'schulman2017', 'ross2011']}
-            >
+            <div className="nx-benchmark-evidence">
               <div className="nx-benchmark-body">
                 <OverflowTabs
                   ariaLabel={t.evidence}
@@ -426,7 +539,22 @@ export default function Benchmark() {
                         <OverflowSubTabs
                           ariaLabel={lang === 'en' ? 'Outcome views' : 'Vistas de resultados'}
                           tabs={[
-                            { id: 'results', label: t.table, content: table },
+                            {
+                              id: 'results',
+                              label: t.table,
+                              content: (
+                                <DocSection
+                                  title={{
+                                    en: 'Held-out controller results',
+                                    es: 'Resultados reservados de controladores',
+                                  }}
+                                  area="results"
+                                  refs={['neuraxis2026']}
+                                >
+                                  {table}
+                                </DocSection>
+                              ),
+                            },
                             {
                               id: 'adequacy',
                               label: lang === 'en' ? 'Adequacy' : 'Adecuación',
@@ -441,7 +569,13 @@ export default function Benchmark() {
                             {
                               id: 'findings',
                               label: lang === 'en' ? 'Findings' : 'Hallazgos',
-                              content: <ResearchResults />,
+                              content: (
+                                <>
+                                  <ResearchResults />
+                                  {comparison}
+                                  {caveat}
+                                </>
+                              ),
                             },
                             { id: 'robustness', label: t.robustness, content: robustness },
                           ]}
@@ -472,33 +606,12 @@ export default function Benchmark() {
                     {
                       id: 'provenance',
                       label: t.provenance,
-                      content: (
-                        <Panel title={t.provenance}>
-                          <pre className="nx-code">
-                            {JSON.stringify(index?.provenance, null, 2)}
-                          </pre>
-                          <p>{index?.generated_at}</p>
-                        </Panel>
-                      ),
+                      content: provenance,
                     },
                   ]}
                 />
-                <Callout variant="honest" title={t.sourceBoundary}>
-                  {lang === 'en'
-                    ? 'Owned integration cases with real temporary files, processes and local HTTP. Quota pressure and planner availability include disclosed fixtures. Confidence and confusion target demonstration-action agreement, not safety. Wilson intervals are descriptive under an independent-episode assumption; designed families limit population inference.'
-                    : 'Casos propios con archivos temporales, procesos y HTTP local reales. Presión de cuota y disponibilidad del planificador incluyen escenarios declarados. Confianza y confusión miden acuerdo demostrado, no seguridad. Wilson es descriptivo bajo independencia; familias diseñadas limitan inferencia.'}
-                  {selected?.success_interval_descriptive && (
-                    <p>
-                      {lang === 'en'
-                        ? 'Selected success interval'
-                        : 'Intervalo de éxito seleccionado'}
-                      : [{selected.success_interval_descriptive.map((n) => format(n, 3)).join(', ')}
-                      ]
-                    </p>
-                  )}
-                </Callout>
               </div>
-            </DocSection>
+            </div>
           </>
         )}
       </div>

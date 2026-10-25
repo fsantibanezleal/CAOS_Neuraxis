@@ -15,3 +15,5 @@ The [research dossiers](research/README.md) preserve the initial primary-source 
 The interface has an executive Introduction, a dedicated `/app` operations workbench, and direct Methodology, Implementation, Experiments and Benchmark routes. The shared shell lists all six routes. Content is bilingual and supports light/dark themes. It displays execution lane, raw decision evidence, calibration targets, unresolved outcomes, workload limitations and source citations. See the workbench and theory subdirectories for their linked explanations.
 
 The reusable engine's [runtime documentation](https://github.com/fsantibanezleal/reflexmesh/blob/main/docs/runtime.md) is authoritative for registered-tool contracts, native admission and recovery semantics.
+
+The current shell and template baselines, their product-specific adoption, and release verification boundaries are recorded in [release verification](release-verification.md), [the software design](design/SDD.md), and the repository [changelog](../CHANGELOG.md).

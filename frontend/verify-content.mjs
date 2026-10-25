@@ -62,7 +62,7 @@ try {
             const article = leaf.locator('.nx-doc-section');
             expect(await article.locator(':scope > p.measure').count()).toBeGreaterThanOrEqual(route === 'methodology' ? 4 : 2);
             expect(await article.locator('.katex-display').count()).toBeGreaterThanOrEqual(route === 'methodology' ? 2 : route === 'introduction' ? 0 : 1);
-            await expect(article.locator('.science-figure')).toBeVisible();
+            await expect(article.locator('.science-figure:visible')).toHaveCount(1);
             expect(await leaf.locator('[data-doc-section][data-refs]').count()).toBeGreaterThan(0);
             expect(await leaf.locator('.caos-doc-reference-list a').count()).toBeGreaterThan(0);
             expect(await article.locator('p.measure .cite-inline').count()).toBeGreaterThan(0);

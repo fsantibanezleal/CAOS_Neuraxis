@@ -215,6 +215,13 @@ export const experiments: ContentPage = {
             'El error estándar de diferencias emparejadas depende de la unidad independiente. Los eventos correlacionados no son muestras independientes.',
           ),
         },
+        {
+          tex: String.raw`\widehat\Delta_{paired}=\frac{1}{G}\sum_{g=1}^{G}\left(S_{g,full}-S_{g,ablation}\right)`,
+          caption: b(
+            'G is the number of independently sampled task groups and S is verified episode success within a group. This paired contrast is computed only when both variants share the same group and fault realization; aggregate episode rates alone do not supply its uncertainty.',
+            'G es la cantidad de grupos de tareas muestreados independientemente y S es éxito verificado por grupo. La diferencia emparejada solo se calcula si ambas variantes comparten grupo y fallo; las tasas agregadas no aportan su incertidumbre.',
+          ),
+        },
       ],
       refs: ['agarwal2021', 'kool2016', 'wang2018'],
       limit: b(

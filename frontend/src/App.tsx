@@ -26,7 +26,7 @@ const config: ShellConfig = {
   visibility: 'private',
   contain: true,
   product: { name: 'Neuraxis', mark: <Network size={18} aria-hidden="true" /> },
-  version: '0.02.009',
+  version: __APP_VERSION__,
   routes: STANDARD_ROUTES,
   links: { github: 'https://github.com/fsantibanezleal/CAOS_Neuraxis' },
   architecture,

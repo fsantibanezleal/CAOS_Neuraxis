@@ -1,5 +1,5 @@
 import { useEffect, useRef } from 'react';
-import { Callout, Cite, DocPage, Equation, DocSection } from '@fasl-work/caos-app-shell';
+import { Callout, Cite, DocPage, Equation, DocSection, Glossary } from '@fasl-work/caos-app-shell';
 import { useCopy } from '../i18n';
 import type { ContentPage, ContentSection } from '../data/content.types';
 import type { Bilingual } from '../lib/types';
@@ -132,7 +132,13 @@ export function SectionContent({
         },
       };
   return (
-    <DocSection title={section.title} id={section.id} area={area} {...references}>
+    <DocSection
+      title={section.title}
+      id={section.id}
+      area={area}
+      kind={section.kind}
+      {...references}
+    >
       <article ref={article} className="nx-doc-section">
         {section.paragraphs.map((p, i) => (
           <p key={i} className="measure">
@@ -155,6 +161,12 @@ export function SectionContent({
               <li key={i}>{s[lang]}</li>
             ))}
           </ul>
+        )}
+        {section.glossary && (
+          <Glossary
+            ariaLabel={{ en: 'State and control glossary', es: 'Glosario de estado y control' }}
+            entries={section.glossary}
+          />
         )}
         {section.steps && (
           <ol>
@@ -185,7 +197,7 @@ export function SectionContent({
             </table>
           </div>
         )}
-        <Callout variant="honest" title={t.assumptions}>
+        <Callout variant={section.id === 'metacontrol' ? 'note' : 'honest'} title={t.assumptions}>
           {section.limit[lang]}
         </Callout>
         {['exact', 'supervised', 'sequential', 'modelbased', 'slow', 'metacontrol'].includes(
