@@ -1,5 +1,11 @@
 # Changelog
 
+## 0.02.010 - 2026-10-25
+
+- Adopt CAOS App Shell 0.19.2, including the G5 correction that measures controls against the actual sticky site header and leaves nested static semantic headers reachable.
+- Adopt CAOS Product Template 0.11.002's Windows-safe UTF-8 diagnostics for the tracked-content standards guard, with an ANSI-pipe regression test.
+- Record the exact shell and template baselines in the repository and verify the shared-shell gate against the built Neuraxis routes before release.
+
 ## 0.02.009 - 2026-10-24
 
 - Adopt the published shared shell 0.19.1 and its keyboard, zoom, data-table, named-chart accessibility contract, narrow-table flow and Spanish date-axis labels.

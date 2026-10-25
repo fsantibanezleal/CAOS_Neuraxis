@@ -50,6 +50,9 @@ def tracked_files() -> list[str]:
 
 
 def main() -> int:
+    # Captured stdout inherits the active Windows ANSI code page by default. Findings include
+    # repr() of the offending character, so keep diagnostics readable and deterministic in CI.
+    sys.stdout.reconfigure(encoding="utf-8", errors="backslashreplace")
     hits: list[str] = []
     for rel in tracked_files():
         if rel == SELF or Path(rel).suffix.lower() not in TEXT_SUFFIXES:

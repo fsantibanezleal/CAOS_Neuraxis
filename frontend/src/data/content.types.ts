@@ -12,6 +12,8 @@ export interface ContentSection {
   limit: Bilingual;
   nodes: Bilingual[];
   figure: Bilingual;
+  kind?: 'classical' | 'learned';
+  glossary?: { term: Bilingual; definition: Bilingual }[];
   symbols?: Bilingual[];
   steps?: Bilingual[];
   table?: { headers: Bilingual[]; rows: Bilingual[][] };

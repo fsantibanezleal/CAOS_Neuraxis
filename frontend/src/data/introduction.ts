@@ -149,6 +149,92 @@ export const introduction: ContentPage = {
         b('theta: learned policy parameters', 'theta: parámetros aprendidos'),
         b('t: causal decision index', 't: índice causal de decisión'),
       ],
+      glossary: [
+        {
+          term: b('xₜ', 'xₜ'),
+          definition: b(
+            'Exact state assembled only from received, source-bound observations.',
+            'Estado exacto construido solo con observaciones recibidas y vinculadas a su fuente.',
+          ),
+        },
+        {
+          term: b('hₜ', 'hₜ'),
+          definition: b(
+            'Bounded learned summary of decision history; it grants no tool authority.',
+            'Resumen aprendido y acotado del historial; no concede autoridad sobre herramientas.',
+          ),
+        },
+        {
+          term: b('bₜ', 'bₜ'),
+          definition: b(
+            'Controller summary containing exact state, learned state and remaining budget.',
+            'Resumen del controlador con estado exacto, aprendido y presupuesto restante.',
+          ),
+        },
+        {
+          term: b('oₜ', 'oₜ'),
+          definition: b(
+            'Observation or event received at decision step t.',
+            'Observación o evento recibido en el paso de decisión t.',
+          ),
+        },
+        {
+          term: b('aₜ', 'aₜ'),
+          definition: b(
+            'Registered action bound to a specific tool, resource and validated arguments.',
+            'Acción registrada y vinculada a herramienta, recurso y argumentos validados.',
+          ),
+        },
+        {
+          term: b('yₜ', 'yₜ'),
+          definition: b(
+            'Observed effect outcome, including an explicitly unresolved result.',
+            'Resultado observado del efecto, incluido un resultado explícitamente pendiente.',
+          ),
+        },
+        {
+          term: b('Aₜ', 'Aₜ'),
+          definition: b(
+            'Candidate actions admissible under current authority, goal and resource revisions.',
+            'Acciones candidatas admisibles según autoridad, objetivo y revisiones actuales.',
+          ),
+        },
+        {
+          term: b('Bₜ', 'Bₜ'),
+          definition: b(
+            'Remaining compute or resource budget available before the declared deadline.',
+            'Presupuesto de cómputo o recursos disponible antes del plazo declarado.',
+          ),
+        },
+        {
+          term: b('R', 'R'),
+          definition: b(
+            'Exact state reducer that incorporates a newly received observation.',
+            'Reductor exacto que incorpora una observación recién recibida.',
+          ),
+        },
+        {
+          term: b('fθ', 'fθ'),
+          definition: b(
+            'Learned temporal update function evaluated on causal history.',
+            'Función aprendida de actualización temporal evaluada sobre historial causal.',
+          ),
+        },
+        {
+          term: b('π', 'π'),
+          definition: b(
+            'Policy selecting an admissible action or computation from the available state.',
+            'Política que elige una acción o cómputo admisible desde el estado disponible.',
+          ),
+        },
+        {
+          term: b('J(π)', 'J(π)'),
+          definition: b(
+            'Expected task loss under policy π and its declared cost weights.',
+            'Pérdida esperada de la tarea bajo π y sus ponderaciones declaradas.',
+          ),
+        },
+      ],
       refs: ['sutton1999', 'daw2005', 'kool2016'],
       limit: b(
         'A compact state representation can lose information. Recurrent memory is measured by its behavior on held-out delayed and reordered events, not by its mere presence.',

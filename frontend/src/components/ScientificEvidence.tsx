@@ -106,6 +106,17 @@ type StudyRow = {
   verified_nodes: number;
   native_receipts: number;
 };
+const compactTaskLabels = {
+  release: { en: 'Release', es: 'Entrega' },
+  source: { en: 'Source', es: 'Código' },
+  data: { en: 'Data', es: 'Datos' },
+} as const;
+const compactConditionLabels: Record<string, { en: string; es: string }> = {
+  clean: { en: 'Clean', es: 'Válida' },
+  corrupt: { en: 'Corrupt', es: 'Dañada' },
+  conflict: { en: 'Conflict', es: 'Conflicto' },
+  compound: { en: 'Combined', es: 'Combinada' },
+};
 export function OperationStudy() {
   const { lang } = useCopy();
   const c = (en: string, es: string) => (lang === 'en' ? en : es);
@@ -116,6 +127,7 @@ export function OperationStudy() {
   } | null>(null);
   const [error, setError] = useState('');
   const [selected, setSelected] = useState('');
+  const selectedRun = study?.runs.find((run) => run.run_id === selected);
   const [detail, setDetail] = useState<Record<string, any> | null>(null);
   useEffect(() => {
     let alive = true;
@@ -209,11 +221,19 @@ export function OperationStudy() {
         <select value={selected} onChange={(e) => setSelected(e.target.value)}>
           {study?.runs.map((r) => (
             <option key={r.run_id} value={r.run_id}>
-              {taskLabels[r.task][lang]} · {conditionLabels[r.variant][lang]} · {r.seed}
+              {compactTaskLabels[r.task][lang]} ·{' '}
+              {compactConditionLabels[r.variant]?.[lang] ?? r.variant} · {r.seed}
             </option>
           ))}
         </select>
       </label>
+      {selectedRun && (
+        <p className="measure">
+          {taskLabels[selectedRun.task][lang]} ·{' '}
+          {conditionLabels[selectedRun.variant]?.[lang] ?? selectedRun.variant} ·{' '}
+          {lang === 'en' ? 'seed' : 'semilla'} {selectedRun.seed} · {selectedRun.run_id}
+        </p>
+      )}
       {detail && (
         <>
           <div className="nx-table-scroll">
