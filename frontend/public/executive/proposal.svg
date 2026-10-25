@@ -1,12 +1,18 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 760 240" role="img" aria-label="A fast verified loop can request slower reasoning">
-  <defs><marker id="b" markerWidth="10" markerHeight="10" refX="8" refY="5" orient="auto"><path d="M0 0 10 5 0 10z" fill="#317c78"/></marker><marker id="c" markerWidth="10" markerHeight="10" refX="8" refY="5" orient="auto"><path d="M0 0 10 5 0 10z" fill="#7c5a8c"/></marker></defs>
-  <rect x="24" y="54" width="170" height="78" rx="16" fill="#eaf1f0" stroke="#317c78" stroke-width="3"/>
-  <rect x="292" y="54" width="170" height="78" rx="16" fill="#eaf1f0" stroke="#317c78" stroke-width="3"/>
-  <rect x="560" y="54" width="170" height="78" rx="16" fill="#f5f0df" stroke="#b46a3c" stroke-width="3"/>
-  <path d="M205 93h78M473 93h78" stroke="#317c78" stroke-width="5" marker-end="url(#b)"/>
-  <path d="M380 142v59H110v-57" fill="none" stroke="#317c78" stroke-width="4" marker-end="url(#b)"/>
-  <path d="M208 65C270 10 485 10 555 65" fill="none" stroke="#7c5a8c" stroke-width="4" stroke-dasharray="9 8" marker-end="url(#c)"/>
-  <circle cx="82" cy="93" r="18" fill="#317c78"/><path d="M65 93h34M82 76v34" stroke="#fff" stroke-width="4"/>
-  <path d="M333 78h88M333 96h88M333 114h58" stroke="#51616a" stroke-width="6" stroke-linecap="round"/>
-  <circle cx="615" cy="93" r="10" fill="#7c5a8c"/><circle cx="645" cy="93" r="10" fill="#b46a3c"/><circle cx="675" cy="93" r="10" fill="#317c78"/>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 760 240" role="img" aria-label="Fast verified loop and slower proposal / Ciclo rápido verificado y propuesta lenta">
+  <title>A fast controller proposes, checks effects and can ask a reasoner for a bounded proposal / Un controlador rápido propone, comprueba efectos y puede solicitar una propuesta acotada a un razonador</title>
+  <defs><marker id="proposal-fast-arrow" markerWidth="10" markerHeight="10" refX="8" refY="5" orient="auto"><path d="M0 0 10 5 0 10z" fill="var(--color-accent)"/></marker><marker id="proposal-slow-arrow" markerWidth="10" markerHeight="10" refX="8" refY="5" orient="auto"><path d="M0 0 10 5 0 10z" fill="var(--color-fg-subtle)"/></marker></defs>
+  <rect x="24" y="54" width="170" height="78" rx="16" fill="var(--color-accent-soft)" stroke="var(--color-accent)" stroke-width="3"/>
+  <rect x="292" y="54" width="170" height="78" rx="16" fill="var(--color-accent-soft)" stroke="var(--color-accent)" stroke-width="3"/>
+  <rect x="560" y="54" width="170" height="78" rx="16" fill="var(--color-surface)" stroke="var(--color-warn)" stroke-width="3"/>
+  <path d="M205 93h78M473 93h78" stroke="var(--color-accent)" stroke-width="5" marker-end="url(#proposal-fast-arrow)"/>
+  <path d="M380 142v59H110v-57" fill="none" stroke="var(--color-accent)" stroke-width="4" marker-end="url(#proposal-fast-arrow)"/>
+  <path d="M208 65C270 10 485 10 555 65" fill="none" stroke="var(--color-fg-subtle)" stroke-width="4" stroke-dasharray="9 8" marker-end="url(#proposal-slow-arrow)"/>
+  <circle cx="82" cy="93" r="18" fill="var(--color-accent)"/><path d="M65 93h34M82 76v34" stroke="var(--color-surface)" stroke-width="4"/>
+  <path d="M333 78h88M333 96h88M333 114h58" stroke="var(--color-fg-subtle)" stroke-width="6" stroke-linecap="round"/>
+  <circle cx="615" cy="93" r="10" fill="var(--color-fg-subtle)"/><circle cx="645" cy="93" r="10" fill="var(--color-warn)"/><circle cx="675" cy="93" r="10" fill="var(--color-accent)"/>
+  <g fill="var(--color-fg)" font-family="var(--font-sans)" font-size="22" font-weight="600" text-anchor="middle">
+    <text x="109" y="155"><tspan x="109">Fast policy</tspan><tspan x="109" dy="21">Política rápida</tspan></text>
+    <text x="377" y="155"><tspan x="377">Verified effect</tspan><tspan x="377" dy="21">Efecto verificado</tspan></text>
+    <text x="645" y="155"><tspan x="645">Slow proposal</tspan><tspan x="645" dy="21">Propuesta lenta</tspan></text>
+  </g>
 </svg>

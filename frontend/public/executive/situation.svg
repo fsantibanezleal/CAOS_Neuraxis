@@ -1,8 +1,14 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 760 220" role="img" aria-label="Three controller families trade off speed and flexibility">
-  <path d="M80 180h600M80 180V32" stroke="#687781" stroke-width="3"/>
-  <path d="M95 157 270 118 445 75 640 45" fill="none" stroke="#317c78" stroke-width="7" stroke-linecap="round"/>
-  <path d="M95 48 270 78 445 119 640 151" fill="none" stroke="#b46a3c" stroke-width="7" stroke-linecap="round"/>
-  <circle cx="152" cy="144" r="14" fill="#317c78"/><circle cx="353" cy="98" r="14" fill="#7c5a8c"/><circle cx="572" cy="56" r="14" fill="#b46a3c"/>
-  <rect x="120" y="44" width="64" height="11" rx="5" fill="#b46a3c"/><rect x="321" y="71" width="64" height="11" rx="5" fill="#7c5a8c"/><rect x="540" y="127" width="64" height="11" rx="5" fill="#317c78"/>
-  <path d="M155 160v18M356 114v64M575 72v106" stroke="#9aa6ad" stroke-width="2" stroke-dasharray="4 5"/>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 760 242" role="img" aria-label="Controller families and trade-offs / Familias de controladores y sus compensaciones">
+  <title>Exact rules, learned policies and a reasoner have different costs / Reglas exactas, políticas aprendidas y razonadores tienen costos distintos</title>
+  <path d="M80 180h600M80 180V32" stroke="var(--color-border)" stroke-width="3"/>
+  <path d="M95 157 270 118 445 75 640 45" fill="none" stroke="var(--color-accent)" stroke-width="7" stroke-linecap="round"/>
+  <path d="M95 48 270 78 445 119 640 151" fill="none" stroke="var(--color-warn)" stroke-width="7" stroke-linecap="round"/>
+  <circle cx="152" cy="144" r="14" fill="var(--color-accent)"/><circle cx="353" cy="98" r="14" fill="var(--color-fg-subtle)"/><circle cx="572" cy="56" r="14" fill="var(--color-warn)"/>
+  <rect x="120" y="44" width="64" height="11" rx="5" fill="var(--color-warn)"/><rect x="321" y="71" width="64" height="11" rx="5" fill="var(--color-fg-subtle)"/><rect x="540" y="127" width="64" height="11" rx="5" fill="var(--color-accent)"/>
+  <path d="M155 160v18M356 114v64M575 72v106" stroke="var(--color-border)" stroke-width="2" stroke-dasharray="4 5"/>
+  <g fill="var(--color-fg)" font-family="var(--font-sans)" font-size="22" font-weight="600" text-anchor="middle">
+    <text x="152" y="204"><tspan x="152">Rules</tspan><tspan x="152" dy="21">Reglas</tspan></text>
+    <text x="353" y="204"><tspan x="353">Learned</tspan><tspan x="353" dy="21">Aprendido</tspan></text>
+    <text x="572" y="204"><tspan x="572">Reasoner</tspan><tspan x="572" dy="21">Razonador</tspan></text>
+  </g>
 </svg>

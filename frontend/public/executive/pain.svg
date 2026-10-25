@@ -1,13 +1,19 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 760 220" role="img" aria-label="An action crosses an evidence boundary">
-  <defs><marker id="a" markerWidth="10" markerHeight="10" refX="8" refY="5" orient="auto"><path d="M0 0 10 5 0 10z" fill="#317c78"/></marker></defs>
-  <rect x="22" y="55" width="170" height="110" rx="18" fill="#eaf1f0" stroke="#317c78" stroke-width="3"/>
-  <circle cx="76" cy="104" r="13" fill="#317c78"/><circle cx="117" cy="104" r="13" fill="#b46a3c"/><circle cx="158" cy="104" r="13" fill="#7c5a8c"/>
-  <path d="M205 110h133" stroke="#317c78" stroke-width="5" marker-end="url(#a)"/>
-  <rect x="356" y="30" width="48" height="160" rx="12" fill="#f5f0df" stroke="#b46a3c" stroke-width="3"/>
-  <path d="M380 42v136" stroke="#b46a3c" stroke-width="3" stroke-dasharray="8 8"/>
-  <path d="M416 110h110" stroke="#317c78" stroke-width="5" marker-end="url(#a)"/>
-  <rect x="547" y="32" width="188" height="68" rx="14" fill="#eaf1f0" stroke="#317c78" stroke-width="3"/>
-  <rect x="547" y="120" width="188" height="68" rx="14" fill="#f5eae4" stroke="#b46a3c" stroke-width="3"/>
-  <path d="M570 66h135M570 154h84" stroke="#51616a" stroke-width="7" stroke-linecap="round"/>
-  <path d="m663 151 10 10 22-25" fill="none" stroke="#317c78" stroke-width="5" stroke-linecap="round" stroke-linejoin="round"/>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 760 240" role="img" aria-label="Action and evidence boundary / Acción y límite de evidencia">
+  <title>Workspace, capability check and independently verified outcome / Espacio, control de capacidad y resultado verificado de forma independiente</title>
+  <defs><marker id="pain-action-arrow" markerWidth="10" markerHeight="10" refX="8" refY="5" orient="auto"><path d="M0 0 10 5 0 10z" fill="var(--color-accent)"/></marker></defs>
+  <rect x="22" y="48" width="170" height="128" rx="18" fill="var(--color-accent-soft)" stroke="var(--color-accent)" stroke-width="3"/>
+  <circle cx="76" cy="96" r="13" fill="var(--color-accent)"/><circle cx="117" cy="96" r="13" fill="var(--color-warn)"/><circle cx="158" cy="96" r="13" fill="var(--color-fg-subtle)"/>
+  <path d="M205 104h133" stroke="var(--color-accent)" stroke-width="5" marker-end="url(#pain-action-arrow)"/>
+  <rect x="356" y="28" width="48" height="160" rx="12" fill="var(--color-surface)" stroke="var(--color-warn)" stroke-width="3"/>
+  <path d="M380 40v136" stroke="var(--color-warn)" stroke-width="3" stroke-dasharray="8 8"/>
+  <path d="M416 104h110" stroke="var(--color-accent)" stroke-width="5" marker-end="url(#pain-action-arrow)"/>
+  <rect x="547" y="30" width="188" height="68" rx="14" fill="var(--color-accent-soft)" stroke="var(--color-accent)" stroke-width="3"/>
+  <rect x="547" y="118" width="188" height="68" rx="14" fill="var(--color-surface)" stroke="var(--color-warn)" stroke-width="3"/>
+  <path d="M570 64h135M570 152h84" stroke="var(--color-fg-subtle)" stroke-width="7" stroke-linecap="round"/>
+  <path d="m663 149 10 10 22-25" fill="none" stroke="var(--color-accent)" stroke-width="5" stroke-linecap="round" stroke-linejoin="round"/>
+  <g fill="var(--color-fg)" font-family="var(--font-sans)" font-size="20" font-weight="600" text-anchor="middle">
+    <text x="107" y="205"><tspan x="107">Workspace</tspan><tspan x="107" dy="22">Espacio</tspan></text>
+    <text x="380" y="205"><tspan x="380">Capability check</tspan><tspan x="380" dy="22">Control de capacidad</tspan></text>
+    <text x="641" y="205"><tspan x="641">Verified effect</tspan><tspan x="641" dy="22">Efecto verificado</tspan></text>
+  </g>
 </svg>

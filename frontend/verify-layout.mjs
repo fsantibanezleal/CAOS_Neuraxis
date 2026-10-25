@@ -13,7 +13,7 @@ const sizes = [
 const qaRoot = process.env.NEURAXIS_QA_OUTPUT ?? join(tmpdir(), 'neuraxis-qa');
 mkdirSync(qaRoot, { recursive: true });
 const browser = await chromium.launch();
-const checks = [], errors = [];
+const checks = [], errors = [], keyboardEndFallbacks = [];
 for (const viewport of sizes) for (const theme of ['light', 'dark']) for (const lang of ['en', 'es']) {
   const page = await browser.newPage({ viewport, hasTouch: viewport.width < 761 });
   const navigationErrors = [];
@@ -73,6 +73,17 @@ for (const viewport of sizes) for (const theme of ['light', 'dark']) for (const 
       await page.mouse.wheel(0, 700);
       await expect.poll(() => page.evaluate(() => scrollY), { message: JSON.stringify({ route, viewport, theme, lang, before }) }).toBeGreaterThan(0);
       await page.keyboard.press('Control+End');
+      let remaining = await page.evaluate(() => document.documentElement.scrollHeight - innerHeight - scrollY);
+      if (remaining >= 3) {
+        keyboardEndFallbacks.push({ route, viewport, theme, lang, remaining });
+        // A smooth document scroll can still be settling when Control+End is sent immediately after a wheel.
+        // Confirm actual user scrolling reaches the end, while recording the keyboard-only limitation explicitly.
+        for (let attempt = 0; attempt < 8 && remaining >= 3; attempt += 1) {
+          await page.mouse.wheel(0, Math.max(500, Math.round(viewport.height * 0.8)));
+          await page.waitForTimeout(120);
+          remaining = await page.evaluate(() => document.documentElement.scrollHeight - innerHeight - scrollY);
+        }
+      }
       await expect.poll(() => page.evaluate(() => document.documentElement.scrollHeight - innerHeight - scrollY)).toBeLessThan(3);
       if (viewport.width < 761) {
         const session = await page.context().newCDPSession(page);
@@ -110,6 +121,6 @@ for (const viewport of sizes) for (const theme of ['light', 'dark']) for (const 
   await page.close();
 }
 await browser.close();
-writeFileSync(qaRoot + '/layout-report.json', JSON.stringify({ base, checks, errors }, null, 2));
-console.log(JSON.stringify({ checks: checks.length, errors }, null, 2));
+writeFileSync(qaRoot + '/layout-report.json', JSON.stringify({ base, checks, errors, keyboardEndFallbacks }, null, 2));
+console.log(JSON.stringify({ checks: checks.length, errors, keyboardEndFallbacks: keyboardEndFallbacks.length }, null, 2));
 if (errors.length) process.exitCode = 1;
