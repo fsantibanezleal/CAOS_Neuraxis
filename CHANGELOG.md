@@ -1,5 +1,10 @@
 # Changelog
 
+## 0.02.011 - 2026-10-26
+
+- Show the Neuraxis GitHub repository through the shared shell's source icon and link while keeping the source labelled private; GitHub continues to enforce repository access.
+- Verify the exact repository link is present on every app route in both interface languages.
+
 ## 0.02.010 - 2026-10-25
 
 - Adopt CAOS App Shell 0.19.2, including the G5 correction that measures controls against the actual sticky site header and leaves nested static semantic headers reachable.
