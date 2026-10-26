@@ -1,0 +1,140 @@
+{
+  "schema": "neuraxis.live-static-verification/v1",
+  "base": "https://neuraxis.ml.fasl-work.com",
+  "commit": "36b6e6fe60b232798791c89f3b998923310da3ad",
+  "version": "0.02.011",
+  "manifest_files": 16067,
+  "verified_files": [
+    {
+      "path": "assets/Benchmark-8aVdX5y8.js",
+      "bytes": 125323,
+      "sha256": "76310ab2a88e0bd67924dfb59bd860e3a817de673e669bdb63ad489ca12705cd"
+    },
+    {
+      "path": "assets/Instruments-DmajrjuP.js",
+      "bytes": 17130,
+      "sha256": "7f5211df1a4965ca1085de13797303c450f5dbf178fb1e394af06057850a519a"
+    },
+    {
+      "path": "assets/Introduction-BBHf4Ju6.js",
+      "bytes": 49063,
+      "sha256": "2624077c93fda2b20a0ffba095b8fe603e34a45f5fe675e8db00f0b833507008"
+    },
+    {
+      "path": "assets/OperationsWorkbench-D4XQj052.js",
+      "bytes": 47836,
+      "sha256": "a5ce2970b69f53f02c175cc54cc3ea5cab177d4a2309c79dce4bc2ab69a97a77"
+    },
+    {
+      "path": "assets/OverflowTabs-Gd6S8onz.js",
+      "bytes": 295,
+      "sha256": "645199a9aa717ecb29ed54f1e27e0d1dd5da7525a516132ea57f0e78d7212d88"
+    },
+    {
+      "path": "assets/Science-Cp0uGtzr.js",
+      "bytes": 20919,
+      "sha256": "65c6f97acc69f798691bf3ff8e843b5672d81def2d2da491e519d36b9f240d8e"
+    },
+    {
+      "path": "assets/Workbench-B2Z0sPbT.js",
+      "bytes": 59455,
+      "sha256": "cbe3035f1eede78fd8d0a956633f8d552f1d828cb4abe9e5e9a831ef57e90ace"
+    },
+    {
+      "path": "assets/download-Ci2JtEXU.js",
+      "bytes": 262,
+      "sha256": "03313efb9b85de80f31233857f7ae3f4634c8c9b11f01ad7e3170fb747c95a17"
+    },
+    {
+      "path": "assets/index-BFGnyJLU.js",
+      "bytes": 373645,
+      "sha256": "db70e03fdec89e59e3a52b6c358af1c61f94d8006fbc82c3c636d1714b330ecf"
+    },
+    {
+      "path": "assets/index-CyuHH9rT.css",
+      "bytes": 119484,
+      "sha256": "96f81b9a1ebe394f0992e9261504951786d314372c5391d513b984e7f2c21a15"
+    },
+    {
+      "path": "assets/math-vendor-C9MZ97KR.js",
+      "bytes": 258929,
+      "sha256": "d61cbd0989220e1ff6bb6882c70c1dae633b1792171f0a90bf0ca25708057c9b"
+    },
+    {
+      "path": "assets/math-vendor-Ngnvt50Q.css",
+      "bytes": 29802,
+      "sha256": "2ab43f498730e9f089e34df080a854c8220fc8c321716717ac3298a69fe32407"
+    },
+    {
+      "path": "assets/operations-CvmjExw5.js",
+      "bytes": 4140,
+      "sha256": "92c78e74363d73bb03a32c12864b8f4b59f310a4cbf38edb39e774d921cf6bc3"
+    },
+    {
+      "path": "assets/react-vendor-CtpAMdF1.js",
+      "bytes": 189518,
+      "sha256": "61d7b0ec2c276ac342946e3e804244163951138e90736055d95432aebe614c6c"
+    },
+    {
+      "path": "assets/rolldown-runtime-XKyaHtl9.js",
+      "bytes": 726,
+      "sha256": "548d1dbf321e7d2ae804fcc158b588706a7c52f8ca175de1490c6ccb4dbe55b7"
+    },
+    {
+      "path": "data/index.json",
+      "bytes": 5092316,
+      "sha256": "1024a451fdc1f1aebc4e8d8d66e6bf1aca119f26ae058d3de9b84ff312d8d7a6"
+    },
+    {
+      "path": "data/semantic-routing-study/analysis.json",
+      "bytes": 9953,
+      "sha256": "2caa9039f64ba57e41d453b826eef3b9d30f8b02bde706a477da833f42b69d86"
+    },
+    {
+      "path": "data/semantic-transfer/index.json",
+      "bytes": 685281,
+      "sha256": "05a57e6e4709c0c2e2226ba804e8c8f2fc233580e912e777d578cbc2ea2a44d8"
+    },
+    {
+      "path": "index.html",
+      "bytes": 1090,
+      "sha256": "585b631857cb3cf8ac6fc405c7c8e466975a714a5a6fab4a45f02c3af470eb78"
+    },
+    {
+      "path": "operations/index.json",
+      "bytes": 19404,
+      "sha256": "ad322e1b792c0559a53847419537a94196be3ba35892f2ebff67a93970572fbb"
+    }
+  ],
+  "direct_routes": [
+    "/introduction",
+    "/methodology",
+    "/implementation",
+    "/experiments",
+    "/benchmark"
+  ],
+  "canonical_coverage": {
+    "episodes": 14400,
+    "cells": 1440,
+    "methods": 12,
+    "cases": 20,
+    "minimum_seeds": 10
+  },
+  "semantic_coverage": {
+    "episodes": 1536,
+    "methods": 12,
+    "families": 8,
+    "seed_variable_cells": 35
+  },
+  "routing_coverage": {
+    "paired_environments": 128,
+    "held_out": 32,
+    "held_out_incremental_positives": 10,
+    "learned_delegations": 0
+  },
+  "operation_coverage": {
+    "runs": 36,
+    "coverage": "3 tasks x 4 fault conditions x 3 seeds",
+    "verified": true
+  }
+}
