@@ -23,7 +23,9 @@ const Implementation = () => <Science page={implementation} />;
 const Experiments = () => <Science page={experiments} />;
 const config: ShellConfig = {
   license: { en: 'Private source', es: 'Código privado' },
-  visibility: 'private',
+  // Show the shared shell's repository icon/link. GitHub still enforces this
+  // repository's private access; the footer continues to label the source private.
+  visibility: 'public',
   contain: true,
   product: { name: 'Neuraxis', mark: <Network size={18} aria-hidden="true" /> },
   version: __APP_VERSION__,
