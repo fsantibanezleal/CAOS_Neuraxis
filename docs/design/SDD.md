@@ -1,5 +1,5 @@
 # CAOS Neuraxis software design
-Date: 2026-09-24; benchmark extension 2026-09-28. Candidate display release: 0.02.010; deployment evidence is recorded separately.
+Date: 2026-09-24; benchmark extension 2026-09-28. Candidate display release: 0.02.011; deployment evidence is recorded separately.
 
 ## Review and migration record
 This records the existing research-backed implementation authorized before ADR-0075 was adopted on September 22. It is a September 23 migration of the current design, not a backdated pre-development review. The current user instruction explicitly continues the full implementation. Requirement convergence records distinguish local verification from publication and deployment.
@@ -81,6 +81,8 @@ R-015 WHEN navigation changes inside the contained shell, THE interface SHALL re
 Gate: frontend/verify-layout.mjs
 R-016 WHEN a release is built, THE application SHALL validate its rendered routes, shell surfaces, accessible controls and research evidence areas against the published shell gate.
 Gate: frontend/shell-gate.mjs
+R-017 WHEN the public Neuraxis site is opened, THE shared shell SHALL show the configured repository icon and link while the footer identifies the source as private; GitHub SHALL continue to enforce repository access.
+Gate: frontend/verify-browser.mjs
 ```
 
 Feature convergence lives under [features](features/). Scientific conclusions are in [corrected results](../evaluation/corrected-results.md).
@@ -92,3 +94,7 @@ Release 0.02.009 adopts the published CAOS App Shell 0.19.1 and the tagged CAOS 
 ## 2026-10-25 shared-base adoption
 
 Release 0.02.010 adopts the exact published `@fasl-work/caos-app-shell` 0.19.2 and the `CAOS_PRODUCT_TEMPLATE` 0.11.002 correction relevant to this product. Shell 0.19.2 fixes gate G5's sticky-header occlusion measurement for controls inside nested static semantic headers (SHG-074). Template 0.11.002 makes content-standard diagnostics survive capture through a Windows ANSI-code-page pipe; the product checker and a planted-emoji regression test carry that behavior. The adopted template release and changed product file are recorded in `.template-version` and `CHANGELOG.md`. The built shell gate measures `/` as the document surface and `/app` as a surface App, matching the product's actual route types. Benchmark results, robustness, comparison, caveats and provenance are individually scoped evidence areas with localized charts, controls and source disclosures. Validation evidence and remaining limits belong in `docs/release-verification.md` and the release receipt.
+
+## 2026-10-26 private repository link in the shared shell
+
+The public Neuraxis site shows the configured private source repository through the shared shell's GitHub icon and footer link. This is a navigation affordance only: GitHub remains the access-control boundary, and the footer continues to identify the source as private. Browser validation checks the exact link on all routes and in both languages.
