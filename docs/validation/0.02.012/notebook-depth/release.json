@@ -1,0 +1,51 @@
+{
+  "date": "2026-10-27",
+  "version": "0.02.012",
+  "deployed_app_commit": "83dd87b0f5b8c278725f9c5300fb7a640275c9a0",
+  "notebook_curriculum": "36 bilingual notebooks across six topics and three levels; public in the main repository",
+  "static_release": "83dd87b0f5b8-e1592854c651",
+  "static_archive_sha256": "e1592854c6513ea086bc0677316560cf97c36a83040046f5f56cdd34ac149326",
+  "static_manifest_files": 16067,
+  "operations_release": "/opt/neuraxis-operations/releases/83dd87b0f5b8-db18ab69b4b7",
+  "operations_archive_sha256": "db18ab69b4b72087894eb2dd17260faf1a6377e8367ecc332a213e7d85e43412",
+  "engine": "reflexmesh 0.1.2",
+  "hosted_checks": {
+    "main_ci": 40480212796,
+    "static_release_build": 40480212869,
+    "develop_ci_after_notebook_merge": 40480096058,
+    "main_to_develop_sync_ci": 40479953141,
+    "promotion_prs": [
+      83,
+      82,
+      84
+    ],
+    "conclusion": "success"
+  },
+  "local_gates": {
+    "bilingual_notebooks": "36 fresh-kernel executions and no-write reproducibility passed",
+    "research_and_transfer": "passed",
+    "contract_and_adversarial_tests": 8,
+    "frontend_tests": 34,
+    "frontend_format_and_build": "passed",
+    "consolidated_product_gates": "passed"
+  },
+  "live_static_evidence": {
+    "manifest_files": 16067,
+    "files_hash_verified": 19,
+    "direct_routes_verified": 5,
+    "commit_matches": true
+  },
+  "live_operations_evidence": {
+    "commit_matches": true,
+    "runs": 2,
+    "findings": [
+      10,
+      3
+    ],
+    "exports_verified": true,
+    "cross_session_access_rejected": true,
+    "runs_deleted": true,
+    "public_workspace_api_status": 404
+  },
+  "static_and_operations_commit_match": true
+}

@@ -1,0 +1,135 @@
+{
+  "schema": "neuraxis.live-static-verification/v1",
+  "base": "https://neuraxis.ml.fasl-work.com",
+  "commit": "83dd87b0f5b8c278725f9c5300fb7a640275c9a0",
+  "version": "0.02.012",
+  "manifest_files": 16067,
+  "verified_files": [
+    {
+      "path": "assets/Benchmark-JIbabK1r.js",
+      "bytes": 125326,
+      "sha256": "7cfa1d888dd9b55c7dd969f07ae2785fa9216e76dfbcddce635cf127af46a818"
+    },
+    {
+      "path": "assets/Instruments-BeR6kPFK.js",
+      "bytes": 17130,
+      "sha256": "3651fe9b4dd1767dce60ae242e626583e0e5e94e0603b95565a15a347d82617e"
+    },
+    {
+      "path": "assets/OperationsWorkbench-BvZF-zDQ.js",
+      "bytes": 47862,
+      "sha256": "42ae3af91edb30dffbbf2f20093e4b2ce5bb4ccb38f5f3a292ed7a0f50dc4d86"
+    },
+    {
+      "path": "assets/OverflowTabs-u6lncHZM.js",
+      "bytes": 295,
+      "sha256": "5075c95d680f507a624ea09590ec75b07f0729399ca6a75728810896197e6580"
+    },
+    {
+      "path": "assets/Science-Dud23HRp.js",
+      "bytes": 35623,
+      "sha256": "20ea7732e00842e420f540fbf94b40566e9a2e864623cb1c0123c63528e36d4b"
+    },
+    {
+      "path": "assets/Workbench-B2HXzExh.js",
+      "bytes": 59460,
+      "sha256": "54e25386c5248c516ce01d5105b95b80758d9e0f1766f3e9623e4c3dfe55fcba"
+    },
+    {
+      "path": "assets/download-DTtCO7QE.js",
+      "bytes": 262,
+      "sha256": "83a0c0c844051b92eead75f0a7889c1d4355cad870b91191d4a192ce36995017"
+    },
+    {
+      "path": "assets/index-Bxrz746L.js",
+      "bytes": 422771,
+      "sha256": "c068b5ea9023185a4613ba34b45c161a4788184dde87bf5507a75ceb1e416763"
+    },
+    {
+      "path": "assets/index-CyuHH9rT.css",
+      "bytes": 119484,
+      "sha256": "96f81b9a1ebe394f0992e9261504951786d314372c5391d513b984e7f2c21a15"
+    },
+    {
+      "path": "assets/math-vendor-C9MZ97KR.js",
+      "bytes": 258929,
+      "sha256": "d61cbd0989220e1ff6bb6882c70c1dae633b1792171f0a90bf0ca25708057c9b"
+    },
+    {
+      "path": "assets/math-vendor-Ngnvt50Q.css",
+      "bytes": 29802,
+      "sha256": "2ab43f498730e9f089e34df080a854c8220fc8c321716717ac3298a69fe32407"
+    },
+    {
+      "path": "assets/operations-CvmjExw5.js",
+      "bytes": 4140,
+      "sha256": "92c78e74363d73bb03a32c12864b8f4b59f310a4cbf38edb39e774d921cf6bc3"
+    },
+    {
+      "path": "assets/react-vendor-CtpAMdF1.js",
+      "bytes": 189518,
+      "sha256": "61d7b0ec2c276ac342946e3e804244163951138e90736055d95432aebe614c6c"
+    },
+    {
+      "path": "assets/rolldown-runtime-XKyaHtl9.js",
+      "bytes": 726,
+      "sha256": "548d1dbf321e7d2ae804fcc158b588706a7c52f8ca175de1490c6ccb4dbe55b7"
+    },
+    {
+      "path": "data/index.json",
+      "bytes": 5092316,
+      "sha256": "1024a451fdc1f1aebc4e8d8d66e6bf1aca119f26ae058d3de9b84ff312d8d7a6"
+    },
+    {
+      "path": "data/semantic-routing-study/analysis.json",
+      "bytes": 9953,
+      "sha256": "2caa9039f64ba57e41d453b826eef3b9d30f8b02bde706a477da833f42b69d86"
+    },
+    {
+      "path": "data/semantic-transfer/index.json",
+      "bytes": 685281,
+      "sha256": "05a57e6e4709c0c2e2226ba804e8c8f2fc233580e912e777d578cbc2ea2a44d8"
+    },
+    {
+      "path": "index.html",
+      "bytes": 1090,
+      "sha256": "e5ab8a4e4f4e2d95be28c67bc65a2e8cce458063f8fb1173c9c11cced0069cd9"
+    },
+    {
+      "path": "operations/index.json",
+      "bytes": 19404,
+      "sha256": "ad322e1b792c0559a53847419537a94196be3ba35892f2ebff67a93970572fbb"
+    }
+  ],
+  "direct_routes": [
+    "/introduction",
+    "/methodology",
+    "/implementation",
+    "/experiments",
+    "/benchmark"
+  ],
+  "canonical_coverage": {
+    "episodes": 14400,
+    "cells": 1440,
+    "methods": 12,
+    "cases": 20,
+    "minimum_seeds": 10
+  },
+  "semantic_coverage": {
+    "episodes": 1536,
+    "methods": 12,
+    "families": 8,
+    "seed_variable_cells": 35
+  },
+  "routing_coverage": {
+    "paired_environments": 128,
+    "held_out": 32,
+    "held_out_incremental_positives": 10,
+    "learned_delegations": 0
+  },
+  "operation_coverage": {
+    "runs": 36,
+    "coverage": "3 tasks x 4 fault conditions x 3 seeds",
+    "verified": true
+  }
+}
