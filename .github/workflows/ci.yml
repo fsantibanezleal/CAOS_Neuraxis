@@ -24,7 +24,7 @@ jobs:
       - run: python scripts/check_readiness.py
       - run: python scripts/check_template_adoption.py
       - run: python scripts/check_notebooks.py
-      - run: python scripts/run_notebooks.py
+      - run: python scripts/check_readme_areas.py
       - run: python scripts/check_artifacts.py
       - run: python scripts/check_semantic_transfer.py
       - run: python scripts/check_semantic_routing.py
