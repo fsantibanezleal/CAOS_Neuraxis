@@ -1,0 +1,17 @@
+{
+  "schema_version": 1,
+  "contracts": {
+    "product-metadata": "1.0.0",
+    "canonical-index": "1.0.0",
+    "canonical-episode": "1.0.0",
+    "semantic-transfer": "1.0.0",
+    "semantic-routing": "1.0.0",
+    "operation-study-index": "1.0.0",
+    "operation-study-detail": "1.0.0",
+    "operations-api": "1.0.0",
+    "workspace-authority": "1.0.0",
+    "product-readiness": "1.0.0",
+    "static-release": "1.0.0",
+    "template-adoption": "1.0.0"
+  }
+}

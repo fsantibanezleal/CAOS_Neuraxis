@@ -1,6 +1,6 @@
 # Scientific pipeline
 
-`run.py` is a script driver for the separately released reflexmesh engine. It is not an internal package. `collect`, `train`, `ppo`, `gates` and `evaluate` invoke the package's scientific stages in the current Python environment. `export` verifies source episode hashes before copying the complete twelve-method result set to `data/derived/`.
+`pipeline/` is the product's orchestration package. Its typed contract reader and readiness builder validate this repository's boundaries; its runner delegates `collect`, `train`, `ppo`, `gates` and `evaluate` to the separately released, pinned reflexmesh engine. `export` verifies source episode hashes before copying the complete twelve-method result set to `data/derived/`. The compatibility entry point `run.py` retains the command-line interface without duplicating engine algorithms.
 
 The baseline split uses 600 training episodes, 120 validation episodes, 120 calibration episodes and 1,200 held-out episodes per method. Environments group by disjoint seed identity; hidden oracle labels and future outcomes are never policy observation features. Teacher actions generate training demonstrations, while independent filesystem/process/HTTP predicates determine task outcomes. Demonstration agreement and task success are reported separately.
 

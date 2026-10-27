@@ -1,0 +1,19 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://neuraxis.ml.fasl-work.com/contracts/operation-detail.schema.json",
+  "title": "Neuraxis measured operation run",
+  "type": "object",
+  "required": ["schema_version", "task", "variant", "status", "disposition", "nodes", "findings", "metrics", "input_sha256"],
+  "properties": {
+    "schema_version": { "type": "integer", "minimum": 1 },
+    "task": { "type": "string" },
+    "variant": { "type": "string" },
+    "status": { "type": "string" },
+    "disposition": { "type": "string" },
+    "nodes": { "type": "array" },
+    "findings": { "type": "array" },
+    "metrics": { "type": "object" },
+    "input_sha256": { "type": "string", "pattern": "^[a-f0-9]{64}$" }
+  },
+  "additionalProperties": true
+}

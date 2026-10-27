@@ -1,5 +1,5 @@
 # CAOS Neuraxis software design
-Date: 2026-09-24; benchmark extension 2026-09-28. Candidate display release: 0.02.011; deployment evidence is recorded separately.
+Date: 2026-09-24; benchmark extension 2026-09-28. Candidate display release: 0.02.012; deployment evidence is recorded separately.
 
 ## Review and migration record
 This records the existing research-backed implementation authorized before ADR-0075 was adopted on September 22. It is a September 23 migration of the current design, not a backdated pre-development review. The current user instruction explicitly continues the full implementation. Requirement convergence records distinguish local verification from publication and deployment.
@@ -42,7 +42,7 @@ The benchmark adequacy audit diagnoses the frozen core's state-machine ceiling a
 The package evaluates actual environment postconditions. The app validates immutable receipt-bearing traces and displays outcomes unchanged, including failure, cancellation and abstention. Demonstration reliability is labeled as such. Native runs are checked with actual API responses; workspace/recovery browser tests verify real filesystem effects. Screenshots and viewport checks cover six routes, both languages and both themes.
 
 ## Deploy driver
-Private repository visibility excludes GitHub Pages. The 243 MB trace payload exceeds the 100 MB small-static-data planning threshold; the measured ML VPS has 37 GB free disk, 8 GB RAM and four CPUs. Deploy immutable compressed static releases to neuraxis.ml.fasl-work.com on that host. Archive installation enforces a 2 GiB unpacked limit, 100,000-file limit, exact hashes and atomic current-release switching. TLS must be verified externally for this hostname. The additional operation service has two concurrent native runs, 24 retained directories, one-hour retention, 512 MiB memory and one CPU quota. No training service or general user workspace is deployed there. The separately reviewed [operational requirements](features/operational-workbench/requirements.md) govern its input and authority boundaries.
+The repository is public. The 243 MB trace payload exceeds the 100 MB small-static-data planning threshold; the measured ML VPS has 37 GB free disk, 8 GB RAM and four CPUs. Deploy immutable compressed static releases to neuraxis.ml.fasl-work.com on that host. Archive installation enforces a 2 GiB unpacked limit, 100,000-file limit, exact hashes and atomic current-release switching. TLS must be verified externally for this hostname. The additional operation service has two concurrent native runs, 24 retained directories, one-hour retention, 512 MiB memory and one CPU quota. No training service or general user workspace is deployed there. The separately reviewed [operational requirements](features/operational-workbench/requirements.md) govern its input and authority boundaries.
 
 ## Risks and kill criteria
 Reject incomplete matrices, wrong run identities, hash drift, tokenless effects, stale previews, clipped controls and invalid mathematics. Do not release with an unresolved artifact or process ownership defect. A green build alone cannot establish deployment, usable controls or scientific superiority. Actual PyPI publication, verified TLS and final remote branch state remain separate completion gates.
@@ -81,8 +81,30 @@ R-015 WHEN navigation changes inside the contained shell, THE interface SHALL re
 Gate: frontend/verify-layout.mjs
 R-016 WHEN a release is built, THE application SHALL validate its rendered routes, shell surfaces, accessible controls and research evidence areas against the published shell gate.
 Gate: frontend/shell-gate.mjs
-R-017 WHEN the public Neuraxis site is opened, THE shared shell SHALL show the configured repository icon and link while the footer identifies the source as private; GitHub SHALL continue to enforce repository access.
+R-017 WHEN the public Neuraxis site is opened, THE shared shell SHALL show the configured public repository icon and link and identify the source license as Apache-2.0.
 Gate: frontend/verify-browser.mjs
+R-018 WHEN the root route is opened, THE application SHALL render the executive view directly without redirecting to another route or waiting for the technical science chunk.
+Gate: frontend/shell-gate.mjs
+R-019 WHEN the compound operations study is opened, THE application SHALL render grouped measured results from the canonical index before loading the selected detail and SHALL verify that detail against its indexed digest.
+Gate: frontend/verify-content.mjs
+R-020 WHEN the task graph or investigation stage is active, THE workbench SHALL expose the shared shell Focus control.
+Gate: frontend/shell-gate.mjs
+R-021 WHEN product metadata is released, THE repository SHALL provide a versioned product.json that declares public identity, license, application version and engine dependency.
+Gate: scripts/check_contract_catalog.py
+R-022 WHEN a persisted boundary is introduced, THE repository SHALL catalog its version, schema or explicit schema omission, producer, consumer and validator.
+Gate: scripts/check_contract_catalog.py
+R-023 WHEN contract evidence changes, THE readiness report SHALL be deterministically rebuilt from the catalog and current local paths and its digest SHALL match.
+Gate: scripts/check_readiness.py
+R-024 WHEN product pipeline stages are requested, THE product runner SHALL expose the supported stages and delegate scientific execution to the pinned reflexmesh distribution.
+Gate: data-pipeline/pipeline/runner.py
+R-025 WHEN the deployment target changes, THE repository SHALL declare its static and service topology without credentials.
+Gate: scripts/check_product_gates.py
+R-026 WHEN a feature is adopted from the product template, THE feature folder SHALL state its product-specific validation evidence.
+Gate: scripts/check_product_gates.py
+R-027 WHEN notebooks are published, THE bilingual notebooks SHALL be generated from hash-audited artifacts and execute read-only with reproducible checks.
+Gate: scripts/run_notebooks.py
+R-028 WHEN contract metadata is malformed or hostile, THE validator SHALL reject duplicate identities, escaping paths and stale readiness evidence.
+Gate: tests/adversarial/test_contract_catalog.py
 ```
 
 Feature convergence lives under [features](features/). Scientific conclusions are in [corrected results](../evaluation/corrected-results.md).
@@ -95,6 +117,14 @@ Release 0.02.009 adopts the published CAOS App Shell 0.19.1 and the tagged CAOS 
 
 Release 0.02.010 adopts the exact published `@fasl-work/caos-app-shell` 0.19.2 and the `CAOS_PRODUCT_TEMPLATE` 0.11.002 correction relevant to this product. Shell 0.19.2 fixes gate G5's sticky-header occlusion measurement for controls inside nested static semantic headers (SHG-074). Template 0.11.002 makes content-standard diagnostics survive capture through a Windows ANSI-code-page pipe; the product checker and a planted-emoji regression test carry that behavior. The adopted template release and changed product file are recorded in `.template-version` and `CHANGELOG.md`. The built shell gate measures `/` as the document surface and `/app` as a surface App, matching the product's actual route types. Benchmark results, robustness, comparison, caveats and provenance are individually scoped evidence areas with localized charts, controls and source disclosures. Validation evidence and remaining limits belong in `docs/release-verification.md` and the release receipt.
 
-## 2026-10-26 private repository link in the shared shell
+## 2026-10-26 public repository link in the shared shell
 
-The public Neuraxis site shows the configured private source repository through the shared shell's GitHub icon and footer link. This is a navigation affordance only: GitHub remains the access-control boundary, and the footer continues to identify the source as private. Browser validation checks the exact link on all routes and in both languages.
+The public Neuraxis site shows the public source repository through the shared shell's GitHub icon and footer link. The footer identifies the Apache-2.0 license in English and Spanish. Browser validation checks the exact link and license label on all routes and in both languages.
+
+## 2026-10-26 landing, evidence and workbench completion
+
+Release 0.02.012 loads the Introduction shell synchronously so the executive view is available on the first render while its technical science content stays lazy. The compound operations view renders grouped counts and measured timings from the canonical operation index immediately, then fetches the selected run detail and checks its SHA-256 against that index. Task and investigation stages opt into the shared shell Focus control. The release gate covers landing readiness, operation evidence and focus affordances.
+
+## 2026-10-26 product-template completion
+
+The repository now declares product identity and deployment topology, catalogs persisted contracts with a locked version map, derives readiness from actual source paths, and exposes the pipeline as an internal Python package that delegates scientific stages to reflexmesh. Each adopted feature records its validation evidence. Four English/Spanish notebooks are generated from source-bound results and run read-only. Contract and adversarial suites reject malformed catalogs, duplicate identities, path traversal and stale readiness digests. `scripts/check_product_gates.py` is the consolidated entry point for these checks and the existing research/frontend release gates.

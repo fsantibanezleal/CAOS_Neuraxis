@@ -1,8 +1,10 @@
+import { lazy, Suspense } from 'react';
 import { DocPage, ExecutiveView, Tabs } from '@fasl-work/caos-app-shell';
 import executive from '../../../content/executive.json';
 import { introduction } from '../data/introduction';
 import { useCopy } from '../i18n';
-import Science from './Science';
+
+const Science = lazy(() => import('./Science'));
 
 /** The first documentation route answers what the product does before opening its technical account. */
 export default function Introduction() {
@@ -11,6 +13,7 @@ export default function Introduction() {
     <DocPage title={introduction.title} lede={introduction.lede[lang]}>
       <Tabs
         ariaLabel={lang === 'en' ? 'Introduction views' : 'Vistas de la introducción'}
+        initial="executive"
         tabs={[
           {
             id: 'executive',
@@ -20,7 +23,19 @@ export default function Introduction() {
           {
             id: 'technical',
             label: lang === 'en' ? 'Technical view' : 'Vista técnica',
-            content: <Science page={introduction} embedded />,
+            content: (
+              <Suspense
+                fallback={
+                  <div className="nx-empty" data-state="loading" role="status">
+                    {lang === 'en'
+                      ? 'Loading the technical account…'
+                      : 'Cargando el análisis técnico…'}
+                  </div>
+                }
+              >
+                <Science page={introduction} embedded />
+              </Suspense>
+            ),
           },
         ]}
       />

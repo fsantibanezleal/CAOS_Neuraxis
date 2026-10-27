@@ -1,0 +1,11 @@
+target: vps-static+vps-service
+host: hetzner-ml-fasl-work
+hostname: neuraxis.ml.fasl-work.com
+static: /var/www/neuraxis.ml.fasl-work.com
+service: bounded native operations API, systemd managed
+source_visibility: public
+decision:
+  - The committed research payload contains 14,400 canonical episodes and is too large for a small static Pages deployment.
+  - The operations API requires a separately bounded native service; GitHub Pages cannot host it.
+  - Static assets and the service share the measured ML host with immutable static releases and per-release service environments.
+  - Product data, checkpoints, operator workspaces, credentials, and training environments remain outside the public static archive.

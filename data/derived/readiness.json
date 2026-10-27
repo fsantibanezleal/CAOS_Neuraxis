@@ -1,0 +1,175 @@
+{
+  "schema_version": 1,
+  "product_version": "0.02.012",
+  "catalog_sha256": "7d5576e1e0cdc4959511e46824367bea1e0aa315e760ee00210f64b41efa4745",
+  "contracts": [
+    {
+      "id": "product-metadata",
+      "version": "1.0.0",
+      "state": "available",
+      "evidence": [
+        "docs/contracts/schemas/product.schema.json",
+        "product.json",
+        "scripts/check_contract_catalog.py",
+        "tests/contracts/test_catalog.py"
+      ],
+      "missing": [],
+      "reason": null
+    },
+    {
+      "id": "canonical-index",
+      "version": "1.0.0",
+      "state": "available",
+      "evidence": [
+        "docs/contracts/schemas/canonical-index.schema.json",
+        "data-pipeline/run.py",
+        "data/derived/index.json",
+        "frontend/src/api/artifacts.ts",
+        "frontend/src/components/ScientificEvidence.tsx",
+        "scripts/check_artifacts.py",
+        "tests/contracts/test_catalog.py"
+      ],
+      "missing": [],
+      "reason": null
+    },
+    {
+      "id": "canonical-episode",
+      "version": "1.0.0",
+      "state": "available",
+      "evidence": [
+        "docs/contracts/schemas/episode.schema.json",
+        "data/derived/episodes",
+        "frontend/src/api/artifacts.ts",
+        "scripts/check_artifacts.py",
+        "frontend/src/test/artifact-integrity.test.ts"
+      ],
+      "missing": [],
+      "reason": null
+    },
+    {
+      "id": "semantic-transfer",
+      "version": "1.0.0",
+      "state": "available",
+      "evidence": [
+        "docs/contracts/schemas/semantic-index.schema.json",
+        "data/derived/semantic-transfer",
+        "frontend/src/components/ScientificEvidence.tsx",
+        "scripts/check_semantic_transfer.py",
+        "frontend/src/test/artifact-integrity.test.ts"
+      ],
+      "missing": [],
+      "reason": null
+    },
+    {
+      "id": "semantic-routing",
+      "version": "1.0.0",
+      "state": "available",
+      "evidence": [
+        "docs/contracts/schemas/semantic-routing.schema.json",
+        "data/derived/semantic-routing-study/analysis.json",
+        "frontend/src/components/ScientificEvidence.tsx",
+        "scripts/check_semantic_routing.py"
+      ],
+      "missing": [],
+      "reason": null
+    },
+    {
+      "id": "operation-study-index",
+      "version": "1.0.0",
+      "state": "available",
+      "evidence": [
+        "docs/contracts/schemas/operation-index.schema.json",
+        "data/operations/index.json",
+        "frontend/src/components/ScientificEvidence.tsx",
+        "scripts/check_operations.py",
+        "tests/contracts/test_catalog.py"
+      ],
+      "missing": [],
+      "reason": null
+    },
+    {
+      "id": "operation-study-detail",
+      "version": "1.0.0",
+      "state": "available",
+      "evidence": [
+        "docs/contracts/schemas/operation-detail.schema.json",
+        "data/operations",
+        "frontend/src/components/ScientificEvidence.tsx",
+        "scripts/check_operations.py",
+        "frontend/src/test/artifact-integrity.test.ts"
+      ],
+      "missing": [],
+      "reason": null
+    },
+    {
+      "id": "operations-api",
+      "version": "1.0.0",
+      "state": "available",
+      "evidence": [
+        "app/operations_api.py",
+        "app/services/operations.py",
+        "frontend/src/components/Operations.tsx",
+        "tests/test_operations_api.py",
+        "tests/test_operations_reliability.py"
+      ],
+      "missing": [],
+      "reason": null
+    },
+    {
+      "id": "workspace-authority",
+      "version": "1.0.0",
+      "state": "available",
+      "evidence": [
+        "app/main.py",
+        "frontend/src/components/Workspace.tsx",
+        "tests/test_application.py",
+        "frontend/verify-workspace.mjs",
+        "frontend/verify-recovery.mjs"
+      ],
+      "missing": [],
+      "reason": null
+    },
+    {
+      "id": "product-readiness",
+      "version": "1.0.0",
+      "state": "available",
+      "evidence": [
+        "docs/contracts/schemas/readiness.schema.json",
+        "data-pipeline/pipeline/readiness.py",
+        "data/derived/readiness.json",
+        "docs/",
+        "scripts/check_readiness.py",
+        "tests/contracts/test_catalog.py"
+      ],
+      "missing": [],
+      "reason": null
+    },
+    {
+      "id": "static-release",
+      "version": "1.0.0",
+      "state": "available",
+      "evidence": [
+        "scripts/package_static.py",
+        "deploy/TARGET",
+        "scripts/deploy_static.py",
+        "tests/test_static_deploy.py",
+        "scripts/verify_live_static.py"
+      ],
+      "missing": [],
+      "reason": null
+    },
+    {
+      "id": "template-adoption",
+      "version": "1.0.0",
+      "state": "available",
+      "evidence": [
+        ".template-version",
+        "docs/design/features",
+        "scripts/check_product_gates.py",
+        "scripts/check_sdd.py"
+      ],
+      "missing": [],
+      "reason": null
+    }
+  ]
+}

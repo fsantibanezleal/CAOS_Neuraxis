@@ -8,6 +8,8 @@ Choose a case, method, variant and seed, connect to the local runtime, then run.
 
 For general software workflows use reflexmesh's Runtime/Controller SDK or `reflexmesh workflow recipe.json --workspace workspace`. The caller registers tools and independent postconditions. A language model cannot expand capabilities by inventing a new tool name or command string.
 
+See the [notebook reproduction guide](guides/09-reproduce-notebooks.md) for generating and verifying the bilingual read-only evidence notebooks.
+
 ## Reproduce checkpoints and results
 
 Run `python data-pipeline/run.py all --model qwen3.5:4b` after explicitly installing the model in Ollama. This collects disjoint datasets, trains classical/recurrent/transition/RL policies, fits outcome-based routing gates, executes the complete held-out matrix and exports canonical results. It can take substantial time; source, model and split lineage are recorded and changed lineage prevents stale resume.

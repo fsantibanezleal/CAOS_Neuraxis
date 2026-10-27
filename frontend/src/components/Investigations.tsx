@@ -375,7 +375,7 @@ export default function Investigations() {
           )}
         </p>
       </aside>
-      <main className="op-main">
+      <div className="op-main">
         <header className="op-heading">
           <div>
             <span className="nx-kicker">
@@ -598,7 +598,7 @@ export default function Investigations() {
             </p>
           </>
         )}
-      </main>
+      </div>
     </div>
   );
 }

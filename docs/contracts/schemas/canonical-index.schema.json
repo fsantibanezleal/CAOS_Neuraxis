@@ -1,0 +1,34 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://neuraxis.ml.fasl-work.com/contracts/canonical-index.schema.json",
+  "title": "Neuraxis canonical benchmark index",
+  "type": "object",
+  "required": ["schema_version", "provenance", "methods", "cases", "episodes", "aggregate_results"],
+  "properties": {
+    "schema_version": { "const": 1 },
+    "generated_at": { "type": "string", "format": "date-time" },
+    "provenance": { "type": "object" },
+    "methods": { "type": "array", "minItems": 12, "items": { "type": "object" } },
+    "cases": { "type": "array", "minItems": 20, "items": { "type": "object" } },
+    "episodes": { "type": "array", "minItems": 14400, "items": { "$ref": "#/$defs/episodeReference" } },
+    "aggregate_results": { "type": "array", "minItems": 12, "items": { "type": "object" } }
+  },
+  "$defs": {
+    "episodeReference": {
+      "type": "object",
+      "required": ["run_id", "case_id", "method_id", "variant", "seed", "status", "path", "sha256"],
+      "properties": {
+        "run_id": { "type": "string", "minLength": 1 },
+        "case_id": { "type": "string", "minLength": 1 },
+        "method_id": { "type": "string", "pattern": "^M\\d{2}$" },
+        "variant": { "type": "string", "minLength": 1 },
+        "seed": { "type": "integer" },
+        "status": { "enum": ["succeeded", "failed", "cancelled"] },
+        "path": { "type": "string", "pattern": "^episodes/[A-Za-z0-9._-]+\\.json$" },
+        "sha256": { "type": "string", "pattern": "^[a-f0-9]{64}$" }
+      },
+      "additionalProperties": true
+    }
+  },
+  "additionalProperties": true
+}

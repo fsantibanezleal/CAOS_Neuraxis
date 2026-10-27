@@ -14,17 +14,15 @@ import { useCopy } from './i18n';
 import { methodology } from './data/methodology';
 import { implementation } from './data/implementation';
 import { experiments } from './data/experiments';
+import Introduction from './pages/Introduction';
 const OperationsWorkbench = lazy(() => import('./pages/OperationsWorkbench'));
 const Science = lazy(() => import('./pages/Science'));
 const Benchmark = lazy(() => import('./pages/Benchmark'));
-const Introduction = lazy(() => import('./pages/Introduction'));
 const Methodology = () => <Science page={methodology} />;
 const Implementation = () => <Science page={implementation} />;
 const Experiments = () => <Science page={experiments} />;
 const config: ShellConfig = {
-  license: { en: 'Private source', es: 'Código privado' },
-  // Show the shared shell's repository icon/link. GitHub still enforces this
-  // repository's private access; the footer continues to label the source private.
+  license: { en: 'Apache-2.0 · open source', es: 'Licencia Apache · código abierto' },
   visibility: 'public',
   contain: true,
   product: { name: 'Neuraxis', mark: <Network size={18} aria-hidden="true" /> },
@@ -33,7 +31,7 @@ const config: ShellConfig = {
   links: { github: 'https://github.com/fsantibanezleal/CAOS_Neuraxis' },
   architecture,
   footer: {
-    license: { en: 'Private source', es: 'Código privado' },
+    license: { en: 'Apache-2.0 · open source', es: 'Licencia Apache · código abierto' },
     provenance: {
       en: 'Engine: reflexmesh · verified file operations',
       es: 'Motor: reflexmesh · operaciones verificadas',
