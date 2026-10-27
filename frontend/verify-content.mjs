@@ -53,7 +53,19 @@ try {
             expect(await leaf.locator('.th-refs a').count()).toBeGreaterThan(2);
           } else if (compound) {
             await expect(leaf.locator('select option')).toHaveCount(36);
-            await expect(leaf.locator('table tbody tr')).toHaveCount(9);
+            const summary = leaf.getByRole('table', {
+              name:
+                lang === 'en'
+                  ? 'Measured operation runs grouped by task and fault condition'
+                  : 'Ejecuciones medidas por tarea y condición de fallo',
+            });
+            await expect(summary.locator('tbody tr')).toHaveCount(12);
+            const study = leaf.locator('article.nx-doc-section');
+            await expect(study).toHaveAttribute('data-state', 'ready');
+            const stages = study
+              .locator('table')
+              .filter({ hasText: lang === 'en' ? 'Native stage' : 'Etapa nativa' });
+            await expect(stages.locator('tbody tr')).toHaveCount(9);
           } else if (/Adequacy|Adecuación/.test(title)) {
             await expect(leaf.getByText(lang === 'en' ? 'Hash-checked episodes' : 'Episodios verificados por hash')).toBeVisible();
           } else if (/Semantic transfer|Transferencia semántica/.test(title)) {

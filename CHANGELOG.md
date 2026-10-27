@@ -1,5 +1,12 @@
 # Changelog
 
+## 0.02.012 - 2026-10-26
+
+- Make the root route render the shared Introduction synchronously so the executive landing tab is ready immediately while the technical science view remains lazy-loaded.
+- Show the measured compound-task summary immediately from the canonical operation index, then load and hash-verify the selected run detail.
+- Add shell Focus controls to the task graph and investigation views and label the now-public repository as Apache-2.0 in the app and browser checks.
+- Complete the template adoption surface with product metadata, a versioned contract catalog and generated readiness, architecture wiki, per-feature validation, a pipeline orchestration package, deployment target, adversarial/contract tests and four reproducible bilingual evidence notebooks.
+
 ## 0.02.011 - 2026-10-26
 
 - Show the Neuraxis GitHub repository through the shared shell's source icon and link while keeping the source labelled private; GitHub continues to enforce repository access.

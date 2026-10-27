@@ -1,0 +1,7 @@
+# 07. Evaluation
+
+The independent oracle checks task postconditions after effects. For a software task, a passing output is the expected bytes, path, process result or HTTP response. The benchmark keeps failed, cancelled and unresolved episodes in denominators and preserves actual event and decision traces. Hash checks establish artifact integrity, while oracle checks establish task outcome; neither proves external validity.
+
+The core is matched across methods and contains finite-state-solvable workloads. Five methods achieve a perfect aggregate success score there, including a guarded state machine. M12 does not solve every core case; its failures cluster in long-job cancellation. Seeds are mostly outcome-invariant, the fitted delegation gate selected no handoffs, and component ablations match the full method. In semantic transfer, XGBoost outperforms M12 on the retained held-out sample. These results reject a superiority claim for the proposed controller on the current tasks.
+
+Latency, success, violations, effect receipts and delegation behavior are reported independently. A visual replay is not a fresh execution. A finite-state baseline is a real comparator and remains the appropriate policy where it solves the contract at lower cost. Research changes require a new pre-registered workload or transfer lane, with positive cases for the mechanism under test and outcome-changing independent environments.

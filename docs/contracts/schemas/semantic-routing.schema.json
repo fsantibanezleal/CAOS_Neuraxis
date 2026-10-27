@@ -1,0 +1,17 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://neuraxis.ml.fasl-work.com/contracts/semantic-routing.schema.json",
+  "title": "Neuraxis semantic routing analysis",
+  "type": "object",
+  "required": ["schema_version", "algorithm", "scope", "split", "features", "held_out_predictions", "status"],
+  "properties": {
+    "schema_version": { "type": "integer", "minimum": 1 },
+    "algorithm": { "type": "string", "minLength": 1 },
+    "scope": { "type": "string", "minLength": 1 },
+    "split": { "type": "object" },
+    "features": { "type": "array" },
+    "held_out_predictions": { "type": "array" },
+    "status": { "type": "string", "minLength": 1 }
+  },
+  "additionalProperties": true
+}

@@ -530,7 +530,7 @@ export default function Operations() {
               : c('Execution service unavailable', 'Servicio no disponible')}
         </div>
       </aside>
-      <main className="op-main">
+      <div className="op-main">
         <header className="op-heading">
           <div>
             <span className="nx-kicker">
@@ -922,7 +922,7 @@ export default function Operations() {
             'Estas tareas usan políticas exactas registradas. Las decisiones de modelos y comparaciones aprendidas están en Investigaciones. Una auditoría completada puede detectar una entrega inválida; ejecutar con éxito no significa que la entrada sea válida.',
           )}
         </p>
-      </main>
+      </div>
     </div>
   );
 }

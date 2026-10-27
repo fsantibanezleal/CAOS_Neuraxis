@@ -1,5 +1,6 @@
 import { useEffect, useState } from 'react';
 import { Callout, Cite, Refs } from '@fasl-work/caos-app-shell';
+import operationIndex from '../../../data/operations/index.json';
 import { useArtifacts } from '../api/artifacts';
 import { useCopy } from '../i18n';
 import { taskLabels, conditionLabels } from '../lib/operations';
@@ -106,6 +107,12 @@ type StudyRow = {
   verified_nodes: number;
   native_receipts: number;
 };
+type OperationStudyIndex = {
+  runs: StudyRow[];
+  boundary: string;
+  source_sha256: Record<string, string>;
+};
+const operationStudyIndex = operationIndex as OperationStudyIndex;
 const compactTaskLabels = {
   release: { en: 'Release', es: 'Entrega' },
   source: { en: 'Source', es: 'Código' },
@@ -120,43 +127,35 @@ const compactConditionLabels: Record<string, { en: string; es: string }> = {
 export function OperationStudy() {
   const { lang } = useCopy();
   const c = (en: string, es: string) => (lang === 'en' ? en : es);
-  const [study, setStudy] = useState<{
-    runs: StudyRow[];
-    boundary: string;
-    source_sha256: Record<string, string>;
-  } | null>(null);
   const [error, setError] = useState('');
-  const [selected, setSelected] = useState('');
-  const selectedRun = study?.runs.find((run) => run.run_id === selected);
-  const [detail, setDetail] = useState<Record<string, any> | null>(null);
+  const [selected, setSelected] = useState(
+    () =>
+      operationStudyIndex.runs.find((run) => run.task === 'release' && run.variant === 'compound')
+        ?.run_id ??
+      operationStudyIndex.runs[0]?.run_id ??
+      '',
+  );
+  const selectedRun = operationStudyIndex.runs.find((run) => run.run_id === selected);
+  const [detail, setDetail] = useState<{ runId: string; value: Record<string, any> } | null>(null);
+  const selectedDetail = detail?.runId === selected ? detail.value : null;
+  const detailLoading = Boolean(selectedRun && !selectedDetail && !error);
+  const summaryRows = Array.from(
+    operationStudyIndex.runs
+      .reduce((groups, run) => {
+        const key = `${run.task}:${run.variant}`;
+        const group = groups.get(key) ?? { task: run.task, variant: run.variant, runs: [] };
+        group.runs.push(run);
+        groups.set(key, group);
+        return groups;
+      }, new Map<string, { task: StudyRow['task']; variant: string; runs: StudyRow[] }>())
+      .values(),
+  ).sort((a, b) => `${a.task}:${a.variant}`.localeCompare(`${b.task}:${b.variant}`));
   useEffect(() => {
-    let alive = true;
-    void fetch(`${import.meta.env.BASE_URL}operations/index.json`)
-      .then((r) => {
-        if (!r.ok) throw new Error(`HTTP ${r.status}`);
-        return r.json();
-      })
-      .then((v) => {
-        if (alive) {
-          setStudy(v);
-          setSelected(
-            v.runs.find((r: StudyRow) => r.task === 'release' && r.variant === 'compound')
-              ?.run_id ?? v.runs[0]?.run_id,
-          );
-        }
-      })
-      .catch((e) => {
-        if (alive) setError(String(e));
-      });
-    return () => {
-      alive = false;
-    };
-  }, []);
-  useEffect(() => {
-    const row = study?.runs.find((r) => r.run_id === selected);
+    const row = operationStudyIndex.runs.find((r) => r.run_id === selected);
     if (!row) return;
     let alive = true;
     setDetail(null);
+    setError('');
     void (async () => {
       if (!/^[a-z0-9-]+\.json$/.test(row.path)) throw new Error('Invalid evidence path');
       const r = await fetch(`${import.meta.env.BASE_URL}operations/${row.path}`);
@@ -167,16 +166,19 @@ export function OperationStudy() {
       ).join('');
       if (hash !== row.sha256) throw new Error('Compound evidence hash mismatch');
       const v = JSON.parse(new TextDecoder().decode(bytes));
-      if (alive) setDetail(v);
+      if (alive) setDetail({ runId: row.run_id, value: v });
     })().catch((e) => {
       if (alive) setError(String(e));
     });
     return () => {
       alive = false;
     };
-  }, [study, selected]);
+  }, [selected]);
   return (
-    <article className="nx-doc-section">
+    <article
+      className="nx-doc-section"
+      data-state={error ? 'error' : detailLoading ? 'loading' : 'ready'}
+    >
       <h2>
         {c(
           'Compound tasks: executed files, faults and deliverables',
@@ -197,6 +199,49 @@ export function OperationStudy() {
         )}{' '}
         <Cite id="reflexmesh2026" />
       </p>
+      <div className="nx-table-scroll">
+        <table className="nx-table">
+          <caption className="sr-only">
+            {c(
+              'Measured operation runs grouped by task and fault condition',
+              'Ejecuciones medidas por tarea y condición de fallo',
+            )}
+          </caption>
+          <thead>
+            <tr>
+              <th scope="col">{c('Task', 'Tarea')}</th>
+              <th scope="col">{c('Condition', 'Condición')}</th>
+              <th scope="col">{c('Runs', 'Ejecuciones')}</th>
+              <th scope="col">{c('Seeds', 'Semillas')}</th>
+              <th scope="col">{c('Findings', 'Hallazgos')}</th>
+              <th scope="col">{c('Mean time', 'Tiempo medio')}</th>
+            </tr>
+          </thead>
+          <tbody>
+            {summaryRows.map((group) => (
+              <tr key={`${group.task}:${group.variant}`}>
+                <th scope="row">{taskLabels[group.task][lang]}</th>
+                <td>{compactConditionLabels[group.variant]?.[lang] ?? group.variant}</td>
+                <td>{group.runs.length}</td>
+                <td>
+                  {group.runs
+                    .map((run) => run.seed)
+                    .sort((a, b) => a - b)
+                    .join(', ')}
+                </td>
+                <td>{group.runs.reduce((sum, run) => sum + run.findings, 0)}</td>
+                <td>
+                  {formatFixed(
+                    group.runs.reduce((sum, run) => sum + run.wall_ms, 0) / group.runs.length,
+                    1,
+                  )}{' '}
+                  ms
+                </td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      </div>
       {error && (
         <div className="nx-error" role="alert">
           {error}
@@ -204,22 +249,24 @@ export function OperationStudy() {
       )}
       <div className="science-study-summary">
         <div>
-          <b>{study?.runs.length ?? '…'}</b>
+          <b>{operationStudyIndex.runs.length}</b>
           <span>{c('executed compound runs', 'ejecuciones compuestas')}</span>
         </div>
         <div>
-          <b>{study?.runs.filter((r) => r.status === 'succeeded').length ?? '…'}</b>
+          <b>{operationStudyIndex.runs.filter((r) => r.status === 'succeeded').length}</b>
           <span>{c('analyses completed', 'análisis completados')}</span>
         </div>
         <div>
-          <b>{study?.runs.filter((r) => r.disposition === 'attention_required').length ?? '…'}</b>
+          <b>
+            {operationStudyIndex.runs.filter((r) => r.disposition === 'attention_required').length}
+          </b>
           <span>{c('deliveries needing attention', 'entregas que requieren atención')}</span>
         </div>
       </div>
       <label className="nx-control">
         {c('Inspect an executed experiment', 'Inspeccionar un experimento ejecutado')}
         <select value={selected} onChange={(e) => setSelected(e.target.value)}>
-          {study?.runs.map((r) => (
+          {operationStudyIndex.runs.map((r) => (
             <option key={r.run_id} value={r.run_id}>
               {compactTaskLabels[r.task][lang]} ·{' '}
               {compactConditionLabels[r.variant]?.[lang] ?? r.variant} · {r.seed}
@@ -234,7 +281,15 @@ export function OperationStudy() {
           {lang === 'en' ? 'seed' : 'semilla'} {selectedRun.seed} · {selectedRun.run_id}
         </p>
       )}
-      {detail && (
+      {detailLoading && (
+        <p className="nx-empty" role="status" data-state="loading">
+          {c(
+            'Loading and verifying the selected run detail…',
+            'Cargando y verificando el detalle de la ejecución…',
+          )}
+        </p>
+      )}
+      {selectedDetail && (
         <>
           <div className="nx-table-scroll">
             <table className="nx-table">
@@ -247,7 +302,7 @@ export function OperationStudy() {
                 </tr>
               </thead>
               <tbody>
-                {detail.nodes.map((n: any) => (
+                {selectedDetail.nodes.map((n: any) => (
                   <tr key={n.id}>
                     <th>{n.title[lang]}</th>
                     <td>{n.depends_on.join(', ') || '…'}</td>
@@ -259,9 +314,9 @@ export function OperationStudy() {
             </table>
           </div>
           <h3>{c('Concrete detected failures', 'Fallos concretos detectados')}</h3>
-          {detail.findings.length ? (
+          {selectedDetail.findings.length ? (
             <ul>
-              {detail.findings.map((f: any, i: number) => (
+              {selectedDetail.findings.map((f: any, i: number) => (
                 <li key={i}>
                   <code>
                     {f.path}
@@ -280,9 +335,10 @@ export function OperationStudy() {
             </p>
           )}
           <p>
-            {c('Measured elapsed time', 'Tiempo medido')}: {formatFixed(detail.metrics.wall_ms, 2)}{' '}
-            ms · {c('Native receipts', 'Recibos nativos')}: {detail.metrics.native_receipts} ·{' '}
-            {c('Model calls', 'Llamadas a modelos')}: {detail.metrics.model_calls}
+            {c('Measured elapsed time', 'Tiempo medido')}:{' '}
+            {formatFixed(selectedDetail.metrics.wall_ms, 2)} ms ·{' '}
+            {c('Native receipts', 'Recibos nativos')}: {selectedDetail.metrics.native_receipts} ·{' '}
+            {c('Model calls', 'Llamadas a modelos')}: {selectedDetail.metrics.model_calls}
           </p>
         </>
       )}
