@@ -1,6 +1,12 @@
 #!/usr/bin/env bash
 set -euo pipefail
 cd "$(dirname "$0")/.."
+if [[ "${1:-}" == "--notebooks" ]]; then
+  if [[ ! -x .venv-notebooks/bin/python ]]; then python3 -m venv .venv-notebooks; fi
+  .venv-notebooks/bin/python -m pip install -r notebooks/requirements.txt
+  printf '%s\n' 'Notebook environment ready. Run: python scripts/run_notebooks.py --check --tmp <device-temp-root>'
+  exit 0
+fi
 if [[ ! -x .venv/bin/python ]]; then python3 -m venv .venv; fi
 .venv/bin/python -m pip install -r requirements-api.txt -r requirements-dev.txt
 if [[ "${1:-}" != "--skip-models" ]]; then

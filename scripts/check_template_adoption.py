@@ -18,10 +18,10 @@ FEATURES = (
 )
 ARCHITECTURE = tuple(f"docs/architecture/{index:02d}-" for index in range(1, 9))
 NOTEBOOKS = (
-    "notebooks/en/01-core-evidence.ipynb",
-    "notebooks/es/01-evidencia-central.ipynb",
-    "notebooks/en/02-transfer-and-routing.ipynb",
-    "notebooks/es/02-transferencia-y-enrutamiento.ipynb",
+    "notebooks/en/01-fast-event-control/01-the-problem-and-the-data.ipynb",
+    "notebooks/es/01-fast-event-control/01-the-problem-and-the-data.ipynb",
+    "notebooks/en/05-evaluation-and-transfer/03-state-of-the-art-comparison.ipynb",
+    "notebooks/es/05-evaluation-and-transfer/03-state-of-the-art-comparison.ipynb",
 )
 
 

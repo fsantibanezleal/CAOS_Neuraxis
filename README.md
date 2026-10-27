@@ -8,18 +8,18 @@ Neuraxis exposes live decisions, candidate scores, exact resource state, effects
 
 ## Areas
 
-| Area | Location | Status | Contents |
+| Area | Folder | Status | What it holds |
 | --- | --- | --- | --- |
-| Web app | [frontend](frontend/) | active | Bilingual research workbench and executive evidence view. |
-| API and native operations | [app](app/) | active | Authenticated local service and bounded effect execution. |
-| Core pipeline | [data-pipeline](data-pipeline/) | active | Versioned Python orchestration package delegates collection, training, calibration and evaluation to reflexmesh; validates and exports artifacts. |
-| Package dependencies | [reflexmesh on PyPI](https://pypi.org/project/reflexmesh/0.1.2/) | active | Versioned native broker consumed by the product. |
-| Data and evidence | [data](data/) | active | Frozen results, manifests and hash-audited operation records. |
-| Contracts and cases | [docs/cases.md](docs/cases.md) | active | Action contracts, task cases and outcome verification. |
-| Documentation and contracts | [docs](docs/) | active | Architecture wiki, versioned contract catalog, readiness, scientific methods, operational guides and research dossiers. |
-| Reproducible notebooks | [notebooks](notebooks/) | active | English and Spanish, generated from hash-verified research artifacts and checked for read-only execution. |
-| Tests and gates | [tests](tests/) | active | Product behavior, contract/adversarial tests, artifact integrity and release validation. |
-| Deployment | [deploy](deploy/) | active | Declared static-plus-service target, immutable release packaging and installation. |
+| Web | [frontend](frontend/) | active | The six bilingual research routes and local operations workbench; [route guide](docs/workbench/workbench.md). |
+| API | [app](app/) | active | The authenticated local service and bounded native operations; [API behavior](docs/workbench/operations.md). |
+| Core pipelines | [data-pipeline](data-pipeline/) | active | Collection, training delegation, evaluation and artifact export; [pipeline guide](data-pipeline/README.md). |
+| Packages | [reflexmesh 0.1.2 on PyPI](https://pypi.org/project/reflexmesh/0.1.2/) | active | Native action broker and policy package consumed by Neuraxis; [engine repository](https://github.com/fsantibanezleal/reflexmesh). |
+| Notebooks | [notebooks](notebooks/) | active | The [bilingual ordered research curriculum](notebooks/README.md) with package-backed replay and benchmark analysis. |
+| Data | [data](data/) | active | Frozen episodes, derived indexes and lineage manifests; [artifact contract](docs/contracts/catalog.md). |
+| Contracts | [docs/contracts](docs/contracts/) | active | Persisted schema catalog, version lock and readiness boundaries; [catalog](docs/contracts/catalog.md). |
+| Documentation | [docs](docs/) | active | The SDD, architecture wiki, case studies, research dossiers and operational guides; [documentation index](docs/README.md). |
+| Tests and gates | [tests](tests/) and [scripts](scripts/) | active | Contract, adversarial, scientific, frontend and release gates; [gate entry point](scripts/README.md). |
+| Deploy | [deploy](deploy/) | active | Public static release and bounded operations-service topology; [target](deploy/TARGET). |
 
 ## Run locally
 

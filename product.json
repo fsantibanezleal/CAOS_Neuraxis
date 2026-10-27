@@ -12,6 +12,6 @@
   "holder": "Felipe Santibáñez-Leal",
   "year": 2026,
   "method_packages": [
-    "reflexmesh==0.1.2"
+    "reflexmesh"
   ]
 }

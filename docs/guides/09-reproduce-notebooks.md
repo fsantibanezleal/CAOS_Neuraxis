@@ -1,13 +1,37 @@
-# Reproduce the evidence notebooks
+# Reproduce the research notebooks
 
-Neuraxis publishes four notebooks: core results and semantic transfer/routing, in English and Spanish. They are generated from the committed, hash-audited evidence files. They report the measured outcomes and retain the documented limits; they do not fit a model or execute tools.
+The curriculum has five ordered topics, in English and Spanish, with a fundamentals notebook, a method-in-practice notebook, and a state-of-the-art comparison in each topic. Level 1 verifies and inspects the topic's actual hash-audited decision traces. Level 2 executes the named Reflexmesh methods in an isolated software case environment and compares their independent outcomes with the matching frozen run. Level 3 recomputes per-variant outcomes across all recorded seeds, with routing and transfer studies kept in separate denominators. The notebooks import the released algorithms; they do not contain copied policy implementations or claim to refit the published checkpoints.
 
-From the repository root, rebuild their cells and stored output, check structure and provenance, then execute the cells against current committed evidence:
+## Environment
+
+The environment is pinned in `notebooks/requirements.txt`. Build it without installing into the global Python environment:
+
+```powershell
+scripts/setup.ps1 -Notebooks
+```
+
+```sh
+scripts/setup.sh --notebooks
+```
+
+Learned methods use the separately released model bundle. Fetch the pinned release and direct the notebook runner to it:
+
+```sh
+python -m reflexmesh.cli fetch-models --destination models/checkpoints --version v0.01.000
+```
+
+Set `NEURAXIS_CHECKPOINTS` to `models/checkpoints`. The `M09` and `M10` planners stay on their frozen recorded traces by default. Live planning is opt-in through `NEURAXIS_NOTEBOOK_MODEL` after configuring a local Ollama model.
+
+## Authoring, running, and checking
+
+`scripts/build_notebooks.py` writes bilingual notebook source cells without execution outputs. The fresh-kernel runner is the only tool that writes outputs. Its release check requires a caller-designated temporary directory and runs copies, preserving the checkout:
 
 ```sh
 python scripts/build_notebooks.py
-python scripts/check_notebooks.py
 python scripts/run_notebooks.py
+python scripts/check_notebooks.py
+python scripts/run_notebooks.py --check --tmp <device-temp-root>
+python scripts/check_notebooks.py --pypi
 ```
 
-The runner permits one code cell per notebook and rejects common write, network and subprocess calls before executing it. It compares fresh output to the output committed in the notebook. `scripts/check_product_gates.py --scope source` includes notebook validation and should pass before committing a regenerated notebook. The underlying evidence remains in `data/derived/`; notebooks are a readable analysis view, not a replacement dataset.
+The static check covers the required topic tree, language mirror, numbering, level progression, SDD claim coverage, notebook anatomy, package pins, citation binding, committed data paths, clean outputs, and method-package reuse. The runner executes every notebook in a fresh kernel and compares its output with the committed result. `--pypi` is an optional network check for exact published package versions. These are local release checks; notebooks do not execute during CI. The underlying immutable episode traces remain in `data/derived/`.
