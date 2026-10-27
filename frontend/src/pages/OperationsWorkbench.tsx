@@ -21,9 +21,11 @@ export default function OperationsWorkbench() {
     <SurfacePage
       deepLinkView="mode"
       ariaLabel={lang === 'en' ? 'Workspace modes' : 'Modos de trabajo'}
+      focus
       tabs={[
         {
           id: 'tasks',
+          focus: true,
           label: (
             <>
               <Activity size={15} />
@@ -38,6 +40,7 @@ export default function OperationsWorkbench() {
         },
         {
           id: 'investigations',
+          focus: true,
           label: (
             <>
               <FlaskConical size={15} />

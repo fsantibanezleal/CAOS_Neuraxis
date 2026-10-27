@@ -17,3 +17,5 @@ The interface has an executive Introduction, a dedicated `/app` operations workb
 The reusable engine's [runtime documentation](https://github.com/fsantibanezleal/reflexmesh/blob/main/docs/runtime.md) is authoritative for registered-tool contracts, native admission and recovery semantics.
 
 The current shell and template baselines, their product-specific adoption, and release verification boundaries are recorded in [release verification](release-verification.md), [the software design](design/SDD.md), and the repository [changelog](../CHANGELOG.md).
+
+The product-template implementation adds a [versioned contract catalog](contracts/catalog.md), generated [readiness report](../data/derived/readiness.json), and a detailed [architecture wiki](architecture/README.md). The [notebook guide](guides/09-reproduce-notebooks.md) explains how to rebuild, validate and run the bilingual source-bound analysis notebooks. Each adopted feature records its product-specific gate in its `validation.md` file.

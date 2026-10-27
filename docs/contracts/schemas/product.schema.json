@@ -1,0 +1,25 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://neuraxis.ml.fasl-work.com/contracts/product.schema.json",
+  "title": "Neuraxis product identity",
+  "type": "object",
+  "required": ["name", "slug", "version", "tagline", "repo", "visibility", "license", "holder", "year", "method_packages"],
+  "properties": {
+    "name": { "const": "Neuraxis" },
+    "slug": { "const": "neuraxis" },
+    "version": { "pattern": "^\\d+\\.\\d+\\.\\d+$" },
+    "tagline": {
+      "type": "object",
+      "required": ["en", "es"],
+      "properties": { "en": { "type": "string", "minLength": 20 }, "es": { "type": "string", "minLength": 20 } },
+      "additionalProperties": false
+    },
+    "repo": { "const": "https://github.com/fsantibanezleal/CAOS_Neuraxis" },
+    "visibility": { "const": "public" },
+    "license": { "const": "Apache-2.0" },
+    "holder": { "type": "string", "minLength": 1 },
+    "year": { "type": "integer", "minimum": 2026 },
+    "method_packages": { "type": "array", "items": { "type": "string" } }
+  },
+  "additionalProperties": false
+}

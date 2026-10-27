@@ -1,0 +1,21 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://neuraxis.ml.fasl-work.com/contracts/episode.schema.json",
+  "title": "Neuraxis executed episode",
+  "type": "object",
+  "required": ["schema_version", "run_id", "case_id", "method_id", "variant", "seed", "status", "events", "decisions", "metrics", "provenance"],
+  "properties": {
+    "schema_version": { "const": 1 },
+    "run_id": { "type": "string", "minLength": 1 },
+    "case_id": { "type": "string", "minLength": 1 },
+    "method_id": { "type": "string", "pattern": "^M\\d{2}$" },
+    "variant": { "type": "string", "minLength": 1 },
+    "seed": { "type": "integer" },
+    "status": { "enum": ["succeeded", "failed", "cancelled"] },
+    "events": { "type": "array", "minItems": 1 },
+    "decisions": { "type": "array", "minItems": 1 },
+    "metrics": { "type": "object", "required": ["task_success", "native_receipts"] },
+    "provenance": { "type": "object", "required": ["split", "lineage_signature"] }
+  },
+  "additionalProperties": true
+}

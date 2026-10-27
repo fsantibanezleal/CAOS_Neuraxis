@@ -12,13 +12,14 @@ Neuraxis exposes live decisions, candidate scores, exact resource state, effects
 | --- | --- | --- | --- |
 | Web app | [frontend](frontend/) | active | Bilingual research workbench and executive evidence view. |
 | API and native operations | [app](app/) | active | Authenticated local service and bounded effect execution. |
-| Core pipeline | [data-pipeline](data-pipeline/) | active | Collection, training, calibration, evaluation and artifact export. |
+| Core pipeline | [data-pipeline](data-pipeline/) | active | Versioned Python orchestration package delegates collection, training, calibration and evaluation to reflexmesh; validates and exports artifacts. |
 | Package dependencies | [reflexmesh on PyPI](https://pypi.org/project/reflexmesh/0.1.2/) | active | Versioned native broker consumed by the product. |
 | Data and evidence | [data](data/) | active | Frozen results, manifests and hash-audited operation records. |
 | Contracts and cases | [docs/cases.md](docs/cases.md) | active | Action contracts, task cases and outcome verification. |
-| Documentation | [docs](docs/) | active | Architecture, scientific methods, operational guides and research dossiers. |
-| Tests and gates | [tests](tests/) | active | Product behavior, artifact integrity and release validation. |
-| Deployment | [deploy](deploy/) | active | Immutable static release packaging and installation. |
+| Documentation and contracts | [docs](docs/) | active | Architecture wiki, versioned contract catalog, readiness, scientific methods, operational guides and research dossiers. |
+| Reproducible notebooks | [notebooks](notebooks/) | active | English and Spanish, generated from hash-verified research artifacts and checked for read-only execution. |
+| Tests and gates | [tests](tests/) | active | Product behavior, contract/adversarial tests, artifact integrity and release validation. |
+| Deployment | [deploy](deploy/) | active | Declared static-plus-service target, immutable release packaging and installation. |
 
 ## Run locally
 
@@ -51,3 +52,5 @@ The declared matrix is 12 methods x 20 case families x six variants x ten held-o
 The proposed contribution is persistent outcome-aware allocation of deliberation under asynchronous resource changes. Fast/slow routing and dual-process agents already exist. Evidence must come from matched baselines, component ablations and independent transfer evaluation. Controlled software workloads do not establish general intelligence or production reliability.
 
 Read the [documentation index](docs/README.md), [architecture](docs/architecture.md), [scientific pipeline](data-pipeline/README.md), [case contracts](docs/cases.md), [methods](docs/frameworks.md), and [research dossiers](docs/research/README.md). Source code and authored content are Apache-2.0; external models and benchmarks retain their licenses.
+
+The [contract catalog](docs/contracts/catalog.md) defines persisted interfaces and the generated readiness report. Run `python scripts/check_product_gates.py --scope source` for source, contract, readiness and research artifact validation. Rebuild, inspect and execute the bilingual read-only notebooks with `python scripts/build_notebooks.py`, `python scripts/check_notebooks.py` and `python scripts/run_notebooks.py`. The selected hosting topology is documented in [deploy/TARGET](deploy/TARGET).

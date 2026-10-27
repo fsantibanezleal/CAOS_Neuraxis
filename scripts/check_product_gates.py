@@ -1,0 +1,66 @@
+"""Run the named source, scientific artifact, frontend and browser gates for a Neuraxis release."""
+
+from __future__ import annotations
+
+import argparse
+import os
+import shutil
+import subprocess
+import sys
+from pathlib import Path
+
+ROOT = Path(__file__).resolve().parents[1]
+PY = sys.executable
+NPM = "npm.cmd" if os.name == "nt" and shutil.which("npm.cmd") else "npm"
+
+
+def run(label: str, command: list[str], cwd: Path = ROOT, env: dict[str, str] | None = None) -> None:
+    print(f"\n== {label} ==", flush=True)
+    subprocess.run(command, cwd=cwd, check=True, env=env)
+
+
+def main() -> int:
+    parser = argparse.ArgumentParser(description=__doc__)
+    parser.add_argument("--scope", choices=("source", "frontend", "release"), default="release")
+    parser.add_argument("--live-url", help="run browser/content gates against a deployed QA origin")
+    args = parser.parse_args()
+    source_checks = [
+        ("content rules", [PY, "scripts/check_content_standards.py"]),
+        ("software design", [PY, "scripts/check_sdd.py"]),
+        ("contract catalog", [PY, "scripts/check_contract_catalog.py"]),
+        ("contract readiness", [PY, "scripts/check_readiness.py"]),
+        ("contract and adversarial tests", [PY, "-m", "pytest", "tests/contracts", "tests/adversarial", "-q"]),
+        ("notebook structure", [PY, "scripts/check_notebooks.py"]),
+        ("notebook execution and output freshness", [PY, "scripts/run_notebooks.py"]),
+        ("template adoption and deployment target", [PY, "scripts/check_template_adoption.py"]),
+        ("core research artifacts", [PY, "scripts/check_artifacts.py"]),
+        ("research reports", [PY, "scripts/check_research.py"]),
+        ("semantic transfer", [PY, "scripts/check_semantic_transfer.py"]),
+        ("semantic routing", [PY, "scripts/check_semantic_routing.py"]),
+        ("native operation study", [PY, "scripts/check_operations.py"]),
+    ]
+    for label, command in source_checks:
+        run(label, command)
+    if args.scope == "source":
+        return 0
+    frontend = ROOT / "frontend"
+    live_env = os.environ.copy()
+    if args.live_url:
+        live_env["NEURAXIS_QA_URL"] = args.live_url
+    run("frontend formatting", [NPM, "run", "format:check"], frontend)
+    run("frontend tests", [NPM, "test", "--", "--reporter=dot"], frontend)
+    run("frontend production build", [NPM, "run", "build"], frontend)
+    if args.scope == "release":
+        run("audited static package", [PY, "scripts/package_static.py"])
+        if args.live_url:
+            run("live shell interaction gate", ["node", "shell-gate.mjs", "--require-focus"], frontend, live_env)
+            run("live scientific content gate", ["node", "verify-content.mjs"], frontend, live_env)
+    print("product gates: all selected gates passed")
+    return 0
+
+
+if __name__ == "__main__":
+    try:
+        raise SystemExit(main())
+    except subprocess.CalledProcessError as exc:
+        raise SystemExit(exc.returncode or 1)
