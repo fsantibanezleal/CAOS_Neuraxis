@@ -38,6 +38,21 @@ The twenty [case contracts](../cases/cases.md) cover files, builds, HTTP, proces
 
 The benchmark adequacy audit diagnoses the frozen core's state-machine ceiling and seed sensitivity without altering its traces. A new eight-family semantic-transfer lane uses the same twelve frozen methods with opaque, type-compatible operations and actual file effects. Its 1,536 episodes have a separate index, lineage, SHA-256 checks and result view. Results from these lanes are never pooled.
 
+## Research basis
+
+The detailed evidence, access limits and engineering inferences are persisted in [`docs/research/`](../research/README.md). Notebook comparisons use these sources only for the claims indicated here; external results are prior art, not Neuraxis measurements.
+
+- Typed fast decisions and Jev are described by [TypeSafe](https://typesafe.ai/blog/introducing-system-one-models-and-jev); this is a vendor description, not an independent evaluation of Neuraxis.
+- Reliability-sensitive arbitration is studied by [Lee, Shimojo and O'Doherty](https://doi.org/10.1016/j.neuron.2013.11.028); task complexity and uncertainty are evaluated in [the 2019 arbitration study](https://www.nature.com/articles/s41467-019-13632-1). These findings do not establish biological equivalence of the software controller.
+- [DPT-Agent](https://aclanthology.org/2025.acl-long.206/) is prior art for combining code/FSM control and asynchronous language-model reasoning.
+- The policy baselines use the published [XGBoost](https://arxiv.org/abs/1603.02754), [GRU](https://arxiv.org/abs/1406.1078), [LinUCB](https://arxiv.org/abs/1003.0146), and [PPO](https://arxiv.org/abs/1707.06347) method families. The Neuraxis implementation and its exact training/evaluation protocol are documented separately in the research dossier.
+- Allocation of computation is studied in [learning to select computations](https://arxiv.org/abs/1711.06892); cost-sensitive deferral is studied in [learning to defer](https://proceedings.mlr.press/v119/mozannar20b.html). Neither source implies that this product's fitted gate is useful.
+- Stateful tool and task evaluation have prior art in [ToolSandbox](https://arxiv.org/abs/2408.04682), [SWE-bench](https://arxiv.org/abs/2310.06770), and [tau2-bench](https://arxiv.org/abs/2506.07982). Neuraxis's selected local subsets are not full reproductions of those benchmarks.
+
+## Beyond the state of the art
+
+None claimed. H1–H5 above remain hypotheses; corrected core, transfer and ablation results do not establish a component-level advance over the state of the art. A level 4 notebook is therefore not warranted until a named claim has source-bound evidence and survives the specified comparison.
+
 ## Evaluation oracle
 The package evaluates actual environment postconditions. The app validates immutable receipt-bearing traces and displays outcomes unchanged, including failure, cancellation and abstention. Demonstration reliability is labeled as such. Native runs are checked with actual API responses; workspace/recovery browser tests verify real filesystem effects. Screenshots and viewport checks cover six routes, both languages and both themes.
 
@@ -101,7 +116,7 @@ R-025 WHEN the deployment target changes, THE repository SHALL declare its stati
 Gate: scripts/check_product_gates.py
 R-026 WHEN a feature is adopted from the product template, THE feature folder SHALL state its product-specific validation evidence.
 Gate: scripts/check_product_gates.py
-R-027 WHEN notebooks are published, THE bilingual notebooks SHALL be generated from hash-audited artifacts and execute read-only with reproducible checks.
+R-027 WHEN notebooks are published, THE bilingual notebooks SHALL read hash-audited product artifacts without altering them, run any demonstration effects only inside a disposable package-managed case workspace, and reproduce cleanly from fresh kernels.
 Gate: scripts/run_notebooks.py
 R-028 WHEN contract metadata is malformed or hostile, THE validator SHALL reject duplicate identities, escaping paths and stale readiness evidence.
 Gate: tests/adversarial/test_contract_catalog.py
@@ -127,4 +142,4 @@ Release 0.02.012 loads the Introduction shell synchronously so the executive vie
 
 ## 2026-10-26 product-template completion
 
-The repository now declares product identity and deployment topology, catalogs persisted contracts with a locked version map, derives readiness from actual source paths, and exposes the pipeline as an internal Python package that delegates scientific stages to reflexmesh. Each adopted feature records its validation evidence. Four English/Spanish notebooks are generated from source-bound results and run read-only. Contract and adversarial suites reject malformed catalogs, duplicate identities, path traversal and stale readiness digests. `scripts/check_product_gates.py` is the consolidated entry point for these checks and the existing research/frontend release gates.
+The repository declares product identity and deployment topology, catalogs persisted contracts with a locked version map, derives readiness from actual source paths, and exposes the pipeline as an internal Python package that delegates scientific stages to reflexmesh. Each adopted feature records its validation evidence. The bilingual notebook curriculum is organized into five topics and three increasing levels, uses the released Reflexmesh policy API on a hash-verified trace, analyzes matched frozen evaluations, and compares them with the persisted research sources. The template notebook checker and fresh-kernel runner enforce the published structure and reproducibility rules. Contract and adversarial suites reject malformed catalogs, duplicate identities, path traversal and stale readiness digests. `scripts/check_product_gates.py` is the consolidated entry point for these checks and the existing research/frontend release gates.

@@ -32,6 +32,7 @@ def main() -> int:
         ("contract and adversarial tests", [PY, "-m", "pytest", "tests/contracts", "tests/adversarial", "-q"]),
         ("notebook structure", [PY, "scripts/check_notebooks.py"]),
         ("notebook execution and output freshness", [PY, "scripts/run_notebooks.py"]),
+        ("README repository areas", [PY, "scripts/check_readme_areas.py"]),
         ("template adoption and deployment target", [PY, "scripts/check_template_adoption.py"]),
         ("core research artifacts", [PY, "scripts/check_artifacts.py"]),
         ("research reports", [PY, "scripts/check_research.py"]),

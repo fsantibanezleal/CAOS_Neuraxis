@@ -1,6 +1,14 @@
-param([switch]$SkipModels, [string]$Checkpoints = $env:NEURAXIS_CHECKPOINTS)
+param([switch]$SkipModels, [switch]$Notebooks, [string]$Checkpoints = $env:NEURAXIS_CHECKPOINTS)
 $ErrorActionPreference = 'Stop'
 Set-Location (Join-Path $PSScriptRoot '..')
+if ($Notebooks) {
+    if (-not (Test-Path '.venv-notebooks/Scripts/python.exe')) { py -3.12 -m venv .venv-notebooks }
+    if ($LASTEXITCODE) { throw 'Notebook environment creation failed' }
+    & .venv-notebooks/Scripts/python.exe -m pip install -r notebooks/requirements.txt
+    if ($LASTEXITCODE) { throw 'Notebook dependency installation failed' }
+    Write-Output 'Notebook environment ready. Run: python scripts/run_notebooks.py --check --tmp <device-temp-root>'
+    exit 0
+}
 if (-not (Test-Path '.venv/Scripts/python.exe')) { py -3.12 -m venv .venv }
 if ($LASTEXITCODE) { throw 'Python environment creation failed' }
 & .venv/Scripts/python.exe -m pip install -r requirements-api.txt -r requirements-dev.txt
