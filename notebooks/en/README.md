@@ -11,6 +11,7 @@ This index follows the Neuraxis method ladder and the persisted research. Each t
 | [03-sequential-control](03-sequential-control/) | topic 02 | [state-of-the-art comparison](03-sequential-control/03-state-of-the-art-comparison.ipynb) |
 | [04-deliberation-allocation](04-deliberation-allocation/) | topic 03 | [state-of-the-art comparison](04-deliberation-allocation/03-state-of-the-art-comparison.ipynb) |
 | [05-evaluation-and-transfer](05-evaluation-and-transfer/) | topics 01–04 | [state-of-the-art comparison](05-evaluation-and-transfer/03-state-of-the-art-comparison.ipynb) |
+| [06-ablation-and-export-parity](06-ablation-and-export-parity/) | topic 05 | [state-of-the-art comparison](06-ablation-and-export-parity/03-state-of-the-art-comparison.ipynb) |
 
 ## Notebooks
 
@@ -30,7 +31,10 @@ This index follows the Neuraxis method ladder and the persisted research. Each t
 | [04-deliberation-allocation/03-state-of-the-art-comparison.ipynb](04-deliberation-allocation/03-state-of-the-art-comparison.ipynb) | 3 | value of computation and learning-to-defer prior art against Neuraxis's negative gate result |
 | [05-evaluation-and-transfer/01-the-problem-and-the-data.ipynb](05-evaluation-and-transfer/01-the-problem-and-the-data.ipynb) | 1 | matched M01/M04/M09/M12 C01 traces plus core and semantic-transfer provenance |
 | [05-evaluation-and-transfer/02-the-method-in-practice.ipynb](05-evaluation-and-transfer/02-the-method-in-practice.ipynb) | 2 | fresh deterministic and learned package runs plus independent frozen planner results |
-| [05-evaluation-and-transfer/03-state-of-the-art-comparison.ipynb](05-evaluation-and-transfer/03-state-of-the-art-comparison.ipynb) | 3 | benchmark protocol comparisons, saturation, clustered evidence and the actual contribution boundary |
+| [05-evaluation-and-transfer/03-state-of-the-art-comparison.ipynb](05-evaluation-and-transfer/03-state-of-the-art-comparison.ipynb) | 3 | full 14,400-episode hash audit, paired core outcomes, structural and semantic transfer by method |
+| [06-ablation-and-export-parity/01-the-problem-and-the-data.ipynb](06-ablation-and-export-parity/01-the-problem-and-the-data.ipynb) | 1 | matched ablation scope, native export vectors and limits of parity evidence |
+| [06-ablation-and-export-parity/02-the-method-in-practice.ipynb](06-ablation-and-export-parity/02-the-method-in-practice.ipynb) | 2 | fresh M03/M04/M11/M12 package executions and comparison with frozen C07 runs |
+| [06-ablation-and-export-parity/03-state-of-the-art-comparison.ipynb](06-ablation-and-export-parity/03-state-of-the-art-comparison.ipynb) | 3 | four paired M12 ablations, grouped uncertainty and native M03/M04 parity and timing scope |
 
 ## Beyond the state of the art
 

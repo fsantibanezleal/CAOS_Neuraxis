@@ -1,6 +1,6 @@
 # Reproduce the research notebooks
 
-The curriculum has five ordered topics, in English and Spanish, with a fundamentals notebook, a method-in-practice notebook, and a state-of-the-art comparison in each topic. Level 1 verifies and inspects the topic's actual hash-audited decision traces. Level 2 executes the named Reflexmesh methods in an isolated software case environment and compares their independent outcomes with the matching frozen run. Level 3 recomputes per-variant outcomes across all recorded seeds, with routing and transfer studies kept in separate denominators. The notebooks import the released algorithms; they do not contain copied policy implementations or claim to refit the published checkpoints.
+The curriculum has six ordered topics, in English and Spanish, with a fundamentals notebook, a method-in-practice notebook, and a sourced state-of-the-art comparison in each topic. Level 1 verifies and inspects the topic's hash-audited decision traces. Level 2 executes the named Reflexmesh methods in an isolated software case environment and compares their independent outcomes with the matching frozen run. Level 3 verifies all 14,400 core traces, recomputes paired method outcomes and seed variation, examines structural and semantic transfer in separate denominators, audits four M12 ablations, and checks native M03/M04 numerical parity. The notebooks import the released algorithms; they do not contain copied policy implementations or claim to refit the published checkpoints.
 
 ## Environment
 

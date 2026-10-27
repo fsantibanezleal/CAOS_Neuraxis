@@ -11,6 +11,7 @@ Este índice sigue la escalera de métodos de Neuraxis y la investigación persi
 | [03-sequential-control](03-sequential-control/) | tema 02 | [comparación del estado del arte](03-sequential-control/03-state-of-the-art-comparison.ipynb) |
 | [04-deliberation-allocation](04-deliberation-allocation/) | tema 03 | [comparación del estado del arte](04-deliberation-allocation/03-state-of-the-art-comparison.ipynb) |
 | [05-evaluation-and-transfer](05-evaluation-and-transfer/) | temas 01–04 | [comparación del estado del arte](05-evaluation-and-transfer/03-state-of-the-art-comparison.ipynb) |
+| [06-ablation-and-export-parity](06-ablation-and-export-parity/) | tema 05 | [comparación del estado del arte](06-ablation-and-export-parity/03-state-of-the-art-comparison.ipynb) |
 
 ## Notebooks
 
@@ -30,7 +31,10 @@ Este índice sigue la escalera de métodos de Neuraxis y la investigación persi
 | [04-deliberation-allocation/03-state-of-the-art-comparison.ipynb](04-deliberation-allocation/03-state-of-the-art-comparison.ipynb) | 3 | antecedentes de valor de cómputo y aplazamiento frente al resultado negativo de la puerta |
 | [05-evaluation-and-transfer/01-the-problem-and-the-data.ipynb](05-evaluation-and-transfer/01-the-problem-and-the-data.ipynb) | 1 | trazas C01 M01/M04/M09/M12 y procedencia del núcleo y de transferencia semántica |
 | [05-evaluation-and-transfer/02-the-method-in-practice.ipynb](05-evaluation-and-transfer/02-the-method-in-practice.ipynb) | 2 | ejecuciones nuevas deterministas y aprendidas, más resultados de planificador congelados independientes |
-| [05-evaluation-and-transfer/03-state-of-the-art-comparison.ipynb](05-evaluation-and-transfer/03-state-of-the-art-comparison.ipynb) | 3 | protocolos, saturación, evidencia agrupada y límite real de contribución |
+| [05-evaluation-and-transfer/03-state-of-the-art-comparison.ipynb](05-evaluation-and-transfer/03-state-of-the-art-comparison.ipynb) | 3 | auditoría hash de 14.400 episodios, resultados emparejados, transferencia estructural y semántica por método |
+| [06-ablation-and-export-parity/01-the-problem-and-the-data.ipynb](06-ablation-and-export-parity/01-the-problem-and-the-data.ipynb) | 1 | alcance de ablaciones emparejadas, vectores nativos y límites de la evidencia de paridad |
+| [06-ablation-and-export-parity/02-the-method-in-practice.ipynb](06-ablation-and-export-parity/02-the-method-in-practice.ipynb) | 2 | ejecuciones nuevas M03/M04/M11/M12 y comparación con corridas C07 congeladas |
+| [06-ablation-and-export-parity/03-state-of-the-art-comparison.ipynb](06-ablation-and-export-parity/03-state-of-the-art-comparison.ipynb) | 3 | cuatro ablaciones M12, incertidumbre agrupada, paridad nativa M03/M04 y alcance temporal |
 
 ## Más allá del estado del arte
 

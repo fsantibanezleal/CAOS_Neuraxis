@@ -1,8 +1,8 @@
 # Neuraxis research notebooks / Notebooks de investigación de Neuraxis
 
-This is the product's didactic research layer. It teaches the released Reflexmesh methods on Neuraxis's committed, hash-audited episodes; it does not define a second copy of the algorithms. The notebook set covers fast event control, learned action policies, sequential control, deliberation allocation, and evaluation/transfer, from fundamentals through a sourced state-of-the-art comparison.
+This is the product's didactic research layer. It teaches the released Reflexmesh methods on Neuraxis's committed, hash-audited episodes; it does not define a second copy of the algorithms. The notebook set covers fast event control, learned action policies, sequential control, deliberation allocation, full-matrix evaluation/transfer, and matched ablation/native-export parity, from fundamentals through sourced state-of-the-art comparisons.
 
-Esta es la capa didáctica de investigación del producto. Enseña los métodos publicados de Reflexmesh con episodios comprometidos y auditados por hash de Neuraxis; no crea una segunda copia de los algoritmos. El conjunto cubre control rápido por eventos, políticas de acción aprendidas, control secuencial, asignación de deliberación y evaluación/transferencia, desde fundamentos hasta comparación con fuentes del estado del arte.
+Esta es la capa didáctica de investigación del producto. Enseña los métodos publicados de Reflexmesh con episodios comprometidos y auditados por hash de Neuraxis; no crea una segunda copia de los algoritmos. El conjunto cubre control rápido por eventos, políticas de acción aprendidas, control secuencial, asignación de deliberación, evaluación/transferencia de matriz completa y paridad de exportación nativa/ablaciones emparejadas, desde fundamentos hasta comparaciones con fuentes del estado del arte.
 
 ## Two language trees / Dos árboles de idioma
 
