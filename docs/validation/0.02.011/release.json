@@ -1,0 +1,62 @@
+{
+  "date": "2026-10-26",
+  "version": "0.02.011",
+  "tag": "v0.02.011",
+  "deployed_app_commit": "36b6e6fe60b232798791c89f3b998923310da3ad",
+  "static_release": "36b6e6fe60b2-25ad837fc43a",
+  "static_archive_sha256": "25ad837fc43aa5d0fd59c4a125d7b90a5c8c36ea5506cae5d3085e5c4316d4ed",
+  "native_release": "/opt/neuraxis-operations/releases/36b6e6fe60b2-98c1d46e7f82",
+  "native_archive_sha256": "98c1d46e7f82db2f780dace44c38da5638f3af0551a9a0efc388627fd976427d",
+  "engine": "reflexmesh 0.1.2",
+  "shell": "@fasl-work/caos-app-shell 0.19.2",
+  "template": "0.11.002",
+  "hosted_checks": {
+    "product_promotion_ci": 40421247807,
+    "conclusion": "success",
+    "promotion_pr": 73,
+    "feature_pr": 72
+  },
+  "local_gates": {
+    "frontend_unit_tests": 34,
+    "frontend_format_and_build": "passed",
+    "artifact_integrity": "passed; 14400 episodes, 1440 cells, 12 methods, 20 cases, 10 minimum seeds",
+    "content_standards": "passed",
+    "design_specification": "passed",
+    "targeted_browser": "84 route/theme/language/viewport states; zero failures",
+    "full_shared_shell_gate": "not passed locally; static preview returned 502 for the unavailable operations service",
+    "focused_live_shared_shell_gate": {
+      "states": 348,
+      "failures": 15,
+      "findings": [
+        "G4: root route opened Introduction instead of the gate's expected executive landing",
+        "G8: DOM activity remained in workbench inputs and dynamically populated research views",
+        "G18: the optional strict focus check found no Focus control on the three /app views",
+        "ADR-0017.2: Experiments compound-task topic exposed no table"
+      ]
+    }
+  },
+  "live_evidence": {
+    "static_manifest_files": 16067,
+    "static_manifest_entries_verified": 20,
+    "direct_science_routes_verified": 5,
+    "browser_route_theme_language_checks": 84,
+    "page_errors": 0,
+    "native_runs": 2,
+    "native_findings": [10, 3],
+    "native_receipts_per_run": 9,
+    "exports_verified": true,
+    "cross_session_access_rejected": true,
+    "test_runs_deleted": true,
+    "static_and_native_commit_match": true,
+    "public_workspace_api_status": 404
+  },
+  "repository_sensitivity_audit": {
+    "reachable_text_blobs_scanned": 17243,
+    "private_key_blocks_found": 0,
+    "common_credential_patterns_found": 0,
+    "credential_assignment_patterns_found": 0,
+    "limitations": "Pattern-based audit; GitHub secret scanning is disabled. Deployment scripts contain a public SSH host identifier, but no SSH key or credential value."
+  },
+  "acceptance_issue": 28,
+  "acceptance_status": "open; owner review required"
+}

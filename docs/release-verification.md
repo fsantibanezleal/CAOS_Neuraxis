@@ -2,7 +2,7 @@
 
 Public app: https://neuraxis.ml.fasl-work.com/
 
-The application release line adopts `@fasl-work/caos-app-shell` 0.19.2 (exact npm pin) and `CAOS_PRODUCT_TEMPLATE` 0.11.002. Shell 0.19.2 corrects G5's sticky-header occlusion measurement for content inside static semantic headers (SHG-074). Template 0.11.002 makes content-standard diagnostics UTF-8 safe when stdout is captured through a Windows ANSI-code-page pipe; the product guard and its adversarial regression test implement that adoption. `.template-version` records the template baseline and `frontend/package-lock.json` locks the shell artifact. The 0.02.010 release receipt records the prior build and live evidence; the 0.02.011 receipt will bind the repository-link change and its verification.
+The application release line adopts `@fasl-work/caos-app-shell` 0.19.2 (exact npm pin) and `CAOS_PRODUCT_TEMPLATE` 0.11.002. Shell 0.19.2 corrects G5's sticky-header occlusion measurement for content inside static semantic headers (SHG-074). Template 0.11.002 makes content-standard diagnostics UTF-8 safe when stdout is captured through a Windows ANSI-code-page pipe; the product guard and its adversarial regression test implement that adoption. `.template-version` records the template baseline and `frontend/package-lock.json` locks the shell artifact. The [0.02.010 release receipt](validation/0.02.010/release.json) records the prior build and live evidence; the [0.02.011 release receipt](validation/0.02.011/release.json) binds the private repository-link change, deployment hashes, live checks, and the focused shell-gate findings.
 
 Reusable package: https://pypi.org/project/reflexmesh/0.1.2/
 
