@@ -3,7 +3,7 @@
   "$id": "https://neuraxis.ml.fasl-work.com/contracts/product.schema.json",
   "title": "Neuraxis product identity",
   "type": "object",
-  "required": ["name", "slug", "version", "tagline", "repo", "visibility", "license", "holder", "year", "method_packages"],
+  "required": ["name", "slug", "version", "tagline", "repo", "visibility", "license", "holder", "year", "method_packages", "method_entrypoints"],
   "properties": {
     "name": { "const": "Neuraxis" },
     "slug": { "const": "neuraxis" },
@@ -19,7 +19,8 @@
     "license": { "const": "Apache-2.0" },
     "holder": { "type": "string", "minLength": 1 },
     "year": { "type": "integer", "minimum": 2026 },
-    "method_packages": { "type": "array", "items": { "type": "string" } }
+    "method_packages": { "type": "array", "items": { "type": "string" } },
+    "method_entrypoints": { "type": "array", "minItems": 1, "items": { "type": "string", "pattern": "^[A-Za-z_][A-Za-z0-9_.]*$" } }
   },
   "additionalProperties": false
 }

@@ -229,6 +229,8 @@ def main() -> int:
             if tmp_root is not None:
                 # a copy of the repository's inputs at the same relative depth: the notebook reads `../../../data/...`
                 work = tmp_root / "repo"
+                if not work.exists():
+                    print(f"  preparing isolated first-party inputs for {rel}", flush=True)
                 for item in ("data", "data-pipeline", "docs", "content", "notebooks"):
                     if (ROOT / item).exists() and not (work / item).exists():
                         shutil.copytree(ROOT / item, work / item, ignore=shutil.ignore_patterns("__pycache__", ".ipynb_checkpoints"))
@@ -237,16 +239,17 @@ def main() -> int:
                 src = work / rel
             else:
                 src = book
+            print(f"  executing {rel}", flush=True)
             fresh = (tmp_root / "out.ipynb") if tmp_root else src
             why = execute(src, fresh)
             if why is None and tmp_root is not None and not same_bytes(fresh, book):
                 why = ("stale: the committed outputs differ from a fresh run; run scripts/run_notebooks.py and commit the result "
                        "(a notebook edited by hand keeps outputs it no longer produces)")
             if why is None:
-                print(f"  ran   {rel}")
+                print(f"  ran   {rel}", flush=True)
             else:
                 failures.append(rel)
-                print(f"  FAIL  {rel}: {why}")
+                print(f"  FAIL  {rel}: {why}", flush=True)
     finally:
         if tmp_root is not None:
             shutil.rmtree(tmp_root, ignore_errors=True)

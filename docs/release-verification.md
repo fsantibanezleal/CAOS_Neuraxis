@@ -28,3 +28,7 @@ at desktop and phone widths, including pointer hit testing on visible fragments 
 wrapped source links. Reading-page height must grow with its content; document-height
 equality is only appropriate for the desktop workbench. The public live checks use
 `NEURAXIS_QA_URL=https://neuraxis.ml.fasl-work.com` and run against the promoted archive.
+
+## 0.02.013 candidate
+
+Candidate release adopts CAOS App Shell 0.19.5 and CAOS Product Template 0.12.000. It rebuilds all 36 bilingual notebooks against the measured method, prose, figure and computed-answer bar; adds executable Reflexmesh entrypoint declarations and schema validation; and records exact Python and frontend dependencies in the SDD technology matrix. Deployment and user design acceptance remain separate evidence in the release receipt.
