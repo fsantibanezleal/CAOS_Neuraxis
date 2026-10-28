@@ -1,7 +1,7 @@
 {
   "name": "Neuraxis",
   "slug": "neuraxis",
-  "version": "0.02.012",
+  "version": "0.02.013",
   "tagline": {
     "en": "A measured workbench for software control, fast policies, and bounded delegation to deliberative models.",
     "es": "Un entorno medido para el control de software, políticas rápidas y delegación acotada a modelos deliberativos."
@@ -13,5 +13,10 @@
   "year": 2026,
   "method_packages": [
     "reflexmesh"
+  ],
+  "method_entrypoints": [
+    "reflexmesh.pipeline.make_policy",
+    "reflexmesh.evaluation.runner.run_episode",
+    "reflexmesh.evaluation.runner.aggregate"
   ]
 }

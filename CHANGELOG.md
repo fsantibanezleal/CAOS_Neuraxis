@@ -1,5 +1,11 @@
 # Changelog
 
+## 0.02.013 - 2026-10-28
+
+- Adopt CAOS App Shell 0.19.5 and CAOS Product Template 0.12.000 with an enforced exact technology matrix and product metadata schema for executed Reflexmesh entrypoints.
+- Rebuild all 36 English and Spanish notebooks as executed lessons with matched methods, interpreted figures, case-specific questions and computed results; add fresh-kernel reproducibility and static template-bar gates.
+- Keep the complete frozen research evidence unchanged and document the limits of notebook comparisons and human design acceptance.
+
 ## 0.02.012 - 2026-10-26
 
 - Make the root route render the shared Introduction synchronously so the executive landing tab is ready immediately while the technical science view remains lazy-loaded.

@@ -2,7 +2,7 @@
 # Exact pins only (scripts/check_tech_matrix.py reads this file; scripts/check_notebooks.py holds each notebook's
 # `caos.packages` to these lines). The product method package is listed first; runtime and analysis packages follow.
 reflexmesh==0.1.2
-numpy==2.4.6
+numpy==2.5.3
 matplotlib==3.11.2
 torch==2.14.1
 joblib==1.6.0

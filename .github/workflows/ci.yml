@@ -23,6 +23,7 @@ jobs:
       - run: python scripts/check_contract_catalog.py
       - run: python scripts/check_readiness.py
       - run: python scripts/check_template_adoption.py
+      - run: python scripts/check_tech_matrix.py
       - run: python scripts/check_notebooks.py
       - run: python scripts/check_readme_areas.py
       - run: python scripts/check_artifacts.py

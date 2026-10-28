@@ -15,14 +15,12 @@ FEATURES = (
     "reliability-audit",
     "static-release",
     "workspace-operation",
+    "notebooks",
 )
 ARCHITECTURE = tuple(f"docs/architecture/{index:02d}-" for index in range(1, 9))
-NOTEBOOKS = (
-    "notebooks/en/01-fast-event-control/01-the-problem-and-the-data.ipynb",
-    "notebooks/es/01-fast-event-control/01-the-problem-and-the-data.ipynb",
-    "notebooks/en/05-evaluation-and-transfer/03-state-of-the-art-comparison.ipynb",
-    "notebooks/es/05-evaluation-and-transfer/03-state-of-the-art-comparison.ipynb",
-)
+NOTEBOOK_LANGUAGES = ("en", "es")
+EXPECTED_NOTEBOOKS_PER_LANGUAGE = 18
+EXPECTED_NOTEBOOK_LEVELS = (1, 2, 3)
 
 
 def validate(root: Path = ROOT) -> dict:
@@ -47,9 +45,35 @@ def validate(root: Path = ROOT) -> dict:
     missing_architecture = [prefix for prefix in ARCHITECTURE if not any(p.name.startswith(prefix.split("/")[-1]) for p in (root / "docs/architecture").glob("*.md"))]
     if missing_architecture:
         raise ValueError("architecture wiki pages are missing: " + ", ".join(missing_architecture))
-    missing_notebooks = [path for path in NOTEBOOKS if not (root / path).is_file()]
-    if missing_notebooks:
-        raise ValueError("notebooks are missing: " + ", ".join(missing_notebooks))
+    notebook_trees = {}
+    for language in NOTEBOOK_LANGUAGES:
+        base = root / "notebooks" / language
+        notebook_trees[language] = {
+            path.relative_to(base).as_posix(): path
+            for path in base.rglob("*.ipynb")
+            if path.is_file()
+        }
+        if len(notebook_trees[language]) != EXPECTED_NOTEBOOKS_PER_LANGUAGE:
+            raise ValueError(
+                f"{language} notebook tree has {len(notebook_trees[language])} lessons; "
+                f"expected {EXPECTED_NOTEBOOKS_PER_LANGUAGE} (six topics by three levels)"
+            )
+    if set(notebook_trees["en"]) != set(notebook_trees["es"]):
+        raise ValueError("English and Spanish notebook paths do not mirror")
+    for language, tree in notebook_trees.items():
+        for rel, path in tree.items():
+            notebook = json.loads(path.read_text(encoding="utf-8"))
+            level = notebook.get("metadata", {}).get("caos", {}).get("level")
+            if level not in EXPECTED_NOTEBOOK_LEVELS:
+                raise ValueError(f"{language}/{rel} has missing or unsupported lesson level {level!r}")
+        for topic in {Path(rel).parent for rel in tree}:
+            levels = sorted(
+                json.loads(path.read_text(encoding="utf-8")).get("metadata", {}).get("caos", {}).get("level")
+                for rel, path in tree.items()
+                if Path(rel).parent == topic
+            )
+            if levels != list(EXPECTED_NOTEBOOK_LEVELS):
+                raise ValueError(f"{language}/{topic.as_posix()} has levels {levels}; expected 1, 2, 3")
     catalog = root / "docs/contracts/catalog.md"
     if not catalog.is_file() or not (root / "docs/contracts/versions.lock.json").is_file():
         raise ValueError("contract catalog or version lock is missing")
@@ -57,7 +81,12 @@ def validate(root: Path = ROOT) -> dict:
         raise ValueError("pipeline orchestration package is incomplete")
     if not (root / "tests/contracts/test_catalog.py").is_file() or not (root / "tests/adversarial/test_contract_catalog.py").is_file():
         raise ValueError("contract and adversarial test suites are required")
-    return {"features": len(FEATURES), "architecture_pages": len(ARCHITECTURE), "notebooks": len(NOTEBOOKS), "target": "vps-static+vps-service"}
+    return {
+        "features": len(FEATURES),
+        "architecture_pages": len(ARCHITECTURE),
+        "notebooks": sum(map(len, notebook_trees.values())),
+        "target": "vps-static+vps-service",
+    }
 
 
 if __name__ == "__main__":

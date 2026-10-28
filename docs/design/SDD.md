@@ -1,8 +1,66 @@
 # CAOS Neuraxis software design
-Date: 2026-09-24; benchmark extension 2026-09-28. Candidate display release: 0.02.012; deployment evidence is recorded separately.
+Date: 2026-09-24; benchmark extension 2026-09-28. Candidate display release: 0.02.013; deployment evidence is recorded separately.
 
 ## Review and migration record
 This records the existing research-backed implementation authorized before ADR-0075 was adopted on September 22. It is a September 23 migration of the current design, not a backdated pre-development review. The current user instruction explicitly continues the full implementation. Requirement convergence records distinguish local verification from publication and deployment.
+
+## Technology and versions
+
+Every Python requirements file is exactly pinned. Frontend ranges are constrained by the committed npm lock; the table records installed lock versions.
+
+| component | package | version | use | alternative considered |
+|---|---|---|---|---|
+| Product runtime | `annotated-doc` | `0.0.5` | pinned dependency | exact environment contract |
+| Product runtime | `annotated-types` | `0.8.0` | pinned dependency | exact environment contract |
+| Product runtime | `anyio` | `4.15.1` | pinned dependency | exact environment contract |
+| Product runtime | `certifi` | `2026.7.22` | pinned dependency | exact environment contract |
+| Product runtime | `click` | `8.5.0` | pinned dependency | exact environment contract |
+| Product runtime | `fastapi` | `0.141.1` | pinned dependency | exact environment contract |
+| Product runtime | `gymnasium` | `1.4.0` | pinned dependency | exact environment contract |
+| Product runtime | `h11` | `0.16.0` | pinned dependency | exact environment contract |
+| Product runtime | `httpcore` | `1.0.9` | pinned dependency | exact environment contract |
+| Product runtime | `httpx` | `0.28.1` | pinned dependency | exact environment contract |
+| Product runtime | `idna` | `3.20` | pinned dependency | exact environment contract |
+| Product runtime | `ipykernel` | `7.4.0` | pinned dependency | exact environment contract |
+| Product runtime | `joblib` | `1.6.0` | pinned dependency | exact environment contract |
+| Product runtime | `jsonschema` | `4.23.0` | pinned dependency | exact environment contract |
+| Product runtime | `matplotlib` | `3.11.2` | pinned dependency | exact environment contract |
+| Product runtime | `nbclient` | `0.11.0` | pinned dependency | exact environment contract |
+| Product runtime | `nbformat` | `5.11.1` | pinned dependency | exact environment contract |
+| Product runtime | `numpy` | `2.5.3` | pinned dependency | exact environment contract |
+| Product runtime | `pydantic` | `2.13.5` | pinned dependency | exact environment contract |
+| Product runtime | `pydantic-core` | `2.46.5` | pinned dependency | exact environment contract |
+| Product runtime | `pytest` | `9.0.3` | pinned dependency | exact environment contract |
+| Product runtime | `reflexmesh` | `0.1.2` | pinned dependency | exact environment contract |
+| Product runtime | `ruff` | `0.15.11` | pinned dependency | exact environment contract |
+| Product runtime | `sb3-contrib` | `2.9.2` | pinned dependency | exact environment contract |
+| Product runtime | `scikit-learn` | `1.9.1` | pinned dependency | exact environment contract |
+| Product runtime | `stable-baselines3` | `2.9.2` | pinned dependency | exact environment contract |
+| Product runtime | `starlette` | `1.7.0` | pinned dependency | exact environment contract |
+| Product runtime | `torch` | `2.14.1` | pinned dependency | exact environment contract |
+| Product runtime | `typing-extensions` | `4.16.0` | pinned dependency | exact environment contract |
+| Product runtime | `typing-inspection` | `0.4.4` | pinned dependency | exact environment contract |
+| Product runtime | `uvicorn` | `0.53.0` | pinned dependency | exact environment contract |
+| Browser build | `@fasl-work/caos-app-shell` | `0.19.5` | locked frontend dependency | exact package-lock version |
+| Browser build | `@playwright/test` | `1.63.0` | locked frontend dependency | exact package-lock version |
+| Browser build | `@types/node` | `22.20.0` | locked frontend dependency | exact package-lock version |
+| Browser build | `@types/react` | `19.2.17` | locked frontend dependency | exact package-lock version |
+| Browser build | `@types/react-dom` | `19.2.3` | locked frontend dependency | exact package-lock version |
+| Browser build | `@vitejs/plugin-react` | `6.1.1` | locked frontend dependency | exact package-lock version |
+| Browser build | `i18next` | `26.4.2` | locked frontend dependency | exact package-lock version |
+| Browser build | `katex` | `0.19.0` | locked frontend dependency | exact package-lock version |
+| Browser build | `lucide-react` | `1.47.0` | locked frontend dependency | exact package-lock version |
+| Browser build | `prettier` | `3.9.8` | locked frontend dependency | exact package-lock version |
+| Browser build | `react` | `19.2.7` | locked frontend dependency | exact package-lock version |
+| Browser build | `react-dom` | `19.2.7` | locked frontend dependency | exact package-lock version |
+| Browser build | `react-i18next` | `17.0.14` | locked frontend dependency | exact package-lock version |
+| Browser build | `react-router` | `7.18.4` | locked frontend dependency | exact package-lock version |
+| Browser build | `react-router-dom` | `7.18.4` | locked frontend dependency | exact package-lock version |
+| Browser build | `typescript` | `5.9.3` | locked frontend dependency | exact package-lock version |
+| Browser build | `uplot` | `1.6.32` | locked frontend dependency | exact package-lock version |
+| Browser build | `vite` | `8.3.5` | locked frontend dependency | exact package-lock version |
+| Browser build | `vitest` | `5.0.5` | locked frontend dependency | exact package-lock version |
+| Browser build | `zustand` | `5.0.15` | locked frontend dependency | exact package-lock version |
 
 ## Problem and non-goals
 Provide an inspectable software-control workbench, scientific explanation, complete measured comparison and authenticated local workspace operation. The public companion replays evidence; actual user tools run on the user's loopback service. A browser simulation is visibly labeled and never substituted for native effect evidence.
@@ -120,6 +178,12 @@ R-027 WHEN notebooks are published, THE bilingual notebooks SHALL read hash-audi
 Gate: scripts/run_notebooks.py
 R-028 WHEN contract metadata is malformed or hostile, THE validator SHALL reject duplicate identities, escaping paths and stale readiness evidence.
 Gate: tests/adversarial/test_contract_catalog.py
+R-029 WHEN the notebook curriculum is released, EACH lesson SHALL meet the adopted measured floors for method execution, explanatory prose, figures and computed answers.
+Gate: scripts/check_notebooks.py
+R-030 WHEN a notebook demonstrates a Reflexmesh policy, THE product SHALL declare its real method entrypoints and policy factory, and THE fresh-kernel runner SHALL execute those methods on the named case.
+Gate: scripts/check_notebooks.py
+R-031 WHEN notebook prose or figures change, EACH English and Spanish lesson SHALL pass the per-file checks in the adopted product notebook bar before release.
+Gate: scripts/check_notebooks.py
 ```
 
 Feature convergence lives under [features](features/). Scientific conclusions are in [corrected results](../evaluation/corrected-results.md).
@@ -143,3 +207,14 @@ Release 0.02.012 loads the Introduction shell synchronously so the executive vie
 ## 2026-10-26 product-template completion
 
 The repository declares product identity and deployment topology, catalogs persisted contracts with a locked version map, derives readiness from actual source paths, and exposes the pipeline as an internal Python package that delegates scientific stages to reflexmesh. Each adopted feature records its validation evidence. The bilingual notebook curriculum is organized into six topics and three increasing levels, uses the released Reflexmesh policy API on a hash-verified trace, analyzes matched frozen evaluations, and compares them with the persisted research sources. The template notebook checker and fresh-kernel runner enforce the published structure and reproducibility rules. Contract and adversarial suites reject malformed catalogs, duplicate identities, path traversal and stale readiness digests. `scripts/check_product_gates.py` is the consolidated entry point for these checks and the existing research/frontend release gates.
+
+## 2026-10-28 current shared-base adoption
+
+The release candidate adopts the currently tagged `CAOS_PRODUCT_TEMPLATE` 0.12.000 and the published
+`@fasl-work/caos-app-shell` 0.19.5. The template adoption adds the measured notebook lesson floors, the example-residue
+guard data, adversarial notebook-bar tests, the exact technology matrix, the user-facing notebook guide and product-specific validation requirements. Neuraxis
+declares `reflexmesh.pipeline.make_policy` as the callable policy factory and `reflexmesh.evaluation.runner.run_episode`
+as the executed evaluation method. Its bilingual notebook set is rebuilt to meet the lesson bar; the old committed
+traces remain immutable evidence, not substitutes for executed methods. The shell upgrade is checked against the actual
+Neuraxis `/` document route and `/app` surface route. The candidate does not claim that UI or scientific design has user
+acceptance until the live surfaces are reviewed by Felipe.

@@ -1,6 +1,6 @@
 {
   "schema_version": 1,
-  "product_version": "0.02.012",
+  "product_version": "0.02.013",
   "catalog_sha256": "7d5576e1e0cdc4959511e46824367bea1e0aa315e760ee00210f64b41efa4745",
   "contracts": [
     {
