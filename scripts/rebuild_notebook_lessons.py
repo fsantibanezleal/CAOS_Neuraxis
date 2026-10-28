@@ -434,33 +434,33 @@ def method_steps(topic: str, level: int, lang: str) -> list[dict]:
         ]
     captions = [caption.replace("; ", ", and ") for caption in captions]
     cells = [
-        markdown_cell(f"### {label} · L{level} — {('Build the first executable policy' if lang == 'en' else 'Construir la primera política ejecutable')}\n\n{captions[0]}\n"),
+        markdown_cell(f"### {label} · L{level} | {('Build the first executable policy' if lang == 'en' else 'Construir la primera política ejecutable')}\n\n{captions[0]}\n"),
         code_cell(
             f"# {'Construct the first released policy through the public factory.' if lang == 'en' else 'Construye la primera política publicada mediante la fábrica pública.'}\n"
             f"primary_id = {m1!r}\n"
             "primary_policy = make_policy(primary_id, checkpoint_dir, planner=planner)\n"
             "print(\"Primary policy:\", primary_id)\n"
         ),
-        markdown_cell(f"### {label} · L{level} — {('Execute the primary method on the named case' if lang == 'en' else 'Ejecutar el método principal en el caso indicado')}\n\n{captions[1]}\n"),
+        markdown_cell(f"### {label} · L{level} | {('Execute the primary method on the named case' if lang == 'en' else 'Ejecutar el método principal en el caso indicado')}\n\n{captions[1]}\n"),
         code_cell(
             f"# {'Run the policy and verify the case postcondition independently.' if lang == 'en' else 'Ejecuta la política y verifica independientemente la poscondición del caso.'}\n"
             f"primary_result = run_episode(primary_policy, {spec})\n"
             "print(\"Primary task success:\", primary_result[\"metrics\"][\"task_success\"])\n"
         ),
-        markdown_cell(f"### {label} · L{level} — {('Construct an independent comparison policy' if lang == 'en' else 'Construir una política de comparación independiente')}\n\n{captions[2]}\n"),
+        markdown_cell(f"### {label} · L{level} | {('Construct an independent comparison policy' if lang == 'en' else 'Construir una política de comparación independiente')}\n\n{captions[2]}\n"),
         code_cell(
             f"# {'Create a fresh policy object for the matched comparison.' if lang == 'en' else 'Crea un objeto de política nuevo para la comparación emparejada.'}\n"
             f"secondary_id = {m2!r}\n"
             "secondary_policy = make_policy(secondary_id, checkpoint_dir, planner=planner)\n"
             "print(\"Comparison policy:\", secondary_id)\n"
         ),
-        markdown_cell(f"### {label} · L{level} — {('Run the comparison under identical conditions' if lang == 'en' else 'Ejecutar la comparación bajo condiciones idénticas')}\n\n{captions[3]}\n"),
+        markdown_cell(f"### {label} · L{level} | {('Run the comparison under identical conditions' if lang == 'en' else 'Ejecutar la comparación bajo condiciones idénticas')}\n\n{captions[3]}\n"),
         code_cell(
             f"# {'Use the same case, variant and seed for the second policy.' if lang == 'en' else 'Usa el mismo caso, variante y semilla para la segunda política.'}\n"
             f"secondary_result = run_episode(secondary_policy, {spec})\n"
             "print(\"Comparison task success:\", secondary_result[\"metrics\"][\"task_success\"])\n"
         ),
-        markdown_cell(f"### {label} · L{level} — {('Aggregate the two executed episodes' if lang == 'en' else 'Agregar los dos episodios ejecutados')}\n\n{captions[4]}\n"),
+        markdown_cell(f"### {label} · L{level} | {('Aggregate the two executed episodes' if lang == 'en' else 'Agregar los dos episodios ejecutados')}\n\n{captions[4]}\n"),
         code_cell(
             "# Aggregate executed outcomes with the package's descriptive evaluator.\n"
             "fresh_runs = {primary_id: primary_result, secondary_id: secondary_result}\n"
@@ -548,7 +548,7 @@ def figure_block(lang: str, topic: str, kind: str, level: int) -> list[dict]:
         source = source.replace("independent postcondition", "poscondición independiente")
         source = source.replace("frozen-trace timing", "tiempos de trazas congeladas")
         source = source.replace("frozen-trace XGBoost comparison", "comparación XGBoost con trazas congeladas")
-    caption = "### " + TOPIC_LABEL[lang][topic] + f" · L{level} — " + {
+    caption = "### " + TOPIC_LABEL[lang][topic] + f" · L{level} | " + {
         "first": "Fresh policy outcomes" if lang == "en" else "Resultados de políticas nuevas",
         "latency": "Decision time on the matched episode" if lang == "en" else "Tiempo de decisión en el episodio emparejado",
         "baseline": "Measured learned-policy comparator" if lang == "en" else "Referencia aprendida medida",
@@ -824,15 +824,15 @@ print("Persisted M12 paired audit:", transfer_report["m12_paired"])
         )
         nb["cells"].insert(transfer_code_index, markdown_cell(heading_text))
     cells = nb["cells"]
-    heading = "core matrix evidence" if lang == "en" else "evidencia de la matriz central"
     start = next(
         (
             i
             for i, cell in enumerate(cells)
             if cell["cell_type"] == "markdown"
-            and any(
-                token.casefold() in source_of(cell).casefold()
-                for token in (heading, "Recompute the complete core matrix", "Reconstruir la matriz central completa")
+            and re.search(
+                r"^#{2,3} (?:Full core matrix evidence|Evidencia de la matriz central completa|Recompute the complete core matrix|Reconstruir la matriz central completa)\s*$",
+                source_of(cell),
+                re.M,
             )
         ),
         None,
@@ -945,7 +945,7 @@ def stabilize_plot_timing(nb: dict, topic: str, level: int, lang: str) -> bool:
         item["source"] = source.splitlines(keepends=True)
         if index > 0 and nb["cells"][index - 1]["cell_type"] == "markdown":
             heading = "Recorded controller time" if lang == "en" else "Tiempo registrado del controlador"
-            source = f"### {label} · L{level} — {heading}\n\n"
+            source = f"### {label} · L{level} | {heading}\n\n"
             if lang == "en":
                 source += f"At level {level}, the {label} timing chart uses hash-verified frozen records for {timed_methods[0]} and {timed_methods[1]} on {case}, not machine-dependent timings from fresh episodes. This level {level} {label} view describes the recorded environment under its declared case, variant and seed."
             else:
@@ -1034,7 +1034,7 @@ def rebuild(root: Path) -> int:
                 changed = []
                 for line in lines:
                     if line.startswith("### ") and len(line) > 52:
-                        prefix = f"### {TOPIC_LABEL[lang][topic]} · level {level} — " if lang == "en" else f"### {TOPIC_LABEL[lang][topic]} · nivel {level} — "
+                        prefix = f"### {TOPIC_LABEL[lang][topic]} · level {level} | " if lang == "en" else f"### {TOPIC_LABEL[lang][topic]} · nivel {level} | "
                         line = prefix + line[4:]
                     changed.append(line)
                 item["source"] = [(line + "\n") for line in changed]
@@ -1123,7 +1123,7 @@ def rebuild(root: Path) -> int:
                 )
                 sota_cells = [
                     markdown_cell(
-                        (f"### {TOPIC_LABEL[lang][topic]} · L{level} — Execute the XGBoost reference on matched conditions\n\n" if lang == "en" else f"### {TOPIC_LABEL[lang][topic]} · L{level} — Ejecutar la referencia XGBoost bajo condiciones emparejadas\n\n")
+                        (f"### {TOPIC_LABEL[lang][topic]} · L{level} | Execute the XGBoost reference on matched conditions\n\n" if lang == "en" else f"### {TOPIC_LABEL[lang][topic]} · L{level} | Ejecutar la referencia XGBoost bajo condiciones emparejadas\n\n")
                         + (f"This level {level} {TOPIC_LABEL[lang][topic]} reference call executes M04 on {CASE_FOR_TOPIC[topic]} with the same nominal seed as the fresh policies, and its score and time form one matched observation.\n" if lang == "en" else f"Esta llamada de referencia del nivel {level} para {TOPIC_LABEL[lang][topic]} ejecuta M04 en {CASE_FOR_TOPIC[topic]} con la misma semilla nominal, y su resultado y tiempo forman una observación emparejada.\n")
                     ),
                     code_cell(
