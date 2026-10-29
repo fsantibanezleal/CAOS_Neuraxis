@@ -1,0 +1,67 @@
+{
+  "date": "2026-10-29",
+  "version": "0.02.016",
+  "tag": "v0.02.016",
+  "deployed_app_commit": "83b696400c12e286e0e7115e303e72637aadb813",
+  "static_release": "83b696400c12-dd962ecfdde6",
+  "static_archive_sha256": "dd962ecfdde6eba5f06f24ce1336a1020ffe7d86f713ebab889f3872f2ad66e4",
+  "native_release": "/opt/neuraxis-operations/releases/83b696400c12-65c676ad369d",
+  "native_archive_sha256": "65c676ad369dd43867d1e310c7827adb9ef9ae30c3cf0dd9675064f0314a8df9",
+  "engine": "reflexmesh 0.1.2",
+  "shell": "@fasl-work/caos-app-shell 0.19.6",
+  "template": "CAOS_PRODUCT_TEMPLATE 0.13.001",
+  "hosted_checks": {
+    "develop_ci": 40893439865,
+    "main_ci": 40893640691,
+    "static_release_build": 40893640766,
+    "feature_prs": [
+      96
+    ],
+    "promotion_pr": 97,
+    "conclusion": "success"
+  },
+  "local_gates": {
+    "contract_and_adversarial_tests": 8,
+    "frontend_unit_tests": 34,
+    "frontend_test_files": 7,
+    "frontend_format": "passed",
+    "production_build": "passed",
+    "source_and_research_gates": "passed",
+    "notebooks": "38 executed in fresh kernels; static language mirror and notebook bar passed",
+    "notebook_review": "CAOS_MANAGE/wip/system-one/notebook-review-0.02.016-2026-10-29.md",
+    "shared_shell_build": "975 measured states; passed with zero failures"
+  },
+  "live_evidence": {
+    "static_manifest_files": 16067,
+    "static_files_hash_verified": 19,
+    "direct_routes_verified": 5,
+    "live_shared_shell_states": 975,
+    "live_shared_shell_failures": 0,
+    "scientific_content_checks": 296,
+    "scientific_content_errors": 0,
+    "native_runs": 2,
+    "native_findings": [
+      10,
+      3
+    ],
+    "native_receipts_per_run": 9,
+    "exports_verified": true,
+    "cross_session_access_rejected": true,
+    "test_runs_deleted": true,
+    "public_api_status": 404,
+    "static_and_native_commit_match": true
+  },
+  "scientific_scope": {
+    "research_data_changed": false,
+    "methods_changed": false,
+    "reported_results_changed": false,
+    "technical_report_version": "0.02.014",
+    "reason": "The release corrects notebook wording, Spanish localization, index mapping, generated prose and reproducible notebook structure; it does not change the method, data or scientific results."
+  },
+  "live_report_files": [
+    "live-static.json",
+    "live-content.json",
+    "live-shell.json",
+    "live-operations.json"
+  ]
+}
