@@ -27,6 +27,7 @@ def main() -> int:
     source_checks = [
         ("content rules", [PY, "scripts/check_content_standards.py"]),
         ("software design", [PY, "scripts/check_sdd.py"]),
+        ("manuscripts", [PY, "scripts/check_manuscripts.py"]),
         ("contract catalog", [PY, "scripts/check_contract_catalog.py"]),
         ("contract readiness", [PY, "scripts/check_readiness.py"]),
         ("contract and adversarial tests", [PY, "-m", "pytest", "tests/contracts", "tests/adversarial", "-q"]),

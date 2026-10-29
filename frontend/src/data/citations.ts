@@ -4,8 +4,15 @@ export const CITATIONS: Citation[] = [
     id: 'neuraxis2026',
     label: 'Neuraxis implementation (2026)',
     citation:
-      'Neuraxis. Product implementation and measured operation records, release 0.02.009. Source repository access requires authorization; measured artifacts are available in Experiments.',
+      'Neuraxis. Product implementation and measured operation records, release 0.02.014. The public source repository includes measured artifacts and bilingual research notebooks.',
     url: 'https://github.com/fsantibanezleal/CAOS_Neuraxis',
+  },
+  {
+    id: 'neuraxisreport2026',
+    label: 'Neuraxis technical report (2026)',
+    citation:
+      'Santibáñez-Leal F. Fast Software Control and Bounded Deliberation: Methods, Evidence, and Limits. Technical report, version 0.02.014 (2026).',
+    doi: '10.5281/zenodo.23765414',
   },
   {
     id: 'reflexmesh2026',

@@ -32,3 +32,8 @@ equality is only appropriate for the desktop workbench. The public live checks u
 ## 0.02.013 candidate
 
 Candidate release adopts CAOS App Shell 0.19.5 and CAOS Product Template 0.12.000. It rebuilds all 36 bilingual notebooks against the measured method, prose, figure and computed-answer bar; adds executable Reflexmesh entrypoint declarations and schema validation; and records exact Python and frontend dependencies in the SDD technology matrix. Deployment and user design acceptance remain separate evidence in the release receipt.
+
+
+## 0.02.014 candidate
+
+Adopts CAOS App Shell 0.19.6 and CAOS Product Template 0.13.001. Adds the mandatory three-tier method map, bilingual level-4 BS-1 lessons, manuscript declaration and CI validation, contract metadata version 1.1.0, and a compiled and published technical report, version DOI 10.5281/zenodo.23765414 and concept DOI 10.5281/zenodo.23765413. The complete source and notebook gates pass; static/native deployment and live verification remain separate release evidence.

@@ -1,6 +1,6 @@
 # Operational workbench validation
 
-Candidate: 0.02.013. Native effects require the authenticated local or bounded hosted operations service; the static preview is not a native-effect test environment.
+Candidate: 0.02.014. Native effects require the authenticated local or bounded hosted operations service; the static preview is not a native-effect test environment.
 
 | Requirement | Adversarial check | Gate | Evidence |
 |---|---|---|---|

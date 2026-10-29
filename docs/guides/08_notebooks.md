@@ -51,7 +51,7 @@ What every notebook of a product does:
 
 ### The measured floors
 
-`scripts/check_notebooks.py` enforces these from template 0.12.000, statically, on the committed cells and outputs; the
+`scripts/check_notebooks.py` enforces these from template 0.13.001, statically, on the committed cells and outputs; the
 thresholds are in `scripts/notebook_bar.json`. A finding names the notebook, the measure, the value and the floor (for
 example `notebooks/en/01-x/02-y.ipynb: bar: method cells 2, the floor at level 2 is 5`). The floors catch the failure
 described above; they do not certify a lesson, the review does.

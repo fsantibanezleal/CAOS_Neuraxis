@@ -1,5 +1,5 @@
 # CAOS Neuraxis software design
-Date: 2026-09-24; benchmark extension 2026-09-28. Candidate display release: 0.02.013; deployment evidence is recorded separately.
+Date: 2026-09-24; benchmark extension 2026-09-28. Candidate display release: 0.02.014; deployment evidence is recorded separately.
 
 ## Review and migration record
 This records the existing research-backed implementation authorized before ADR-0075 was adopted on September 22. It is a September 23 migration of the current design, not a backdated pre-development review. The current user instruction explicitly continues the full implementation. Requirement convergence records distinguish local verification from publication and deployment.
@@ -41,7 +41,7 @@ Every Python requirements file is exactly pinned. Frontend ranges are constraine
 | Product runtime | `typing-extensions` | `4.16.0` | pinned dependency | exact environment contract |
 | Product runtime | `typing-inspection` | `0.4.4` | pinned dependency | exact environment contract |
 | Product runtime | `uvicorn` | `0.53.0` | pinned dependency | exact environment contract |
-| Browser build | `@fasl-work/caos-app-shell` | `0.19.5` | locked frontend dependency | exact package-lock version |
+| Browser build | `@fasl-work/caos-app-shell` | `0.19.6` | locked frontend dependency | exact package-lock version |
 | Browser build | `@playwright/test` | `1.63.0` | locked frontend dependency | exact package-lock version |
 | Browser build | `@types/node` | `22.20.0` | locked frontend dependency | exact package-lock version |
 | Browser build | `@types/react` | `19.2.17` | locked frontend dependency | exact package-lock version |
@@ -75,20 +75,20 @@ The browser contains interactive simulation, immutable canonical replay and visu
 The workspace local lane executes user-authored DAG recipes and displays actual native receipts. Static public requests to /api return 404. Offline research, model fitting and transfer workloads are retained in the package evidence.
 
 ## Method ladder
-| Method | Acceptance criterion |
-| --- | --- |
-| M01 | Maintained state rules execute independent postconditions across the complete core matrix. |
-| M02 | Explicit behavior-tree traversal executes the same candidate/authority contract. |
-| M03 | Fitted logistic imitation, disjoint calibration and Rust export match within 1e-5. |
-| M04 | Fitted boosted-tree imitation, calibration and Rust export match within 1e-5. |
-| M05 | Trained GRU carries episode-local hidden state; ONNX export parity is measured. |
-| M06 | Logged executed rewards and propensities fit the contextual linear bandit. |
-| M07 | Masked PPO records achieved online transitions and held-out execution outcomes. |
-| M08 | Learned observed transitions, reward and termination support bounded lookahead and validation error. |
-| M09 | A real model receives the current bounded candidate set; its selected action is independently admitted. |
-| M10 | Fixed asynchronous delegation records request, acceptance, rejection and unused completion. |
-| M11 | Paired executed incremental utility fits a calibrated gate with separate threshold selection. |
-| M12 | Recurrent/effect preference, surprise response and learned allocation execute with four component ablations. |
+| id | tier | method | acceptance criterion | gate |
+| --- | --- | --- | --- | --- |
+| M01 | classical | Guarded finite-state controller | Maintained state rules execute independent postconditions across the complete core matrix. | `docs/evaluation/corrected-results.md` |
+| M02 | classical | Behavior-tree controller | Explicit behavior-tree traversal executes the same candidate/authority contract. | `docs/evaluation/corrected-results.md` |
+| M03 | sota | Logistic imitation policy | Fitted model, disjoint calibration and Rust export match within 1e-5. | `docs/evaluation/corrected-results.md` |
+| M04 | sota | Gradient-boosted action policy | Fitted model, calibration and Rust export match within 1e-5. | `docs/evaluation/corrected-results.md` |
+| M05 | sota | Recurrent GRU imitation | Trained GRU carries episode-local hidden state; ONNX export parity is measured. | `docs/evaluation/corrected-results.md` |
+| M06 | sota | Contextual linear bandit | Logged executed rewards and propensities fit the contextual linear bandit. | `docs/evaluation/corrected-results.md` |
+| M07 | sota | Masked PPO | PPO records achieved online transitions and held-out execution outcomes. | `docs/evaluation/corrected-results.md` |
+| M08 | sota | Learned-model bounded lookahead | Learned observed transitions, reward and termination support bounded lookahead; prediction error is measured. | `docs/evaluation/corrected-results.md` |
+| M09 | sota | Deliberative language-model planner | A real model receives the current bounded candidate set; its selected action is independently admitted. | `docs/evaluation/corrected-results.md` |
+| M10 | sota | Fixed asynchronous delegation | Request, acceptance, rejection and unused completion are recorded. | `docs/evaluation/corrected-results.md` |
+| M11 | sota | Cost-sensitive learned deferral gate | Paired executed incremental utility fits a calibrated gate with separate threshold selection. | `docs/evaluation/corrected-results.md` |
+| BS-1 | beyond | M12: resource-versioned, outcome-aware metacontrol | Recurrent/effect preference, surprise response and learned allocation execute; compare against matched baselines and four component ablations. | `docs/evaluation/corrected-results.md` |
 The app exposes the full ladder with method-specific evidence and limitations. Acceptance requires canonical results for every method and replay of a hash-verified trace, not just an attractive method selector.
 
 ## Case taxonomy and coverage
@@ -109,7 +109,7 @@ The detailed evidence, access limits and engineering inferences are persisted in
 
 ## Beyond the state of the art
 
-None claimed. H1–H5 above remain hypotheses; corrected core, transfer and ablation results do not establish a component-level advance over the state of the art. A level 4 notebook is therefore not warranted until a named claim has source-bound evidence and survives the specified comparison.
+- **BS-1 (M12), resource-versioned, outcome-aware metacontrol.** The proposal combines persistent causal/effect state, observed resource revisions, stale-proposal invalidation, and computation allocation that includes planner outcome and delay. Its falsifiable hypothesis is that, under a fixed deliberation budget and independently verified software postconditions, this stateful controller improves the success/cost frontier over a competent guarded controller and asynchronous planner baselines without admitting stale or unauthorized effects. Evaluate on disjoint task families with paired outcomes, resource changes during pending plans, explicit planner failures, and component ablations. The existing frozen evidence does not support that hypothesis: M12 solves 1,160/1,200 core episodes while exact M01 solves 1,200/1,200; the fitted allocation gate selects never-defer; all four ablations preserve task success; and the reported transfer comparisons do not establish a consistent advantage. BS-1 is therefore a proposed method with a negative/partial result, not a claim of demonstrated superiority, biological equivalence, or general intelligence.
 
 ## Evaluation oracle
 The package evaluates actual environment postconditions. The app validates immutable receipt-bearing traces and displays outcomes unchanged, including failure, cancellation and abstention. Demonstration reliability is labeled as such. Native runs are checked with actual API responses; workspace/recovery browser tests verify real filesystem effects. Screenshots and viewport checks cover six routes, both languages and both themes.

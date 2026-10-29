@@ -19,8 +19,10 @@ FEATURES = (
 )
 ARCHITECTURE = tuple(f"docs/architecture/{index:02d}-" for index in range(1, 9))
 NOTEBOOK_LANGUAGES = ("en", "es")
-EXPECTED_NOTEBOOKS_PER_LANGUAGE = 18
-EXPECTED_NOTEBOOK_LEVELS = (1, 2, 3)
+EXPECTED_NOTEBOOKS_PER_LANGUAGE = 19
+EXPECTED_NOTEBOOK_LEVELS = {"01-fast-event-control": (1, 2, 3), "02-learned-action-policies": (1, 2, 3),
+                           "03-sequential-control": (1, 2, 3), "04-deliberation-allocation": (1, 2, 3, 4),
+                           "05-evaluation-and-transfer": (1, 2, 3), "06-ablation-and-export-parity": (1, 2, 3)}
 
 
 def validate(root: Path = ROOT) -> dict:
@@ -64,7 +66,7 @@ def validate(root: Path = ROOT) -> dict:
         for rel, path in tree.items():
             notebook = json.loads(path.read_text(encoding="utf-8"))
             level = notebook.get("metadata", {}).get("caos", {}).get("level")
-            if level not in EXPECTED_NOTEBOOK_LEVELS:
+            if level not in {1, 2, 3, 4}:
                 raise ValueError(f"{language}/{rel} has missing or unsupported lesson level {level!r}")
         for topic in {Path(rel).parent for rel in tree}:
             levels = sorted(
@@ -72,8 +74,9 @@ def validate(root: Path = ROOT) -> dict:
                 for rel, path in tree.items()
                 if Path(rel).parent == topic
             )
-            if levels != list(EXPECTED_NOTEBOOK_LEVELS):
-                raise ValueError(f"{language}/{topic.as_posix()} has levels {levels}; expected 1, 2, 3")
+            expected_levels = list(EXPECTED_NOTEBOOK_LEVELS.get(topic.as_posix(), (1, 2, 3)))
+            if levels != expected_levels:
+                raise ValueError(f"{language}/{topic.as_posix()} has levels {levels}; expected {expected_levels}")
     catalog = root / "docs/contracts/catalog.md"
     if not catalog.is_file() or not (root / "docs/contracts/versions.lock.json").is_file():
         raise ValueError("contract catalog or version lock is missing")

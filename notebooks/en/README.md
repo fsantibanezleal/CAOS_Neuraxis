@@ -9,7 +9,7 @@ This index follows the Neuraxis method ladder and the persisted research. Each t
 | [01-fast-event-control](01-fast-event-control/) | none; entry topic | [state-of-the-art comparison](01-fast-event-control/03-state-of-the-art-comparison.ipynb) |
 | [02-learned-action-policies](02-learned-action-policies/) | topic 01 | [state-of-the-art comparison](02-learned-action-policies/03-state-of-the-art-comparison.ipynb) |
 | [03-sequential-control](03-sequential-control/) | topic 02 | [state-of-the-art comparison](03-sequential-control/03-state-of-the-art-comparison.ipynb) |
-| [04-deliberation-allocation](04-deliberation-allocation/) | topic 03 | [state-of-the-art comparison](04-deliberation-allocation/03-state-of-the-art-comparison.ipynb) |
+| [04-deliberation-allocation](04-deliberation-allocation/) | topic 03 | [state-of-the-art comparison](04-deliberation-allocation/03-state-of-the-art-comparison.ipynb) · [beyond the state of the art](04-deliberation-allocation/04-beyond-the-state-of-the-art.ipynb)  · [beyond-state-of-the-art](04-deliberation-allocation/04-beyond-the-state-of-the-art.ipynb) |
 | [05-evaluation-and-transfer](05-evaluation-and-transfer/) | topics 01–04 | [state-of-the-art comparison](05-evaluation-and-transfer/03-state-of-the-art-comparison.ipynb) |
 | [06-ablation-and-export-parity](06-ablation-and-export-parity/) | topic 05 | [state-of-the-art comparison](06-ablation-and-export-parity/03-state-of-the-art-comparison.ipynb) |
 
