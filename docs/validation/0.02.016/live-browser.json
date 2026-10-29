@@ -1,0 +1,35 @@
+{
+  "schema": "neuraxis.live-browser-verification/v1",
+  "base": "https://neuraxis.ml.fasl-work.com",
+  "commit": "83b696400c12e286e0e7115e303e72637aadb813",
+  "shell_gate": {
+    "states": 975,
+    "ok": true,
+    "failures": []
+  },
+  "scientific_content": {
+    "section_checks": 296,
+    "errors": []
+  },
+  "coverage": {
+    "languages": [
+      "en",
+      "es"
+    ],
+    "themes": [
+      "light",
+      "dark"
+    ],
+    "widths": [
+      360,
+      1600
+    ],
+    "routes": [
+      "introduction",
+      "methodology",
+      "implementation",
+      "experiments",
+      "benchmark"
+    ]
+  }
+}
