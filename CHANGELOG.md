@@ -1,5 +1,12 @@
 # Changelog
 
+## 0.02.014 - 2026-10-29
+
+- Adopt CAOS App Shell 0.19.6 and CAOS Product Template 0.13.001, including mandatory three-tier research and Zenodo technical-report metadata validation.
+- Add bilingual level-4 research notebooks for BS-1, grounded in the frozen M12, ablation, latency, and task-success evidence; map level-3 notebooks to implemented SOTA methods.
+- Add the detailed technical report and preserve its negative findings: M12 does not outperform the guarded baseline on the current benchmark.
+
+
 ## 0.02.013 - 2026-10-28
 
 - Adopt CAOS App Shell 0.19.5 and CAOS Product Template 0.12.000 with an enforced exact technology matrix and product metadata schema for executed Reflexmesh entrypoints.

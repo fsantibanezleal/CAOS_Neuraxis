@@ -37,7 +37,7 @@ as a local release gate (ADR-0074). It fails, naming the file and the rule, on
   ``/tmp/``, ``/root/``, ``/var/``, ``/srv/``) or a token pattern in any cell or output; a notebook or an image above the
   limits. A user name is not statically decidable (the template holds no deny-list of names): a product reviews it itself
   (guide 08, section 5);
-- **the bar** (template 0.12.000, ``conventions/product-notebooks.md`` section 1, thresholds in ``scripts/notebook_bar.json``): a notebook is a
+- **the bar** (template 0.13.001, ``conventions/product-notebooks.md`` section 1, thresholds in ``scripts/notebook_bar.json``): a notebook is a
   worked lesson, so each one is measured and fails below its floors, one finding line naming the notebook, the measure, the value and the
   floor: method cells (calls into a method package, a pipeline module or, at level 3, a pinned reference implementation), figures and
   the words that read each, explanatory prose, setup cells, reproduction checks, long sentences shared with another notebook of the tree,
@@ -86,7 +86,7 @@ SECTIONS = (
 NO_LEVEL_3 = {"en": "No level 3:", "es": "Sin nivel 3:"}
 MIN_REASON_WORDS = 4
 NOTEBOOK_KEYS = {"kernelspec", "language_info", "caos"}
-CAOS_KEYS = ("language", "topic", "level", "title", "packages", "data", "sources", "beyond")
+CAOS_KEYS = ("language", "topic", "level", "title", "packages", "data", "sources", "methods", "beyond")
 BEYOND_SECTION = "Beyond the state of the art"
 SLUG = re.compile(r"^(\d{2})-([a-z0-9]+(?:-[a-z0-9]+)*)$")
 NOTEBOOK = re.compile(r"^(\d{2})-([a-z0-9]+(?:-[a-z0-9]+)*)\.ipynb$")
@@ -349,6 +349,30 @@ def sdd_sources(root: Path) -> set[str]:
     return {canonical(m[0]) for m in DOI.finditer(text)} | {canonical(m[0]) for m in LINK.finditer(text)}
 
 
+def sdd_sota_methods(root: Path) -> set[str]:
+    """Read state-of-the-art method ids from the SDD's adopted method ladder."""
+    path = root / "docs" / "design" / "SDD.md"
+    text = path.read_text(encoding="utf-8") if path.is_file() else ""
+    lines: list[str] = []
+    active = False
+    for line in text.splitlines():
+        if re.match(r"^##\s+", line):
+            if active:
+                break
+            active = line[3:].strip().lower() == "method ladder"
+            continue
+        if active and line.strip().startswith("|"):
+            lines.append(line.strip())
+    expected = ("id", "tier", "method", "acceptance criterion", "gate")
+    if not lines or tuple(c.strip().lower() for c in lines[0].strip("|").split("|")) != expected:
+        return set()
+    return {
+        cells[0].strip().strip("`")
+        for line in lines[2:]
+        if len(cells := [c.strip() for c in line.strip("|").split("|")]) == 5 and cells[1].strip().strip("`") == "sota"
+    }
+
+
 def requirement_lines(root: Path) -> list[str]:
     """The requirement lines of ``notebooks/requirements.txt``, without comments and blank lines."""
     path = root / "notebooks" / "requirements.txt"
@@ -502,7 +526,7 @@ def check_numbering(names: list[str], pattern: re.Pattern[str], rel: str, kind: 
 
 
 def check_notebook(root: Path, lang: str, topic: str, name: str, nb: dict, pins: set[str], claims: set[str],
-                   engine: set[str], listed: set[str], findings: list[str]) -> None:
+                   engine: set[str], listed: set[str], sota_methods: set[str], findings: list[str]) -> None:
     rel = f"notebooks/{lang}/{topic}/{name}"
     path = root / rel
     size = path.stat().st_size
@@ -592,6 +616,17 @@ def check_notebook(root: Path, lang: str, topic: str, name: str, nb: dict, pins:
             for b in beyond:
                 if b not in claims:
                     findings.append(f"{rel}: metadata: {b!r} is not a claim of the SDD's '## {BEYOND_SECTION}' section")
+        methods = caos.get("methods")
+        if "methods" in caos and not (isinstance(methods, list) and all(isinstance(m, str) for m in methods)):
+            findings.append(f"{rel}: metadata: caos.methods is not a list of SOTA method ids")
+        elif isinstance(methods, list):
+            if level == 3 and sota_methods and not methods:
+                findings.append(f"{rel}: metadata: a level 3 notebook names its SOTA methods in caos.methods")
+            if level != 3 and methods:
+                findings.append(f"{rel}: metadata: caos.methods names SOTA methods only on level 3 notebooks")
+            for method in methods:
+                if method not in sota_methods:
+                    findings.append(f"{rel}: metadata: {method!r} is not an SOTA method id in the SDD method ladder")
     # ---- anatomy
     if not cells or cells[0]["cell_type"] != "markdown":
         findings.append(f"{rel}: anatomy: the first cell is not a markdown cell (title, level, prerequisites, reading time)")
@@ -668,7 +703,7 @@ def counterpart_findings(root: Path, en_docs: dict[str, dict], es_docs: dict[str
         ca, cb = a["metadata"].get("caos"), b["metadata"].get("caos")
         rel = f"notebooks/es/{key}"
         if isinstance(ca, dict) and isinstance(cb, dict):
-            for field in ("level", "packages", "data", "beyond"):
+            for field in ("level", "packages", "data", "methods", "beyond"):
                 if ca.get(field) != cb.get(field):
                     findings.append(f"{rel}: mirror: caos.{field} differs from its English counterpart")
         kinds_a = [c["cell_type"] for c in a["cells"]]
@@ -740,6 +775,7 @@ def form_findings(root: Path, infos: list[str] | None = None, docs_out: dict[str
     methods, method_findings = method_state(root, infos)
     findings.extend(method_findings)
     listed = sdd_sources(root)
+    sota_methods = sdd_sota_methods(root)
     trees = {lang: Tree(root, lang) for lang in LANGS}
     for lang in LANGS:
         if not trees[lang].base.is_dir():
@@ -767,7 +803,7 @@ def form_findings(root: Path, infos: list[str] | None = None, docs_out: dict[str
                 if doc is None:
                     continue
                 docs[lang][f"{topic}/{name}"] = doc
-                check_notebook(root, lang, topic, name, doc, pins, claims or set(), engine, listed, findings)
+                check_notebook(root, lang, topic, name, doc, pins, claims or set(), engine, listed, sota_methods, findings)
                 findings.extend(method_copy_findings(f"notebooks/{lang}/{topic}/{name}", doc["cells"], methods))
                 caos = doc["metadata"].get("caos")
                 lv = caos.get("level") if isinstance(caos, dict) else None
@@ -786,13 +822,21 @@ def form_findings(root: Path, infos: list[str] | None = None, docs_out: dict[str
     for lang in LANGS:
         for claim in sorted((claims or set()) - covered[lang]):
             findings.append(f"notebooks/{lang}: beyond: the SDD claim {claim} is covered by no level 4 notebook (caos.beyond)")
+        if sota_methods:
+            covered_sota: set[str] = set()
+            for doc in docs[lang].values():
+                caos = doc.get("metadata", {}).get("caos", {})
+                if caos.get("level") == 3 and isinstance(caos.get("methods"), list):
+                    covered_sota.update(method for method in caos["methods"] if isinstance(method, str))
+            for method in sorted(sota_methods - covered_sota):
+                findings.append(f"notebooks/{lang}: sota: SDD method {method} is covered by no level 3 notebook (caos.methods)")
     counterpart_findings(root, docs["en"], docs["es"], findings)
     ci_findings(root, findings)
     return findings
 
 
 # ---------------------------------------------------------------------------------------------------------------------------
-# The measured floors of the bar (convention section 1, template 0.12.000). Static, on the committed cells and outputs, and the
+# The measured floors of the bar (convention section 1, template 0.13.001). Static, on the committed cells and outputs, and the
 # same verdict whatever is installed: import names come from product.json, notebooks/requirements.txt and the static name map of
 # scripts/notebook_bar.json, never from the environment. The thresholds, the tooling modules, the filler sentences, the map and the
 # fingerprints of the template's example live in scripts/notebook_bar.json.

@@ -76,7 +76,7 @@ def make_notebook(lang: str, topic: str, level: int, beyond: tuple[str, ...] = (
     return {"cells": cells, "nbformat": 4, "nbformat_minor": 5, "metadata": {
         "kernelspec": {"display_name": "Python 3", "language": "python", "name": "python3"}, "language_info": {"name": "python"},
         "caos": {"language": lang, "topic": topic, "level": level, "title": f"{topic} {level}", "packages": [PIN], "data": [DATA],
-                 "sources": [SOURCE], "beyond": list(beyond)}}}
+                 "sources": [SOURCE], "methods": [], "beyond": list(beyond)}}}
 
 
 TOPICS = {"01-basics": [1, 2], "02-advanced": [1, 2, 3]}
@@ -925,7 +925,7 @@ def bar_doc(lang: str = "en", level: int = 2, salt: str = "a", *, methods: int |
     return {"cells": b.cells, "nbformat": 4, "nbformat_minor": 5, "metadata": {
         "kernelspec": {"display_name": "Python 3", "language": "python", "name": "python3"}, "language_info": {"name": "python"},
         "caos": {"language": lang, "topic": "01-t", "level": level if metadata_level is None else metadata_level, "title": "t",
-                 "packages": packages, "data": [], "sources": [SOURCE], "beyond": []}}}
+                 "packages": packages, "data": [], "sources": [SOURCE], "methods": [], "beyond": []}}}
 
 
 def bar_of(root: Path, doc: dict, lang: str = "en", others: tuple[dict, ...] = (), bar: dict | None = None) -> list[str]:

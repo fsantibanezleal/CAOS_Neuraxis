@@ -9,7 +9,7 @@ Este índice sigue la escalera de métodos de Neuraxis y la investigación persi
 | [01-fast-event-control](01-fast-event-control/) | ninguno; tema de entrada | [comparación del estado del arte](01-fast-event-control/03-state-of-the-art-comparison.ipynb) |
 | [02-learned-action-policies](02-learned-action-policies/) | tema 01 | [comparación del estado del arte](02-learned-action-policies/03-state-of-the-art-comparison.ipynb) |
 | [03-sequential-control](03-sequential-control/) | tema 02 | [comparación del estado del arte](03-sequential-control/03-state-of-the-art-comparison.ipynb) |
-| [04-deliberation-allocation](04-deliberation-allocation/) | tema 03 | [comparación del estado del arte](04-deliberation-allocation/03-state-of-the-art-comparison.ipynb) |
+| [04-deliberation-allocation](04-deliberation-allocation/) | tema 03 | [comparación del estado del arte](04-deliberation-allocation/03-state-of-the-art-comparison.ipynb) · [más allá del estado del arte](04-deliberation-allocation/04-beyond-the-state-of-the-art.ipynb)  · [beyond-state-of-the-art](04-deliberation-allocation/04-beyond-the-state-of-the-art.ipynb) |
 | [05-evaluation-and-transfer](05-evaluation-and-transfer/) | temas 01–04 | [comparación del estado del arte](05-evaluation-and-transfer/03-state-of-the-art-comparison.ipynb) |
 | [06-ablation-and-export-parity](06-ablation-and-export-parity/) | tema 05 | [comparación del estado del arte](06-ablation-and-export-parity/03-state-of-the-art-comparison.ipynb) |
 

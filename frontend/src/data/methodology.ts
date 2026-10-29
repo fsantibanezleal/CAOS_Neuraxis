@@ -3,8 +3,8 @@ import type { ContentPage } from './content.types';
 export const methodology: ContentPage = {
   title: b('Methodology', 'Metodología'),
   lede: b(
-    'Twelve controllers share observations, registered actions and outcome checks. Their differences concern representation, learning, planning and computation allocation. Compare each method at the same environment boundary: the selector must never receive privileged evaluator state, and an appealing score must never substitute for authorization or a verified effect.',
-    'Doce controladores comparten observaciones, acciones registradas y verificación de resultados. Difieren en representación, aprendizaje, planificación y asignación de cómputo. Comparar cada método con el mismo límite de entorno: el selector nunca recibe estado privilegiado del evaluador y un puntaje atractivo nunca sustituye la autorización ni un efecto verificado.',
+    'Twelve controllers share observations, registered actions and outcome checks. The method ladder has three tiers: classical exact policies M01/M02; state-of-the-art learned, planning and delegation methods M03–M11; and the product proposal BS-1/M12. Compare them at the same environment boundary: a score never substitutes for authorization or a verified effect. The current evidence does not show that M12 improves on competent baselines.',
+    'Doce controladores comparten observaciones, acciones registradas y verificación de resultados. La escalera tiene tres niveles: políticas exactas clásicas M01/M02; métodos aprendidos, de planificación y delegación del estado del arte M03–M11; y la propuesta propia BS-1/M12. Se comparan bajo el mismo límite de entorno: un puntaje no sustituye autorización ni un efecto verificado. La evidencia actual no muestra que M12 supere referencias competentes.',
   ),
   sections: [
     {
@@ -29,6 +29,39 @@ export const methodology: ContentPage = {
           'La referencia debe ser competente. Usar código exacto para esquemas conocidos, argumentos, aritmética, revisiones y predicados explícitos. Medir fallos en variantes nuevas, escrituras concurrentes y observaciones ausentes sin desactivar recuperación para favorecer métodos aprendidos. Las políticas exactas del navegador no declaran probabilidades calibradas: la gráfica identifica prioridad de rama como puntaje. Su papel es referencia reproducible y alternativa para tareas admitidas, no solución general de autonomía.',
         ),
       ],
+      table: {
+        headers: [
+          b('Tier', 'Nivel'),
+          b('Methods', 'Métodos'),
+          b('Role and current evidence', 'Función y evidencia actual'),
+        ],
+        rows: [
+          [
+            b('Classical', 'Clásico'),
+            b('M01, M02', 'M01, M02'),
+            b(
+              'Guarded FSM and behavior tree; both solve 1,200/1,200 core episodes.',
+              'FSM con guardas y árbol de comportamiento; ambos resuelven 1.200/1.200 episodios centrales.',
+            ),
+          ],
+          [
+            b('State of the art', 'Estado del arte'),
+            b('M03–M11', 'M03–M11'),
+            b(
+              'Fitted scorers, recurrent and RL policies, model-based lookahead, planner and learned deferral baselines.',
+              'Puntuadores ajustados, políticas recurrentes y de RL, anticipación con modelo, planificador y referencia de aplazamiento aprendido.',
+            ),
+          ],
+          [
+            b('Beyond the state of the art', 'Más allá del estado del arte'),
+            b('BS-1 / M12', 'BS-1 / M12'),
+            b(
+              'Proposed resource-versioned outcome-aware metacontrol; tested results are negative or inconclusive, with no demonstrated advantage.',
+              'Propuesta de metacontrol sensible a resultados y revisiones de recursos; los resultados medidos son negativos o no concluyentes, sin ventaja demostrada.',
+            ),
+          ],
+        ],
+      },
       equations: [
         {
           tex: String.raw`x_{t+1}=R(x_t,o_{t+1}),\qquad a_t=\pi_{\mathrm{FSM}}(x_t,g)`,
@@ -292,15 +325,18 @@ export const methodology: ContentPage = {
     {
       id: 'metacontrol',
       kind: 'learned',
-      title: b('Deferral and metacontrol: M11 / M12', 'Derivación y metacontrol: M11 / M12'),
+      title: b(
+        'Learned deferral baseline M11; beyond-SOTA proposal BS-1 / M12',
+        'Referencia de aplazamiento M11; propuesta más allá del estado del arte BS-1 / M12',
+      ),
       paragraphs: [
         b(
           'M11 learns whether referring a state to a slower solver improves the outcome enough to justify its cost. Useful supervision compares fast and slow solvers on paired resettable states with identical tools, budgets and fault realizations. Confidence alone is insufficient: both solvers can be wrong on the same states, and a slow solver can have no useful advantage despite high uncertainty. A deferral target should therefore include measured incremental utility, late arrival and rejected proposals. Outside resettable environments the unchosen outcome is usually unobserved.',
           'M11 aprende si derivar a un resolvedor lento mejora suficiente para justificar costo. La supervisión compara rutas rápidas y lentas sobre estados reiniciables emparejados, con herramientas, presupuestos y fallos iguales. La confianza no basta: ambas rutas pueden fallar juntas y la lenta no mejorar pese a incertidumbre alta. La etiqueta incluye utilidad incremental, llegada tardía y propuestas rechazadas. Fuera de entornos reiniciables el resultado no elegido suele ser desconocido.',
         ),
         b(
-          'M12 combines persistent causal state, candidate scoring, effect prediction and an estimate of computation value. Supported computations include observation refresh, bounded lookahead and planner delegation; acting, waiting, stopping and abstaining remain explicit alternatives. Resource state and cancellation are exact inputs, not facts reconstructed solely from a recurrent vector. The architecture is a testable composition of existing ideas. A claim of a new algorithm requires a precisely specified update rule and a comparison showing contribution beyond the exact controller and learned components.',
-          'M12 combina estado causal persistente, puntuación, predicción de efectos y valor de cómputo. Incluye actualizar observaciones, anticipación acotada y delegación; actuar, esperar, detener y abstenerse son alternativas explícitas. Recursos y cancelación son entradas exactas, no hechos reconstruidos solo del vector recurrente. Es una composición comprobable. Declarar algoritmo nuevo requiere regla precisa y comparación que demuestre aporte adicional a componentes conocidos.',
+          'BS-1 is the product proposal implemented as M12: persistent causal/effect state, observed resource revisions, stale-proposal invalidation and computation allocation that includes planner outcome and delay. Its falsifiable hypothesis is improved success/cost under dynamic software changes versus competent exact and asynchronous-planner baselines, without stale or unauthorized effects. Current tests do not support that hypothesis: M12 solves 1,160/1,200 core episodes versus 1,200 for M01, the fitted gate chooses never-defer, and four ablations preserve task success. This remains a negative/partial result, not demonstrated superiority.',
+          'BS-1 es la propuesta implementada como M12: estado causal y de efectos persistente, revisiones observadas de recursos, invalidación de propuestas obsoletas y asignación de cómputo que incorpora resultado y demora del planificador. La hipótesis refutable es mejorar éxito/costo ante cambios dinámicos de software frente a referencias exactas competentes y planificadores asíncronos, sin efectos obsoletos ni no autorizados. Las pruebas actuales no la respaldan: M12 resuelve 1.160/1.200 episodios centrales frente a 1.200 de M01, la puerta ajustada nunca aplaza y cuatro ablaciones conservan el éxito. Es un resultado negativo/parcial, no superioridad demostrada.',
         ),
         b(
           'Reliability-based arbitration, multiscale cortical dynamics and complementary learning systems motivate separable responsibilities and update timescales. They do not prescribe a particular Rust class, threshold or reward. Separate within-episode state changes, append-only outcome collection and offline policy training. Prioritized replay may focus learning on transitions likely to change a useful decision, but training-set prioritization can distort the deployment distribution. Calibration consequently uses an untouched sample reflecting the declared evaluation mixture rather than the prioritized training buffer.',
