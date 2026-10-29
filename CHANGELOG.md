@@ -1,5 +1,9 @@
 # Changelog
 
+## 0.02.015 - 2026-10-29
+
+- Declare the task workbench's asynchronous fixture load so the shell gate waits for verified task inputs before measuring a settled screen; show a loading status instead of claiming readiness while the bundle is loading.
+
 ## 0.02.014 - 2026-10-29
 
 - Adopt CAOS App Shell 0.19.6 and CAOS Product Template 0.13.001, including mandatory three-tier research and Zenodo technical-report metadata validation.
