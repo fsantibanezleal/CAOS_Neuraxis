@@ -1,6 +1,6 @@
 # Reliability audit validation
 
-Candidate: 0.02.015. This feature reports failures and unknown outcomes as observed and preserves reproducible provenance.
+Candidate: 0.02.016. This feature reports failures and unknown outcomes as observed and preserves reproducible provenance.
 
 | Requirement | Adversarial check | Gate | Evidence |
 |---|---|---|---|

@@ -1,6 +1,6 @@
 # Static release validation
 
-Candidate: 0.02.015. A release is source-bound only after the frontend build, evidence validators, package manifest and deployment receipt all identify the same commit.
+Candidate: 0.02.016. A release is source-bound only after the frontend build, evidence validators, package manifest and deployment receipt all identify the same commit.
 
 | Requirement | Adversarial check | Gate | Evidence |
 |---|---|---|---|
