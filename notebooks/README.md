@@ -11,9 +11,9 @@ Esta es la capa didáctica de investigación del producto. Enseña los métodos 
 | English | [en/README.md](en/README.md) | [en/](en/) |
 | Español | [es/README.md](es/README.md) | [es/](es/) |
 
-Every topic and notebook has the same relative path in both trees. Topic order and notebook levels are checked; the level 3 material cites the persisted Neuraxis research dossiers. The SDD claims no component beyond the state of the art, so there is no level 4 notebook or invented novelty claim.
+Every topic and notebook has the same relative path in both trees. Topic order and notebook levels are checked; the level 3 material cites the Neuraxis research record. The SDD defines BS-1 (M12's resource-versioned, outcome-aware metacontrol) as a proposed method and a falsifiable hypothesis. The level 4 notebook in topic 04 evaluates that proposal against the recorded outcomes, matched execution and ablations. Its result is negative/partial: the method tier does not mean that superiority or novelty has been demonstrated, and it makes no biological-equivalence claim.
 
-Cada tema y notebook ocupa la misma ruta relativa en ambos árboles. Se verifican el orden de temas y los niveles; el material de nivel 3 cita los dossiers de investigación persistidos de Neuraxis. El SDD no afirma componentes más allá del estado del arte, por lo que no hay notebook de nivel 4 ni afirmación de novedad inventada.
+Cada tema y notebook ocupa la misma ruta relativa en ambos árboles. Se verifican el orden de temas y los niveles; el material de nivel 3 cita el registro de investigación de Neuraxis. El SDD define BS-1 (el metacontrol M12 con versiones de recursos y resultados observados) como método propuesto e hipótesis falsable. El notebook de nivel 4 del tema 04 evalúa esa propuesta con resultados registrados, ejecución emparejada y ablaciones. El resultado es negativo/parcial: el nivel metodológico no demuestra superioridad ni novedad, y no afirma equivalencia biológica.
 
 ## Environment and execution / Entorno y ejecución
 

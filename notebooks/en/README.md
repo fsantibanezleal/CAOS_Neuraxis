@@ -9,7 +9,7 @@ This index follows the Neuraxis method ladder and the persisted research. Each t
 | [01-fast-event-control](01-fast-event-control/) | none; entry topic | [state-of-the-art comparison](01-fast-event-control/03-state-of-the-art-comparison.ipynb) |
 | [02-learned-action-policies](02-learned-action-policies/) | topic 01 | [state-of-the-art comparison](02-learned-action-policies/03-state-of-the-art-comparison.ipynb) |
 | [03-sequential-control](03-sequential-control/) | topic 02 | [state-of-the-art comparison](03-sequential-control/03-state-of-the-art-comparison.ipynb) |
-| [04-deliberation-allocation](04-deliberation-allocation/) | topic 03 | [state-of-the-art comparison](04-deliberation-allocation/03-state-of-the-art-comparison.ipynb) · [beyond the state of the art](04-deliberation-allocation/04-beyond-the-state-of-the-art.ipynb)  · [beyond-state-of-the-art](04-deliberation-allocation/04-beyond-the-state-of-the-art.ipynb) |
+| [04-deliberation-allocation](04-deliberation-allocation/) | topic 03 | [state-of-the-art comparison](04-deliberation-allocation/03-state-of-the-art-comparison.ipynb) · [BS-1 proposal evaluation](04-deliberation-allocation/04-beyond-the-state-of-the-art.ipynb) |
 | [05-evaluation-and-transfer](05-evaluation-and-transfer/) | topics 01–04 | [state-of-the-art comparison](05-evaluation-and-transfer/03-state-of-the-art-comparison.ipynb) |
 | [06-ablation-and-export-parity](06-ablation-and-export-parity/) | topic 05 | [state-of-the-art comparison](06-ablation-and-export-parity/03-state-of-the-art-comparison.ipynb) |
 
@@ -29,6 +29,7 @@ This index follows the Neuraxis method ladder and the persisted research. Each t
 | [04-deliberation-allocation/01-the-problem-and-the-data.ipynb](04-deliberation-allocation/01-the-problem-and-the-data.ipynb) | 1 | M09–M12 C13 traces, planner work, latency and the routing-gate evidence |
 | [04-deliberation-allocation/02-the-method-in-practice.ipynb](04-deliberation-allocation/02-the-method-in-practice.ipynb) | 2 | fresh M11/M12 package execution; M09/M10 remain frozen unless a local planner is configured |
 | [04-deliberation-allocation/03-state-of-the-art-comparison.ipynb](04-deliberation-allocation/03-state-of-the-art-comparison.ipynb) | 3 | value of computation and learning-to-defer prior art against Neuraxis's negative gate result |
+| [04-deliberation-allocation/04-beyond-the-state-of-the-art.ipynb](04-deliberation-allocation/04-beyond-the-state-of-the-art.ipynb) | 4 | falsifiable BS-1 proposal, matched outcomes, ablations, latency and the evidence that currently rejects a superiority claim |
 | [05-evaluation-and-transfer/01-the-problem-and-the-data.ipynb](05-evaluation-and-transfer/01-the-problem-and-the-data.ipynb) | 1 | matched M01/M04/M09/M12 C01 traces plus core and semantic-transfer provenance |
 | [05-evaluation-and-transfer/02-the-method-in-practice.ipynb](05-evaluation-and-transfer/02-the-method-in-practice.ipynb) | 2 | fresh deterministic and learned package runs plus independent frozen planner results |
 | [05-evaluation-and-transfer/03-state-of-the-art-comparison.ipynb](05-evaluation-and-transfer/03-state-of-the-art-comparison.ipynb) | 3 | full 14,400-episode hash audit, paired core outcomes, structural and semantic transfer by method |
@@ -38,4 +39,4 @@ This index follows the Neuraxis method ladder and the persisted research. Each t
 
 ## Beyond the state of the art
 
-None claimed. The SDD's H1–H5 are research hypotheses; the corrected results do not establish a component-level advance. Level 4 would require a supported SDD claim and its own source-bound evidence.
+The SDD defines BS-1, M12's resource-versioned and outcome-aware metacontrol, as a proposed method to evaluate. The level 4 lesson examines its mechanisms, benchmark results, matched runs, ablations and cost. The existing evidence is negative/partial: M12 does not beat the guarded baseline and no component-level superiority is established. “Beyond the state of the art” is the required method tier for the proposal, not a claim that an advance has been proven.

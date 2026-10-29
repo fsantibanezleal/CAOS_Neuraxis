@@ -1,6 +1,6 @@
 # Notebook curriculum validation
 
-Candidate: Neuraxis 0.02.015. The static gate measures the committed lesson structure. Fresh-kernel execution and the required
+Candidate: Neuraxis 0.02.016. The static gate measures the committed lesson structure. Fresh-kernel execution and the required
 human reading review are separate release gates; none is inferred from a successful build.
 
 | Requirement | Adversarial check | Gate | Evidence |
