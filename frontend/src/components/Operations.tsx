@@ -54,6 +54,7 @@ export default function Operations() {
   const [files, setFiles] = useState<InputFile[]>((saved?.files as InputFile[]) ?? empty);
   const [nodes, setNodes] = useState<OperationNode[]>((saved?.nodes as OperationNode[]) ?? []);
   const [run, setRun] = useState<OperationRun | null>(initialRun);
+  const [fixtureLoading, setFixtureLoading] = useState(!initialRun);
   const [uploaded, setUploaded] = useState(Boolean(saved?.uploaded));
   const [online, setOnline] = useState<boolean | null>(null);
   const [busy, setBusy] = useState(false);
@@ -159,6 +160,7 @@ export default function Operations() {
     if (run) return;
     let alive = true;
     setBusy(true);
+    setFixtureLoading(true);
     void operationAPI(`fixture?task=${task}&variant=${variant}&seed=${seed}`)
       .then((value) => {
         if (alive) {
@@ -175,7 +177,10 @@ export default function Operations() {
         }
       })
       .finally(() => {
-        if (alive) setBusy(false);
+        if (alive) {
+          setBusy(false);
+          setFixtureLoading(false);
+        }
       });
     return () => {
       alive = false;
@@ -552,20 +557,32 @@ export default function Operations() {
           </div>
           <span
             className="op-run-badge"
-            data-state={unavailable && run ? 'unavailable' : (run?.status ?? 'ready')}
+            data-state={
+              unavailable && run
+                ? 'unavailable'
+                : fixtureLoading && !run
+                  ? 'loading'
+                  : (run?.status ?? 'ready')
+            }
           >
-            {active ? <LoaderCircle size={15} className="op-spin" /> : <ShieldCheck size={15} />}{' '}
+            {active || (fixtureLoading && !run) ? (
+              <LoaderCircle size={15} className="op-spin" />
+            ) : (
+              <ShieldCheck size={15} />
+            )}{' '}
             {unavailable && run
               ? c('Hosted run unavailable', 'Ejecución no disponible')
-              : run?.status === 'succeeded'
-                ? c('Analysis verified', 'Análisis verificado')
-                : run?.status === 'cancelled'
-                  ? c('Cancelled', 'Cancelado')
-                  : run?.status === 'failed'
-                    ? c('Execution failed', 'La ejecución falló')
-                    : active
-                      ? c('Executing tools', 'Ejecutando herramientas')
-                      : c('Ready to inspect', 'Listo para inspeccionar')}
+              : fixtureLoading && !run
+                ? c('Loading registered task inputs', 'Cargando entradas de la tarea')
+                : run?.status === 'succeeded'
+                  ? c('Analysis verified', 'Análisis verificado')
+                  : run?.status === 'cancelled'
+                    ? c('Cancelled', 'Cancelado')
+                    : run?.status === 'failed'
+                      ? c('Execution failed', 'La ejecución falló')
+                      : active
+                        ? c('Executing tools', 'Ejecutando herramientas')
+                        : c('Ready to inspect', 'Listo para inspeccionar')}
           </span>
         </header>
         <div className="op-command-bar">

@@ -1,6 +1,6 @@
 # Benchmark adequacy validation
 
-Candidate: 0.02.014. Evidence gates are source-bound and preserve the separate core, transfer and routing datasets.
+Candidate: 0.02.015. Evidence gates are source-bound and preserve the separate core, transfer and routing datasets.
 
 | Requirement | Adversarial check | Gate | Evidence |
 |---|---|---|---|
