@@ -37,3 +37,7 @@ Candidate release adopts CAOS App Shell 0.19.5 and CAOS Product Template 0.12.00
 ## 0.02.014 candidate
 
 Adopts CAOS App Shell 0.19.6 and CAOS Product Template 0.13.001. Adds the mandatory three-tier method map, bilingual level-4 BS-1 lessons, manuscript declaration and CI validation, contract metadata version 1.1.0, and a compiled and published technical report, version DOI 10.5281/zenodo.23765414 and concept DOI 10.5281/zenodo.23765413. The complete source and notebook gates pass; static/native deployment and live verification remain separate release evidence.
+
+## 0.02.015 candidate
+
+Corrects the App's readiness contract: the task workbench now declares and displays its registered fixture load until task inputs and graph nodes have arrived. This prevents the shell gate from measuring an asynchronous initial transition as a settled, stable screen. Release evidence is recorded after the exact candidate is promoted and deployed.

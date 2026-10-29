@@ -1,6 +1,6 @@
 # Evidence workbench validation
 
-Candidate: 0.02.014. The evidence UI must distinguish canonical replay from a fresh native run and must never display an unverified trace as canonical.
+Candidate: 0.02.015. The evidence UI must distinguish canonical replay from a fresh native run and must never display an unverified trace as canonical.
 
 | Requirement | Adversarial check | Gate | Evidence |
 |---|---|---|---|
