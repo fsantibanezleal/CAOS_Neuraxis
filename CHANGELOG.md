@@ -1,5 +1,10 @@
 # Changelog
 
+## 0.02.017 - 2026-10-29
+
+- Publish the dedicated BS-1 method preprint and link its concept DOI from product metadata, README, citations and the Introduction technical view.
+- Update the product technical report to cite the method paper and match the release version.
+
 ## 0.02.016 - 2026-10-29
 
 - Correct the bilingual notebook curriculum: align evaluation/transfer coverage, clarify the BS-1 proposal and negative evidence, translate Spanish code comments and visible output, remove repetitive generated prose, and preserve fresh execution results.
