@@ -1,6 +1,6 @@
 \documentclass[11pt]{article}
 \usepackage[margin=1in]{geometry}\usepackage{booktabs,tabularx,amsmath,hyperref,fancyhdr}
-\newcommand{\doctype}{Technical report}\newcommand{\docversion}{v0.02.014}\newcommand{\docdate}{29 October 2026}\newcommand{\versiondoi}{10.5281/zenodo.23765414}\newcommand{\conceptdoi}{10.5281/zenodo.23765413}\newcommand{\docrepo}{github.com/fsantibanezleal/CAOS\_Neuraxis}
+\newcommand{\doctype}{Technical report}\newcommand{\docversion}{v0.02.017}\newcommand{\docdate}{29 October 2026}\newcommand{\versiondoi}{10.5281/zenodo.23784340}\newcommand{\conceptdoi}{10.5281/zenodo.23765413}\newcommand{\docrepo}{github.com/fsantibanezleal/CAOS\_Neuraxis}
 \newcommand{\headerblock}{\begin{center}\fbox{\parbox{.94\textwidth}{\small\raggedright\textbf{\doctype} \quad$\cdot$\quad \docversion, \docdate \quad$\cdot$\quad Licence CC BY 4.0\\CAOS software-control research programme \quad$\cdot$\quad Neuraxis\\Version DOI \href{https://doi.org/\versiondoi}{\texttt{\versiondoi}} \quad$\cdot$\quad concept DOI (always latest) \href{https://doi.org/\conceptdoi}{\texttt{\conceptdoi}}\\Not peer reviewed. Source code, data and records: \href{https://\docrepo}{\texttt{\docrepo}}}}\end{center}\vspace{4pt}}
 \setlength{\headheight}{14pt}
 \pagestyle{fancy}\fancyhf{}\fancyhead[L]{\docversion}\fancyhead[R]{Neuraxis technical report}\fancyfoot[C]{\thepage}
@@ -54,10 +54,11 @@ Diagnose C07 cancellation through transition traces: request, acknowledgement, p
 \section{Reproducibility and data}
 The repository contains the design specification, method interface, case contracts, benchmark runner, per-episode traces, derived indexes, hashes, analysis scripts, and product interface. The core index contains 14,400 episodes. Scientific artifact and notebook scripts support recomputation. Frozen traces enable deterministic inspection; fresh executions measure current runtime behavior and must be labeled separately. Experiment identifiers, package versions, and source lineage accompany the data.
 \section{Conclusion}
-Neuraxis implements bounded software-action brokerage and compares classical, learned, delegated, and proposed metacontrol. Current results do not show an advantage for M12: M01 solves every core episode at far lower decision latency, M12 fails 40 cancellations, ablations do not change success, and the small transfer comparison favors XGBoost. These negative findings motivate a variable, family-held-out evaluation. Fast/slow allocation remains a research question rather than an established capability.
+Neuraxis implements bounded software-action brokerage and compares classical, learned, delegated, and proposed metacontrol. Current results do not show an advantage for M12: M01 solves every core episode at far lower decision latency, M12 fails 40 cancellations, ablations do not change success, and the small transfer comparison favors XGBoost. These negative findings motivate a variable, family-held-out evaluation. Fast/slow allocation remains a research question rather than an established capability. The separate BS-1 method preprint specifies the controller and its falsifiable allocation hypothesis, with the same negative benchmark findings (Santibáñez-Leal, 2026).
 \begin{thebibliography}{9}
 \bibitem{jev} Typesafe AI. Introducing System One Models and JEV. \url{https://typesafe.ai/blog/introducing-system-one-models-and-jev}.
 \bibitem{botvinick} M. Botvinick et al. Hierarchically organized behavior and its neural foundations: a reinforcement-learning perspective. \emph{Cognition}, 2012. doi:10.1016/j.cognition.2011.08.011.
 \bibitem{mozannar} H. Mozannar and D. Sontag. Consistent estimators for learning to defer to an expert. \emph{ICML}, 2020. \url{https://proceedings.mlr.press/v119/mozannar20b.html}.
 \bibitem{bai} Y. Bai et al. Training a helpful and harmless assistant with reinforcement learning from human feedback. arXiv:2204.05862, 2022.
+\bibitem{bs1} F. Santibáñez-Leal. Resource-Versioned Outcome-Aware Metacontrol for Software Action Systems. Preprint, 2026. doi:10.5281/zenodo.23784118.
 \end{thebibliography}\end{document}
