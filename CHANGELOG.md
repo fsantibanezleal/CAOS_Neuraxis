@@ -1,5 +1,10 @@
 # Changelog
 
+## 0.02.016 - 2026-10-29
+
+- Correct the bilingual notebook curriculum: align evaluation/transfer coverage, clarify the BS-1 proposal and negative evidence, translate Spanish code comments and visible output, remove repetitive generated prose, and preserve fresh execution results.
+- Make notebook lesson rebuilding idempotent so complete transfer sections are not duplicated or stripped.
+
 ## 0.02.015 - 2026-10-29
 
 - Declare the task workbench's asynchronous fixture load so the shell gate waits for verified task inputs before measuring a settled screen; show a loading status instead of claiming readiness while the bundle is loading.

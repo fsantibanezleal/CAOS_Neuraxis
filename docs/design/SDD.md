@@ -1,5 +1,5 @@
 # CAOS Neuraxis software design
-Date: 2026-09-24; benchmark extension 2026-09-28. Candidate display release: 0.02.015; deployment evidence is recorded separately.
+Date: 2026-09-24; benchmark extension 2026-09-28. Candidate display release: 0.02.016; deployment evidence is recorded separately.
 
 ## Review and migration record
 This records the existing research-backed implementation authorized before ADR-0075 was adopted on September 22. It is a September 23 migration of the current design, not a backdated pre-development review. The current user instruction explicitly continues the full implementation. Requirement convergence records distinguish local verification from publication and deployment.

@@ -1,7 +1,7 @@
 {
   "name": "Neuraxis",
   "slug": "neuraxis",
-  "version": "0.02.015",
+  "version": "0.02.016",
   "tagline": {
     "en": "A measured workbench for software control, fast policies, and bounded delegation to deliberative models.",
     "es": "Un entorno medido para el control de software, políticas rápidas y delegación acotada a modelos deliberativos."

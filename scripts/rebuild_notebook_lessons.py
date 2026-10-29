@@ -361,8 +361,10 @@ def scope_prose(text: str, topic: str, level: int, lang: str) -> str:
         if lang == "en"
         else f"Para el nivel {level} de {label} en {case}, "
     )
-    parts = re.split(r"(?<=[.!?])\s+|(?<=[;:])\s+", text.strip())
-    return " ".join(prefix + part for part in parts if part)
+    paragraph = text.strip()
+    if paragraph.startswith(prefix):
+        return paragraph
+    return prefix + paragraph
 
 
 def scope_data_section(text: str, topic: str, level: int, lang: str) -> str:
@@ -393,9 +395,7 @@ def qualified_sota(topic: str, level: int, lang: str) -> str:
         if lang == "en"
         else f"En el nivel {level}, para {label} en {case}, "
     )
-    qualified = re.sub(r"[;:]\s+", ". " + prefix, SOTA_NOTES[lang][topic].strip())
-    sentences = re.split(r"(?<=[.!?])\s+", qualified)
-    return " ".join(prefix + sentence for sentence in sentences if sentence)
+    return prefix + SOTA_NOTES[lang][topic].strip()
 
 
 def qualified_depth(topic: str, level: int, lang: str, limit: int) -> str:
@@ -407,8 +407,7 @@ def qualified_depth(topic: str, level: int, lang: str, limit: int) -> str:
         if lang == "en"
         else f"En el nivel {level}, para {label} en {case}, "
     )
-    qualified = [re.sub(r"[;:]\s+", ". " + prefix, point) for point in points[:limit]]
-    return " ".join(prefix + point for point in qualified)
+    return prefix + " ".join(points[:limit])
 
 
 def method_steps(topic: str, level: int, lang: str) -> list[dict]:
@@ -694,6 +693,77 @@ def write_notebook(path: Path, nb: dict) -> None:
     path.write_text(json.dumps(nb, ensure_ascii=False, indent=1) + "\n", encoding="utf-8", newline="\n")
 
 
+def localize_spanish_code(nb: dict) -> None:
+    """Keep comments and human-facing notebook output in Spanish without renaming API identifiers."""
+    replacements = {
+        "# Import the released policy API and the pinned plotting/runtime dependencies.": "# Importa la API publicada de políticas y las dependencias fijadas de gráficos y ejecución.",
+        "# Load and hash-check the selected first-party traces; never edit the canonical artifacts.": "# Carga las trazas propias y verifica sus hashes; nunca modifica los artefactos canónicos.",
+        "# Load hash-bound core and semantic-transfer summary records.": "# Carga los registros resumidos y vinculados por hash del núcleo y de la transferencia semántica.",
+        "# Display separate transfer aggregates already hash-checked at the data boundary.": "# Muestra los agregados de transferencia separados, cuyos hashes ya se verificaron en la frontera de datos.",
+        "# Read the hash-bound transfer summaries instead of reopening all 1,536 episode files.": "# Lee los resúmenes de transferencia vinculados por hash, sin reabrir los 1.536 archivos de episodios.",
+        "# Use the index-bound audit summary for the full matrix and the indexed aggregates for rates.": "# Usa el resumen de auditoría vinculado al índice para la matriz completa y sus agregados para las tasas.",
+        "# Compare the one hash-verified matched case directly; marginal matrix rates do not establish paired wins.": "# Contrasta un caso emparejado verificado por hash; las tasas marginales no prueban victorias emparejadas.",
+        "# Compare hash-verified canonical controller times under the same case, variant and seed.": "# Compara tiempos canónicos del controlador, verificados por hash, bajo el mismo caso, variante y semilla.",
+        "# Execute the measured XGBoost policy on the identical case specification.": "# Ejecuta la política XGBoost medida con la misma especificación del caso.",
+        "# Plot the independently verified outcomes from the two fresh policy runs.": "# Grafica los resultados verificados independientemente de las dos ejecuciones nuevas.",
+        "# Plot controller time from the hash-verified frozen records for the matched methods.": "# Grafica el tiempo de control de los registros congelados y verificados por hash para los métodos emparejados.",
+        "# Aggregate executed outcomes with the package's descriptive evaluator.": "# Agrega los resultados ejecutados con el evaluador descriptivo del paquete.",
+        "# This offline experiment is never pooled with the core benchmark.": "# Este experimento fuera de línea nunca se combina con el benchmark central.",
+        "Hash-verified trace records:": "Trazas verificadas por hash:",
+        "Primary policy:": "Política principal:",
+        "Primary task success:": "Éxito de tarea principal:",
+        "Comparison policy:": "Política de comparación:",
+        "Comparison task success:": "Éxito de tarea de comparación:",
+        "Fresh policy runs:": "Ejecuciones nuevas de políticas:",
+        "Fresh successes:": "Éxitos de las ejecuciones nuevas:",
+        "State-of-the-art comparator runs:": "Ejecuciones de la referencia del estado del arte:",
+        "XGBoost task success:": "Éxito de tarea de XGBoost:",
+        "Transfer episodes checked:": "Episodios de transferencia verificados:",
+        "| held-out families:": "| familias reservadas:",
+        "Transfer outcomes by held-out family:": "Resultados de transferencia por familia reservada:",
+        "threshold=": "umbral=",
+        "| fit positives=": "| positivos de ajuste=",
+        "| calibration positives=": "| positivos de calibración=",
+        "Persisted M12 paired audit:": "Auditoría emparejada de M12 guardada:",
+        "Episodes checked:": "Episodios verificados:",
+        "Seed-variable case-variant-method cells:": "Celdas caso-variante-método con variación por semilla:",
+        "Structural transfer is summarized in its separate hash-bound lane above.": "La transferencia estructural se resume por separado en el carril vinculado por hash indicado arriba.",
+        "Full M12:": "M12 completo:",
+        "| rate=": "| tasa=",
+        "| successes=": "| éxitos=",
+        "| paired delta=": "| diferencia emparejada=",
+        "| seed bootstrap95=": "| bootstrap95 por semilla=",
+        "| full-minus-ablation wall ms=": "| tiempo de M12 menos ablación (ms)=",
+        "| scope=": "| alcance=",
+        '"scope:"': '"alcance:"',
+        '"vs"': '"frente a"',
+        '"matched sample=C01/nominal/40000"': '"muestra emparejada=C01/nominal/40000"',
+        '"paired=1"': '"emparejados=1"',
+        '"wins="': '"victorias="',
+        '"losses="': '"derrotas="',
+        '"ties="': '"empates="',
+        '"rate="': '"tasa="',
+        '"successes="': '"éxitos="',
+        '"episodes="': '"episodios="',
+        '"M04-XGBoost"': '"M04-XGBoost"',
+        '": independent postcondition"': '": poscondición independiente"',
+        '": frozen-trace timing"': '": latencia de traza congelada"',
+        '": XGBoost reference comparison"': '": comparación con referencia XGBoost"',
+        '"Recorded controller time (ms per episode)"': '"Tiempo registrado del controlador (ms por episodio)"',
+        '"Reflexmesh policy"': '"Política Reflexmesh"',
+        '"Verified task success (0 or 1)"': '"Éxito de tarea verificado (0 o 1)"',
+        '"Paired policy"': '"Políticas emparejadas"',
+        '"State-of-the-art comparison"': '"Comparación con el estado del arte"',
+    }
+    for cell in nb.get("cells", []):
+        if cell.get("cell_type") != "code":
+            continue
+        source = source_of(cell)
+        for original, translated in replacements.items():
+            source = source.replace(original, translated)
+        cell["source"] = source.splitlines(keepends=True)
+
+
 def keep_one_artifact_audit(nb: dict) -> None:
     """Keep hash assertions at the single data boundary; notebooks analyze evidence, tests audit every artifact."""
     for cell in nb["cells"]:
@@ -719,6 +789,44 @@ def keep_one_artifact_audit(nb: dict) -> None:
 def split_transfer_matrix_analysis(nb: dict, topic: str, level: int, lang: str) -> bool:
     if topic != "05-evaluation-and-transfer" or level != 3:
         return False
+    # The released level-3 lessons already contain hash-bound core and transfer lanes.
+    # Leave that complete structure intact; rewriting it duplicated loaders and erased execution output.
+    sources = [source_of(cell) for cell in nb.get("cells", []) if cell.get("cell_type") == "code"]
+    required = (
+        "# Load hash-bound core and semantic-transfer summary records.",
+        "# Display separate transfer aggregates already hash-checked at the data boundary.",
+        "# Read the hash-bound transfer summaries instead of reopening all 1,536 episode files.",
+        "# Use the index-bound audit summary for the full matrix and the indexed aggregates for rates.",
+    )
+    # Spanish comments are localized, so detect the structural duplicate rather
+    # than requiring the English comment markers above.
+    if lang == "es" or all(any(marker in source for source in sources) for marker in required):
+        method_index = next(
+            i for i, cell in enumerate(nb["cells"])
+            if cell.get("cell_type") == "markdown"
+            and re.search(r"^## (?:Method|Método)\s*$", source_of(cell), re.M)
+        )
+        changed = False
+        for i in range(method_index - 1, -1, -1):
+            cell = nb["cells"][i]
+            if cell.get("cell_type") == "code" and 'transfer["aggregate_results"]' in source_of(cell):
+                del nb["cells"][i]
+                if i > 0 and nb["cells"][i - 1].get("cell_type") == "markdown" and "agregados de transferencia" in source_of(nb["cells"][i - 1]).lower():
+                    del nb["cells"][i - 1]
+                changed = True
+        if lang == "es":
+            for i, cell in enumerate(nb["cells"]):
+                source = source_of(cell)
+                if cell.get("cell_type") == "code" and 'transfer["aggregate_results"]' in source:
+                    prior = source_of(nb["cells"][i - 1]) if i else ""
+                    if "Informar los agregados de transferencia auditados por separado" not in prior:
+                        nb["cells"].insert(i, markdown_cell(
+                            "### Informar los agregados de transferencia auditados por separado\n\n"
+                            "El índice y el conteo de episodios se verifican contra su auditoría independiente antes de mostrar estos totales por método."
+                        ))
+                        changed = True
+                    break
+        return changed
     changed = False
     loader_marker = "# Load hash-bound core and semantic-transfer summary records."
     loader = (
@@ -893,6 +1001,19 @@ print("Structural transfer is summarized in its separate hash-bound lane above."
                 )
             cells[start : end + 1] = [explanation, code_cell(methods_text), pair_explanation, code_cell(pair_text)]
             changed = True
+    # Keep the explanatory transfer heading paired with its aggregate code cell.
+    if lang == "es":
+        for i, cell in enumerate(nb["cells"]):
+            source = source_of(cell)
+            if cell.get("cell_type") == "code" and "transfer[\"aggregate_results\"]" in source:
+                prior = source_of(nb["cells"][i - 1]) if i else ""
+                if "Informar los agregados de transferencia auditados por separado" not in prior:
+                    nb["cells"].insert(i, markdown_cell(
+                        "### Informar los agregados de transferencia auditados por separado\n\n"
+                        "El índice y el conteo de episodios se verifican contra su auditoría independiente antes de mostrar estos totales por método."
+                    ))
+                    changed = True
+                break
     return changed
 
 
@@ -968,8 +1089,14 @@ def rebuild(root: Path) -> int:
             nb = json.loads(path.read_text(encoding="utf-8"))
             meta = nb.get("metadata", {}).get("caos", {})
             topic, level = meta.get("topic"), meta.get("level")
-            if topic not in CASE_METHODS or level not in (1, 2, 3):
+            if topic not in CASE_METHODS or level not in (1, 2, 3, 4):
                 raise ValueError(f"unsupported notebook metadata: {path}")
+            if level == 4:
+                if lang == "es":
+                    localize_spanish_code(nb)
+                    write_notebook(path, nb)
+                    count += 1
+                continue
             packages = meta.get("packages", [])
             updated_packages = [package.replace("numpy==2.4.6", "numpy==2.5.3") for package in packages]
             if updated_packages != packages:
@@ -983,6 +1110,8 @@ def rebuild(root: Path) -> int:
             if any("primary_policy = make_policy" in source_of(cell) for cell in nb["cells"]):
                 question_and_answer(nb, topic, level, lang)
                 keep_one_artifact_audit(nb)
+                if lang == "es":
+                    localize_spanish_code(nb)
                 write_notebook(path, nb)
                 count += 1
                 continue
@@ -1141,6 +1270,8 @@ def rebuild(root: Path) -> int:
             split_transfer_matrix_analysis(nb, topic, level, lang)
             stabilize_plot_timing(nb, topic, level, lang)
             keep_one_artifact_audit(nb)
+            if lang == "es":
+                localize_spanish_code(nb)
             write_notebook(path, nb)
             count += 1
     return count

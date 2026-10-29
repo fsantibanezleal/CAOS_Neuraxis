@@ -1,6 +1,6 @@
 # Workspace operation validation
 
-Candidate: 0.02.015. Workspace authority is an authenticated local capability and is never included in static artifacts.
+Candidate: 0.02.016. Workspace authority is an authenticated local capability and is never included in static artifacts.
 
 | Requirement | Adversarial check | Gate | Evidence |
 |---|---|---|---|
