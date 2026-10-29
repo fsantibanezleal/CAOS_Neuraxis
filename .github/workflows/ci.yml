@@ -20,6 +20,7 @@ jobs:
       - run: python -m pip install 'jsonschema>=4.23,<5'
       - run: python scripts/check_ci_budget.py
       - run: python scripts/check_sdd.py
+      - run: python scripts/check_manuscripts.py
       - run: python scripts/check_contract_catalog.py
       - run: python scripts/check_readiness.py
       - run: python scripts/check_template_adoption.py

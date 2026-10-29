@@ -54,3 +54,7 @@ The proposed contribution is persistent outcome-aware allocation of deliberation
 Read the [documentation index](docs/README.md), [architecture](docs/architecture.md), [scientific pipeline](data-pipeline/README.md), [case contracts](docs/cases.md), [methods](docs/frameworks.md), and [research dossiers](docs/research/README.md). Source code and authored content are Apache-2.0; external models and benchmarks retain their licenses.
 
 The [contract catalog](docs/contracts/catalog.md) defines persisted interfaces and the generated readiness report. Run `python scripts/check_product_gates.py --scope source` for source, contract, readiness and research artifact validation. Rebuild, inspect and execute the bilingual read-only notebooks with `python scripts/build_notebooks.py`, `python scripts/check_notebooks.py` and `python scripts/run_notebooks.py`. The selected hosting topology is documented in [deploy/TARGET](deploy/TARGET).
+
+## Technical report
+
+The detailed methods and benchmark results are published as a [CC BY 4.0 technical report](https://doi.org/10.5281/zenodo.23765413). The versioned release DOI is [10.5281/zenodo.23765414](https://doi.org/10.5281/zenodo.23765414).

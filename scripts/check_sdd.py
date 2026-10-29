@@ -38,6 +38,78 @@ CODE_DIRECTORIES = ("src", "app", "data-pipeline", "frontend/src")
 
 #: Gates that name something other than a file, and what makes each acceptable.
 NON_FILE_GATE_PREFIXES = ("manual:", "review:")
+METHOD_TIERS = {"classical", "sota", "beyond"}
+METHOD_COLUMNS = ("id", "tier", "method", "acceptance criterion", "gate")
+METHOD_ID = re.compile(r"^(?:M-?\d+|BS-\d+)$")
+BEYOND_ID = re.compile(r"\bBS-\d+\b")
+
+
+def section(text: str, title: str) -> str | None:
+    """Return a level-two SDD section without fenced examples."""
+    lines = text.splitlines()
+    active = False
+    fenced = False
+    body: list[str] = []
+    for line in lines:
+        if line.startswith("```"):
+            fenced = not fenced
+        if not fenced and re.match(r"^##\s+", line):
+            if active:
+                break
+            active = line[3:].strip().lower() == title.lower()
+            continue
+        if active:
+            body.append(line)
+    return "\n".join(body) if active else None
+
+
+def method_tier_problems(text: str) -> list[str]:
+    """Enforce the product's executable three-tier method ladder and a matching BS proposal."""
+    ladder = section(text, "Method ladder")
+    if ladder is None:
+        return ["SDD has no '## Method ladder' section with classical, sota and beyond methods"]
+    lines = [line.strip() for line in ladder.splitlines() if line.strip().startswith("|")]
+    if not lines:
+        return ["SDD method ladder must be a table with columns: " + ", ".join(METHOD_COLUMNS)]
+    headers = tuple(cell.strip().lower() for cell in lines[0].strip("|").split("|"))
+    if headers != METHOD_COLUMNS:
+        return ["SDD method ladder columns must be: " + " | ".join(METHOD_COLUMNS)]
+    methods: dict[str, str] = {}
+    problems: list[str] = []
+    for number, line in enumerate(lines[2:], start=1):
+        cells = [cell.strip().strip("`") for cell in line.strip("|").split("|")]
+        if len(cells) != len(METHOD_COLUMNS):
+            problems.append(f"SDD method ladder row {number} has {len(cells)} columns; expected {len(METHOD_COLUMNS)}")
+            continue
+        identifier, tier, method, criterion, gate = cells
+        if not METHOD_ID.fullmatch(identifier):
+            problems.append(f"SDD method ladder row {number} id {identifier!r} is not M<n> or BS-<n>")
+        if identifier in methods:
+            problems.append(f"SDD method ladder repeats id {identifier}")
+        methods[identifier] = tier
+        if tier not in METHOD_TIERS:
+            problems.append(f"SDD method ladder {identifier}: tier must be classical, sota or beyond")
+        if not method or not criterion or not gate:
+            problems.append(f"SDD method ladder {identifier}: method, acceptance criterion and gate are required")
+        if (identifier.startswith("BS-") and tier != "beyond") or (tier == "beyond" and not identifier.startswith("BS-")):
+            problems.append(f"SDD method ladder {identifier}: beyond methods use their BS-<n> claim id")
+    missing = sorted(METHOD_TIERS - set(methods.values()))
+    if missing:
+        problems.append("SDD method ladder is missing tier(s): " + ", ".join(missing))
+    proposal = section(text, "Beyond the state of the art")
+    if proposal is None or "None claimed." in proposal:
+        problems.append("SDD needs at least one falsifiable proposal in '## Beyond the state of the art'")
+        claims: set[str] = set()
+    else:
+        claims = set(BEYOND_ID.findall(proposal))
+        if not claims:
+            problems.append("SDD beyond-the-state-of-the-art section must name a BS-<n> proposal")
+    for claim in sorted(claims - {key for key, tier in methods.items() if tier == "beyond"}):
+        problems.append(f"SDD claim {claim} has no matching beyond row in the method ladder")
+    for identifier, tier in methods.items():
+        if tier == "beyond" and identifier not in claims:
+            problems.append(f"SDD beyond row {identifier} has no matching claim in its proposal section")
+    return problems
 
 
 def find_code(root: Path) -> list[Path]:
@@ -131,6 +203,9 @@ def check_document(root: Path, document: Path) -> list[str]:
     problems: list[str] = []
     text = document.read_text(encoding="utf-8", errors="replace")
     requirements = parse_requirements(text)
+
+    if document == SDD_PATH:
+        problems.extend(method_tier_problems(text))
 
     if not requirements:
         problems.append(f"{document}: contains no requirements (expected lines starting 'R-NNN')")

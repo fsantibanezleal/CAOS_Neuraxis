@@ -327,7 +327,13 @@ export const introduction: ContentPage = {
           ),
         },
       ],
-      refs: ['typesafe2026', 'typesafeconfidence2026', 'agarwal2021', 'angelopoulos2024'],
+      refs: [
+        'typesafe2026',
+        'typesafeconfidence2026',
+        'agarwal2021',
+        'angelopoulos2024',
+        'neuraxisreport2026',
+      ],
       limit: b(
         'No blanket novelty, hard real-time, biological fidelity or universal safety claim is made. The relevant unit of evidence is the versioned evaluated task under its declared assumptions.',
         'No se declara novedad absoluta, tiempo real estricto, fidelidad biológica ni seguridad universal. La unidad de evidencia es la tarea versionada bajo supuestos declarados.',

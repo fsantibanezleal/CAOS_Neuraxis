@@ -3,7 +3,7 @@
 The notebooks are the product's executable teaching layer. They teach released Reflexmesh policies on Neuraxis cases and
 hash-audited artifacts. They are bilingual mirrors, not a second implementation of policy code and not a gallery of printed
 JSON. The binding lesson bar and measured floors are in CAOS_MANAGE `conventions/product-notebooks.md`, section 1; this
-product adopts the checks from CAOS_PRODUCT_TEMPLATE 0.12.000.
+product adopts the checks from CAOS_PRODUCT_TEMPLATE 0.13.001.
 
 ```text
 R-032 WHEN English and Spanish notebooks are published, THE checker SHALL ensure both trees mirror topic order, relative notebook paths, level, package pins and evidence scope.

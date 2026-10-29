@@ -1,11 +1,11 @@
 {
   "schema_version": 1,
-  "product_version": "0.02.013",
-  "catalog_sha256": "7d5576e1e0cdc4959511e46824367bea1e0aa315e760ee00210f64b41efa4745",
+  "product_version": "0.02.014",
+  "catalog_sha256": "f148662665f0f33748fbd221ef98472ead0419ebf97f8e66b9f7215359d28e90",
   "contracts": [
     {
       "id": "product-metadata",
-      "version": "1.0.0",
+      "version": "1.1.0",
       "state": "available",
       "evidence": [
         "docs/contracts/schemas/product.schema.json",
