@@ -1,7 +1,7 @@
 {
   "name": "Neuraxis",
   "slug": "neuraxis",
-  "version": "0.02.016",
+  "version": "0.02.017",
   "tagline": {
     "en": "A measured workbench for software control, fast policies, and bounded delegation to deliberative models.",
     "es": "Un entorno medido para el control de software, políticas rápidas y delegación acotada a modelos deliberativos."
@@ -24,8 +24,15 @@
       "kind": "technical-report",
       "concept_doi": "10.5281/zenodo.23765413",
       "title": "Fast Software Control and Bounded Deliberation: Methods, Evidence, and Limits",
-      "version": "0.02.014",
+      "version": "0.02.017",
       "covers": []
+    },
+    {
+      "kind": "manuscript",
+      "concept_doi": "10.5281/zenodo.23784117",
+      "title": "Resource-Versioned Outcome-Aware Metacontrol for Software Action Systems",
+      "version": "0.01",
+      "covers": ["BS-1"]
     }
   ]
 }

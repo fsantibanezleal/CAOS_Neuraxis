@@ -1,5 +1,5 @@
 import { lazy, Suspense } from 'react';
-import { DocPage, ExecutiveView, Tabs } from '@fasl-work/caos-app-shell';
+import { Callout, DocPage, ExecutiveView, Tabs } from '@fasl-work/caos-app-shell';
 import executive from '../../../content/executive.json';
 import { introduction } from '../data/introduction';
 import { useCopy } from '../i18n';
@@ -24,17 +24,27 @@ export default function Introduction() {
             id: 'technical',
             label: lang === 'en' ? 'Technical view' : 'Vista técnica',
             content: (
-              <Suspense
-                fallback={
-                  <div className="nx-empty" data-state="loading" role="status">
-                    {lang === 'en'
-                      ? 'Loading the technical account…'
-                      : 'Cargando el análisis técnico…'}
-                  </div>
-                }
-              >
-                <Science page={introduction} embedded />
-              </Suspense>
+              <>
+                <Callout variant="note" title={lang === 'en' ? 'Research publications' : 'Publicaciones de investigación'}>
+                  <p>
+                    {lang === 'en' ? 'Publications: ' : 'Publicaciones: '}
+                    <a href="https://doi.org/10.5281/zenodo.23765413">{lang === 'en' ? 'product technical report' : 'informe técnico del producto'}</a>
+                    {' · '}
+                    <a href="https://doi.org/10.5281/zenodo.23784117">{lang === 'en' ? 'BS-1 method preprint' : 'preprint del método BS-1'}</a>
+                  </p>
+                </Callout>
+                <Suspense
+                  fallback={
+                    <div className="nx-empty" data-state="loading" role="status">
+                      {lang === 'en'
+                        ? 'Loading the technical account…'
+                        : 'Cargando el análisis técnico…'}
+                    </div>
+                  }
+                >
+                  <Science page={introduction} embedded />
+                </Suspense>
+              </>
             ),
           },
         ]}

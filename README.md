@@ -55,6 +55,10 @@ Read the [documentation index](docs/README.md), [architecture](docs/architecture
 
 The [contract catalog](docs/contracts/catalog.md) defines persisted interfaces and the generated readiness report. Run `python scripts/check_product_gates.py --scope source` for source, contract, readiness and research artifact validation. Rebuild, inspect and execute the bilingual read-only notebooks with `python scripts/build_notebooks.py`, `python scripts/check_notebooks.py` and `python scripts/run_notebooks.py`. The selected hosting topology is documented in [deploy/TARGET](deploy/TARGET).
 
+## Beyond-SOTA manuscript
+
+The BS-1/M12 proposal and its negative/partial benchmark evidence are reported in the separate [CC BY 4.0 preprint](https://doi.org/10.5281/zenodo.23784117). Its source and PDF are maintained in [`manuscripts/bs1-metacontrol`](manuscripts/bs1-metacontrol/); the manuscript record contains the PDF only. This work does not demonstrate superiority over the classical or current baselines.
+
 ## Technical report
 
-The detailed methods and benchmark results are published as a [CC BY 4.0 technical report](https://doi.org/10.5281/zenodo.23765413). The versioned release DOI is [10.5281/zenodo.23765414](https://doi.org/10.5281/zenodo.23765414).
+The detailed methods and benchmark results are published as a [CC BY 4.0 technical report](https://doi.org/10.5281/zenodo.23765413). The current versioned report DOI is [10.5281/zenodo.23784340](https://doi.org/10.5281/zenodo.23784340) (0.02.017).
