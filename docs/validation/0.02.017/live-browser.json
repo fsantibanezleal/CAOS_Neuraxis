@@ -1,0 +1,28 @@
+{
+  "schema": "neuraxis.live-browser-verification/v1",
+  "base": "https://neuraxis.ml.fasl-work.com",
+  "commit": "9426a0b1a395c38597f6e93f789ef9626f05abc4",
+  "shell_gate": {
+    "states": 975,
+    "ok": true,
+    "failures": []
+  },
+  "scientific_content": {
+    "section_checks": 296,
+    "errors": []
+  },
+  "publications": {
+    "languages_checked": ["en", "es"],
+    "concept_doi_links": [
+      "https://doi.org/10.5281/zenodo.23765413",
+      "https://doi.org/10.5281/zenodo.23784117"
+    ],
+    "both_links_visible_in_introduction_technical_view": true
+  },
+  "coverage": {
+    "languages": ["en", "es"],
+    "themes": ["light", "dark"],
+    "widths": [360, 1600],
+    "routes": ["introduction", "methodology", "implementation", "experiments", "benchmark"]
+  }
+}

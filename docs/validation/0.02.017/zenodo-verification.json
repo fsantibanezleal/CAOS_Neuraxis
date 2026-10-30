@@ -1,0 +1,35 @@
+[
+ {
+  "id": "23784340",
+  "concept": "23765413",
+  "doi": "10.5281/zenodo.23784340",
+  "version": "0.02.017",
+  "title": "Fast Software Control and Bounded Deliberation: Methods, Evidence, and Limits",
+  "issues": [],
+  "keywords": [
+   "software control",
+   "metacontrol",
+   "reinforcement learning",
+   "learning to defer",
+   "reproducible research"
+  ],
+  "arrows": 0
+ },
+ {
+  "id": "23784118",
+  "concept": "23784117",
+  "doi": "10.5281/zenodo.23784118",
+  "version": "0.01",
+  "title": "Resource-Versioned Outcome-Aware Metacontrol for Software Action Systems",
+  "issues": [],
+  "keywords": [
+   "software agents",
+   "metacontrol",
+   "learning to defer",
+   "resource versioning",
+   "asynchronous planning",
+   "negative results"
+  ],
+  "arrows": 0
+ }
+]
