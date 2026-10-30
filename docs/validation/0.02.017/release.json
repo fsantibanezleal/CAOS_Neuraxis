@@ -1,0 +1,66 @@
+{
+  "date": "2026-10-29",
+  "version": "0.02.017",
+  "tag": "v0.02.017",
+  "release_url": "https://github.com/fsantibanezleal/CAOS_Neuraxis/releases/tag/v0.02.017",
+  "deployed_app_commit": "9426a0b1a395c38597f6e93f789ef9626f05abc4",
+  "static_release": "9426a0b1a395-596954aad225",
+  "static_archive_sha256": "596954aad225eb3c2054963a1675f499462238a6bdf9359b2b217d56e0434568",
+  "native_release": "/opt/neuraxis-operations/releases/9426a0b1a395-b07de6086e5a",
+  "native_archive_sha256": "b07de6086e5a0fa619c344f204f832b34ce65d5f09ede0af01898223b8760bbe",
+  "engine": "reflexmesh 0.1.2",
+  "shell": "@fasl-work/caos-app-shell 0.19.6",
+  "template": "CAOS_PRODUCT_TEMPLATE 0.13.001",
+  "hosted_checks": {
+    "main_ci": 40976625458,
+    "static_release_build": 40976625177,
+    "feature_prs": [101],
+    "promotion_prs": [102, 104],
+    "conclusion": "success"
+  },
+  "local_gates": {
+    "frontend_unit_tests": 34,
+    "frontend_format": "passed",
+    "production_build": "passed",
+    "source_and_research_gates": "passed",
+    "notebooks": "38 bilingual notebooks executed in fresh kernels; notebook and content standards gates passed",
+    "evidence": "19,488 core/ablation episodes, 1,536 semantic-transfer episodes, 36 native-operation records verified",
+    "shared_shell": "975 measured states; passed with zero failures"
+  },
+  "live_evidence": {
+    "static_manifest_files": 16067,
+    "static_files_hash_verified": 19,
+    "direct_routes_verified": 5,
+    "live_shared_shell_states": 975,
+    "live_shared_shell_failures": 0,
+    "live_shared_shell_waivers": 0,
+    "scientific_content_checks": 296,
+    "scientific_content_errors": 0,
+    "native_runs": 2,
+    "native_findings": [10, 3],
+    "native_receipts_per_run": 9,
+    "exports_verified": true,
+    "cross_session_access_rejected": true,
+    "test_runs_deleted": true,
+    "public_api_status": 404,
+    "static_and_native_commit_match": true,
+    "zenodo_latest_records_verified": 2,
+    "zenodo_verification_issues": 0
+  },
+  "scientific_scope": {
+    "research_data_changed": false,
+    "methods_changed": false,
+    "reported_results_changed": false,
+    "technical_report_version": "0.02.017",
+    "reason": "The release adds the dedicated BS-1 manuscript and links both published concept DOIs in the app. The papers retain the measured negative and partial results; benchmark data, method implementations and reported outcomes are unchanged."
+  },
+  "live_report_files": [
+    "local-shell.json",
+    "live-shell.json",
+    "live-static.json",
+    "live-browser.json",
+    "live-content.json",
+    "live-operations.json",
+    "zenodo-verification.json"
+  ]
+}

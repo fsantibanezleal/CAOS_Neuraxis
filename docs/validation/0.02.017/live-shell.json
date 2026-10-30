@@ -1,0 +1,18 @@
+{
+  "ok": true,
+  "base": "https://neuraxis.ml.fasl-work.com/",
+  "expectBrand": "Neuraxis",
+  "sizes": "390x844,768x1024,1280x800,1600x900,2560x1440",
+  "themes": "light,dark",
+  "langs": "en,es",
+  "wideFontSizes": "390x844,1280x800",
+  "states": 975,
+  "minima": {
+    "drawnShare": null,
+    "stageFill": null
+  },
+  "waivers": [],
+  "checks": {},
+  "captures": 157,
+  "failures": []
+}
