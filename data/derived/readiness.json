@@ -1,11 +1,11 @@
 {
   "schema_version": 1,
-  "product_version": "0.02.017",
-  "catalog_sha256": "f148662665f0f33748fbd221ef98472ead0419ebf97f8e66b9f7215359d28e90",
+  "product_version": "0.02.018",
+  "catalog_sha256": "cb243351f984cf1000950436da091932bfce0311999680a531af089b015bc670",
   "contracts": [
     {
       "id": "product-metadata",
-      "version": "1.1.0",
+      "version": "1.2.0",
       "state": "available",
       "evidence": [
         "docs/contracts/schemas/product.schema.json",
@@ -23,9 +23,6 @@
       "evidence": [
         "docs/contracts/schemas/canonical-index.schema.json",
         "data-pipeline/run.py",
-        "data/derived/index.json",
-        "frontend/src/api/artifacts.ts",
-        "frontend/src/components/ScientificEvidence.tsx",
         "scripts/check_artifacts.py",
         "tests/contracts/test_catalog.py"
       ],
@@ -38,10 +35,8 @@
       "state": "available",
       "evidence": [
         "docs/contracts/schemas/episode.schema.json",
-        "data/derived/episodes",
         "frontend/src/api/artifacts.ts",
-        "scripts/check_artifacts.py",
-        "frontend/src/test/artifact-integrity.test.ts"
+        "scripts/check_artifacts.py"
       ],
       "missing": [],
       "reason": null
@@ -52,10 +47,8 @@
       "state": "available",
       "evidence": [
         "docs/contracts/schemas/semantic-index.schema.json",
-        "data/derived/semantic-transfer",
         "frontend/src/components/ScientificEvidence.tsx",
-        "scripts/check_semantic_transfer.py",
-        "frontend/src/test/artifact-integrity.test.ts"
+        "scripts/check_semantic_transfer.py"
       ],
       "missing": [],
       "reason": null
@@ -66,7 +59,6 @@
       "state": "available",
       "evidence": [
         "docs/contracts/schemas/semantic-routing.schema.json",
-        "data/derived/semantic-routing-study/analysis.json",
         "frontend/src/components/ScientificEvidence.tsx",
         "scripts/check_semantic_routing.py"
       ],
@@ -79,10 +71,9 @@
       "state": "available",
       "evidence": [
         "docs/contracts/schemas/operation-index.schema.json",
-        "data/operations/index.json",
-        "frontend/src/components/ScientificEvidence.tsx",
         "scripts/check_operations.py",
-        "tests/contracts/test_catalog.py"
+        "frontend/src/components/ScientificEvidence.tsx",
+        "scripts/check_operations.py"
       ],
       "missing": [],
       "reason": null
@@ -93,9 +84,8 @@
       "state": "available",
       "evidence": [
         "docs/contracts/schemas/operation-detail.schema.json",
-        "data/operations",
-        "frontend/src/components/ScientificEvidence.tsx",
         "scripts/check_operations.py",
+        "frontend/src/components/ScientificEvidence.tsx",
         "frontend/src/test/artifact-integrity.test.ts"
       ],
       "missing": [],
@@ -106,11 +96,10 @@
       "version": "1.0.0",
       "state": "available",
       "evidence": [
+        "docs/contracts/schemas/operations-api.schema.json",
         "app/operations_api.py",
-        "app/services/operations.py",
         "frontend/src/components/Operations.tsx",
-        "tests/test_operations_api.py",
-        "tests/test_operations_reliability.py"
+        "tests/test_operations_api.py"
       ],
       "missing": [],
       "reason": null
@@ -120,11 +109,10 @@
       "version": "1.0.0",
       "state": "available",
       "evidence": [
+        "docs/contracts/schemas/workspace-authority.schema.json",
         "app/main.py",
         "frontend/src/components/Workspace.tsx",
-        "tests/test_application.py",
-        "frontend/verify-workspace.mjs",
-        "frontend/verify-recovery.mjs"
+        "tests/test_application.py"
       ],
       "missing": [],
       "reason": null
@@ -136,8 +124,6 @@
       "evidence": [
         "docs/contracts/schemas/readiness.schema.json",
         "data-pipeline/pipeline/readiness.py",
-        "data/derived/readiness.json",
-        "docs/",
         "scripts/check_readiness.py",
         "tests/contracts/test_catalog.py"
       ],
@@ -149,11 +135,10 @@
       "version": "1.0.0",
       "state": "available",
       "evidence": [
+        "docs/contracts/schemas/static-release.schema.json",
         "scripts/package_static.py",
-        "deploy/TARGET",
         "scripts/deploy_static.py",
-        "tests/test_static_deploy.py",
-        "scripts/verify_live_static.py"
+        "tests/test_static_deploy.py"
       ],
       "missing": [],
       "reason": null
@@ -163,10 +148,10 @@
       "version": "1.0.0",
       "state": "available",
       "evidence": [
+        "docs/contracts/schemas/template-adoption.schema.json",
         ".template-version",
-        "docs/design/features",
-        "scripts/check_product_gates.py",
-        "scripts/check_sdd.py"
+        "scripts/check_template_adoption.py",
+        "tests/contracts/test_catalog.py"
       ],
       "missing": [],
       "reason": null

@@ -4,29 +4,29 @@ export const CITATIONS: Citation[] = [
     id: 'neuraxis2026',
     label: 'Neuraxis implementation (2026)',
     citation:
-      'Neuraxis. Product implementation and measured operation records, release 0.02.017. The public source repository includes measured artifacts and bilingual research notebooks.',
+      'Neuraxis. Product implementation and measured operation records. The public source repository includes measured artifacts and bilingual research notebooks.',
     url: 'https://github.com/fsantibanezleal/CAOS_Neuraxis',
   },
   {
     id: 'neuraxisreport2026',
     label: 'Neuraxis technical report (2026)',
     citation:
-      'Santibáñez-Leal F. Fast Software Control and Bounded Deliberation: Methods, Evidence, and Limits. Technical report, version 0.02.017 (2026).',
-    doi: '10.5281/zenodo.23784340',
+      'Santibáñez-Leal F. Fast Software Control and Bounded Deliberation: Methods, Evidence, and Limits. Technical report (2026).',
+    doi: '10.5281/zenodo.23821075',
   },
   {
     id: 'neuraxisbs12026',
-    label: 'Neuraxis BS-1 method preprint (2026)',
+    label: 'Neuraxis resource-versioned metacontrol preprint (2026)',
     citation:
-      'Santibáñez-Leal F. Resource-Versioned Outcome-Aware Metacontrol for Software Action Systems. Preprint, version 0.01 (2026).',
-    doi: '10.5281/zenodo.23784118',
+      'Santibáñez-Leal F. Resource-Versioned Outcome-Aware Metacontrol for Software Action Systems. Preprint, version 0.02 (2026).',
+    doi: '10.5281/zenodo.23821087',
   },
   {
     id: 'reflexmesh2026',
     label: 'reflexmesh 0.1.2',
     citation:
       'Santibáñez-Leal F. reflexmesh 0.1.2: native software-control runtime, corrected evaluation and semantic-transfer evidence (2026).',
-    url: 'https://github.com/fsantibanezleal/reflexmesh/tree/v0.01.002',
+    url: 'https://pypi.org/project/reflexmesh/0.1.2/',
   },
   {
     id: 'amershi2019',

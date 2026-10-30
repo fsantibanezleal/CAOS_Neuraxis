@@ -17,8 +17,8 @@ if (-not $SkipModels) {
     if (-not $Checkpoints) {
         $Checkpoints = (& .venv/Scripts/python.exe -c 'from app.config import CHECKPOINTS; print(CHECKPOINTS)').Trim()
     }
-    # Checkpoints remain the audited engine v0.01.000 assets; the app version is unrelated.
-    $modelRelease = 'v0.01.000'
+    # Checkpoints are an independently versioned engine artifact, recorded in product metadata.
+    $modelRelease = (& .venv/Scripts/python.exe -c 'from app.config import CHECKPOINT_RELEASE; print(CHECKPOINT_RELEASE)').Trim()
     & .venv/Scripts/python.exe -m reflexmesh.cli fetch-models --destination $Checkpoints --version $modelRelease
     if ($LASTEXITCODE) { throw 'Verified model installation failed' }
 }

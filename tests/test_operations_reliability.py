@@ -12,7 +12,7 @@ def execute(tmp_path, files):
     return result
 
 
-def test_extra_values_and_physical_lines_are_preserved(tmp_path):
+def test_adversarial_extra_values_and_physical_lines_are_preserved(tmp_path):
     source = 'id,name\n1,"A\nB"\n2,C,extra\n\n3,\n4,D\n'
     result = execute(tmp_path, {"data.csv": source})
     output = result["artifacts"]["normalize"]["outputs"]["data.csv"]
@@ -23,7 +23,7 @@ def test_extra_values_and_physical_lines_are_preserved(tmp_path):
     assert [f["line"] for f in result["findings"]] == [4, 6]
 
 
-def test_rejected_references_propagate_through_multiple_tables(tmp_path):
+def test_adversarial_rejected_references_propagate_through_multiple_tables(tmp_path):
     result = execute(
         tmp_path,
         {

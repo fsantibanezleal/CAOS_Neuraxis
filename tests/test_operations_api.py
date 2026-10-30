@@ -47,7 +47,7 @@ def test_session_isolation_export_and_deletion(client):
     assert client.get(f"/operations-api/runs/{key}", headers=owner).status_code == 404
 
 
-def test_boundary_and_invalid_inputs(client):
+def test_adversarial_boundary_and_invalid_inputs(client):
     assert client.post("/operations-api/session").status_code == 403
     assert (
         client.post(
