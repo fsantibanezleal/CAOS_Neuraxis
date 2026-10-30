@@ -1,0 +1,14 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://neuraxis.ml.fasl-work.com/contracts/static-release.schema.json",
+  "title": "Neuraxis static release manifest",
+  "type": "object",
+  "required": ["product", "version", "source_revision", "files"],
+  "properties": {
+    "product": { "const": "neuraxis" },
+    "version": { "type": "string", "pattern": "^\\d+\\.\\d+\\.\\d+$" },
+    "source_revision": { "type": "string", "minLength": 7 },
+    "files": { "type": "array", "minItems": 1, "items": { "type": "object", "required": ["path", "sha256"], "properties": { "path": { "type": "string" }, "sha256": { "type": "string", "pattern": "^[a-f0-9]{64}$" } } } }
+  },
+  "additionalProperties": true
+}

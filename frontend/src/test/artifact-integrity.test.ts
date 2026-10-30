@@ -52,7 +52,7 @@ describe('canonical artifact integrity', () => {
     await expect(loadEpisode(reference())).rejects.toThrow('SHA-256 mismatch');
   });
 
-  it('rejects changed content and an unparseable response before attempting JSON parsing', async () => {
+  it('adversarial: rejects changed content and an unparseable response before attempting JSON parsing', async () => {
     serve(serialize({ ...episode, status: 'failed' }));
     await expect(loadEpisode(reference())).rejects.toThrow('SHA-256 mismatch');
     serve('{');

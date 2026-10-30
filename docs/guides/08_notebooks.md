@@ -1,7 +1,7 @@
 # Guide: write the product's notebooks
 
 The notebooks are the product's didactic layer: they teach a reader, step by step and on the product's own data, how
-its methods work, where each method stands against the state of the art, and what the product adds beyond it. They
+its methods work, where each method compares with published methods, and what the product contributes. They
 import the product's methods and never re-implement them; logic that exists only in a notebook is incomplete. The
 rule is CAOS_MANAGE `conventions/product-notebooks.md`; this guide is how a product applies it, and it opens with the bar. The template ships an
 example set on the SIR model, which a product replaces (`scripts/check_template_residue.py` lists it).
@@ -38,11 +38,11 @@ What every notebook of a product does:
    live in that cell or in the product's package, never redefined further down.
 7. **Keeps the tests in the tests.** Checking that the notebook reproduces a committed artifact is the test suite's job. A
    notebook holds at most one reproduction check, and it never counts as the lesson.
-8. **Shows the state of the art by running it.** A level 3 notebook runs the state-of-the-art method (the package's
+8. **Shows the prior methods by running it.** A level 3 notebook runs the established method (the package's
    implementation or a pinned reference implementation) on the same data as the product's method, and compares the two with
    numbers and a figure. The example's level 3 notebook runs SciPy's RK45 and DOP853 (pinned in `notebooks/requirements.txt`)
    on the engine's cases and compares error against step and against cost. A level 4 notebook measures the claim it
-   demonstrates, including the case where the state of the art fails.
+   demonstrates, including the case where the prior methods fails.
 9. **Reads as code a practitioner would write.** One idea per cell, at most 30 lines of logic, one statement per line, lines
    of at most 120 characters, names that say what they hold; comments say why, not what.
 10. **Earns its place.** The set follows the product's methods, not the coverage table: fewer, deeper notebooks over many
@@ -51,7 +51,7 @@ What every notebook of a product does:
 
 ### The measured floors
 
-`scripts/check_notebooks.py` enforces these from template 0.13.001, statically, on the committed cells and outputs; the
+`scripts/check_notebooks.py` enforces these from template 0.14.000, statically, on the committed cells and outputs; the
 thresholds are in `scripts/notebook_bar.json`. A finding names the notebook, the measure, the value and the floor (for
 example `notebooks/en/01-x/02-y.ipynb: bar: method cells 2, the floor at level 2 is 5`). The floors catch the failure
 described above; they do not certify a lesson, the review does.
@@ -68,7 +68,7 @@ described above; they do not certify a lesson, the review does.
 | Generic filler sentences (the list in `notebook_bar.json`) | none | none |
 | Lines with two statements, code lines over 120 characters, cells over 30 lines of logic | none | none |
 | `**Question:**` in the first cell; `**Answer:**` in Results quoting a number that appears in an output | required | required |
-| Level 3: a method cell and a figure under State of the art. Level 4: a figure or a table under Beyond the state of the art | | required |
+| Level 3: a method cell and a figure under Comparison. Level 4: a figure or a table under Evidence | | required |
 | Not a copy of the template's example notebooks (`scripts/check_template_residue.py` finds them by content) | required | required |
 
 A notebook with no valid level is measured at level 2 (the missing level is a finding of its own). The Spanish tree is held to
@@ -135,25 +135,25 @@ notebooks/
 |---|---|---|
 | 1 | Fundamentals | the problem in its context, the data, the idea of the method, a first run on a small real slice |
 | 2 | The method in practice | the full algorithm step by step on the data, every intermediate shown, the product's validation of the result |
-| 3 | State of the art | the current methods the product's research found, with sources, run or reproduced and compared with level 2 on the same data |
-| 4 | Beyond the state of the art | the product's own components that go further, with the evidence |
+| 3 | Comparison with published methods | current methods found in the research, with sources, run or reproduced and compared with level 2 on the same data |
+| 4 | Proposed methods | the product's proposed method, measured against the available evidence |
 
 - Every topic has levels 1 and 2. The level never decreases with the notebook number.
 - A topic whose method has state-of-the-art research in the product's dossiers has a level 3 notebook. A topic without
   one says why on its row of each language's index, as `No level 3: <reason>` (`Sin nivel 3: <motivo>` in Spanish),
   four words or more.
-- Every component the SDD claims beyond the state of the art has a level 4 notebook (next section).
+- Every BS-1 component named in the SDD has a level 4 notebook (next section).
 
-## 3. Claim and cover a component beyond the state of the art
+## 3. Evaluate each proposed BS-1 component
 
-The SDD's section `## Beyond the state of the art` is either `None claimed.` (the example) or a list of claims, each
+The SDD's section `## Beyond the state of the art` is either `None claimed.` (the example) or a list of proposed components, each
 with an identifier of the form `BS-<n>` (the first is `BS-1`, then `BS-2`, and so on), its evidence and its source. For
 each claim:
 
 1. State it in the SDD section with its identifier, what it adds, the measured evidence and the source it goes beyond.
 2. Write a level 4 notebook in each language whose `caos.beyond` lists the identifier, with the sections
-   `State of the art` and `Beyond the state of the art` and the evidence: measured size and power, a reconciliation, a
-   case the state of the art gets wrong.
+   `Prior methods` and `Beyond the prior methods` and the evidence: measured size and power, a reconciliation, a
+   case the prior methods gets wrong.
 3. `scripts/check_notebooks.py` fails an identifier no level 4 notebook covers in each language, and a notebook that
    claims one the SDD does not list.
 
@@ -162,14 +162,14 @@ each claim:
 The first cell is markdown: title, level, prerequisites (the earlier notebooks), reading time. Then these second-level
 sections, in this order, named in the tree's language:
 
-| English | Spanish | Required |
+  | English | Spanish | Required |
 |---|---|---|
 | Objectives | Objetivos | always |
 | Setup | Preparación | always |
 | Data | Datos | always |
 | Method | Método | always |
-| State of the art | Estado del arte | level 3 and 4 |
-| Beyond the state of the art | Más allá del estado del arte | level 4 |
+| Comparison | Comparación | level 3 |
+| Evidence | Evidencia | level 4 |
 | Results | Resultados | always |
 | Summary | Resumen | always |
 | References | Referencias | always |
@@ -187,11 +187,10 @@ sections, in this order, named in the tree's language:
   doubled backslashes of a Python literal or a `repr`), a home folder and the POSIX roots `/opt/`, `/tmp/`, `/root/`, `/var/`
   and `/srv/`, in a cell or an output. It cannot know a user name or a host name: the template holds no list of them, so a
   product reads its notebooks' outputs for them before a release.
-- **Method:** each equation in markdown with its source (DOI or URL), then run through the product's package, one step per
-  cell. A method is imported and never defined in a notebook, an oracle included: the example's final-size solver is
-  `final_size` of `data-pipeline/pipeline/oracles.py`, which shares no code with the engine, and the check refuses a cell that
-  defines a name the engine (`model/`) or the oracles module already define. The example imports the pipeline by path (`data-pipeline/`) because it publishes no package; a product imports its
-  own PyPI package.
+- **Method:** each equation is written in markdown with its DOI or URL source, then run through the product's pinned
+  package, one step per cell. Neuraxis imports policies through `reflexmesh.pipeline.make_policy` and evaluates episodes
+  through `reflexmesh.evaluation.runner.run_episode`; notebooks do not define substitute methods. The check refuses a cell
+  that defines an entrypoint already provided by the installed package.
 - **Step by step:** every code cell is directly preceded by a markdown cell that says what it does and why, and carries at
   least one comment line. One idea per cell, one statement per line, at most 30 lines of logic and 120 characters a line.
 - **Results** interprets every figure and table: what it shows, what a validator concludes, what it does not show. Its first

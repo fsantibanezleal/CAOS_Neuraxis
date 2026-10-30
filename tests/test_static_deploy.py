@@ -26,7 +26,7 @@ def bundle(path, files):
     return hashlib.sha256(path.read_bytes()).hexdigest()
 
 
-def test_deploy_rejects_traversal_before_switching_release(tmp_path):
+def test_adversarial_deploy_rejects_traversal_before_switching_release(tmp_path):
     archive = tmp_path / "bad.tar.gz"
     digest = bundle(archive, {"../outside.txt": b"bad"})
     with pytest.raises(ValueError, match="relative files"):
@@ -35,7 +35,7 @@ def test_deploy_rejects_traversal_before_switching_release(tmp_path):
     assert not (tmp_path / "site" / "current").exists()
 
 
-def test_deploy_rejects_mismatched_manifest(tmp_path):
+def test_adversarial_deploy_rejects_mismatched_manifest(tmp_path):
     archive = tmp_path / "bad.tar.gz"
     manifest = {
         "schema_version": 1,

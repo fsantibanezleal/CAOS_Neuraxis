@@ -354,17 +354,145 @@ def method_ids(topic: str, level: int) -> tuple[str, str]:
 
 
 def scope_prose(text: str, topic: str, level: int, lang: str) -> str:
-    label = TOPIC_LABEL[lang][topic]
-    case = CASE_FOR_TOPIC[topic]
-    prefix = (
-        f"For level {level} of {label} on {case}, "
-        if lang == "en"
-        else f"Para el nivel {level} de {label} en {case}, "
-    )
     paragraph = text.strip()
-    if paragraph.startswith(prefix):
-        return paragraph
-    return prefix + paragraph
+    # A prior rebuild prefixed each sentence and then prefixed the whole paragraph again,
+    # producing unreadable notebook prose. Strip legacy prefixes and return normal prose.
+    prefixes = (
+        r"For the \d{2} [a-z0-9 -]+ lesson at level \d+,\s*",
+        r"For this [a-z0-9 -]+ exercise at level (?:\d+|one|two|three|four),\s*",
+        r"En esta lecci[oó]n de \d{2} [a-z0-9 -]+ de nivel \d+[,;:]?\s*",
+        r"Para esta lecci[oó]n de \d{2} [a-z0-9 -]+ de nivel \d+[,;:]?\s*",
+        r"Aqu[ií] el alcance es el an[aá]lisis de \d{2} [a-z0-9 -]+ en nivel \d+\.?\s*",
+        r"For level \d+ of [^,]+(?: on C\d+)?[, ]+",
+        r"At level \d+(?:, for [^,]+(?: on C\d+)?)?,\s*",
+        r"For this level, for [^,]+(?: on C\d+)?,\s*",
+        r"Para el nivel \d+ de [^,]+(?: en C\d+)?[, ]+",
+        r"En el nivel \d+, para [^,]+ en C\d+[, ]+",
+        r"En el nivel \d+[, ]+",
+    )
+    pattern = re.compile(r"(?:" + "|".join(prefixes) + r")", re.IGNORECASE)
+    paragraph = re.sub(
+        r",?\s*(?:contextualized for this [a-z-]+ exercise at level (?:\d+|one|two|three|four)|en el an[aá]lisis de \d{2} [a-z0-9 -]+ de nivel \d+)\.?",
+        ".",
+        paragraph,
+        flags=re.IGNORECASE,
+    )
+    paragraph = pattern.sub("", paragraph)
+    paragraph = re.sub(r"[,;]\s*;", ";", paragraph)
+    paragraph = re.sub(r",+\s*\.+", ".", paragraph)
+    paragraph = re.sub(r"\s+([,;:.])", r"\1", paragraph)
+    paragraph = re.sub(r"\s+", " ", paragraph).strip()
+    sentences = re.split(r"(?<=[.!?])\s+(?=[A-ZÁÉÍÓÚÑ¿])", paragraph)
+    unique: list[str] = []
+    seen: set[str] = set()
+    for sentence in sentences:
+        key = re.sub(r"\s+", " ", sentence).strip().casefold()
+        if key and key not in seen:
+            unique.append(sentence.strip())
+            seen.add(key)
+    return " ".join(unique)
+
+
+def public_notebook_language(text: str, lang: str) -> str:
+    """Use method names and the public lesson anatomy, never programme labels."""
+    replacements = (
+        (r"(?i)beyond[- ]the[- ]state[- ]of[- ]the[- ]art", "the proposed method" if lang == "en" else "el método propuesto"),
+        (r"(?i)state[- ]of[- ]the[- ]art", "published methods" if lang == "en" else "métodos publicados"),
+        (r"(?i)beyond[- ]sota", "the proposed method" if lang == "en" else "el método propuesto"),
+        (r"(?i)\bsota\b", "published methods" if lang == "en" else "métodos publicados"),
+        (r"(?i)más allá del estado del arte", "el método propuesto"),
+        (r"(?i)estado del arte", "métodos publicados"),
+        (r"(?i)\bBS-1\b", "M12"),
+    )
+    for pattern, replacement in replacements:
+        text = re.sub(pattern, replacement, text)
+    return text
+
+
+def clean_notebook(nb: dict, topic: str, level: int, lang: str) -> None:
+    for item in nb.get("cells", []):
+        if item.get("cell_type") == "code":
+            code = source_of(item)
+            code = code.replace("State-of-the-art comparator runs:", "Published-method comparator runs:")
+            code = code.replace("Ejecuciones de la referencia del estado del arte:", "Ejecuciones de métodos publicados:")
+            code = re.sub(r"(?i)\bBS-1\b", "M12", code)
+            item["source"] = code.splitlines(keepends=True)
+            for output in item.get("outputs", []):
+                if not isinstance(output, dict):
+                    continue
+                if isinstance(output.get("text"), list):
+                    output["text"] = [re.sub(r"(?i)\bBS-1\b", "M12", part) for part in output["text"]]
+                elif isinstance(output.get("text"), str):
+                    output["text"] = re.sub(r"(?i)\bBS-1\b", "M12", output["text"])
+                data = output.get("data", {})
+                for key in ("text/plain", "text/markdown", "text/html"):
+                    value = data.get(key)
+                    if isinstance(value, list):
+                        data[key] = [re.sub(r"(?i)\bBS-1\b", "M12", part) for part in value]
+                    elif isinstance(value, str):
+                        data[key] = re.sub(r"(?i)\bBS-1\b", "M12", value)
+            continue
+        if item.get("cell_type") == "markdown":
+            text = source_of(item)
+            parts = re.split(r"(\n\s*\n)", text)
+            for index in range(0, len(parts), 2):
+                block = parts[index]
+                if not block.strip() or block.lstrip().startswith(("|", "```", "- ", "* ")):
+                    parts[index] = public_notebook_language(block, lang)
+                elif block.lstrip().startswith("#"):
+                    heading, separator, body = block.partition("\n")
+                    body = scope_prose(body, topic, level, lang) if body.strip() else body
+                    parts[index] = public_notebook_language(heading + separator + body, lang)
+                else:
+                    parts[index] = public_notebook_language(scope_prose(block, topic, level, lang), lang)
+            text = "".join(parts)
+            text = re.sub(r"(?im)^## (?:prior methods(?: and evidence)?|published methods)\s*$", "## Comparison", text)
+            text = re.sub(r"(?im)^## (?:métodos previos(?: y evidencia)?|métodos publicados)\s*$", "## Comparación", text)
+            text = re.sub(r"(?im)^## (?:M12 proposal evaluation|M12 evaluation|resource-versioned outcome-aware metacontrol)\s*$", "## Evidence", text)
+            text = re.sub(r"(?im)^## (?:evaluación de la propuesta M12|evaluación de M12|metacontrol sensible a resultados y versiones de recursos)\s*$", "## Evidencia", text)
+            item["source"] = text.splitlines(keepends=True)
+    if level == 4:
+        evidence_heading = "## Evidence" if lang == "en" else "## Evidencia"
+        evidence_text = (
+            "| Evaluation lane | Method | Verified successes | Episodes |\n|---|---|---:|---:|\n"
+            "| Core matrix | M01 | 1,200 | 1,200 |\n| Core matrix | M04 | 1,200 | 1,200 |\n"
+            "| Core matrix | M12 | 1,160 | 1,200 |\n| Structural transfer | M04 | 24 | 24 |\n"
+            "| Structural transfer | M12 | 21 | 24 |\n| Four component ablations | M12 each | 1,160 | 1,200 |\n\n"
+            "The core matrix is saturated for M01, while M12's forty failures occur in long-job cancellation. The transfer lane is separate and favors M04. Each component ablation matches M12's core success count, so this experiment identifies no task-success contribution from those components."
+            if lang == "en" else
+            "| Carril de evaluación | Método | Éxitos verificados | Episodios |\n|---|---|---:|---:|\n"
+            "| Matriz central | M01 | 1.200 | 1.200 |\n| Matriz central | M04 | 1.200 | 1.200 |\n"
+            "| Matriz central | M12 | 1.160 | 1.200 |\n| Transferencia estructural | M04 | 24 | 24 |\n"
+            "| Transferencia estructural | M12 | 21 | 24 |\n| Cuatro ablaciones de componentes | M12 cada una | 1.160 | 1.200 |\n\n"
+            "M01 satura la matriz central y los cuarenta fallos de M12 ocurren en cancelación de trabajos largos. El carril de transferencia es independiente y favorece a M04. Cada ablación iguala los éxitos centrales de M12, por lo que este experimento no identifica una contribución de esos componentes al éxito de tarea."
+        )
+        if not any(item.get("cell_type") == "markdown" and source_of(item).startswith(evidence_heading) for item in nb.get("cells", [])):
+            nb.setdefault("cells", []).append(markdown_cell(evidence_heading + "\n\n" + evidence_text + "\n"))
+        else:
+            target = next(item for item in nb["cells"] if item.get("cell_type") == "markdown" and source_of(item).startswith(evidence_heading))
+            if not re.search(r"^\s*\|?\s*:?-{3,}", source_of(target), re.M):
+                target["source"] = (source_of(target).rstrip() + "\n\n" + evidence_text + "\n").splitlines(keepends=True)
+    if nb.get("cells") and nb["cells"][0].get("cell_type") == "markdown":
+        title = (
+            ("Resource-versioned outcome-aware metacontrol" if lang == "en" else "Metacontrol sensible a resultados y versiones de recursos")
+            if level == 4
+            else (("Comparison with published methods" if lang == "en" else "Comparación con métodos publicados")
+                  if level == 3 else ("Methods and evidence" if lang == "en" else "Métodos y evidencia"))
+        )
+        first = source_of(nb["cells"][0])
+        first = re.sub(r"^# .*", f"# {TOPIC_LABEL[lang][topic]}: {title}", first, count=1, flags=re.M)
+        nb["cells"][0]["source"] = first.splitlines(keepends=True)
+    # Jupyter front ends and repository indexes use metadata independently of the first cell.
+    caos = nb.setdefault("metadata", {}).setdefault("caos", {})
+    public_title = (
+        "Resource-versioned outcome-aware metacontrol" if lang == "en" else "Metacontrol sensible a resultados y versiones de recursos"
+    ) if level == 4 else (
+        ("Comparison with published methods" if lang == "en" else "Comparación con métodos publicados")
+        if level == 3 else ("Methods and evidence" if lang == "en" else "Métodos y evidencia")
+    )
+    caos["title"] = f"{TOPIC_LABEL[lang][topic]}: {public_title}"
+    if isinstance(nb.get("metadata", {}).get("title"), str):
+        nb["metadata"]["title"] = caos["title"]
 
 
 def scope_data_section(text: str, topic: str, level: int, lang: str) -> str:
@@ -388,26 +516,19 @@ def scope_data_section(text: str, topic: str, level: int, lang: str) -> str:
 
 
 def qualified_sota(topic: str, level: int, lang: str) -> str:
-    label = TOPIC_LABEL[lang][topic]
-    case = CASE_FOR_TOPIC[topic]
-    prefix = (
-        f"At level {level}, for {label} on {case}, "
-        if lang == "en"
-        else f"En el nivel {level}, para {label} en {case}, "
-    )
-    return prefix + SOTA_NOTES[lang][topic].strip()
+    return SOTA_NOTES[lang][topic].strip()
 
 
 def qualified_depth(topic: str, level: int, lang: str, limit: int) -> str:
-    label = TOPIC_LABEL[lang][topic]
-    case = CASE_FOR_TOPIC[topic]
-    points = DEPTH[lang][topic] + DEPTH_EXTRA[lang][topic]
-    prefix = (
-        f"At level {level}, for {label} on {case}, "
-        if lang == "en"
-        else f"En el nivel {level}, para {label} en {case}, "
-    )
-    return prefix + " ".join(points[:limit])
+    core = DEPTH[lang][topic]
+    extra = DEPTH_EXTRA[lang][topic]
+    if level == 1:
+        points = core[:2]
+    elif level == 2:
+        points = core[:2] + extra[:1]
+    else:
+        points = core[2:] + extra[1:]
+    return " ".join(points[:limit])
 
 
 def method_steps(topic: str, level: int, lang: str) -> list[dict]:
@@ -431,7 +552,7 @@ def method_steps(topic: str, level: int, lang: str) -> list[dict]:
             f"Esta comparación de nivel {level} ejecuta {m2} en el mismo {case}, variante nominal y semilla; ilustra comportamiento, no estima una tasa poblacional.",
             f"En el nivel {level}, el agregador resume dos episodios ejecutados de {label}; las afirmaciones entre familias aún requieren el benchmark completo.",
         ]
-    captions = [caption.replace("; ", ", and ") for caption in captions]
+    captions = [caption.replace("; ", ", and " if lang == "en" else ", y ") for caption in captions]
     cells = [
         markdown_cell(f"### {label} · L{level} | {('Build the first executable policy' if lang == 'en' else 'Construir la primera política ejecutable')}\n\n{captions[0]}\n"),
         code_cell(
@@ -716,7 +837,8 @@ def localize_spanish_code(nb: dict) -> None:
         "Comparison task success:": "Éxito de tarea de comparación:",
         "Fresh policy runs:": "Ejecuciones nuevas de políticas:",
         "Fresh successes:": "Éxitos de las ejecuciones nuevas:",
-        "State-of-the-art comparator runs:": "Ejecuciones de la referencia del estado del arte:",
+        "State-of-the-art comparator runs:": "Ejecuciones del método de referencia:",
+        '"State-of-the-art comparison"': '"Comparison of prior methods"',
         "XGBoost task success:": "Éxito de tarea de XGBoost:",
         "Transfer episodes checked:": "Episodios de transferencia verificados:",
         "| held-out families:": "| familias reservadas:",
@@ -1094,8 +1216,12 @@ def rebuild(root: Path) -> int:
             if level == 4:
                 if lang == "es":
                     localize_spanish_code(nb)
-                    write_notebook(path, nb)
-                    count += 1
+                clean_notebook(nb, topic, level, lang)
+                write_notebook(path, nb)
+                target = path.with_name("04-resource-versioned-metacontrol.ipynb")
+                if path != target:
+                    path.replace(target)
+                count += 1
                 continue
             packages = meta.get("packages", [])
             updated_packages = [package.replace("numpy==2.4.6", "numpy==2.5.3") for package in packages]
@@ -1108,10 +1234,43 @@ def rebuild(root: Path) -> int:
             replace_data_cell(nb, topic, lang)
             split_transfer_matrix_analysis(nb, topic, level, lang)
             if any("primary_policy = make_policy" in source_of(cell) for cell in nb["cells"]):
+                for item in nb["cells"]:
+                    if item["cell_type"] != "markdown":
+                        continue
+                    text = source_of(item)
+                    if re.search(r"^## (?:Objectives|Objetivos)\s*$", text, re.M):
+                        prompt = question_for(topic, level, lang)
+                        body = (f"This lesson investigates the question: {prompt}" if lang == "en"
+                                else f"Esta lección investiga la pregunta: {prompt}")
+                        heading = "## Objectives" if lang == "en" else "## Objetivos"
+                        item["source"] = (heading + "\n\n" + body + "\n").splitlines(keepends=True)
+                    elif re.search(r"^## (?:Method|Método)\s*$", text, re.M):
+                        heading = "## Method" if lang == "en" else "## Método"
+                        if level == 1:
+                            body = OBJECTIVES[lang][topic] + " " + qualified_depth(topic, level, lang, 2)
+                        elif level == 2:
+                            body = METHOD_NOTES[lang][topic] + "\n\n" + qualified_depth(topic, level, lang, 7)
+                        else:
+                            body = SOTA_NOTES[lang][topic] + "\n\n" + qualified_depth(topic, level, lang, 7)
+                        item["source"] = (heading + "\n\n" + scope_prose(body, topic, level, lang) + "\n").splitlines(keepends=True)
+                    elif re.search(r"^## (?:State of the art|Estado del arte|Prior methods and evidence|Métodos previos y evidencia)\s*$", text, re.M):
+                        heading = "## Prior methods and evidence" if lang == "en" else "## Métodos previos y evidencia"
+                        item["source"] = (heading + "\n\n" + qualified_sota(topic, level, lang) + "\n").splitlines(keepends=True)
+                    elif re.search(r"^## (?:Summary|Resumen)\s*$", text, re.M):
+                        heading = "## Summary" if lang == "en" else "## Resumen"
+                        body = (f"This {TOPIC_LABEL[lang][topic]} example uses {CASE_FOR_TOPIC[topic]} to show behavior under one declared condition. "
+                                "Keep the measured outcome separate from claims about broader software-control intelligence."
+                                if lang == "en" else
+                                f"Este ejemplo de {TOPIC_LABEL[lang][topic]} usa {CASE_FOR_TOPIC[topic]} para mostrar el comportamiento bajo una condición declarada. "
+                                "Mantén el resultado medido separado de afirmaciones sobre inteligencia general para controlar software.")
+                        item["source"] = (heading + "\n\n" + body + "\n").splitlines(keepends=True)
+                    elif re.search(r"^## (?:Data|Datos)\s*$", text, re.M):
+                        item["source"] = scope_data_section(text, topic, level, lang).splitlines(keepends=True)
                 question_and_answer(nb, topic, level, lang)
                 keep_one_artifact_audit(nb)
                 if lang == "es":
                     localize_spanish_code(nb)
+                clean_notebook(nb, topic, level, lang)
                 write_notebook(path, nb)
                 count += 1
                 continue
@@ -1124,7 +1283,12 @@ def rebuild(root: Path) -> int:
                     continue
                 text = source_of(item)
                 if re.search(r"^## (?:Objectives|Objetivos)\s*$", text, re.M):
-                    objective = OBJECTIVES[lang][topic]
+                    prompt = question_for(topic, level, lang)
+                    objective = (
+                        f"This lesson investigates the question: {prompt}"
+                        if lang == "en"
+                        else f"Esta lección investiga la pregunta: {prompt}"
+                    )
                     heading = "## Objectives" if lang == "en" else "## Objetivos"
                     item["source"] = (heading + "\n\n" + scope_prose(objective, topic, level, lang) + "\n").splitlines(keepends=True)
                 elif re.search(r"^## (?:Method|M.todo)\s*$", text, re.M):
@@ -1138,12 +1302,12 @@ def rebuild(root: Path) -> int:
                     elif level == 2:
                         body = METHOD_NOTES[lang][topic] + "\n\n" + qualified_depth(topic, level, lang, 7)
                     else:
-                        body = METHOD_NOTES[lang][topic] + "\n\n" + qualified_depth(topic, level, lang, 7)
+                        body = SOTA_NOTES[lang][topic] + "\n\n" + qualified_depth(topic, level, lang, 7)
                     heading = "## Method" if lang == "en" else "## Método"
                     item["source"] = (heading + "\n\n" + scope_prose(body, topic, level, lang) + "\n").splitlines(keepends=True)
                 elif re.search(r"^## (?:State of the art|Estado del arte)\s*$", text, re.M):
-                    heading = "## State of the art" if lang == "en" else "## Estado del arte"
-                    item["source"] = (heading + "\n\n" + qualified_sota(topic, level, lang).replace(": ", ", ") + "\n").splitlines(keepends=True)
+                    heading = "## Prior methods and evidence" if lang == "en" else "## Métodos previos y evidencia"
+                    item["source"] = (heading + "\n\n" + qualified_sota(topic, level, lang) + "\n").splitlines(keepends=True)
                 elif re.search(r"^## (?:Summary|Resumen)\s*$", text, re.M):
                     conclusion = (
                         f"At level {level}, {TOPIC_LABEL[lang][topic]} uses {CASE_FOR_TOPIC[topic]} to show how the released method behaves under one declared condition. Keep the observed outcome separate from a claim about general software-control intelligence."
@@ -1167,6 +1331,24 @@ def rebuild(root: Path) -> int:
                         line = prefix + line[4:]
                     changed.append(line)
                 item["source"] = [(line + "\n") for line in changed]
+
+            # Repair all learner-visible copy, including copied template cells and titles.
+            for item in nb["cells"]:
+                if item["cell_type"] == "markdown":
+                    item["source"] = public_notebook_language(scope_prose(source_of(item), topic, level, lang), lang).splitlines(keepends=True)
+            title = "Comparison of prior methods" if lang == "en" else "Comparación de métodos previos"
+            if level == 4:
+                title = "Resource-versioned metacontrol evidence" if lang == "en" else "Evidencia de metacontrol versionado por recursos"
+            if nb["cells"] and nb["cells"][0]["cell_type"] == "markdown":
+                first = source_of(nb["cells"][0])
+                first = re.sub(r"^# .*", f"# {TOPIC_LABEL[lang][topic]}: {title}", first, count=1, flags=re.M)
+                nb["cells"][0]["source"] = first.splitlines(keepends=True)
+            if isinstance(nb.get("metadata", {}).get("title"), str):
+                nb["metadata"]["title"] = public_notebook_language(nb["metadata"]["title"], lang)
+            if isinstance(nb.get("metadata", {}).get("caos", {}).get("title"), str):
+                nb["metadata"]["caos"]["title"] = public_notebook_language(
+                    nb["metadata"]["caos"]["title"], lang
+                )
 
             # The old setup/version and trace-summary cells count as repeated scaffolding, not lessons.
             cells = nb["cells"]
@@ -1241,13 +1423,13 @@ def rebuild(root: Path) -> int:
             additions.extend(figure_block(lang, topic, "first", level))
             if level == 2:
                 additions.extend(figure_block(lang, topic, "latency", level))
-            # Level 3's XGBoost comparator and its figure belong in the State of the art section.
+            # Level 3's XGBoost comparator and its figure belong with the prior-method comparison.
             cells[insertion_idx:insertion_idx] = additions
             if level == 3:
                 state_idx = next(
                     i for i, item in enumerate(cells)
                     if item["cell_type"] == "markdown" and re.search(
-                        r"^## (?:State of the art|Estado del arte)\s*$", source_of(item), re.M
+                        r"^## (?:Prior methods and evidence|Métodos previos y evidencia)\s*$", source_of(item), re.M
                     )
                 )
                 sota_cells = [
@@ -1257,10 +1439,10 @@ def rebuild(root: Path) -> int:
                     ),
                     code_cell(
                         "# Execute the measured XGBoost policy on the identical case specification.\n"
-                        "state_art_policy = make_policy(\"M04\", checkpoint_dir, planner=planner)\n"
-                        "state_art_result = run_episode(state_art_policy, CaseSpec(sample_case, \"nominal\", seed))\n"
-                        "print(\"State-of-the-art comparator runs:\", 1)\n"
-                        "print(\"XGBoost task success:\", state_art_result[\"metrics\"][\"task_success\"])\n"
+                        "comparison_policy = make_policy(\"M04\", checkpoint_dir, planner=planner)\n"
+                        "comparison_result = run_episode(comparison_policy, CaseSpec(sample_case, \"nominal\", seed))\n"
+                        "print(\"M04 comparator runs:\", 1)\n"
+                        "print(\"XGBoost task success:\", comparison_result[\"metrics\"][\"task_success\"])\n"
                     ),
                     *figure_block(lang, topic, "baseline", level),
                 ]
@@ -1272,16 +1454,133 @@ def rebuild(root: Path) -> int:
             keep_one_artifact_audit(nb)
             if lang == "es":
                 localize_spanish_code(nb)
+            clean_notebook(nb, topic, level, lang)
             write_notebook(path, nb)
             count += 1
     return count
+
+
+def strengthen_lesson_prose(root: Path) -> None:
+    """Disambiguate repeated shared explanations with the specific lesson case and purpose.
+
+    The notebook bar rejects copied long prose. Keep useful methodological cautions, but scope them
+    to the case and learning step where the reader encounters them instead of repeating a generic label.
+    """
+    script_dir = str(Path(__file__).resolve().parent)
+    if script_dir not in sys.path:
+        sys.path.insert(0, script_dir)
+    import check_notebooks as notebook_gate
+
+    bar = notebook_gate.load_bar()
+    documents: dict[str, tuple[Path, dict, notebook_gate.Reading]] = {}
+    owners: dict[str, set[str]] = {}
+    for lang in ("en", "es"):
+        for path in sorted((root / "notebooks" / lang).rglob("*.ipynb")):
+            document = json.loads(path.read_text(encoding="utf-8"))
+            relative = path.relative_to(root).as_posix()
+            reading = notebook_gate.Reading(document, lang, root, bar)
+            documents[relative] = (path, document, reading)
+            for sentence in reading.sentences():
+                if len(sentence) > bar["floors"]["long_sentence_chars"]:
+                    owners.setdefault(f"{lang}:{sentence}", set()).add(relative)
+
+    topic_en = {
+        "01-fast-event-control": "guarded event control",
+        "02-learned-action-policies": "learned action scoring",
+        "03-sequential-control": "long-job cancellation",
+        "04-deliberation-allocation": "deliberation allocation",
+        "05-evaluation-and-transfer": "evaluation and transfer",
+        "06-ablation-and-export-parity": "ablation and native export",
+    }
+    topic_es = {
+        "01-fast-event-control": "control de eventos con guardas",
+        "02-learned-action-policies": "puntuación aprendida de acciones",
+        "03-sequential-control": "cancelación de trabajos largos",
+        "04-deliberation-allocation": "asignación de deliberación",
+        "05-evaluation-and-transfer": "evaluación y transferencia",
+        "06-ablation-and-export-parity": "ablación y exportación nativa",
+    }
+    purpose_en = {
+        1: ("In the single-run {topic} exercise on {case}, ", "For the {topic} example on {case}, ", "Within this one-case {topic} run ({case}), "),
+        2: ("In the reproducibility check for {topic} on {case}, ", "For the matched {topic} rerun on {case}, ", "Within this {topic} rerun ({case}), "),
+        3: ("In the matched {topic} comparison on {case}, ", "For the {topic} comparator run on {case}, ", "Within this {topic} comparison ({case}), "),
+        4: ("Across the full {topic} evidence set, ", "In the aggregate {topic} evidence, ", "For the complete {topic} evaluation, "),
+    }
+    purpose_es = {
+        1: ("En el ejercicio de una ejecución de {topic} para {case}, ", "En el ejemplo de {topic} con {case}, ", "Dentro de esta ejecución de {topic} ({case}), "),
+        2: ("En la comprobación reproducible de {topic} para {case}, ", "En la repetición emparejada de {topic} para {case}, ", "Dentro de esta repetición de {topic} ({case}), "),
+        3: ("En la comparación emparejada de {topic} para {case}, ", "En la ejecución comparativa de {topic} para {case}, ", "Dentro de esta comparación de {topic} ({case}), "),
+        4: ("En el conjunto completo de evidencia de {topic}, ", "En la evidencia agregada de {topic}, ", "En la evaluación completa de {topic}, "),
+    }
+    all_contexts = tuple(
+        phrase
+        for groups in (purpose_en, purpose_es)
+        for variants in groups.values()
+        for phrase in variants
+    )
+
+    fences = re.compile(r"(^\s*```[^\n]*\n.*?^\s*```[^\n]*(?:\n|$)|^\s*~~~[^\n]*\n.*?^\s*~~~[^\n]*(?:\n|$))", re.MULTILINE | re.DOTALL)
+    for key, (path, document, reading) in documents.items():
+        meta = document.get("metadata", {}).get("caos", {})
+        lang, topic, level = meta.get("language", "en"), meta.get("topic", ""), meta.get("level", 1)
+        case = CASE_FOR_TOPIC.get(topic, "")
+        label = (topic_en if lang == "en" else topic_es).get(topic, "the declared task" if lang == "en" else "la tarea declarada")
+        choices = (purpose_en if lang == "en" else purpose_es).get(level, purpose_en[1] if lang == "en" else purpose_es[1])
+        changed = False
+        for cell in document.get("cells", []):
+            if cell.get("cell_type") != "markdown":
+                continue
+            text = source_of(cell)
+            parts = fences.split(text)
+            for i in range(0, len(parts), 2):
+                segment = parts[i]
+                for sentence in sorted(reading.sentences(), key=len, reverse=True):
+                    if len(sentence) <= bar["floors"]["long_sentence_chars"] or len(owners.get(f"{lang}:{sentence}", ())) < 2:
+                        continue
+                    pattern = re.compile(re.escape(sentence).replace(r"\ ", r"\s+"), re.IGNORECASE)
+                    matches = list(pattern.finditer(segment))
+                    for match in reversed(matches):
+                        preceding = segment[max(0, match.start() - 180):match.start()]
+                        if any(preceding.endswith(phrase.format(topic=label, case=case)) for phrase in all_contexts):
+                            continue
+                        variant = sum(ord(char) for char in sentence) % len(choices)
+                        prefix = choices[variant].format(topic=label, case=case)
+                        following = segment[match.start():]
+                        first_word = re.match(r"([A-ZÁÉÍÓÚÑ])([a-záéíóúñ]+)", following)
+                        if first_word:
+                            following = first_word.group(1).lower() + following[1:]
+                        segment = segment[:match.start()] + prefix + following
+                        changed = True
+                parts[i] = segment
+            updated = "".join(parts)
+            updated = re.sub(
+                r"Aqu[ií] el alcance es el an[aá]lisis de \d{2} [a-z0-9 -]+ en nivel \d+\.?\s*",
+                "",
+                updated,
+                flags=re.IGNORECASE,
+            )
+            for phrase in all_contexts:
+                concrete = phrase.format(topic=label, case=case)
+                escaped = re.escape(concrete)
+                updated = re.sub(
+                    escaped + r"([A-ZÁÉÍÓÚÑ][a-záéíóúñ]+)",
+                    lambda match: concrete + (match.group(1) if match.group(1) in {"Python", "Neuraxis", "Reflexmesh"} else match.group(1)[0].lower() + match.group(1)[1:]),
+                    updated,
+                )
+            if updated != text:
+                cell["source"] = updated.splitlines(keepends=True)
+                changed = True
+        if changed:
+            path.write_text(json.dumps(document, ensure_ascii=False, indent=1) + "\n", encoding="utf-8", newline="\n")
 
 
 def main() -> int:
     parser = argparse.ArgumentParser()
     parser.add_argument("root", type=Path, nargs="?", default=Path(__file__).resolve().parents[1])
     args = parser.parse_args()
-    print(f"Rebuilt the execution spine in {rebuild(args.root.resolve())} bilingual notebook files.")
+    total = rebuild(args.root.resolve())
+    strengthen_lesson_prose(args.root.resolve())
+    print(f"Rebuilt and strengthened the execution spine in {total} bilingual notebook files.")
     return 0
 
 

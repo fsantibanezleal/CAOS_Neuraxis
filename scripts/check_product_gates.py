@@ -26,12 +26,14 @@ def main() -> int:
     args = parser.parse_args()
     source_checks = [
         ("content rules", [PY, "scripts/check_content_standards.py"]),
+        ("CI budget", [PY, "scripts/check_ci_budget.py"]),
         ("software design", [PY, "scripts/check_sdd.py"]),
         ("manuscripts", [PY, "scripts/check_manuscripts.py"]),
         ("contract catalog", [PY, "scripts/check_contract_catalog.py"]),
         ("contract readiness", [PY, "scripts/check_readiness.py"]),
         ("contract and adversarial tests", [PY, "-m", "pytest", "tests/contracts", "tests/adversarial", "-q"]),
         ("notebook structure", [PY, "scripts/check_notebooks.py"]),
+        ("reader-facing method names", [PY, "scripts/check_internal_names.py"]),
         ("notebook execution and output freshness", [PY, "scripts/run_notebooks.py"]),
         ("README repository areas", [PY, "scripts/check_readme_areas.py"]),
         ("template adoption and deployment target", [PY, "scripts/check_template_adoption.py"]),
@@ -55,7 +57,7 @@ def main() -> int:
     if args.scope == "release":
         run("audited static package", [PY, "scripts/package_static.py"])
         if args.live_url:
-            run("live shell interaction gate", ["node", "shell-gate.mjs", "--require-focus"], frontend, live_env)
+            run("live shell interaction gate", ["node", "scripts/gate.mjs", "--require-focus"], frontend, live_env)
             run("live scientific content gate", ["node", "verify-content.mjs"], frontend, live_env)
     print("product gates: all selected gates passed")
     return 0

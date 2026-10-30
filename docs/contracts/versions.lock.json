@@ -1,7 +1,7 @@
 {
   "schema_version": 1,
   "contracts": {
-    "product-metadata": "1.1.0",
+    "product-metadata": "1.2.0",
     "canonical-index": "1.0.0",
     "canonical-episode": "1.0.0",
     "semantic-transfer": "1.0.0",

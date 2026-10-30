@@ -23,13 +23,14 @@ def parse_catalog(text: str) -> list[dict[str, str]]:
             break
         if line.startswith("|"):
             rows.append([cell.strip() for cell in line.strip().strip("|").split("|")])
-    if len(rows) < 3 or tuple(cell.lower() for cell in rows[0]) != HEADER:
-        raise ValueError("catalog table must use the declared eight-column header and include rows")
+    if len(rows) < 3 or not set(HEADER).issubset({cell.lower() for cell in rows[0]}):
+        raise ValueError("catalog table must include the legacy runtime columns and contract rows")
+    columns = tuple(cell.lower() for cell in rows[0])
     result = []
     for number, cells in enumerate(rows[2:], start=1):
-        if len(cells) != len(HEADER):
-            raise ValueError(f"catalog row {number} has {len(cells)} cells, expected {len(HEADER)}")
-        row = dict(zip(HEADER, cells, strict=True))
+        if len(cells) != len(columns):
+            raise ValueError(f"catalog row {number} has {len(cells)} cells, expected {len(columns)}")
+        row = dict(zip(columns, cells, strict=True))
         if any(not value for value in row.values()):
             raise ValueError(f"catalog row {row['id'] or number} contains a blank cell")
         if not re.fullmatch(r"[a-z][a-z0-9-]+", row["id"]):

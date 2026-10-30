@@ -1,8 +1,8 @@
 # Neuraxis research notebooks / Notebooks de investigación de Neuraxis
 
-This is the product's didactic research layer. It teaches the released Reflexmesh methods on Neuraxis's committed, hash-audited episodes; it does not define a second copy of the algorithms. The notebook set covers fast event control, learned action policies, sequential control, deliberation allocation, full-matrix evaluation/transfer, and matched ablation/native-export parity, from fundamentals through sourced state-of-the-art comparisons.
+This is the product's didactic research layer. It teaches the released Reflexmesh methods on Neuraxis's committed, hash-audited episodes; it does not define a second copy of the algorithms. The notebook set covers fast event control, learned action policies, sequential control, deliberation allocation, full-matrix evaluation/transfer, and matched ablation/native-export parity, from fundamentals through sourced prior-methods comparisons.
 
-Esta es la capa didáctica de investigación del producto. Enseña los métodos publicados de Reflexmesh con episodios comprometidos y auditados por hash de Neuraxis; no crea una segunda copia de los algoritmos. El conjunto cubre control rápido por eventos, políticas de acción aprendidas, control secuencial, asignación de deliberación, evaluación/transferencia de matriz completa y paridad de exportación nativa/ablaciones emparejadas, desde fundamentos hasta comparaciones con fuentes del estado del arte.
+Esta es la capa didáctica de investigación del producto. Enseña los métodos publicados de Reflexmesh con episodios comprometidos y auditados por hash de Neuraxis; no crea una segunda copia de los algoritmos. El conjunto cubre control rápido por eventos, políticas de acción aprendidas, control secuencial, asignación de deliberación, evaluación/transferencia de matriz completa y paridad de exportación nativa/ablaciones emparejadas, desde fundamentos hasta comparaciones documentadas con métodos previos.
 
 ## Two language trees / Dos árboles de idioma
 
@@ -11,9 +11,9 @@ Esta es la capa didáctica de investigación del producto. Enseña los métodos 
 | English | [en/README.md](en/README.md) | [en/](en/) |
 | Español | [es/README.md](es/README.md) | [es/](es/) |
 
-Every topic and notebook has the same relative path in both trees. Topic order and notebook levels are checked; the level 3 material cites the Neuraxis research record. The SDD defines BS-1 (M12's resource-versioned, outcome-aware metacontrol) as a proposed method and a falsifiable hypothesis. The level 4 notebook in topic 04 evaluates that proposal against the recorded outcomes, matched execution and ablations. Its result is negative/partial: the method tier does not mean that superiority or novelty has been demonstrated, and it makes no biological-equivalence claim.
+Every topic and notebook has the same relative path in both trees. Topic order and notebook levels are checked; the level 3 material cites the Neuraxis research record. Level 3 compares published methods with matched Neuraxis evidence. The level 4 notebook in topic 04 examines resource-versioned outcome-aware metacontrol against recorded outcomes, matched execution and ablations. The result is negative or inconclusive: no advantage or novelty is demonstrated, and no biological equivalence is claimed.
 
-Cada tema y notebook ocupa la misma ruta relativa en ambos árboles. Se verifican el orden de temas y los niveles; el material de nivel 3 cita el registro de investigación de Neuraxis. El SDD define BS-1 (el metacontrol M12 con versiones de recursos y resultados observados) como método propuesto e hipótesis falsable. El notebook de nivel 4 del tema 04 evalúa esa propuesta con resultados registrados, ejecución emparejada y ablaciones. El resultado es negativo/parcial: el nivel metodológico no demuestra superioridad ni novedad, y no afirma equivalencia biológica.
+Cada tema y notebook ocupa la misma ruta relativa en ambos árboles. Se verifican el orden de temas y los niveles; el material de nivel 3 cita el registro de investigación de Neuraxis. El nivel 3 compara métodos publicados con evidencia emparejada de Neuraxis. El notebook de nivel 4 del tema 04 examina el metacontrol sensible a resultados y versiones de recursos frente a resultados registrados, ejecución emparejada y ablaciones. El resultado es negativo o no concluyente: no demuestra ventaja ni novedad y no afirma equivalencia biológica.
 
 ## Environment and execution / Entorno y ejecución
 

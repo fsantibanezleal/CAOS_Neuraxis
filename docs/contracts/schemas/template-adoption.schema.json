@@ -1,0 +1,14 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://neuraxis.ml.fasl-work.com/contracts/template-adoption.schema.json",
+  "title": "Neuraxis repository template adoption record",
+  "type": "object",
+  "required": ["template_version", "features", "architecture", "deployment_target"],
+  "properties": {
+    "template_version": { "type": "string", "pattern": "^\\d+\\.\\d+\\.\\d+$" },
+    "features": { "type": "array", "items": { "type": "string" } },
+    "architecture": { "type": "array", "items": { "type": "string" } },
+    "deployment_target": { "type": "string", "minLength": 1 }
+  },
+  "additionalProperties": true
+}

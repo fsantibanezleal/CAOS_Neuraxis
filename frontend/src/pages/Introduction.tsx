@@ -36,7 +36,7 @@ export default function Introduction() {
                     </a>
                     {' · '}
                     <a href="https://doi.org/10.5281/zenodo.23784117">
-                      {lang === 'en' ? 'BS-1 method preprint' : 'preprint del método BS-1'}
+                      {lang === 'en' ? 'M12 metacontrol preprint' : 'preprint de metacontrol M12'}
                     </a>
                   </p>
                 </Callout>

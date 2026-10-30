@@ -1,0 +1,14 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://neuraxis.ml.fasl-work.com/contracts/operations-api.schema.json",
+  "title": "Neuraxis bounded operations API request and response envelope",
+  "type": "object",
+  "required": ["status"],
+  "properties": {
+    "status": { "type": "string", "enum": ["accepted", "running", "completed", "failed", "cancelled", "unavailable"] },
+    "run_id": { "type": ["string", "null"] },
+    "reason": { "type": ["string", "null"] },
+    "result": { "type": ["object", "array", "string", "number", "boolean", "null"] }
+  },
+  "additionalProperties": true
+}

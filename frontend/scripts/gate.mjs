@@ -5,12 +5,13 @@ import { dirname, join } from 'node:path';
 import { fileURLToPath } from 'node:url';
 
 const here = dirname(fileURLToPath(import.meta.url));
+const frontend = dirname(here);
 const require = createRequire(import.meta.url);
 const shell = require.resolve('@fasl-work/caos-app-shell/package.json');
 const bin = join(dirname(shell), 'bin', 'caos-shell-gate.mjs');
 const output = process.env.NEURAXIS_GATE_OUTPUT ?? join(tmpdir(), 'neuraxis-shell-gate');
 const args = [
-  '--serve', join(here, 'dist'),
+  '--serve', join(frontend, 'dist'),
   '--spa-fallback',
   '--expect-brand', 'Neuraxis',
   '--workbench', '',

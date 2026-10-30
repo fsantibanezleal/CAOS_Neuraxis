@@ -1,10 +1,12 @@
 """Repository-level artifact locations; no engine implementation lives here."""
 
+import json
 import os
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[1]
 ARTIFACTS = ROOT / "data" / "derived"
+CHECKPOINT_RELEASE = json.loads((ROOT / "product.json").read_text(encoding="utf-8"))["model_artifacts"]["checkpoint_release"]
 
 
 def storage_path(name: str, category: str, child: str) -> Path:
@@ -21,5 +23,6 @@ def storage_path(name: str, category: str, child: str) -> Path:
 
 
 CHECKPOINTS = storage_path("NEURAXIS_CHECKPOINTS", "cache", "checkpoints")
+CHECKPOINT_RELEASE = json.loads((ROOT / "product.json").read_text(encoding="utf-8"))["model_artifacts"]["checkpoint_release"]
 OPERATIONS_ROOT = storage_path("NEURAXIS_OPERATIONS_ROOT", "data", "operations")
 FRONTEND = ROOT / "frontend" / "dist"

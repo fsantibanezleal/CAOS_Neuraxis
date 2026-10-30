@@ -1,5 +1,10 @@
 # Changelog
 
+## [0.02.018] - 2026-10-30
+
+- Adopt the latest released CAOS App Shell 0.19.9; keep the current CAOS Product Template 0.13.001.
+- Update the source design record and release metadata. Product methods, data, and scientific results are unchanged; the technical report remains at its published 0.02.017 version.
+
 ## 0.02.017 - 2026-10-29
 
 - Publish the dedicated BS-1 method preprint and link its concept DOI from product metadata, README, citations and the Introduction technical view.

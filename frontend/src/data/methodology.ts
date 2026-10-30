@@ -3,8 +3,8 @@ import type { ContentPage } from './content.types';
 export const methodology: ContentPage = {
   title: b('Methodology', 'Metodología'),
   lede: b(
-    'Twelve controllers share observations, registered actions and outcome checks. The method ladder has three tiers: classical exact policies M01/M02; state-of-the-art learned, planning and delegation methods M03–M11; and the product proposal BS-1/M12. Compare them at the same environment boundary: a score never substitutes for authorization or a verified effect. The current evidence does not show that M12 improves on competent baselines.',
-    'Doce controladores comparten observaciones, acciones registradas y verificación de resultados. La escalera tiene tres niveles: políticas exactas clásicas M01/M02; métodos aprendidos, de planificación y delegación del estado del arte M03–M11; y la propuesta propia BS-1/M12. Se comparan bajo el mismo límite de entorno: un puntaje no sustituye autorización ni un efecto verificado. La evidencia actual no muestra que M12 supere referencias competentes.',
+    'Twelve controllers share observations, registered actions and outcome checks. The comparison names each policy directly: M01/M02, M03–M11, and resource-versioned outcome-aware metacontrol (M12). Each faces the same environment and outcome checks: a score never substitutes for authorization or a verified effect. Current evidence does not show that M12 improves on competent baselines.',
+    'Doce controladores comparten observaciones, acciones registradas y verificación de resultados. La comparación nombra cada política directamente: M01/M02, M03–M11 y metacontrol sensible a resultados y versiones de recursos (M12). Todos enfrentan el mismo entorno y las mismas verificaciones: un puntaje no sustituye autorización ni un efecto verificado. La evidencia actual no muestra que M12 supere referencias competentes.',
   ),
   sections: [
     {
@@ -31,13 +31,13 @@ export const methodology: ContentPage = {
       ],
       table: {
         headers: [
-          b('Tier', 'Nivel'),
+          b('Controller', 'Controlador'),
           b('Methods', 'Métodos'),
           b('Role and current evidence', 'Función y evidencia actual'),
         ],
         rows: [
           [
-            b('Classical', 'Clásico'),
+            b('M01 / M02', 'M01 / M02'),
             b('M01, M02', 'M01, M02'),
             b(
               'Guarded FSM and behavior tree; both solve 1,200/1,200 core episodes.',
@@ -45,7 +45,7 @@ export const methodology: ContentPage = {
             ),
           ],
           [
-            b('State of the art', 'Estado del arte'),
+            b('Established methods', 'Métodos establecidos'),
             b('M03–M11', 'M03–M11'),
             b(
               'Fitted scorers, recurrent and RL policies, model-based lookahead, planner and learned deferral baselines.',
@@ -53,8 +53,11 @@ export const methodology: ContentPage = {
             ),
           ],
           [
-            b('Beyond the state of the art', 'Más allá del estado del arte'),
-            b('BS-1 / M12', 'BS-1 / M12'),
+            b('Proposed method', 'Método propuesto'),
+            b(
+              'Resource-versioned metacontrol (M12)',
+              'Metacontrol con versiones de recursos (M12)',
+            ),
             b(
               'Proposed resource-versioned outcome-aware metacontrol; tested results are negative or inconclusive, with no demonstrated advantage.',
               'Propuesta de metacontrol sensible a resultados y revisiones de recursos; los resultados medidos son negativos o no concluyentes, sin ventaja demostrada.',
@@ -325,18 +328,15 @@ export const methodology: ContentPage = {
     {
       id: 'metacontrol',
       kind: 'learned',
-      title: b(
-        'Learned deferral baseline M11; beyond-SOTA proposal BS-1 / M12',
-        'Referencia de aplazamiento M11; propuesta más allá del estado del arte BS-1 / M12',
-      ),
+      title: b('M11 deferral and M12 metacontrol', 'Aplazamiento M11 y metacontrol M12'),
       paragraphs: [
         b(
           'M11 learns whether referring a state to a slower solver improves the outcome enough to justify its cost. Useful supervision compares fast and slow solvers on paired resettable states with identical tools, budgets and fault realizations. Confidence alone is insufficient: both solvers can be wrong on the same states, and a slow solver can have no useful advantage despite high uncertainty. A deferral target should therefore include measured incremental utility, late arrival and rejected proposals. Outside resettable environments the unchosen outcome is usually unobserved.',
           'M11 aprende si derivar a un resolvedor lento mejora suficiente para justificar costo. La supervisión compara rutas rápidas y lentas sobre estados reiniciables emparejados, con herramientas, presupuestos y fallos iguales. La confianza no basta: ambas rutas pueden fallar juntas y la lenta no mejorar pese a incertidumbre alta. La etiqueta incluye utilidad incremental, llegada tardía y propuestas rechazadas. Fuera de entornos reiniciables el resultado no elegido suele ser desconocido.',
         ),
         b(
-          'BS-1 is the product proposal implemented as M12: persistent causal/effect state, observed resource revisions, stale-proposal invalidation and computation allocation that includes planner outcome and delay. Its falsifiable hypothesis is improved success/cost under dynamic software changes versus competent exact and asynchronous-planner baselines, without stale or unauthorized effects. Current tests do not support that hypothesis: M12 solves 1,160/1,200 core episodes versus 1,200 for M01, the fitted gate chooses never-defer, and four ablations preserve task success. This remains a negative/partial result, not demonstrated superiority.',
-          'BS-1 es la propuesta implementada como M12: estado causal y de efectos persistente, revisiones observadas de recursos, invalidación de propuestas obsoletas y asignación de cómputo que incorpora resultado y demora del planificador. La hipótesis refutable es mejorar éxito/costo ante cambios dinámicos de software frente a referencias exactas competentes y planificadores asíncronos, sin efectos obsoletos ni no autorizados. Las pruebas actuales no la respaldan: M12 resuelve 1.160/1.200 episodios centrales frente a 1.200 de M01, la puerta ajustada nunca aplaza y cuatro ablaciones conservan el éxito. Es un resultado negativo/parcial, no superioridad demostrada.',
+          'M12 combines persistent causal/effect state, observed resource revisions, stale-proposal invalidation and computation allocation that includes planner outcomes and delay. Its falsifiable hypothesis is improved success/cost under dynamic software changes versus competent exact and asynchronous-planner baselines, without stale or unauthorized effects. Current tests do not support that hypothesis: M12 solves 1,160/1,200 core episodes versus 1,200 for M01, the fitted gate chooses never-defer, and four ablations preserve task success. This remains a negative/partial result, not demonstrated superiority.',
+          'M12 combina estado causal y de efectos persistente, revisiones observadas de recursos, invalidación de propuestas obsoletas y asignación de cómputo que incorpora resultados y demora del planificador. La hipótesis refutable es mejorar éxito/costo ante cambios dinámicos de software frente a políticas exactas competentes y planificadores asíncronos, sin efectos obsoletos ni no autorizados. Las pruebas actuales no la respaldan: M12 resuelve 1.160/1.200 episodios centrales frente a 1.200 de M01, la puerta ajustada nunca aplaza y cuatro ablaciones conservan el éxito. Es un resultado negativo/parcial, no superioridad demostrada.',
         ),
         b(
           'Reliability-based arbitration, multiscale cortical dynamics and complementary learning systems motivate separable responsibilities and update timescales. They do not prescribe a particular Rust class, threshold or reward. Separate within-episode state changes, append-only outcome collection and offline policy training. Prioritized replay may focus learning on transitions likely to change a useful decision, but training-set prioritization can distort the deployment distribution. Calibration consequently uses an untouched sample reflecting the declared evaluation mixture rather than the prioritized training buffer.',

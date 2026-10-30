@@ -1,0 +1,15 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://neuraxis.ml.fasl-work.com/contracts/workspace-authority.schema.json",
+  "title": "Neuraxis workspace authority boundary",
+  "type": "object",
+  "required": ["workspace_id", "registered", "authority"],
+  "properties": {
+    "workspace_id": { "type": "string", "minLength": 1 },
+    "registered": { "type": "boolean" },
+    "authority": { "enum": ["read", "write", "none"] },
+    "preview_token": { "type": ["string", "null"] },
+    "expires_at": { "type": ["string", "null"], "format": "date-time" }
+  },
+  "additionalProperties": true
+}
