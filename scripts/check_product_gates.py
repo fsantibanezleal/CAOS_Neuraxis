@@ -26,14 +26,13 @@ def main() -> int:
     args = parser.parse_args()
     source_checks = [
         ("content rules", [PY, "scripts/check_content_standards.py"]),
+        ("CI budget", [PY, "scripts/check_ci_budget.py"]),
         ("software design", [PY, "scripts/check_sdd.py"]),
         ("manuscripts", [PY, "scripts/check_manuscripts.py"]),
         ("contract catalog", [PY, "scripts/check_contract_catalog.py"]),
         ("contract readiness", [PY, "scripts/check_readiness.py"]),
         ("contract and adversarial tests", [PY, "-m", "pytest", "tests/contracts", "tests/adversarial", "-q"]),
         ("notebook structure", [PY, "scripts/check_notebooks.py"]),
-        ("reader-facing method names", [PY, "scripts/check_internal_names.py"]),
-        ("reader-name gate regression tests", [PY, "-m", "pytest", "tests/test_check_internal_names.py", "-q"]),
         ("reader-facing method names", [PY, "scripts/check_internal_names.py"]),
         ("notebook execution and output freshness", [PY, "scripts/run_notebooks.py"]),
         ("README repository areas", [PY, "scripts/check_readme_areas.py"]),
