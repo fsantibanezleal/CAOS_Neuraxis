@@ -1,0 +1,71 @@
+{
+  "date": "2026-10-30",
+  "version": "0.02.018",
+  "tag": "v0.02.018",
+  "release_url": "https://github.com/fsantibanezleal/CAOS_Neuraxis/releases/tag/v0.02.018",
+  "deployed_app_commit": "4a3c79f7e16b82c9712fc0f2581a274bf8639aa3",
+  "static_release": "4a3c79f7e16b-d5af980f3002",
+  "static_archive_sha256": "d5af980f3002b07f7b3dc3ff63628e55666f2da828ccd2e6a8e765f2b018ee1e",
+  "native_release": "/opt/neuraxis-operations/releases/4a3c79f7e16b-7ae9df15f750",
+  "native_archive_sha256": "7ae9df15f75072021a07094971d97076af02f4b33d7e60bdd65ab4a58556a640",
+  "engine": "reflexmesh 0.1.2",
+  "shell": "@fasl-work/caos-app-shell 0.19.9",
+  "template": "CAOS_PRODUCT_TEMPLATE 0.14.000",
+  "hosted_checks": {
+    "main_ci": 41135714606,
+    "static_release_build": 41135714559,
+    "pull_requests": [
+      107
+    ],
+    "conclusion": "success"
+  },
+  "local_gates": {
+    "python_tests": "passed; 4 skipped",
+    "frontend_unit_tests": "34 passed",
+    "frontend_format": "passed",
+    "production_build": "passed",
+    "source_and_research_gates": "passed",
+    "notebooks": "38 bilingual notebooks executed in fresh kernels",
+    "shared_shell": "975 states; passed with zero failures"
+  },
+  "live_evidence": {
+    "static_manifest_files": 16067,
+    "static_files_hash_verified": 19,
+    "direct_routes_verified": 5,
+    "live_shared_shell_states": 975,
+    "live_shared_shell_captures": 157,
+    "live_shared_shell_failures": 0,
+    "live_shared_shell_waivers": 0,
+    "scientific_content_checks": 296,
+    "scientific_content_errors": 0,
+    "browser_matrix_combinations": 84,
+    "browser_matrix_failures": 0,
+    "canonical_evidence_states": 240,
+    "native_api_runs": 2,
+    "native_receipts_per_run": 9,
+    "exports_verified": true,
+    "cross_session_access_rejected": true,
+    "test_runs_deleted": true,
+    "public_api_status": 404,
+    "static_and_native_commit_match": true,
+    "zenodo_latest_records_verified": 2,
+    "zenodo_verification_issues": 0
+  },
+  "scientific_scope": {
+    "research_data_changed": false,
+    "methods_changed": false,
+    "reported_results_changed": false,
+    "technical_report_version": "0.02.018",
+    "reason": "This release completes product and documentation alignment without changing the measured data, methods, or reported outcomes. Negative and partial findings are retained."
+  },
+  "live_report_files": [
+    "local-shell.json",
+    "live-shell.json",
+    "live-static.json",
+    "live-browser.json",
+    "live-content.json",
+    "live-evidence.json",
+    "live-operations.json",
+    "zenodo-verification.json"
+  ]
+}
