@@ -1,0 +1,21 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://neuraxis.ml.fasl-work.com/contracts/core-lineage.schema.json",
+  "title": "Neuraxis core experiment source and runtime lineage",
+  "type": "object",
+  "required": ["source_sha256", "native_source_sha256", "native_binary", "checkpoint_sha256", "packages", "planner", "platform", "python", "inference_device", "spec_sha256"],
+  "properties": {
+    "source_sha256": { "$ref": "semantic-transfer-lineage.schema.json#/$defs/hashMap" },
+    "native_source_sha256": { "$ref": "semantic-transfer-lineage.schema.json#/$defs/hashMap" },
+    "checkpoint_sha256": { "type": "object", "minProperties": 1, "additionalProperties": { "type": "string", "pattern": "^[a-f0-9]{64}$" } },
+    "spec_sha256": { "type": "string", "pattern": "^[a-f0-9]{64}$" },
+    "native_binary": { "type": "object", "required": ["name", "sha256"], "properties": { "name": { "type": "string", "minLength": 1 }, "sha256": { "type": "string", "pattern": "^[a-f0-9]{64}$" } } },
+    "packages": { "type": "object", "minProperties": 1 },
+    "planner": { "type": "object" },
+    "platform": { "type": "string", "minLength": 1 },
+    "python": { "type": "string", "minLength": 1 },
+    "inference_device": { "type": "string", "minLength": 1 },
+    "torch_inference_threads": { "type": "integer", "minimum": 1 }
+  },
+  "additionalProperties": true
+}

@@ -1,4 +1,4 @@
-import { useEffect, useMemo, useRef, useState } from 'react';
+import { useEffect, useLayoutEffect, useMemo, useRef, useState } from 'react';
 import { CaseSelector, Tabs, usePausedViz } from '@fasl-work/caos-app-shell';
 import {
   Play,
@@ -78,9 +78,15 @@ export default function Workbench() {
   const [pairMethod, setPairMethod] = useState('M02');
   const input = useRef<HTMLInputElement>(null);
   const mobileSwitch = useRef<HTMLButtonElement>(null);
+  const pendingMobileFocus = useRef(false);
   const frameClock = useRef(0);
   const configurationKey = JSON.stringify([caseId, methodId, variant, seed, parameters, lane]);
   const previousConfiguration = useRef(configurationKey);
+  useLayoutEffect(() => {
+    if (!pendingMobileFocus.current) return;
+    pendingMobileFocus.current = false;
+    if (window.matchMedia('(max-width: 760px)').matches) mobileSwitch.current?.focus();
+  }, [workspaceActive]);
   useEffect(() => {
     localSession.token = token;
     localSession.workbench = {
@@ -593,9 +599,9 @@ export default function Workbench() {
             disabled={nativeActive}
             onClick={() => {
               playback.pause();
+              pendingMobileFocus.current = true;
               setWorkspaceActive(true);
               setMobileControls(false);
-              requestAnimationFrame(() => mobileSwitch.current?.focus());
             }}
           >
             {lang === 'en' ? 'Open workflow editor' : 'Abrir editor de flujos'}

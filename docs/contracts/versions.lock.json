@@ -1,17 +1,97 @@
 {
-  "schema_version": 1,
-  "contracts": {
-    "product-metadata": "1.2.0",
-    "canonical-index": "1.0.0",
-    "canonical-episode": "1.0.0",
-    "semantic-transfer": "1.0.0",
-    "semantic-routing": "1.0.0",
-    "operation-study-index": "1.0.0",
-    "operation-study-detail": "1.0.0",
-    "operations-api": "1.0.0",
-    "workspace-authority": "1.0.0",
-    "product-readiness": "1.0.0",
-    "static-release": "1.0.0",
-    "template-adoption": "1.0.0"
+  "product-metadata": {
+    "version": "1.2.0",
+    "schema": "docs/contracts/schemas/product.schema.json",
+    "sha256": "2f71ea3688b7682edd8402b762f2793438318781b4732a0141a9d7e38b99670e"
+  },
+  "canonical-index": {
+    "version": "1.0.0",
+    "schema": "docs/contracts/schemas/canonical-index.schema.json",
+    "sha256": "2ccbc963ae42b5fb3b951d02bf288f36557e03b3c009634570ec5fe205256413"
+  },
+  "canonical-episode": {
+    "version": "1.0.0",
+    "schema": "docs/contracts/schemas/episode.schema.json",
+    "sha256": "c2fa4d11c7fee7b859db157df5ff909e5bc9b411a32b215f44afd4b1c4bee674"
+  },
+  "semantic-transfer": {
+    "version": "1.0.0",
+    "schema": "docs/contracts/schemas/semantic-index.schema.json",
+    "sha256": "bbdabd749e632f01144d8800ac04f8df3f67cd9bafdc39a297ed9d36c4592b05"
+  },
+  "semantic-transfer-episode": {
+    "version": "1.0.0",
+    "schema": "docs/contracts/schemas/episode.schema.json",
+    "sha256": "c2fa4d11c7fee7b859db157df5ff909e5bc9b411a32b215f44afd4b1c4bee674"
+  },
+  "semantic-transfer-report": {
+    "version": "1.0.0",
+    "schema": "docs/contracts/schemas/semantic-transfer-report.schema.json",
+    "sha256": "af80e707fb9427b94694ff6fd7b56e60e739aef7ce20bcb8fcf65653c458b524"
+  },
+  "semantic-transfer-lineage": {
+    "version": "1.0.0",
+    "schema": "docs/contracts/schemas/semantic-transfer-lineage.schema.json",
+    "sha256": "708f3c1fd1981a4f602368a4a08cce9722324756f6fc6c1a3689a4142e88699c"
+  },
+  "semantic-routing": {
+    "version": "2.0.0",
+    "schema": "docs/contracts/schemas/semantic-routing.schema.json",
+    "sha256": "e108934c2308bec163ed74b31402af18a79cea6ac638536212bec2d8a92a286a"
+  },
+  "operation-study-index": {
+    "version": "1.0.0",
+    "schema": "docs/contracts/schemas/operation-index.schema.json",
+    "sha256": "9be97f18b13bae451e3e7c8579b2d6d90f5e09f47b5a2a175bfb80364fda4b57"
+  },
+  "operation-study-detail": {
+    "version": "2.2.0",
+    "schema": "docs/contracts/schemas/operation-detail.schema.json",
+    "sha256": "d6358c7063c2bdac6726f3c79edcc23a1103271118910c6e0e35fd9adfd49f97"
+  },
+  "operations-api": {
+    "version": "1.0.0",
+    "schema": "docs/contracts/schemas/operations-api.schema.json",
+    "sha256": "bb0a655ae769a50d60493bde1063651df009fe7167d3711aa10e32223054ea37"
+  },
+  "workspace-authority": {
+    "version": "1.0.0",
+    "schema": "docs/contracts/schemas/workspace-authority.schema.json",
+    "sha256": "aadc23da8ac4898b953183915c9897559609a9d1e620850b1fc97c151b6fca94"
+  },
+  "product-readiness": {
+    "version": "2.0.0",
+    "schema": "docs/contracts/schemas/readiness.schema.json",
+    "sha256": "4d30cabd39d610ce618545715d1bf25761acf6d1ae1414e59d0dea8bdce59cf4"
+  },
+  "static-release": {
+    "version": "1.0.0",
+    "schema": "docs/contracts/schemas/static-release.schema.json",
+    "sha256": "888e0de333b21a52d2b365d126bb77bfe80d01b04207bf636101019ffc782f5e"
+  },
+  "template-adoption": {
+    "version": "1.0.0",
+    "schema": "docs/contracts/schemas/template-adoption.schema.json",
+    "sha256": "32c9e3152c1567d0b6f82b668ab0d2005632f65a9fbb77aae15748beb775fbb1"
+  },
+  "model-checkpoint-metadata": {
+    "version": "1.1.0",
+    "schema": "docs/contracts/schemas/model-checkpoints.schema.json",
+    "sha256": "62e83a09857ae51720d894d947d3c1c4cd54a80fa32525971c2c0e40aa734147"
+  },
+  "benchmark-adequacy": {
+    "version": "1.0.0",
+    "schema": "docs/contracts/schemas/benchmark-adequacy.schema.json",
+    "sha256": "05e914561d6aba4dba71e8eab59478c90e4668abf194fae6a028a6fe991113c7"
+  },
+  "core-experiment-lineage": {
+    "version": "1.0.0",
+    "schema": "docs/contracts/schemas/core-lineage.schema.json",
+    "sha256": "3f300fe6130f93e8d9b2935cb74c3e850e226fea0fde847536d4b0d5d081467d"
+  },
+  "research-report": {
+    "version": "1.0.0",
+    "schema": "docs/contracts/schemas/research-report.schema.json",
+    "sha256": "cf3e002674bb7cd169ac9da1e5ec126991205cd96150dc42fb88e44d45613da2"
   }
 }

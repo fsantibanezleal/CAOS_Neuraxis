@@ -3,8 +3,8 @@
 The notebooks are the product's didactic layer: they teach a reader, step by step and on the product's own data, how
 its methods work, where each method compares with published methods, and what the product contributes. They
 import the product's methods and never re-implement them; logic that exists only in a notebook is incomplete. The
-rule is CAOS_MANAGE `conventions/product-notebooks.md`; this guide is how a product applies it, and it opens with the bar. The template ships an
-example set on the SIR model, which a product replaces (`scripts/check_template_residue.py` lists it).
+rule is CAOS_MANAGE `conventions/product-notebooks.md`; this guide applies that bar to Neuraxis' 38 executed
+English and Spanish lessons across six research topics and four lesson levels.
 
 ## The bar: a notebook is a worked lesson
 

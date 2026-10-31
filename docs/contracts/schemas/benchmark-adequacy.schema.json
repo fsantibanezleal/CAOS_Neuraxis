@@ -1,0 +1,20 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://neuraxis.ml.fasl-work.com/contracts/benchmark-adequacy.schema.json",
+  "title": "Neuraxis benchmark adequacy and seed-sensitivity report",
+  "type": "object",
+  "required": ["schema_version", "scope", "episodes_checked", "case_variant_method_cells", "seed_variable_cells", "index_sha256", "perfect_methods", "m12_failures", "methods", "interpretation"],
+  "properties": {
+    "schema_version": { "const": 1 },
+    "scope": { "type": "string", "minLength": 1 },
+    "episodes_checked": { "const": 14400 },
+    "case_variant_method_cells": { "type": "integer", "minimum": 1 },
+    "seed_variable_cells": { "type": "integer", "minimum": 0 },
+    "index_sha256": { "type": "string", "pattern": "^[a-f0-9]{64}$" },
+    "perfect_methods": { "type": "array", "items": { "type": "string", "pattern": "^M\\d{2}$" } },
+    "m12_failures": { "type": "array", "items": { "type": "object", "required": ["case_id", "variant", "failures"], "properties": { "case_id": { "type": "string" }, "variant": { "type": "string" }, "failures": { "type": "integer", "minimum": 1 } } } },
+    "methods": { "type": "array", "minItems": 12, "maxItems": 12, "items": { "type": "object", "required": ["method_id", "episodes", "successes", "seed_variable_case_variant_cells"], "properties": { "method_id": { "type": "string", "pattern": "^M\\d{2}$" }, "episodes": { "const": 1200 }, "successes": { "type": "integer", "minimum": 0, "maximum": 1200 }, "seed_variable_case_variant_cells": { "type": "integer", "minimum": 0 } } } },
+    "interpretation": { "type": "string", "minLength": 1 }
+  },
+  "additionalProperties": true
+}

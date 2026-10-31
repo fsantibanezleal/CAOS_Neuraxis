@@ -1,0 +1,29 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://neuraxis.ml.fasl-work.com/contracts/research-report.schema.json",
+  "title": "Neuraxis corrected research evidence report",
+  "type": "object",
+  "required": ["schema_version", "kind", "generated_at", "audit_sha256", "completed_episodes", "core", "transfer", "ablations", "paired_M12_minus_method", "training", "routing", "transition_validation", "native_parity", "external", "verdict", "limits"],
+  "properties": {
+    "schema_version": { "const": 1 },
+    "kind": { "const": "reflexmesh-corrected-science" },
+    "generated_at": { "type": "string", "format": "date-time" },
+    "audit_sha256": { "type": "string", "pattern": "^[a-f0-9]{64}$" },
+    "completed_episodes": { "const": 19488 },
+    "core": { "$ref": "#/$defs/lane" },
+    "transfer": { "$ref": "#/$defs/lane" },
+    "ablations": { "type": "object", "required": ["no_memory", "no_effects", "no_deferral", "no_invalidation"] },
+    "paired_M12_minus_method": { "type": "object", "minProperties": 1 },
+    "training": { "type": "object" },
+    "routing": { "type": "object" },
+    "transition_validation": { "type": "object", "required": ["validation_mse", "validation_state_mse", "validation_reward_mse", "validation_terminal_mse"] },
+    "native_parity": { "type": "object", "required": ["schema_version", "seed", "results"] },
+    "external": { "type": "object", "required": ["schema_version", "aggregates", "limitations", "run_inventory", "selected_runs"] },
+    "verdict": { "type": "string", "minLength": 1 },
+    "limits": { "type": "array", "minItems": 1, "items": { "type": "string", "minLength": 1 } }
+  },
+  "$defs": {
+    "lane": { "type": "object", "required": ["directory", "episodes", "index_sha256", "lineage_signature", "methods"], "properties": { "directory": { "type": "string", "minLength": 1 }, "episodes": { "type": "integer", "minimum": 1 }, "index_sha256": { "type": "string", "pattern": "^[a-f0-9]{64}$" }, "lineage_signature": { "type": "string", "pattern": "^[a-f0-9]{64}$" }, "methods": { "type": "array", "minItems": 1 } } }
+  },
+  "additionalProperties": true
+}
