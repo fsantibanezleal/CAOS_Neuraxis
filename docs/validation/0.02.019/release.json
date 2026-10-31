@@ -1,0 +1,72 @@
+{
+  "date": "2026-10-31",
+  "version": "0.02.019",
+  "tag": "v0.02.019",
+  "release_url": "https://github.com/fsantibanezleal/CAOS_Neuraxis/releases/tag/v0.02.019",
+  "deployed_app_commit": "c80071ff1dfa7e661ff0655aa1e1162a885f71ad",
+  "static_release": "c80071ff1dfa-88630eed520b",
+  "static_archive_sha256": "88630eed520bc49cc22adb51d73f77bc26c0a324f2d5739ee4839e8169f15394",
+  "native_release": "/opt/neuraxis-operations/releases/c80071ff1dfa-2670691ee0d9",
+  "native_archive_sha256": "2670691ee0d9c0fdadc51a677198266d8c2aa7c05434cd74dda962b186e0a23a",
+  "engine": "reflexmesh 0.1.2",
+  "shell": "@fasl-work/caos-app-shell 0.19.9",
+  "template": "CAOS_PRODUCT_TEMPLATE 0.14.001",
+  "hosted_checks": {
+    "main_ci": 41217901058,
+    "static_release_build": 41217901057,
+    "pull_requests": [109, 110, 111, 112, 113],
+    "conclusion": "success"
+  },
+  "local_gates": {
+    "python_tests": "passed; 4 skipped",
+    "frontend_unit_tests": "34 passed",
+    "frontend_format": "passed",
+    "production_build": "passed",
+    "source_and_research_gates": "passed",
+    "notebooks": "38 bilingual notebooks executed in fresh kernels",
+    "local_shared_shell": "975 states; 157 captures; zero failures or waivers"
+  },
+  "live_evidence": {
+    "static_manifest_files": 16067,
+    "static_files_hash_verified": 19,
+    "direct_routes_verified": 5,
+    "live_shared_shell_states": 975,
+    "live_shared_shell_captures": 157,
+    "live_shared_shell_failures": 0,
+    "live_shared_shell_waivers": 0,
+    "scientific_content_checks": 296,
+    "scientific_content_errors": 0,
+    "browser_matrix_combinations": 84,
+    "browser_matrix_failures": 0,
+    "architecture_matrix_combinations": 40,
+    "architecture_matrix_errors": 0,
+    "canonical_evidence_states": 240,
+    "native_api_runs": 2,
+    "native_receipts_per_run": 9,
+    "exports_verified": true,
+    "cross_session_access_rejected": true,
+    "test_runs_deleted": true,
+    "public_api_status": 404,
+    "static_and_native_commit_match": true,
+    "zenodo_latest_records_verified": 2,
+    "zenodo_verification_issues": 0
+  },
+  "scientific_scope": {
+    "research_data_changed": false,
+    "methods_changed": false,
+    "reported_results_changed": false,
+    "technical_report_version": "0.02.018",
+    "reason": "This product release adopts CAOS Product Template 0.14.001 and corrects architecture-map labels and verification; it changes no methods, data sources, or reported results. The current Zenodo technical report remains 0.02.018 and the M12 manuscript remains 0.02."
+  },
+  "live_report_files": [
+    "local-shell.json",
+    "live-shell.json",
+    "live-static.json",
+    "live-browser.json",
+    "live-content.json",
+    "live-evidence.json",
+    "live-architecture.json",
+    "live-operations.json",
+    "zenodo-verification.json"
+  ]
+}

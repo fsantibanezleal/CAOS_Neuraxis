@@ -1,0 +1,18 @@
+[
+  {
+    "id": "23821075",
+    "doi": "10.5281/zenodo.23821075",
+    "version": "0.02.018",
+    "title": "Fast Software Control and Bounded Deliberation: Methods, Evidence, and Limits",
+    "issues": [],
+    "concept": "23765413"
+  },
+  {
+    "id": "23821087",
+    "doi": "10.5281/zenodo.23821087",
+    "version": "0.02",
+    "title": "Resource-Versioned Outcome-Aware Metacontrol for Software Action Systems",
+    "issues": [],
+    "concept": "23784117"
+  }
+]
