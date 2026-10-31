@@ -2,7 +2,7 @@
 
 ## [0.02.019] - 2026-10-31
 
-- Adopt CAOS App Shell 0.19.9 and CAOS Product Template 0.14.000 with a verified architecture-map redesign and research-facing negative-result summary.
+- Adopt CAOS App Shell 0.19.9 and CAOS Product Template 0.14.001, which validates the structured static-site plus bounded-service deployment. Correct architecture-map labels and add a rendered-text fit guard and research-facing negative-result summary.
 - Add versioned schemas for every persisted research report, experiment lineage, transfer episode, operation record, and learned-model metadata; validate 15,992 JSON documents in the release gate.
 - Fix offline cross-schema resolution, readiness derivation, desktop/mobile workflow focus handling, template residue, and machine-local test receipt paths. Scientific methods, frozen data, and results are unchanged; the technical report remains at Zenodo version 0.02.018.
 
