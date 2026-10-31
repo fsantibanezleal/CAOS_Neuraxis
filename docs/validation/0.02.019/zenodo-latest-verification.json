@@ -1,0 +1,34 @@
+[
+ {
+  "id": "23843751",
+  "concept": "23765413",
+  "doi": "10.5281/zenodo.23843751",
+  "version": "0.02.019",
+  "title": "Fast Software Control and Bounded Deliberation: Methods, Evidence, and Limits",
+  "issues": [],
+  "keywords": [
+   "software control",
+   "action brokerage",
+   "metacontrol",
+   "deliberation allocation",
+   "reproducible evaluation"
+  ],
+  "arrows": 0
+ },
+ {
+  "id": "23821087",
+  "concept": "23784117",
+  "doi": "10.5281/zenodo.23821087",
+  "version": "0.02",
+  "title": "Resource-Versioned Outcome-Aware Metacontrol for Software Action Systems",
+  "issues": [],
+  "keywords": [
+   "software control",
+   "metacontrol",
+   "resource revisions",
+   "deliberation allocation",
+   "reinforcement learning"
+  ],
+  "arrows": 0
+ }
+]

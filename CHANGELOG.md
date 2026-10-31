@@ -1,10 +1,14 @@
 # Changelog
 
+## [0.02.020] - 2026-10-31
+
+- Update the reader-facing citation to the current Zenodo technical-report version after its post-release publication. The report remains at 0.02.019; its methods, data sources, benchmark outcomes, and conclusions are unchanged. No runtime behavior changed.
+
 ## [0.02.019] - 2026-10-31
 
 - Adopt CAOS App Shell 0.19.9 and CAOS Product Template 0.14.001, which validates the structured static-site plus bounded-service deployment. Correct architecture-map labels and add a rendered-text fit guard and research-facing negative-result summary.
 - Add versioned schemas for every persisted research report, experiment lineage, transfer episode, operation record, and learned-model metadata; validate 15,992 JSON documents in the release gate.
-- Fix offline cross-schema resolution, readiness derivation, desktop/mobile workflow focus handling, template residue, and machine-local test receipt paths. Scientific methods, frozen data, and results are unchanged; the technical report remains at Zenodo version 0.02.018.
+- Fix offline cross-schema resolution, readiness derivation, desktop/mobile workflow focus handling, template residue, and machine-local test receipt paths. Update the detailed technical report on Zenodo to 0.02.019 with the operational workbench control path and current M12 citation; benchmark methods, frozen data, and measured results remain unchanged. The separate M12 manuscript remains at version 0.02.
 
 ## [0.02.018] - 2026-10-30
 

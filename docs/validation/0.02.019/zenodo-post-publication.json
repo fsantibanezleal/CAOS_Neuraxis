@@ -1,0 +1,43 @@
+{
+  "schema_version": 1,
+  "verification": "post-publication",
+  "verified_at_utc": "2026-10-31T19:51:03Z",
+  "product": "CAOS_Neuraxis",
+  "product_release": "0.02.019",
+  "deployed_source_commit": "c80071ff1dfa7e661ff0655aa1e1162a885f71ad",
+  "research_changed": false,
+  "technical_report": {
+    "status": "published",
+    "version": "0.02.019",
+    "version_doi": "10.5281/zenodo.23843751",
+    "concept_doi": "10.5281/zenodo.23765413",
+    "record_url": "https://zenodo.org/records/23843751",
+    "published_at_utc": "2026-10-31T19:47:47Z",
+    "title": "Fast Software Control and Bounded Deliberation: Methods, Evidence, and Limits",
+    "file": {
+      "name": "neuraxis-technical-report-v0.02.019.pdf",
+      "bytes": 152666,
+      "remote_md5": "120750598b525e4e88bdda5b946c37ec",
+      "local_sha256": "0be3d440bbcee388ca15a7d5abd2b4e9548babea7344287cd7795f9642e9490d",
+      "remote_size_and_md5_match": true,
+      "published_record_contains_only_this_pdf": true
+    },
+    "supersedes": {
+      "version": "0.02.018",
+      "version_doi": "10.5281/zenodo.23821075"
+    }
+  },
+  "m12_manuscript": {
+    "status": "published",
+    "version": "0.02",
+    "version_doi": "10.5281/zenodo.23821087",
+    "concept_doi": "10.5281/zenodo.23784117",
+    "changed": false
+  },
+  "independent_verification": {
+    "records_checked": 2,
+    "issues": 0,
+    "report": "zenodo-latest-verification.json"
+  },
+  "scientific_scope": "The benchmark protocol, methods, data, outcomes, and conclusions are unchanged. The report adds the operational task-controller implementation and cites the current M12 manuscript version."
+}
