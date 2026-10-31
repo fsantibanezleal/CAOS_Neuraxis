@@ -22,6 +22,23 @@ try {
       await tabs.nth(i).click();
       const drawing = modal.locator('.arch-svg');
       await expect(drawing).toBeVisible();
+      const textOverflow = await drawing.evaluate(svg => {
+        const cards = Array.from(svg.querySelectorAll('rect.card')).map(card => card.getBBox());
+        return Array.from(svg.querySelectorAll('text')).flatMap(text => {
+          if (getComputedStyle(text).display === 'none') return [];
+          const bounds = text.getBBox();
+          const card = cards.find(candidate =>
+            bounds.x >= candidate.x - 1 &&
+            bounds.x + bounds.width <= candidate.x + candidate.width + 1 &&
+            bounds.y >= candidate.y - 1 &&
+            bounds.y + bounds.height <= candidate.y + candidate.height + 1,
+          );
+          return card && bounds.x + bounds.width > card.x + card.width - 9
+            ? [{ text: text.textContent, width: bounds.width, cardWidth: card.width }]
+            : [];
+        });
+      });
+      if (textOverflow.length) errors.push({ width, tab: i, textOverflow });
       await modal.getByRole('button', { name: /Read at full size|Leer a tamaño completo/ }).click();
       const region = modal.getByRole('region');
       await region.focus();
