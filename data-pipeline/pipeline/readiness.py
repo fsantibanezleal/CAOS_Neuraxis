@@ -49,6 +49,7 @@ def build_readiness(root: Path = ROOT) -> dict:
             }
         )
     return {
+        "schema": "neuraxis.readiness/v1",
         "schema_version": 1,
         "product_version": (root / "VERSION").read_text(encoding="utf-8").strip(),
         "catalog_sha256": hashlib.sha256(raw).hexdigest(),
@@ -66,6 +67,6 @@ def write_readiness(root: Path = ROOT) -> dict:
     result = build_readiness(root)
     destination = root / "data" / "derived" / "readiness.json"
     destination.parent.mkdir(parents=True, exist_ok=True)
-    payload = (json.dumps(result, ensure_ascii=False, indent=2) + "\n").encode("utf-8")
+    payload = json.dumps(result, separators=(",", ":"), ensure_ascii=False).encode("utf-8")
     destination.write_bytes(payload)
     return result

@@ -11,13 +11,13 @@ concurrency:
 jobs:
   application:
     runs-on: ubuntu-latest
-    timeout-minutes: 15
+    timeout-minutes: 35
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-python@v5
         with:
           python-version: '3.12'
-      - run: python -m pip install 'jsonschema>=4.23,<5'
+      - run: python -m pip install -r requirements-api.txt -r requirements-dev.txt 'jsonschema>=4.23,<5'
       - uses: actions/setup-node@v4
         with:
           node-version: '24'
@@ -26,10 +26,20 @@ jobs:
       - working-directory: frontend
         run: npm ci
       - run: python scripts/check_ci_budget.py
+      - run: python scripts/check_version_coherence.py
+      - run: python scripts/check_deploy_place.py
       - run: python scripts/check_sdd.py
       - run: python scripts/check_manuscripts.py
+      - run: python scripts/check_contract_versions.py
+      - run: python scripts/check_contracts.py docs/contracts/catalog.md --repo-root .
+      - run: python scripts/check_documents.py
       - run: python scripts/check_contract_catalog.py
       - run: python scripts/check_readiness.py
+      - run: python scripts/check_base_integrity.py
+      - run: python scripts/check_doc_paths.py
+      - run: python scripts/check_web_baseline.py
+      - run: python scripts/check_svg_animation.py
+      - run: python scripts/check_skeleton.py docs/contracts/catalog.md
       - run: python scripts/check_template_adoption.py
       - run: python scripts/check_tech_matrix.py
       - run: python scripts/check_notebooks.py

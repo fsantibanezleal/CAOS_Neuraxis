@@ -1,9 +1,14 @@
 # Changelog
 
+## [0.02.019] - 2026-10-31
+
+- Adopt CAOS App Shell 0.19.9 and CAOS Product Template 0.14.000 with a verified architecture-map redesign and research-facing negative-result summary.
+- Add versioned schemas for every persisted research report, experiment lineage, transfer episode, operation record, and learned-model metadata; validate 15,992 JSON documents in the release gate.
+- Fix offline cross-schema resolution, readiness derivation, desktop/mobile workflow focus handling, template residue, and machine-local test receipt paths. Scientific methods, frozen data, and results are unchanged; the technical report remains at Zenodo version 0.02.018.
+
 ## [0.02.018] - 2026-10-30
 
-- Adopt the latest released CAOS App Shell 0.19.9; keep the current CAOS Product Template 0.13.001.
-- Update the source design record and release metadata. Product methods, data, and scientific results are unchanged; the technical report remains at its published 0.02.017 version.
+- Adopt CAOS App Shell 0.19.9 and CAOS Product Template 0.14.000; update the source design record and release metadata. Product methods, data, and scientific results are unchanged; the technical report is published at version 0.02.018.
 
 ## 0.02.017 - 2026-10-29
 

@@ -3,23 +3,74 @@
   "$id": "https://neuraxis.ml.fasl-work.com/contracts/readiness.schema.json",
   "title": "Neuraxis product readiness",
   "type": "object",
-  "required": ["schema_version", "product_version", "catalog_sha256", "contracts"],
+  "required": [
+    "schema",
+    "schema_version",
+    "product_version",
+    "catalog_sha256",
+    "contracts"
+  ],
   "properties": {
-    "schema_version": { "const": 1 },
-    "product_version": { "type": "string", "pattern": "^\\d+\\.\\d+\\.\\d+$" },
-    "catalog_sha256": { "type": "string", "pattern": "^[a-f0-9]{64}$" },
+    "schema": {
+      "const": "neuraxis.readiness/v1"
+    },
+    "schema_version": {
+      "const": 1
+    },
+    "product_version": {
+      "type": "string",
+      "pattern": "^\\d+\\.\\d+\\.\\d+$"
+    },
+    "catalog_sha256": {
+      "type": "string",
+      "pattern": "^[a-f0-9]{64}$"
+    },
     "contracts": {
       "type": "array",
       "items": {
         "type": "object",
-        "required": ["id", "version", "state", "evidence", "missing"],
+        "required": [
+          "id",
+          "version",
+          "state",
+          "evidence",
+          "missing"
+        ],
         "properties": {
-          "id": { "type": "string", "minLength": 1 },
-          "version": { "type": "string", "minLength": 1 },
-          "state": { "enum": ["available", "partial", "missing", "stale"] },
-          "evidence": { "type": "array", "items": { "type": "string" } },
-          "missing": { "type": "array", "items": { "type": "string" } },
-          "reason": { "type": ["object", "null"] }
+          "id": {
+            "type": "string",
+            "minLength": 1
+          },
+          "version": {
+            "type": "string",
+            "minLength": 1
+          },
+          "state": {
+            "enum": [
+              "available",
+              "partial",
+              "missing",
+              "stale"
+            ]
+          },
+          "evidence": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "missing": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "reason": {
+            "type": [
+              "object",
+              "null"
+            ]
+          }
         },
         "additionalProperties": false
       }

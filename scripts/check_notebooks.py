@@ -70,12 +70,6 @@ import urllib.error
 import urllib.request
 from pathlib import Path
 
-# The gate emits localized diagnostics. Keep subprocess capture UTF-8 on Windows
-# instead of inheriting the console's legacy code page.
-for _stream in (sys.stdout, sys.stderr):
-    if hasattr(_stream, "reconfigure"):
-        _stream.reconfigure(encoding="utf-8")
-
 # the size limits of a committed notebook: the whole file (outputs included) and each embedded image, so the set stays
 # readable on GitHub and cheap to clone (the convention's section 6; the template's proposal, 2026-10-20)
 MAX_NOTEBOOK_BYTES = 3_000_000

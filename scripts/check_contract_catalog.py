@@ -3,6 +3,7 @@
 from __future__ import annotations
 
 import json
+import hashlib
 import sys
 from pathlib import Path
 
@@ -24,9 +25,17 @@ def validate(root: Path = ROOT) -> dict:
     if product["visibility"] != "public" or product["license"] != "Apache-2.0":
         raise ValueError("product metadata must match the public repository and declared license")
     lock = json.loads((root / "docs/contracts/versions.lock.json").read_text(encoding="utf-8"))
-    versions = {row["id"]: row["version"] for row in rows}
-    if lock.get("contracts") != versions:
-        raise ValueError("contract version lock differs from the catalog")
+    expected = {}
+    for row in rows:
+        schema = row["schema"].strip().strip("`")
+        schema_path = root / schema
+        expected[row["id"]] = {
+            "version": row["version"],
+            "schema": schema,
+            "sha256": hashlib.sha256(schema_path.read_bytes().replace(b"\r\n", b"\n")).hexdigest(),
+        }
+    if lock != expected:
+        raise ValueError("contract schema lock differs from the catalog or a schema digest is stale")
     schemas = sorted((root / "docs/contracts/schemas").glob("*.schema.json"))
     for schema in schemas:
         parsed = json.loads(schema.read_text(encoding="utf-8"))

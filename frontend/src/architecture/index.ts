@@ -49,9 +49,9 @@ export const architecture: ArchitectureConfig = {
       en: 'Learning and control',
       es: 'Aprendizaje y control',
       body_en:
-        'Whole workflow groups are separated before fitting. Training, calibration and frozen evaluation have different roles. Persistent state, effect prediction and learned deferral are compared with exact, supervised, recurrent, bandit, PPO and planner baselines. Report task outcomes independently of demonstration agreement.',
+        'M12 ranks contract-admissible actions and can hand work to a slower planner when expected value exceeds latency cost. On the current benchmark, its learned gate never defers: M12 solves 1,160 of 1,200 core episodes while a guarded finite-state baseline solves 1,200. XGBoost leads M12 on the small transfer set, and four ablations match its task success. The diagrams show the measured mechanism and these limits.',
       body_es:
-        'Los grupos se separan antes de ajustar. Entrenamiento, calibración y evaluación cumplen roles distintos. Persistencia, predicción y derivación se comparan con referencias exactas, supervisadas, recurrentes, bandidos, PPO y planificadores. Resultados de tarea se separan del acuerdo demostrado.',
+        'M12 ordena acciones permitidas por contrato y puede delegar al planificador cuando el valor esperado supera el costo de latencia. En la prueba actual, el umbral aprendido nunca delega: M12 resuelve 1.160 de 1.200 episodios y una máquina finita con guardas resuelve los 1.200. XGBoost supera a M12 en la pequeña prueba de transferencia y cuatro ablaciones igualan su éxito. Los diagramas muestran el mecanismo medido y sus límites.',
       svg: svg('04-the-science'),
     },
     {

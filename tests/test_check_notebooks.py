@@ -460,6 +460,22 @@ def test_the_runner_fails_a_missing_artifact_naming_its_path(tmp_path: Path) -> 
     assert r.returncode == 1 and "absent-artifact.json" in r.stdout, r.stdout
 
 
+@needs_env
+def test_check_runner_copies_local_checkpoint_inputs_into_its_isolated_tree(tmp_path: Path) -> None:
+    base, path = runner_repo(
+        tmp_path,
+        "from pathlib import Path\nprint(Path('../../../models/checkpoints/pinned.json').read_text())",
+    )
+    checkpoint = base / "models" / "checkpoints" / "pinned.json"
+    checkpoint.parent.mkdir(parents=True)
+    checkpoint.write_text('{\"version\":\"v-test\"}', encoding="utf-8")
+    executed = run_runner(base, "--only", "notebooks/en/01-basics/01-note.ipynb")
+    assert executed.returncode == 0, executed.stdout + executed.stderr
+    checked = run_runner(base, "--check", "--only", "notebooks/en/01-basics/01-note.ipynb")
+    assert checked.returncode == 0, checked.stdout + checked.stderr
+    assert path.is_file()
+
+
 def test_the_committed_set_passes_the_static_check() -> None:
     assert CHECK.findings_of(ROOT) == []
 

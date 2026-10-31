@@ -1,0 +1,20 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://neuraxis.ml.fasl-work.com/contracts/semantic-transfer-report.schema.json",
+  "title": "Neuraxis semantic-transfer evaluation report",
+  "type": "object",
+  "required": ["schema_version", "scope", "episodes_checked", "index_sha256", "lineage_signature", "methods", "perfect_methods", "by_family", "m12_paired", "seed_variable_cells"],
+  "properties": {
+    "schema_version": { "const": 1 },
+    "scope": { "type": "string", "minLength": 1 },
+    "episodes_checked": { "type": "integer", "minimum": 1 },
+    "index_sha256": { "type": "string", "pattern": "^[a-f0-9]{64}$" },
+    "lineage_signature": { "type": "string", "pattern": "^[a-f0-9]{64}$" },
+    "methods": { "type": "array", "minItems": 12, "items": { "type": "object", "required": ["method_id"], "properties": { "method_id": { "type": "string", "pattern": "^M\\d{2}$" } }, "additionalProperties": true } },
+    "perfect_methods": { "type": "array", "items": { "type": "string", "pattern": "^M\\d{2}$" } },
+    "by_family": { "type": "array", "items": { "type": "object" } },
+    "m12_paired": { "type": "object" },
+    "seed_variable_cells": { "type": "integer", "minimum": 0 }
+  },
+  "additionalProperties": true
+}

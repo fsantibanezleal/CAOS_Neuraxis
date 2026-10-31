@@ -3,6 +3,7 @@
 from __future__ import annotations
 
 import json
+import hashlib
 import sys
 from pathlib import Path
 
@@ -21,7 +22,14 @@ def test_catalog_paths_schemas_versions_and_readiness_are_current() -> None:
     assert len(rows) >= 12
     assert all(not resolve_local(ROOT, row[field]) for row in rows for field in ("schema", "producer", "consumer", "validator"))
     locked = json.loads((ROOT / "docs/contracts/versions.lock.json").read_text(encoding="utf-8"))
-    assert locked["contracts"] == {row["id"]: row["version"] for row in rows}
+    assert locked == {
+        row["id"]: {
+            "version": row["version"],
+            "schema": row["schema"].strip().strip("`"),
+            "sha256": hashlib.sha256((ROOT / row["schema"].strip().strip("`")).read_bytes().replace(b"\r\n", b"\n")).hexdigest(),
+        }
+        for row in rows
+    }
     assert build_readiness(ROOT) == json.loads((ROOT / "data/derived/readiness.json").read_text(encoding="utf-8"))
     assert all(item["state"] == "available" for item in build_readiness(ROOT)["contracts"])
 

@@ -1,0 +1,24 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://neuraxis.ml.fasl-work.com/contracts/semantic-transfer-lineage.schema.json",
+  "title": "Neuraxis semantic-transfer execution lineage",
+  "type": "object",
+  "required": ["source_sha256", "native_source_sha256", "native_binary", "checkpoint_sha256", "packages", "planner", "platform", "python", "inference_device", "spec_sha256"],
+  "properties": {
+    "source_sha256": { "$ref": "#/$defs/hashMap" },
+    "native_source_sha256": { "$ref": "#/$defs/hashMap" },
+    "checkpoint_sha256": { "$ref": "#/$defs/hashMap" },
+    "spec_sha256": { "type": "string", "pattern": "^[a-f0-9]{64}$" },
+    "native_binary": { "type": "object" },
+    "packages": { "type": "object", "minProperties": 1 },
+    "planner": { "type": "object" },
+    "platform": { "type": "string", "minLength": 1 },
+    "python": { "type": "string", "minLength": 1 },
+    "inference_device": { "type": "string", "minLength": 1 },
+    "torch_inference_threads": { "type": "integer", "minimum": 1 }
+  },
+  "$defs": {
+    "hashMap": { "type": "object", "minProperties": 1, "additionalProperties": { "type": "string", "pattern": "^[a-f0-9]{64}$" } }
+  },
+  "additionalProperties": true
+}

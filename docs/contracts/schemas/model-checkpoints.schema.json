@@ -1,0 +1,25 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://neuraxis.ml.fasl-work.com/contracts/model-checkpoints.schema.json",
+  "title": "Neuraxis learned-model checkpoint and training metadata",
+  "oneOf": [
+    { "$ref": "#/$defs/methodBundle" },
+    { "$ref": "#/$defs/linear" },
+    { "$ref": "#/$defs/trees" },
+    { "$ref": "#/$defs/xgboost" },
+    { "$ref": "#/$defs/recurrent" },
+    { "$ref": "#/$defs/transition" },
+    { "$ref": "#/$defs/training" },
+    { "$ref": "#/$defs/metadata" }
+  ],
+  "$defs": {
+    "methodBundle": { "type": "object", "minProperties": 1, "propertyNames": { "pattern": "^M\\d{2}$" }, "additionalProperties": { "type": "object", "minProperties": 1 } },
+    "linear": { "type": "object", "required": ["schema_version", "feature_names", "coef", "intercept", "calibration"], "properties": { "schema_version": { "type": "integer", "minimum": 1 }, "feature_names": { "type": "array", "minItems": 1, "items": { "type": "string" } }, "coef": { "type": "array", "minItems": 1, "items": { "type": "number" } }, "intercept": { "type": "number" }, "calibration": { "type": "object" } }, "additionalProperties": true },
+    "trees": { "type": "object", "required": ["schema_version", "feature_names", "base_margin", "trees", "calibration"], "properties": { "schema_version": { "type": "integer", "minimum": 1 }, "feature_names": { "type": "array", "minItems": 1, "items": { "type": "string" } }, "base_margin": { "type": "number" }, "trees": { "type": "array", "minItems": 1, "items": { "type": "object" } }, "calibration": { "type": "object" } }, "additionalProperties": true },
+    "xgboost": { "type": "object", "required": ["learner", "version"], "properties": { "learner": { "type": "object", "required": ["learner_model_param", "gradient_booster"] }, "version": { "type": "array", "minItems": 3, "items": { "type": "integer", "minimum": 0 } } }, "additionalProperties": true },
+    "recurrent": { "type": "object", "required": ["epochs", "seed", "device", "training_seconds", "losses", "temperature", "hidden_size", "feature_names", "state_keys", "onnx_max_abs_error"], "properties": { "epochs": { "type": "integer", "minimum": 1 }, "seed": { "type": "integer" }, "device": { "type": "string", "minLength": 1 }, "training_seconds": { "type": "number", "minimum": 0 }, "losses": { "type": "array", "minItems": 1, "items": { "type": "number" } }, "hidden_size": { "type": "integer", "minimum": 1 }, "temperature": { "type": "number", "exclusiveMinimum": 0 }, "feature_names": { "type": "array", "minItems": 1, "items": { "type": "string" } }, "state_keys": { "type": "array", "minItems": 1, "items": { "type": "string" } }, "onnx_max_abs_error": { "type": "number", "minimum": 0 } }, "additionalProperties": true },
+    "transition": { "type": "object", "required": ["epochs", "losses", "device", "seed", "optimizer", "learning_rate", "batch_size", "validation_mse", "validation_state_mse", "validation_reward_mse", "validation_terminal_mse", "last_head_target"], "properties": { "epochs": { "type": "integer", "minimum": 1 }, "losses": { "type": "array", "minItems": 1, "items": { "type": "number" } }, "device": { "type": "string", "minLength": 1 }, "seed": { "type": "integer" }, "optimizer": { "type": "string", "minLength": 1 }, "learning_rate": { "type": "number", "exclusiveMinimum": 0 }, "batch_size": { "type": "integer", "minimum": 1 }, "validation_mse": { "type": "number", "minimum": 0 }, "validation_state_mse": { "type": "object", "minProperties": 1 }, "validation_reward_mse": { "type": "number", "minimum": 0 }, "validation_terminal_mse": { "type": "number", "minimum": 0 }, "last_head_target": { "type": "string", "minLength": 1 } }, "additionalProperties": true },
+    "training": { "type": "object", "required": ["seed", "device", "training_seconds"], "not": { "anyOf": [{ "required": ["hidden_size"] }, { "required": ["onnx_max_abs_error"] }] }, "properties": { "seed": { "type": "integer" }, "device": { "type": "string", "minLength": 1 }, "training_seconds": { "type": "number", "minimum": 0 }, "epochs": { "type": "integer", "minimum": 1 }, "actual_timesteps": { "type": "integer", "minimum": 1 }, "requested_timesteps": { "type": "integer", "minimum": 1 }, "optimizer": { "type": "string" }, "losses": { "type": "array" }, "training_spec_ids": { "type": "array", "minItems": 1 } }, "additionalProperties": true },
+    "metadata": { "type": "object", "required": ["hidden_size", "temperature", "feature_names", "state_keys", "onnx_max_abs_error"], "properties": { "hidden_size": { "type": "integer", "minimum": 1 }, "temperature": { "type": "number", "exclusiveMinimum": 0 }, "feature_names": { "type": "array", "minItems": 1 }, "state_keys": { "type": "array", "minItems": 1 }, "onnx_max_abs_error": { "type": "number", "minimum": 0 } }, "additionalProperties": false }
+  }
+}
