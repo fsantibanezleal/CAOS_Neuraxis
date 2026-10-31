@@ -1,0 +1,1484 @@
+{
+  "base": "https://neuraxis.ml.fasl-work.com",
+  "canonical_verified": [
+    {
+      "method": "M01",
+      "case": "C01",
+      "run_id": "M01-C01-nominal-40000",
+      "status": "succeeded"
+    },
+    {
+      "method": "M01",
+      "case": "C02",
+      "run_id": "M01-C02-nominal-40000",
+      "status": "succeeded"
+    },
+    {
+      "method": "M01",
+      "case": "C03",
+      "run_id": "M01-C03-nominal-40000",
+      "status": "succeeded"
+    },
+    {
+      "method": "M01",
+      "case": "C04",
+      "run_id": "M01-C04-nominal-40000",
+      "status": "succeeded"
+    },
+    {
+      "method": "M01",
+      "case": "C05",
+      "run_id": "M01-C05-nominal-40000",
+      "status": "succeeded"
+    },
+    {
+      "method": "M01",
+      "case": "C06",
+      "run_id": "M01-C06-nominal-40000",
+      "status": "succeeded"
+    },
+    {
+      "method": "M01",
+      "case": "C07",
+      "run_id": "M01-C07-nominal-40000",
+      "status": "succeeded"
+    },
+    {
+      "method": "M01",
+      "case": "C08",
+      "run_id": "M01-C08-nominal-40000",
+      "status": "succeeded"
+    },
+    {
+      "method": "M01",
+      "case": "C09",
+      "run_id": "M01-C09-nominal-40000",
+      "status": "succeeded"
+    },
+    {
+      "method": "M01",
+      "case": "C10",
+      "run_id": "M01-C10-nominal-40000",
+      "status": "succeeded"
+    },
+    {
+      "method": "M01",
+      "case": "C11",
+      "run_id": "M01-C11-nominal-40000",
+      "status": "succeeded"
+    },
+    {
+      "method": "M01",
+      "case": "C12",
+      "run_id": "M01-C12-nominal-40000",
+      "status": "succeeded"
+    },
+    {
+      "method": "M01",
+      "case": "C13",
+      "run_id": "M01-C13-nominal-40000",
+      "status": "succeeded"
+    },
+    {
+      "method": "M01",
+      "case": "C14",
+      "run_id": "M01-C14-nominal-40000",
+      "status": "succeeded"
+    },
+    {
+      "method": "M01",
+      "case": "C15",
+      "run_id": "M01-C15-nominal-40000",
+      "status": "succeeded"
+    },
+    {
+      "method": "M01",
+      "case": "C16",
+      "run_id": "M01-C16-nominal-40000",
+      "status": "succeeded"
+    },
+    {
+      "method": "M01",
+      "case": "C17",
+      "run_id": "M01-C17-nominal-40000",
+      "status": "succeeded"
+    },
+    {
+      "method": "M01",
+      "case": "C18",
+      "run_id": "M01-C18-nominal-40000",
+      "status": "succeeded"
+    },
+    {
+      "method": "M01",
+      "case": "C19",
+      "run_id": "M01-C19-nominal-40000",
+      "status": "succeeded"
+    },
+    {
+      "method": "M01",
+      "case": "C20",
+      "run_id": "M01-C20-nominal-40000",
+      "status": "succeeded"
+    },
+    {
+      "method": "M02",
+      "case": "C01",
+      "run_id": "M02-C01-nominal-40000",
+      "status": "succeeded"
+    },
+    {
+      "method": "M02",
+      "case": "C02",
+      "run_id": "M02-C02-nominal-40000",
+      "status": "succeeded"
+    },
+    {
+      "method": "M02",
+      "case": "C03",
+      "run_id": "M02-C03-nominal-40000",
+      "status": "succeeded"
+    },
+    {
+      "method": "M02",
+      "case": "C04",
+      "run_id": "M02-C04-nominal-40000",
+      "status": "succeeded"
+    },
+    {
+      "method": "M02",
+      "case": "C05",
+      "run_id": "M02-C05-nominal-40000",
+      "status": "succeeded"
+    },
+    {
+      "method": "M02",
+      "case": "C06",
+      "run_id": "M02-C06-nominal-40000",
+      "status": "succeeded"
+    },
+    {
+      "method": "M02",
+      "case": "C07",
+      "run_id": "M02-C07-nominal-40000",
+      "status": "succeeded"
+    },
+    {
+      "method": "M02",
+      "case": "C08",
+      "run_id": "M02-C08-nominal-40000",
+      "status": "succeeded"
+    },
+    {
+      "method": "M02",
+      "case": "C09",
+      "run_id": "M02-C09-nominal-40000",
+      "status": "succeeded"
+    },
+    {
+      "method": "M02",
+      "case": "C10",
+      "run_id": "M02-C10-nominal-40000",
+      "status": "succeeded"
+    },
+    {
+      "method": "M02",
+      "case": "C11",
+      "run_id": "M02-C11-nominal-40000",
+      "status": "succeeded"
+    },
+    {
+      "method": "M02",
+      "case": "C12",
+      "run_id": "M02-C12-nominal-40000",
+      "status": "succeeded"
+    },
+    {
+      "method": "M02",
+      "case": "C13",
+      "run_id": "M02-C13-nominal-40000",
+      "status": "succeeded"
+    },
+    {
+      "method": "M02",
+      "case": "C14",
+      "run_id": "M02-C14-nominal-40000",
+      "status": "succeeded"
+    },
+    {
+      "method": "M02",
+      "case": "C15",
+      "run_id": "M02-C15-nominal-40000",
+      "status": "succeeded"
+    },
+    {
+      "method": "M02",
+      "case": "C16",
+      "run_id": "M02-C16-nominal-40000",
+      "status": "succeeded"
+    },
+    {
+      "method": "M02",
+      "case": "C17",
+      "run_id": "M02-C17-nominal-40000",
+      "status": "succeeded"
+    },
+    {
+      "method": "M02",
+      "case": "C18",
+      "run_id": "M02-C18-nominal-40000",
+      "status": "succeeded"
+    },
+    {
+      "method": "M02",
+      "case": "C19",
+      "run_id": "M02-C19-nominal-40000",
+      "status": "succeeded"
+    },
+    {
+      "method": "M02",
+      "case": "C20",
+      "run_id": "M02-C20-nominal-40000",
+      "status": "succeeded"
+    },
+    {
+      "method": "M03",
+      "case": "C01",
+      "run_id": "M03-C01-nominal-40000",
+      "status": "succeeded"
+    },
+    {
+      "method": "M03",
+      "case": "C02",
+      "run_id": "M03-C02-nominal-40000",
+      "status": "succeeded"
+    },
+    {
+      "method": "M03",
+      "case": "C03",
+      "run_id": "M03-C03-nominal-40000",
+      "status": "succeeded"
+    },
+    {
+      "method": "M03",
+      "case": "C04",
+      "run_id": "M03-C04-nominal-40000",
+      "status": "succeeded"
+    },
+    {
+      "method": "M03",
+      "case": "C05",
+      "run_id": "M03-C05-nominal-40000",
+      "status": "succeeded"
+    },
+    {
+      "method": "M03",
+      "case": "C06",
+      "run_id": "M03-C06-nominal-40000",
+      "status": "succeeded"
+    },
+    {
+      "method": "M03",
+      "case": "C07",
+      "run_id": "M03-C07-nominal-40000",
+      "status": "succeeded"
+    },
+    {
+      "method": "M03",
+      "case": "C08",
+      "run_id": "M03-C08-nominal-40000",
+      "status": "succeeded"
+    },
+    {
+      "method": "M03",
+      "case": "C09",
+      "run_id": "M03-C09-nominal-40000",
+      "status": "succeeded"
+    },
+    {
+      "method": "M03",
+      "case": "C10",
+      "run_id": "M03-C10-nominal-40000",
+      "status": "succeeded"
+    },
+    {
+      "method": "M03",
+      "case": "C11",
+      "run_id": "M03-C11-nominal-40000",
+      "status": "succeeded"
+    },
+    {
+      "method": "M03",
+      "case": "C12",
+      "run_id": "M03-C12-nominal-40000",
+      "status": "succeeded"
+    },
+    {
+      "method": "M03",
+      "case": "C13",
+      "run_id": "M03-C13-nominal-40000",
+      "status": "succeeded"
+    },
+    {
+      "method": "M03",
+      "case": "C14",
+      "run_id": "M03-C14-nominal-40000",
+      "status": "succeeded"
+    },
+    {
+      "method": "M03",
+      "case": "C15",
+      "run_id": "M03-C15-nominal-40000",
+      "status": "succeeded"
+    },
+    {
+      "method": "M03",
+      "case": "C16",
+      "run_id": "M03-C16-nominal-40000",
+      "status": "succeeded"
+    },
+    {
+      "method": "M03",
+      "case": "C17",
+      "run_id": "M03-C17-nominal-40000",
+      "status": "succeeded"
+    },
+    {
+      "method": "M03",
+      "case": "C18",
+      "run_id": "M03-C18-nominal-40000",
+      "status": "succeeded"
+    },
+    {
+      "method": "M03",
+      "case": "C19",
+      "run_id": "M03-C19-nominal-40000",
+      "status": "succeeded"
+    },
+    {
+      "method": "M03",
+      "case": "C20",
+      "run_id": "M03-C20-nominal-40000",
+      "status": "succeeded"
+    },
+    {
+      "method": "M04",
+      "case": "C01",
+      "run_id": "M04-C01-nominal-40000",
+      "status": "succeeded"
+    },
+    {
+      "method": "M04",
+      "case": "C02",
+      "run_id": "M04-C02-nominal-40000",
+      "status": "succeeded"
+    },
+    {
+      "method": "M04",
+      "case": "C03",
+      "run_id": "M04-C03-nominal-40000",
+      "status": "succeeded"
+    },
+    {
+      "method": "M04",
+      "case": "C04",
+      "run_id": "M04-C04-nominal-40000",
+      "status": "succeeded"
+    },
+    {
+      "method": "M04",
+      "case": "C05",
+      "run_id": "M04-C05-nominal-40000",
+      "status": "succeeded"
+    },
+    {
+      "method": "M04",
+      "case": "C06",
+      "run_id": "M04-C06-nominal-40000",
+      "status": "succeeded"
+    },
+    {
+      "method": "M04",
+      "case": "C07",
+      "run_id": "M04-C07-nominal-40000",
+      "status": "succeeded"
+    },
+    {
+      "method": "M04",
+      "case": "C08",
+      "run_id": "M04-C08-nominal-40000",
+      "status": "succeeded"
+    },
+    {
+      "method": "M04",
+      "case": "C09",
+      "run_id": "M04-C09-nominal-40000",
+      "status": "succeeded"
+    },
+    {
+      "method": "M04",
+      "case": "C10",
+      "run_id": "M04-C10-nominal-40000",
+      "status": "succeeded"
+    },
+    {
+      "method": "M04",
+      "case": "C11",
+      "run_id": "M04-C11-nominal-40000",
+      "status": "succeeded"
+    },
+    {
+      "method": "M04",
+      "case": "C12",
+      "run_id": "M04-C12-nominal-40000",
+      "status": "succeeded"
+    },
+    {
+      "method": "M04",
+      "case": "C13",
+      "run_id": "M04-C13-nominal-40000",
+      "status": "succeeded"
+    },
+    {
+      "method": "M04",
+      "case": "C14",
+      "run_id": "M04-C14-nominal-40000",
+      "status": "succeeded"
+    },
+    {
+      "method": "M04",
+      "case": "C15",
+      "run_id": "M04-C15-nominal-40000",
+      "status": "succeeded"
+    },
+    {
+      "method": "M04",
+      "case": "C16",
+      "run_id": "M04-C16-nominal-40000",
+      "status": "succeeded"
+    },
+    {
+      "method": "M04",
+      "case": "C17",
+      "run_id": "M04-C17-nominal-40000",
+      "status": "succeeded"
+    },
+    {
+      "method": "M04",
+      "case": "C18",
+      "run_id": "M04-C18-nominal-40000",
+      "status": "succeeded"
+    },
+    {
+      "method": "M04",
+      "case": "C19",
+      "run_id": "M04-C19-nominal-40000",
+      "status": "succeeded"
+    },
+    {
+      "method": "M04",
+      "case": "C20",
+      "run_id": "M04-C20-nominal-40000",
+      "status": "succeeded"
+    },
+    {
+      "method": "M05",
+      "case": "C01",
+      "run_id": "M05-C01-nominal-40000",
+      "status": "succeeded"
+    },
+    {
+      "method": "M05",
+      "case": "C02",
+      "run_id": "M05-C02-nominal-40000",
+      "status": "succeeded"
+    },
+    {
+      "method": "M05",
+      "case": "C03",
+      "run_id": "M05-C03-nominal-40000",
+      "status": "succeeded"
+    },
+    {
+      "method": "M05",
+      "case": "C04",
+      "run_id": "M05-C04-nominal-40000",
+      "status": "succeeded"
+    },
+    {
+      "method": "M05",
+      "case": "C05",
+      "run_id": "M05-C05-nominal-40000",
+      "status": "succeeded"
+    },
+    {
+      "method": "M05",
+      "case": "C06",
+      "run_id": "M05-C06-nominal-40000",
+      "status": "succeeded"
+    },
+    {
+      "method": "M05",
+      "case": "C07",
+      "run_id": "M05-C07-nominal-40000",
+      "status": "succeeded"
+    },
+    {
+      "method": "M05",
+      "case": "C08",
+      "run_id": "M05-C08-nominal-40000",
+      "status": "succeeded"
+    },
+    {
+      "method": "M05",
+      "case": "C09",
+      "run_id": "M05-C09-nominal-40000",
+      "status": "succeeded"
+    },
+    {
+      "method": "M05",
+      "case": "C10",
+      "run_id": "M05-C10-nominal-40000",
+      "status": "succeeded"
+    },
+    {
+      "method": "M05",
+      "case": "C11",
+      "run_id": "M05-C11-nominal-40000",
+      "status": "succeeded"
+    },
+    {
+      "method": "M05",
+      "case": "C12",
+      "run_id": "M05-C12-nominal-40000",
+      "status": "succeeded"
+    },
+    {
+      "method": "M05",
+      "case": "C13",
+      "run_id": "M05-C13-nominal-40000",
+      "status": "succeeded"
+    },
+    {
+      "method": "M05",
+      "case": "C14",
+      "run_id": "M05-C14-nominal-40000",
+      "status": "succeeded"
+    },
+    {
+      "method": "M05",
+      "case": "C15",
+      "run_id": "M05-C15-nominal-40000",
+      "status": "succeeded"
+    },
+    {
+      "method": "M05",
+      "case": "C16",
+      "run_id": "M05-C16-nominal-40000",
+      "status": "succeeded"
+    },
+    {
+      "method": "M05",
+      "case": "C17",
+      "run_id": "M05-C17-nominal-40000",
+      "status": "succeeded"
+    },
+    {
+      "method": "M05",
+      "case": "C18",
+      "run_id": "M05-C18-nominal-40000",
+      "status": "succeeded"
+    },
+    {
+      "method": "M05",
+      "case": "C19",
+      "run_id": "M05-C19-nominal-40000",
+      "status": "succeeded"
+    },
+    {
+      "method": "M05",
+      "case": "C20",
+      "run_id": "M05-C20-nominal-40000",
+      "status": "succeeded"
+    },
+    {
+      "method": "M06",
+      "case": "C01",
+      "run_id": "M06-C01-nominal-40000",
+      "status": "succeeded"
+    },
+    {
+      "method": "M06",
+      "case": "C02",
+      "run_id": "M06-C02-nominal-40000",
+      "status": "failed"
+    },
+    {
+      "method": "M06",
+      "case": "C03",
+      "run_id": "M06-C03-nominal-40000",
+      "status": "failed"
+    },
+    {
+      "method": "M06",
+      "case": "C04",
+      "run_id": "M06-C04-nominal-40000",
+      "status": "succeeded"
+    },
+    {
+      "method": "M06",
+      "case": "C05",
+      "run_id": "M06-C05-nominal-40000",
+      "status": "succeeded"
+    },
+    {
+      "method": "M06",
+      "case": "C06",
+      "run_id": "M06-C06-nominal-40000",
+      "status": "succeeded"
+    },
+    {
+      "method": "M06",
+      "case": "C07",
+      "run_id": "M06-C07-nominal-40000",
+      "status": "succeeded"
+    },
+    {
+      "method": "M06",
+      "case": "C08",
+      "run_id": "M06-C08-nominal-40000",
+      "status": "succeeded"
+    },
+    {
+      "method": "M06",
+      "case": "C09",
+      "run_id": "M06-C09-nominal-40000",
+      "status": "succeeded"
+    },
+    {
+      "method": "M06",
+      "case": "C10",
+      "run_id": "M06-C10-nominal-40000",
+      "status": "failed"
+    },
+    {
+      "method": "M06",
+      "case": "C11",
+      "run_id": "M06-C11-nominal-40000",
+      "status": "failed"
+    },
+    {
+      "method": "M06",
+      "case": "C12",
+      "run_id": "M06-C12-nominal-40000",
+      "status": "failed"
+    },
+    {
+      "method": "M06",
+      "case": "C13",
+      "run_id": "M06-C13-nominal-40000",
+      "status": "failed"
+    },
+    {
+      "method": "M06",
+      "case": "C14",
+      "run_id": "M06-C14-nominal-40000",
+      "status": "failed"
+    },
+    {
+      "method": "M06",
+      "case": "C15",
+      "run_id": "M06-C15-nominal-40000",
+      "status": "failed"
+    },
+    {
+      "method": "M06",
+      "case": "C16",
+      "run_id": "M06-C16-nominal-40000",
+      "status": "failed"
+    },
+    {
+      "method": "M06",
+      "case": "C17",
+      "run_id": "M06-C17-nominal-40000",
+      "status": "succeeded"
+    },
+    {
+      "method": "M06",
+      "case": "C18",
+      "run_id": "M06-C18-nominal-40000",
+      "status": "failed"
+    },
+    {
+      "method": "M06",
+      "case": "C19",
+      "run_id": "M06-C19-nominal-40000",
+      "status": "succeeded"
+    },
+    {
+      "method": "M06",
+      "case": "C20",
+      "run_id": "M06-C20-nominal-40000",
+      "status": "succeeded"
+    },
+    {
+      "method": "M07",
+      "case": "C01",
+      "run_id": "M07-C01-nominal-40000",
+      "status": "succeeded"
+    },
+    {
+      "method": "M07",
+      "case": "C02",
+      "run_id": "M07-C02-nominal-40000",
+      "status": "succeeded"
+    },
+    {
+      "method": "M07",
+      "case": "C03",
+      "run_id": "M07-C03-nominal-40000",
+      "status": "succeeded"
+    },
+    {
+      "method": "M07",
+      "case": "C04",
+      "run_id": "M07-C04-nominal-40000",
+      "status": "succeeded"
+    },
+    {
+      "method": "M07",
+      "case": "C05",
+      "run_id": "M07-C05-nominal-40000",
+      "status": "succeeded"
+    },
+    {
+      "method": "M07",
+      "case": "C06",
+      "run_id": "M07-C06-nominal-40000",
+      "status": "succeeded"
+    },
+    {
+      "method": "M07",
+      "case": "C07",
+      "run_id": "M07-C07-nominal-40000",
+      "status": "succeeded"
+    },
+    {
+      "method": "M07",
+      "case": "C08",
+      "run_id": "M07-C08-nominal-40000",
+      "status": "succeeded"
+    },
+    {
+      "method": "M07",
+      "case": "C09",
+      "run_id": "M07-C09-nominal-40000",
+      "status": "succeeded"
+    },
+    {
+      "method": "M07",
+      "case": "C10",
+      "run_id": "M07-C10-nominal-40000",
+      "status": "succeeded"
+    },
+    {
+      "method": "M07",
+      "case": "C11",
+      "run_id": "M07-C11-nominal-40000",
+      "status": "succeeded"
+    },
+    {
+      "method": "M07",
+      "case": "C12",
+      "run_id": "M07-C12-nominal-40000",
+      "status": "succeeded"
+    },
+    {
+      "method": "M07",
+      "case": "C13",
+      "run_id": "M07-C13-nominal-40000",
+      "status": "succeeded"
+    },
+    {
+      "method": "M07",
+      "case": "C14",
+      "run_id": "M07-C14-nominal-40000",
+      "status": "succeeded"
+    },
+    {
+      "method": "M07",
+      "case": "C15",
+      "run_id": "M07-C15-nominal-40000",
+      "status": "succeeded"
+    },
+    {
+      "method": "M07",
+      "case": "C16",
+      "run_id": "M07-C16-nominal-40000",
+      "status": "succeeded"
+    },
+    {
+      "method": "M07",
+      "case": "C17",
+      "run_id": "M07-C17-nominal-40000",
+      "status": "succeeded"
+    },
+    {
+      "method": "M07",
+      "case": "C18",
+      "run_id": "M07-C18-nominal-40000",
+      "status": "succeeded"
+    },
+    {
+      "method": "M07",
+      "case": "C19",
+      "run_id": "M07-C19-nominal-40000",
+      "status": "succeeded"
+    },
+    {
+      "method": "M07",
+      "case": "C20",
+      "run_id": "M07-C20-nominal-40000",
+      "status": "succeeded"
+    },
+    {
+      "method": "M08",
+      "case": "C01",
+      "run_id": "M08-C01-nominal-40000",
+      "status": "succeeded"
+    },
+    {
+      "method": "M08",
+      "case": "C02",
+      "run_id": "M08-C02-nominal-40000",
+      "status": "succeeded"
+    },
+    {
+      "method": "M08",
+      "case": "C03",
+      "run_id": "M08-C03-nominal-40000",
+      "status": "failed"
+    },
+    {
+      "method": "M08",
+      "case": "C04",
+      "run_id": "M08-C04-nominal-40000",
+      "status": "succeeded"
+    },
+    {
+      "method": "M08",
+      "case": "C05",
+      "run_id": "M08-C05-nominal-40000",
+      "status": "succeeded"
+    },
+    {
+      "method": "M08",
+      "case": "C06",
+      "run_id": "M08-C06-nominal-40000",
+      "status": "succeeded"
+    },
+    {
+      "method": "M08",
+      "case": "C07",
+      "run_id": "M08-C07-nominal-40000",
+      "status": "succeeded"
+    },
+    {
+      "method": "M08",
+      "case": "C08",
+      "run_id": "M08-C08-nominal-40000",
+      "status": "succeeded"
+    },
+    {
+      "method": "M08",
+      "case": "C09",
+      "run_id": "M08-C09-nominal-40000",
+      "status": "succeeded"
+    },
+    {
+      "method": "M08",
+      "case": "C10",
+      "run_id": "M08-C10-nominal-40000",
+      "status": "failed"
+    },
+    {
+      "method": "M08",
+      "case": "C11",
+      "run_id": "M08-C11-nominal-40000",
+      "status": "failed"
+    },
+    {
+      "method": "M08",
+      "case": "C12",
+      "run_id": "M08-C12-nominal-40000",
+      "status": "succeeded"
+    },
+    {
+      "method": "M08",
+      "case": "C13",
+      "run_id": "M08-C13-nominal-40000",
+      "status": "succeeded"
+    },
+    {
+      "method": "M08",
+      "case": "C14",
+      "run_id": "M08-C14-nominal-40000",
+      "status": "failed"
+    },
+    {
+      "method": "M08",
+      "case": "C15",
+      "run_id": "M08-C15-nominal-40000",
+      "status": "succeeded"
+    },
+    {
+      "method": "M08",
+      "case": "C16",
+      "run_id": "M08-C16-nominal-40000",
+      "status": "succeeded"
+    },
+    {
+      "method": "M08",
+      "case": "C17",
+      "run_id": "M08-C17-nominal-40000",
+      "status": "succeeded"
+    },
+    {
+      "method": "M08",
+      "case": "C18",
+      "run_id": "M08-C18-nominal-40000",
+      "status": "failed"
+    },
+    {
+      "method": "M08",
+      "case": "C19",
+      "run_id": "M08-C19-nominal-40000",
+      "status": "succeeded"
+    },
+    {
+      "method": "M08",
+      "case": "C20",
+      "run_id": "M08-C20-nominal-40000",
+      "status": "succeeded"
+    },
+    {
+      "method": "M09",
+      "case": "C01",
+      "run_id": "M09-C01-nominal-40000",
+      "status": "succeeded"
+    },
+    {
+      "method": "M09",
+      "case": "C02",
+      "run_id": "M09-C02-nominal-40000",
+      "status": "succeeded"
+    },
+    {
+      "method": "M09",
+      "case": "C03",
+      "run_id": "M09-C03-nominal-40000",
+      "status": "succeeded"
+    },
+    {
+      "method": "M09",
+      "case": "C04",
+      "run_id": "M09-C04-nominal-40000",
+      "status": "succeeded"
+    },
+    {
+      "method": "M09",
+      "case": "C05",
+      "run_id": "M09-C05-nominal-40000",
+      "status": "succeeded"
+    },
+    {
+      "method": "M09",
+      "case": "C06",
+      "run_id": "M09-C06-nominal-40000",
+      "status": "succeeded"
+    },
+    {
+      "method": "M09",
+      "case": "C07",
+      "run_id": "M09-C07-nominal-40000",
+      "status": "succeeded"
+    },
+    {
+      "method": "M09",
+      "case": "C08",
+      "run_id": "M09-C08-nominal-40000",
+      "status": "succeeded"
+    },
+    {
+      "method": "M09",
+      "case": "C09",
+      "run_id": "M09-C09-nominal-40000",
+      "status": "failed"
+    },
+    {
+      "method": "M09",
+      "case": "C10",
+      "run_id": "M09-C10-nominal-40000",
+      "status": "succeeded"
+    },
+    {
+      "method": "M09",
+      "case": "C11",
+      "run_id": "M09-C11-nominal-40000",
+      "status": "failed"
+    },
+    {
+      "method": "M09",
+      "case": "C12",
+      "run_id": "M09-C12-nominal-40000",
+      "status": "succeeded"
+    },
+    {
+      "method": "M09",
+      "case": "C13",
+      "run_id": "M09-C13-nominal-40000",
+      "status": "failed"
+    },
+    {
+      "method": "M09",
+      "case": "C14",
+      "run_id": "M09-C14-nominal-40000",
+      "status": "succeeded"
+    },
+    {
+      "method": "M09",
+      "case": "C15",
+      "run_id": "M09-C15-nominal-40000",
+      "status": "succeeded"
+    },
+    {
+      "method": "M09",
+      "case": "C16",
+      "run_id": "M09-C16-nominal-40000",
+      "status": "failed"
+    },
+    {
+      "method": "M09",
+      "case": "C17",
+      "run_id": "M09-C17-nominal-40000",
+      "status": "succeeded"
+    },
+    {
+      "method": "M09",
+      "case": "C18",
+      "run_id": "M09-C18-nominal-40000",
+      "status": "succeeded"
+    },
+    {
+      "method": "M09",
+      "case": "C19",
+      "run_id": "M09-C19-nominal-40000",
+      "status": "succeeded"
+    },
+    {
+      "method": "M09",
+      "case": "C20",
+      "run_id": "M09-C20-nominal-40000",
+      "status": "succeeded"
+    },
+    {
+      "method": "M10",
+      "case": "C01",
+      "run_id": "M10-C01-nominal-40000",
+      "status": "succeeded"
+    },
+    {
+      "method": "M10",
+      "case": "C02",
+      "run_id": "M10-C02-nominal-40000",
+      "status": "succeeded"
+    },
+    {
+      "method": "M10",
+      "case": "C03",
+      "run_id": "M10-C03-nominal-40000",
+      "status": "succeeded"
+    },
+    {
+      "method": "M10",
+      "case": "C04",
+      "run_id": "M10-C04-nominal-40000",
+      "status": "succeeded"
+    },
+    {
+      "method": "M10",
+      "case": "C05",
+      "run_id": "M10-C05-nominal-40000",
+      "status": "succeeded"
+    },
+    {
+      "method": "M10",
+      "case": "C06",
+      "run_id": "M10-C06-nominal-40000",
+      "status": "succeeded"
+    },
+    {
+      "method": "M10",
+      "case": "C07",
+      "run_id": "M10-C07-nominal-40000",
+      "status": "succeeded"
+    },
+    {
+      "method": "M10",
+      "case": "C08",
+      "run_id": "M10-C08-nominal-40000",
+      "status": "succeeded"
+    },
+    {
+      "method": "M10",
+      "case": "C09",
+      "run_id": "M10-C09-nominal-40000",
+      "status": "succeeded"
+    },
+    {
+      "method": "M10",
+      "case": "C10",
+      "run_id": "M10-C10-nominal-40000",
+      "status": "succeeded"
+    },
+    {
+      "method": "M10",
+      "case": "C11",
+      "run_id": "M10-C11-nominal-40000",
+      "status": "succeeded"
+    },
+    {
+      "method": "M10",
+      "case": "C12",
+      "run_id": "M10-C12-nominal-40000",
+      "status": "succeeded"
+    },
+    {
+      "method": "M10",
+      "case": "C13",
+      "run_id": "M10-C13-nominal-40000",
+      "status": "succeeded"
+    },
+    {
+      "method": "M10",
+      "case": "C14",
+      "run_id": "M10-C14-nominal-40000",
+      "status": "succeeded"
+    },
+    {
+      "method": "M10",
+      "case": "C15",
+      "run_id": "M10-C15-nominal-40000",
+      "status": "succeeded"
+    },
+    {
+      "method": "M10",
+      "case": "C16",
+      "run_id": "M10-C16-nominal-40000",
+      "status": "succeeded"
+    },
+    {
+      "method": "M10",
+      "case": "C17",
+      "run_id": "M10-C17-nominal-40000",
+      "status": "succeeded"
+    },
+    {
+      "method": "M10",
+      "case": "C18",
+      "run_id": "M10-C18-nominal-40000",
+      "status": "succeeded"
+    },
+    {
+      "method": "M10",
+      "case": "C19",
+      "run_id": "M10-C19-nominal-40000",
+      "status": "succeeded"
+    },
+    {
+      "method": "M10",
+      "case": "C20",
+      "run_id": "M10-C20-nominal-40000",
+      "status": "succeeded"
+    },
+    {
+      "method": "M11",
+      "case": "C01",
+      "run_id": "M11-C01-nominal-40000",
+      "status": "succeeded"
+    },
+    {
+      "method": "M11",
+      "case": "C02",
+      "run_id": "M11-C02-nominal-40000",
+      "status": "succeeded"
+    },
+    {
+      "method": "M11",
+      "case": "C03",
+      "run_id": "M11-C03-nominal-40000",
+      "status": "succeeded"
+    },
+    {
+      "method": "M11",
+      "case": "C04",
+      "run_id": "M11-C04-nominal-40000",
+      "status": "succeeded"
+    },
+    {
+      "method": "M11",
+      "case": "C05",
+      "run_id": "M11-C05-nominal-40000",
+      "status": "succeeded"
+    },
+    {
+      "method": "M11",
+      "case": "C06",
+      "run_id": "M11-C06-nominal-40000",
+      "status": "succeeded"
+    },
+    {
+      "method": "M11",
+      "case": "C07",
+      "run_id": "M11-C07-nominal-40000",
+      "status": "succeeded"
+    },
+    {
+      "method": "M11",
+      "case": "C08",
+      "run_id": "M11-C08-nominal-40000",
+      "status": "succeeded"
+    },
+    {
+      "method": "M11",
+      "case": "C09",
+      "run_id": "M11-C09-nominal-40000",
+      "status": "succeeded"
+    },
+    {
+      "method": "M11",
+      "case": "C10",
+      "run_id": "M11-C10-nominal-40000",
+      "status": "succeeded"
+    },
+    {
+      "method": "M11",
+      "case": "C11",
+      "run_id": "M11-C11-nominal-40000",
+      "status": "succeeded"
+    },
+    {
+      "method": "M11",
+      "case": "C12",
+      "run_id": "M11-C12-nominal-40000",
+      "status": "succeeded"
+    },
+    {
+      "method": "M11",
+      "case": "C13",
+      "run_id": "M11-C13-nominal-40000",
+      "status": "succeeded"
+    },
+    {
+      "method": "M11",
+      "case": "C14",
+      "run_id": "M11-C14-nominal-40000",
+      "status": "succeeded"
+    },
+    {
+      "method": "M11",
+      "case": "C15",
+      "run_id": "M11-C15-nominal-40000",
+      "status": "succeeded"
+    },
+    {
+      "method": "M11",
+      "case": "C16",
+      "run_id": "M11-C16-nominal-40000",
+      "status": "succeeded"
+    },
+    {
+      "method": "M11",
+      "case": "C17",
+      "run_id": "M11-C17-nominal-40000",
+      "status": "succeeded"
+    },
+    {
+      "method": "M11",
+      "case": "C18",
+      "run_id": "M11-C18-nominal-40000",
+      "status": "succeeded"
+    },
+    {
+      "method": "M11",
+      "case": "C19",
+      "run_id": "M11-C19-nominal-40000",
+      "status": "succeeded"
+    },
+    {
+      "method": "M11",
+      "case": "C20",
+      "run_id": "M11-C20-nominal-40000",
+      "status": "succeeded"
+    },
+    {
+      "method": "M12",
+      "case": "C01",
+      "run_id": "M12-C01-nominal-40000",
+      "status": "succeeded"
+    },
+    {
+      "method": "M12",
+      "case": "C02",
+      "run_id": "M12-C02-nominal-40000",
+      "status": "succeeded"
+    },
+    {
+      "method": "M12",
+      "case": "C03",
+      "run_id": "M12-C03-nominal-40000",
+      "status": "succeeded"
+    },
+    {
+      "method": "M12",
+      "case": "C04",
+      "run_id": "M12-C04-nominal-40000",
+      "status": "succeeded"
+    },
+    {
+      "method": "M12",
+      "case": "C05",
+      "run_id": "M12-C05-nominal-40000",
+      "status": "succeeded"
+    },
+    {
+      "method": "M12",
+      "case": "C06",
+      "run_id": "M12-C06-nominal-40000",
+      "status": "succeeded"
+    },
+    {
+      "method": "M12",
+      "case": "C07",
+      "run_id": "M12-C07-nominal-40000",
+      "status": "succeeded"
+    },
+    {
+      "method": "M12",
+      "case": "C08",
+      "run_id": "M12-C08-nominal-40000",
+      "status": "succeeded"
+    },
+    {
+      "method": "M12",
+      "case": "C09",
+      "run_id": "M12-C09-nominal-40000",
+      "status": "succeeded"
+    },
+    {
+      "method": "M12",
+      "case": "C10",
+      "run_id": "M12-C10-nominal-40000",
+      "status": "succeeded"
+    },
+    {
+      "method": "M12",
+      "case": "C11",
+      "run_id": "M12-C11-nominal-40000",
+      "status": "succeeded"
+    },
+    {
+      "method": "M12",
+      "case": "C12",
+      "run_id": "M12-C12-nominal-40000",
+      "status": "succeeded"
+    },
+    {
+      "method": "M12",
+      "case": "C13",
+      "run_id": "M12-C13-nominal-40000",
+      "status": "succeeded"
+    },
+    {
+      "method": "M12",
+      "case": "C14",
+      "run_id": "M12-C14-nominal-40000",
+      "status": "succeeded"
+    },
+    {
+      "method": "M12",
+      "case": "C15",
+      "run_id": "M12-C15-nominal-40000",
+      "status": "succeeded"
+    },
+    {
+      "method": "M12",
+      "case": "C16",
+      "run_id": "M12-C16-nominal-40000",
+      "status": "succeeded"
+    },
+    {
+      "method": "M12",
+      "case": "C17",
+      "run_id": "M12-C17-nominal-40000",
+      "status": "succeeded"
+    },
+    {
+      "method": "M12",
+      "case": "C18",
+      "run_id": "M12-C18-nominal-40000",
+      "status": "succeeded"
+    },
+    {
+      "method": "M12",
+      "case": "C19",
+      "run_id": "M12-C19-nominal-40000",
+      "status": "succeeded"
+    },
+    {
+      "method": "M12",
+      "case": "C20",
+      "run_id": "M12-C20-nominal-40000",
+      "status": "succeeded"
+    }
+  ],
+  "findings": [
+    {
+      "lang": "en",
+      "theme": "light",
+      "rows": 16,
+      "width": 1600,
+      "height": 900,
+      "scrollWidth": 1600,
+      "scrollHeight": 900
+    },
+    {
+      "lang": "en",
+      "theme": "dark",
+      "rows": 16,
+      "width": 1600,
+      "height": 900,
+      "scrollWidth": 1600,
+      "scrollHeight": 900
+    },
+    {
+      "lang": "es",
+      "theme": "light",
+      "rows": 16,
+      "width": 1600,
+      "height": 900,
+      "scrollWidth": 1600,
+      "scrollHeight": 900
+    },
+    {
+      "lang": "es",
+      "theme": "dark",
+      "rows": 16,
+      "width": 1600,
+      "height": 900,
+      "scrollWidth": 1600,
+      "scrollHeight": 900
+    }
+  ],
+  "page_errors": []
+}
