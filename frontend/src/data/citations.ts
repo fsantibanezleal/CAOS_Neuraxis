@@ -12,7 +12,7 @@ export const CITATIONS: Citation[] = [
     label: 'Neuraxis technical report (2026)',
     citation:
       'Santibáñez-Leal F. Fast Software Control and Bounded Deliberation: Methods, Evidence, and Limits. Technical report (2026).',
-    doi: '10.5281/zenodo.23821075',
+    doi: '10.5281/zenodo.23843751',
   },
   {
     id: 'neuraxisbs12026',

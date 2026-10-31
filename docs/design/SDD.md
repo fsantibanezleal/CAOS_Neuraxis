@@ -1,5 +1,5 @@
 # CAOS Neuraxis software design
-Date: 2026-10-31. Candidate display release: 0.02.019; deployment evidence is recorded separately.
+Date: 2026-10-31. Candidate display release: 0.02.020; deployment evidence is recorded separately.
 
 ## Problem and non-goals
 Provide an inspectable software-control workbench, scientific explanation, complete measured comparison and authenticated local workspace operation. The public companion replays evidence; actual user tools run on the user's loopback service. A browser simulation is visibly labeled and never substituted for native effect evidence.

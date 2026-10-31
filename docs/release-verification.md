@@ -53,7 +53,7 @@ All 38 bilingual notebooks executed in fresh kernels; Python tests passed (4 ski
 
 The measured findings are unchanged: M12 solved 1,160/1,200 core episodes; M01 solved 1,200/1,200; on the 24-episode transfer comparison M04 solved 24/24 and M12 solved 21/24; all four ablations matched M12's success count; and the fitted gate selected never-defer. The evidence does not support a learned-superiority claim.
 
-Both latest Zenodo records were read and verified: the technical report, version 0.02.018 ([10.5281/zenodo.23821075](https://doi.org/10.5281/zenodo.23821075)), and the research manuscript, version 0.02 ([10.5281/zenodo.23821087](https://doi.org/10.5281/zenodo.23821087)).
+At the 0.02.018 source release, the latest Zenodo records were the technical report, version 0.02.018 ([10.5281/zenodo.23821075](https://doi.org/10.5281/zenodo.23821075)), and the research manuscript, version 0.02 ([10.5281/zenodo.23821087](https://doi.org/10.5281/zenodo.23821087)).
 
 ## 0.02.019 deployed release
 
@@ -61,4 +61,4 @@ This release adopts CAOS Product Template 0.14.001 and corrects clipped labels i
 
 Hosted [Neuraxis CI](https://github.com/fsantibanezleal/CAOS_Neuraxis/actions/runs/41217901058) and the [audited static build](https://github.com/fsantibanezleal/CAOS_Neuraxis/actions/runs/41217901057) passed. The deployed static manifest contains 16,067 files; 19 file hashes and five routes were verified. The live shell gate passed 975 states with 157 captures, zero failures, and zero waivers. Live checks also passed 296 scientific-content checks, 84 route/theme/language combinations, 240 canonical evidence states, and 40 architecture combinations. Two live operations runs verified nine native receipts each, exports, cross-session isolation, deletion, and the disabled public `/api` route.
 
-Methods, data sources, and scientific results did not change. The Zenodo technical report remains version 0.02.018 and the M12 manuscript remains version 0.02; both current records were verified online. The findings and limitations in the report are unchanged.\n
+The Zenodo technical report was subsequently updated to version 0.02.019 ([10.5281/zenodo.23843751](https://doi.org/10.5281/zenodo.23843751)) to add the operational workbench implementation and cite the current M12 paper. The M12 manuscript remains version 0.02 ([10.5281/zenodo.23821087](https://doi.org/10.5281/zenodo.23821087)). No research method, data source, benchmark outcome, or conclusion changed. The separate post-publication receipt records the live file checksum and independent record verification.\n
