@@ -23,10 +23,14 @@ try {
       const drawing = modal.locator('.arch-svg');
       await expect(drawing).toBeVisible();
       const textOverflow = await drawing.evaluate(svg => {
-        const cards = Array.from(svg.querySelectorAll('rect.card')).map(card => card.getBBox());
+        const cards = Array.from(svg.querySelectorAll('rect.card'))
+          .map(card => card.getBBox())
+          .filter(bounds => bounds.width > 0 && bounds.height > 0);
         return Array.from(svg.querySelectorAll('text')).flatMap(text => {
-          if (getComputedStyle(text).display === 'none') return [];
+          const style = getComputedStyle(text);
+          if (style.display === 'none' || style.visibility === 'hidden') return [];
           const bounds = text.getBBox();
+          if (bounds.width <= 0 || bounds.height <= 0) return [];
           const card = cards.find(candidate =>
             bounds.x >= candidate.x - 1 &&
             bounds.x + bounds.width <= candidate.x + candidate.width + 1 &&
