@@ -57,6 +57,7 @@ def main() -> int:
         ("template adoption and deployment target", [PY, "scripts/check_template_adoption.py"]),
         ("core research artifacts", [PY, "scripts/check_artifacts.py"]),
         ("research reports", [PY, "scripts/check_research.py"]),
+        ("event-response audit", [PY, "scripts/check_event_responses.py"]),
         ("semantic transfer", [PY, "scripts/check_semantic_transfer.py"]),
         ("semantic routing", [PY, "scripts/check_semantic_routing.py"]),
         ("native operation study", [PY, "scripts/check_operations.py"]),

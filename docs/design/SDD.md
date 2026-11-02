@@ -1,5 +1,5 @@
 # CAOS Neuraxis software design
-Date: 2026-10-31. Candidate display release: 0.02.020; deployment evidence is recorded separately.
+Date: 2026-11-02. Candidate display release: 0.02.021; deployment evidence is recorded separately.
 
 ## Problem and non-goals
 Provide an inspectable software-control workbench, scientific explanation, complete measured comparison and authenticated local workspace operation. The public companion replays evidence; actual user tools run on the user's loopback service. A browser simulation is visibly labeled and never substituted for native effect evidence.
@@ -18,6 +18,7 @@ The detailed evidence, access limits and engineering inferences are persisted in
 - The policy baselines use the published [XGBoost](https://arxiv.org/abs/1603.02754), [GRU](https://arxiv.org/abs/1406.1078), [LinUCB](https://arxiv.org/abs/1003.0146), and [PPO](https://arxiv.org/abs/1707.06347) method families. The Neuraxis implementation and its exact training/evaluation protocol are documented separately in the research dossier.
 - Allocation of computation is studied in [learning to select computations](https://arxiv.org/abs/1711.06892); cost-sensitive deferral is studied in [learning to defer](https://proceedings.mlr.press/v119/mozannar20b.html). Neither source implies that this product's fitted gate is useful.
 - Stateful tool and task evaluation have prior art in [ToolSandbox](https://arxiv.org/abs/2408.04682), [SWE-bench](https://arxiv.org/abs/2310.06770), and [tau2-bench](https://arxiv.org/abs/2506.07982). Neuraxis's selected local subsets are not full reproductions of those benchmarks.
+- Asynchronous result handling now has direct 2026 benchmark coverage in [Async-RBench](https://arxiv.org/abs/2610.32429), which separates event-response quality from final task success; [InterruptBench](https://arxiv.org/abs/2604.00892) evaluates additions, revisions and retractions during stateful web tasks. These works are prior art for the evaluation problem. They do not establish Neuraxis's performance or novelty.
 
 UNVERIFIED: current vendor documentation and independent reproduction of external benchmark results have not been re-audited for this release.
 
@@ -63,7 +64,7 @@ Every Python requirements file is exactly pinned. Frontend ranges are constraine
 | Product runtime | `typing-extensions` | `4.16.0` | pinned dependency | exact environment contract |
 | Product runtime | `typing-inspection` | `0.4.4` | pinned dependency | exact environment contract |
 | Product runtime | `uvicorn` | `0.53.0` | pinned dependency | exact environment contract |
-| Browser build | `@fasl-work/caos-app-shell` | `0.19.9` | locked frontend dependency | exact package-lock version |
+| Browser build | `@fasl-work/caos-app-shell` | `0.19.12` | locked frontend dependency | exact package-lock version |
 | Browser build | `@playwright/test` | `1.63.0` | locked frontend dependency | exact package-lock version |
 | Browser build | `@types/node` | `22.20.0` | locked frontend dependency | exact package-lock version |
 | Browser build | `@types/react` | `19.2.17` | locked frontend dependency | exact package-lock version |

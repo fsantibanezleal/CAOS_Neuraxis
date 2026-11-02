@@ -1,7 +1,7 @@
 # File operations and investigations
 
 Tasks executes three useful fixed-tool workflows through the published reflexmesh
-0.1.1 native runtime. It does not execute uploaded source, ask an LLM to invent
+0.1.2 native runtime. It does not execute uploaded source, ask an LLM to invent
 findings or grant a model arbitrary computer access.
 
 ## Run a task

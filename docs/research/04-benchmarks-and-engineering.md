@@ -1,6 +1,6 @@
 # Evaluation and engineering dossier for Neuraxis and reflexmesh
 
-Research date: 2026-09-20. Status: researched proposal, no implementation or benchmark execution. Scope: a fast event-driven software controller that supervises tools and delegates selected work to deliberative models. Proposed names are CAOS_Neuraxis (private app) and reflexmesh (separate package repository). Name availability is not a reservation.
+Research basis first compiled 2026-09-20; implementation status reviewed 2026-11-02. This dossier began as a research and design proposal. Neuraxis now implements a Rust-backed action broker, a TypeScript research workbench, native/local operation paths, and a reproducible evaluation pipeline. Its frozen evaluation contains 14,400 core episodes, with transfer, routing, ablation and event-response evidence maintained as separate datasets. The public app repository is [CAOS_Neuraxis](https://github.com/fsantibanezleal/CAOS_Neuraxis). The dossier's external-benchmark recommendations below remain proposals until an exact eligible task set is executed and reported; the implemented core does not establish a general System One capability or superiority over external methods.
 
 This dossier distinguishes source findings, engineering recommendations, and hypotheses requiring experiments. Sources are recorded in [sources-engineering.json](sources-engineering.json). A benchmark being documented or publicly downloadable does not mean it ran in this session. Primary papers, official repositories, license files, dataset cards, and platform documentation were inspected; gated task contents were not accessed.
 
@@ -159,7 +159,7 @@ Use separately tuned policies for hard safety invariants and statistical task su
 
 ## 6. Engineering stack recommendation
 
-The preferred package design is a Rust decision/execution-contract core, Python research/training/evaluation and public SDK, and TypeScript app consuming exported results or an explicitly secured local runner. This is a design recommendation pending plan validation, not implemented architecture.
+The implemented architecture uses a Rust decision and execution-contract core, Python research/training/evaluation and SDK surfaces, and a TypeScript app consuming exported results or an explicitly secured local runner. The architectural choice is implemented; its measured fit remains limited to the recorded workload, hardware, and release evidence.
 
 | Language | Fit | Limit and decision |
 |---|---|---|

@@ -123,6 +123,28 @@ export function normalizeEpisode(value: unknown): Episode {
     provenance: typeof v.provenance === 'object' && v.provenance ? v.provenance : {},
   } as Episode;
 }
+
+export async function loadVerifiedJSON<T>(
+  path: string,
+  sha256: string,
+  signal?: AbortSignal,
+): Promise<T> {
+  if (path.includes('..') || /^\w+:/.test(path) || path.startsWith('/'))
+    throw new Error('Evidence path must be relative');
+  if (!/^[a-f0-9]{64}$/i.test(sha256)) throw new Error('Evidence requires a SHA-256 digest');
+  if (!globalThis.crypto?.subtle)
+    throw new Error('Evidence verification requires a secure browser context');
+  const response = await fetch(`${root}${path}`, { signal });
+  if (!response.ok || !(response.headers.get('content-type') ?? '').includes('json'))
+    throw new Error(`HTTP ${response.status}`);
+  const bytes = await response.arrayBuffer();
+  const digest = Array.from(new Uint8Array(await crypto.subtle.digest('SHA-256', bytes)))
+    .map((byte) => byte.toString(16).padStart(2, '0'))
+    .join('');
+  if (digest !== sha256.toLowerCase()) throw new Error('Evidence SHA-256 mismatch');
+  return JSON.parse(new TextDecoder('utf-8', { fatal: true }).decode(bytes)) as T;
+}
+
 export async function loadVerifiedIndex(
   path: string,
   sha256: string,

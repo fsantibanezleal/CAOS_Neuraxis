@@ -1,5 +1,10 @@
 # Changelog
 
+## [0.02.021] - 2026-11-02
+
+- Adopt CAOS App Shell 0.19.12 and CAOS Product Template 0.14.003. Corrected the Benchmark live-control measurement and expanded the research interface with a source-hash-verified, bilingual event-response audit kept separate from the frozen core score.
+- Rebuilt all 38 bilingual notebooks with topic-specific comparisons, complete rendered figures and fresh-kernel outputs. Extended the technical report with the post-hoc event audit while preserving the M12 core result of 1,160/1,200 against M01 at 1,200/1,200. Zenodo version DOI 10.5281/zenodo.23875344 is reserved; publication is pending.
+
 ## [0.02.020] - 2026-10-31
 
 - Update the reader-facing citation to the current Zenodo technical-report version after its post-release publication. The report remains at 0.02.019; its methods, data sources, benchmark outcomes, and conclusions are unchanged. No runtime behavior changed.

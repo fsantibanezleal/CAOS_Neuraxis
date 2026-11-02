@@ -1,0 +1,20 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://neuraxis.ml.fasl-work.com/contracts/event-response-index.schema.json",
+  "title": "Neuraxis event-response audit index",
+  "type": "object",
+  "required": ["schema_version", "study", "report", "report_sha256", "source_episode_count", "contract_cases", "status"],
+  "properties": {
+    "schema_version": { "const": 1 },
+    "study": { "const": "event-response-audit" },
+    "report": { "const": "report.json" },
+    "report_sha256": { "type": "string", "pattern": "^[a-f0-9]{64}$" },
+    "source_episode_count": { "const": 4320 },
+    "contract_cases": {
+      "type": "array",
+      "const": ["C07", "C11", "C13", "C15", "C18", "C20"]
+    },
+    "status": { "const": "exploratory_posthoc" }
+  },
+  "additionalProperties": false
+}

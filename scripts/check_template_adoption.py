@@ -10,6 +10,7 @@ from pathlib import Path
 ROOT = Path(__file__).resolve().parents[1]
 FEATURES = (
     "benchmark-adequacy",
+    "event-response-audit",
     "evidence-workbench",
     "operational-workbench",
     "reliability-audit",

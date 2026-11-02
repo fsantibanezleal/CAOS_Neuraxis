@@ -1,0 +1,249 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://neuraxis.ml.fasl-work.com/contracts/event-response-report.schema.json",
+  "title": "Neuraxis event-response audit report",
+  "type": "object",
+  "required": [
+    "schema_version",
+    "study",
+    "status",
+    "generated_at",
+    "source",
+    "contract_source",
+    "contracts",
+    "dimensions",
+    "coverage",
+    "methods",
+    "limitations"
+  ],
+  "properties": {
+    "schema_version": {
+      "const": 1
+    },
+    "study": {
+      "const": "event-response-audit"
+    },
+    "status": {
+      "const": "exploratory_posthoc"
+    },
+    "generated_at": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "source": {
+      "type": "string",
+      "minLength": 1
+    },
+    "contract_source": {
+      "type": "string",
+      "minLength": 1
+    },
+    "contracts": {
+      "type": "array",
+      "minItems": 6,
+      "maxItems": 6,
+      "items": {
+        "type": "object",
+        "required": [
+          "case_id",
+          "trigger",
+          "required_response",
+          "preservation",
+          "verification"
+        ],
+        "properties": {
+          "case_id": {
+            "type": "string",
+            "pattern": "^C[0-9]{2}$"
+          },
+          "trigger": {
+            "type": "string"
+          },
+          "required_response": {
+            "type": "string"
+          },
+          "preservation": {
+            "type": "string"
+          },
+          "verification": {
+            "type": "string"
+          }
+        },
+        "additionalProperties": false
+      }
+    },
+    "dimensions": {
+      "type": "array",
+      "minItems": 5,
+      "items": {
+        "type": "string"
+      }
+    },
+    "coverage": {
+      "type": "object",
+      "required": [
+        "episodes",
+        "methods",
+        "cases",
+        "episodes_by_case",
+        "events_observed",
+        "events_not_observed",
+        "episode_sha256"
+      ],
+      "properties": {
+        "episodes": {
+          "const": 4320
+        },
+        "methods": {
+          "const": 12
+        },
+        "cases": {
+          "const": 6
+        },
+        "episodes_by_case": {
+          "type": "object",
+          "minProperties": 6,
+          "additionalProperties": {
+            "type": "integer",
+            "minimum": 1
+          }
+        },
+        "events_observed": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "events_not_observed": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "episode_sha256": {
+          "type": "object",
+          "minProperties": 4320,
+          "maxProperties": 4320,
+          "propertyNames": {
+            "type": "string",
+            "pattern": "^M[0-9]{2}-C[0-9]{2}-[a-z_]+-400[0-9]{2}\\.json$"
+          },
+          "additionalProperties": {
+            "type": "string",
+            "pattern": "^[a-f0-9]{64}$"
+          }
+        }
+      },
+      "additionalProperties": false
+    },
+    "methods": {
+      "type": "object",
+      "minProperties": 12,
+      "maxProperties": 12,
+      "patternProperties": {
+        "^M[0-9]{2}$": {
+          "$ref": "#/$defs/method"
+        }
+      },
+      "additionalProperties": false
+    },
+    "limitations": {
+      "type": "array",
+      "minItems": 5,
+      "items": {
+        "type": "string",
+        "minLength": 12
+      }
+    }
+  },
+  "$defs": {
+    "case": {
+      "type": "object",
+      "required": [
+        "eligible_episodes",
+        "events_observed",
+        "response_pass",
+        "contract_invariant_pass",
+        "reverify_pass",
+        "task_success_all_eligible"
+      ],
+      "properties": {
+        "eligible_episodes": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "events_observed": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "response_pass": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "contract_invariant_pass": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "reverify_pass": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "task_success_all_eligible": {
+          "type": "integer",
+          "minimum": 0
+        }
+      },
+      "additionalProperties": false
+    },
+    "method": {
+      "type": "object",
+      "required": [
+        "eligible_episodes",
+        "events_observed",
+        "response_pass",
+        "contract_invariant_pass",
+        "reverify_pass",
+        "task_success_all_eligible",
+        "violations_all_eligible",
+        "by_case"
+      ],
+      "properties": {
+        "eligible_episodes": {
+          "const": 360
+        },
+        "events_observed": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "response_pass": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "contract_invariant_pass": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "reverify_pass": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "task_success_all_eligible": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "violations_all_eligible": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "by_case": {
+          "type": "object",
+          "minProperties": 6,
+          "maxProperties": 6,
+          "patternProperties": {
+            "^C[0-9]{2}$": {
+              "$ref": "#/$defs/case"
+            }
+          },
+          "additionalProperties": false
+        }
+      },
+      "additionalProperties": false
+    }
+  }
+}

@@ -4,7 +4,7 @@ Use [matched investigations and fresh local execution](workbench/investigations.
 
 Read the [corrected scientific results](evaluation/corrected-results.md) for the full comparison and negative findings, and the [software design](design/SDD.md) for contracts and requirement gates.
 
-The [benchmark adequacy audit](evaluation/benchmark-adequacy.md) exposes the frozen core's state-machine ceiling and seed-invariant outcomes. The Benchmark page displays its source-bound counts beside the original results.
+The [benchmark adequacy audit](evaluation/benchmark-adequacy.md) exposes the frozen core's state-machine ceiling and seed-invariant outcomes. The [event-response audit](evaluation/event-response-audit.md) scores action choice, event invariants and final goal verification separately across six frozen cases; the Benchmark page displays those source-bound counts apart from the core results.
 
 Use [operational tasks](workbench/operations.md) for the default real-file workflows and [the rebuild research](research/06-operational-rebuild.md) for their evidence boundaries.
 

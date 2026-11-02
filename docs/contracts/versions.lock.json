@@ -93,5 +93,15 @@
     "version": "1.0.0",
     "schema": "docs/contracts/schemas/research-report.schema.json",
     "sha256": "cf3e002674bb7cd169ac9da1e5ec126991205cd96150dc42fb88e44d45613da2"
+  },
+  "event-response-audit": {
+    "version": "1.0.0",
+    "schema": "docs/contracts/schemas/event-response-report.schema.json",
+    "sha256": "7391d50a85caa15d4e0148400e8f166d3c0e88399a1756d7b71df047823538b9"
+  },
+  "event-response-index": {
+    "version": "1.0.0",
+    "schema": "docs/contracts/schemas/event-response-index.schema.json",
+    "sha256": "aba7254cba728353614145ab30fd7b1f33531fb08e3bd738f6462a805a2d7041"
   }
 }

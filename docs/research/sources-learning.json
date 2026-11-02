@@ -647,5 +647,32 @@
     "checked_on": "2026-09-20",
     "claims_supported": [],
     "limitations": "UNVERIFIED discovery lead, not counted as verified evidence or relied on for claims."
+  },
+  {
+    "id": "L51",
+    "title": "Async-RBench: Benchmarking Asynchronous Task Execution in LLM Agents",
+    "year": 2026,
+    "url": "https://arxiv.org/abs/2610.32429",
+    "doi": "10.48550/arXiv.2610.32429",
+    "evidence_access": "primary full text and abstract inspected on 2026-11-02",
+    "verified_on": "2026-11-02",
+    "claims_supported": [
+      "Async-RBench uses controlled asynchronous result delivery and event-response contracts, scoring event handling separately from final task success.",
+      "The reported agents show weaknesses on duplicate reports and subagent failures; mandatory full-plan rebuilding yields limited gains with higher model-call counts in the tested settings."
+    ],
+    "limitations": "Preprint posted 2026-10-23; task suite is assembled from agent coding/computer-use benchmarks and does not directly measure Neuraxis or native software-effect control. Results are protocol- and model-specific."
+  },
+  {
+    "id": "L52",
+    "title": "When Users Change Their Mind: Evaluating Interruptible Agents in Long-Horizon Web Navigation",
+    "year": 2026,
+    "url": "https://arxiv.org/abs/2604.00892",
+    "doi": "10.48550/arXiv.2604.00892",
+    "evidence_access": "primary full text and abstract inspected on 2026-11-02",
+    "verified_on": "2026-11-02",
+    "claims_supported": [
+      "InterruptBench evaluates addition, revision and retraction of user intent during stateful web navigation and measures both adaptation effectiveness and efficiency."
+    ],
+    "limitations": "Preprint about WebArena-Lite-derived web tasks; it does not establish behavior on local software effects or prove a general interruption solution."
   }
 ]
