@@ -1,0 +1,40 @@
+{
+  "schema_version": 1,
+  "verification": "post-publication",
+  "verified_at_utc": "2026-11-02T11:43:12Z",
+  "product": "CAOS_Neuraxis",
+  "product_release": "0.02.021",
+  "deployed_source_commit": "672d2cde9ac30a45b35423aeb0943407065f3a6d",
+  "research_changed": false,
+  "technical_report": {
+    "status": "published",
+    "version": "0.02.021",
+    "version_doi": "10.5281/zenodo.23875344",
+    "concept_doi": "10.5281/zenodo.23765413",
+    "record_url": "https://zenodo.org/records/23875344",
+    "published_at_utc": "2026-11-02T11:43:12Z",
+    "title": "Fast Software Control and Bounded Deliberation: Methods, Evidence, and Limits",
+    "file": {
+      "name": "neuraxis-technical-report-v0.02.021.pdf",
+      "bytes": 57484,
+      "remote_md5": "9e066c11f5ba48a6fa1a57b3bdcea9ca",
+      "local_sha256": "e23d72510d5f614e170d35a0c9b76241e24d85286408eba7f7090c594d246b8e",
+      "remote_size_and_md5_match": true,
+      "published_record_contains_only_this_pdf": true,
+      "unauthenticated_download_sha256_match": true
+    },
+    "supersedes": {
+      "version": "0.02.019",
+      "version_doi": "10.5281/zenodo.23843751"
+    },
+    "caos_release_gates_passed": 33
+  },
+  "m12_manuscript": {
+    "status": "published",
+    "version": "0.02",
+    "version_doi": "10.5281/zenodo.23821087",
+    "concept_doi": "10.5281/zenodo.23784117",
+    "changed": false
+  },
+  "scientific_scope": "The report adds a post-hoc event-response audit while preserving the canonical core result and negative interpretation. The audit does not establish a new method or learned superiority."
+}
