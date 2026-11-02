@@ -82,6 +82,7 @@ export function EventResponseEvidence({ methodId }: { methodId: string }) {
 
   const count = (value: number) =>
     new Intl.NumberFormat(lang === 'es' ? 'es-CL' : 'en-US').format(value);
+  const unavailable = lang === 'en' ? 'Not available' : 'No disponible';
   return (
     <div className="nx-chart-grid">
       <Panel title={lang === 'en' ? 'Response by event class' : 'Respuesta por clase de evento'}>
@@ -110,20 +111,22 @@ export function EventResponseEvidence({ methodId }: { methodId: string }) {
                     <td>
                       {row
                         ? `${count(row.events_observed)} / ${count(row.eligible_episodes)}`
-                        : '—'}
+                        : unavailable}
                     </td>
                     <td>
-                      {row ? `${count(row.response_pass)} / ${count(row.events_observed)}` : '—'}
+                      {row
+                        ? `${count(row.response_pass)} / ${count(row.events_observed)}`
+                        : unavailable}
                     </td>
                     <td>
                       {row
                         ? `${count(row.contract_invariant_pass)} / ${count(row.events_observed)}`
-                        : '—'}
+                        : unavailable}
                     </td>
                     <td>
                       {row
                         ? `${count(row.task_success_all_eligible)} / ${count(row.eligible_episodes)}`
-                        : '—'}
+                        : unavailable}
                     </td>
                   </tr>
                 );
