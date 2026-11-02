@@ -1,0 +1,57 @@
+{
+  "date": "2026-11-02",
+  "version": "0.02.022",
+  "tag": "v0.02.022",
+  "release_url": "https://github.com/fsantibanezleal/CAOS_Neuraxis/releases/tag/v0.02.022",
+  "pull_request": 118,
+  "deployed_app_commit": "a892c59d8f708e1223c3f0a6a4d66af5c0d1aa45",
+  "static_release": "a892c59d8f70-60fd6e4a1929",
+  "static_archive_sha256": "60fd6e4a1929997d5a3d12cd51c6423ee2bf144c45398d369edeeb0fec70de5e",
+  "static_manifest_files": 16069,
+  "hosted_checks": {
+    "main_ci": 41440754855,
+    "static_release_build": 41440754712,
+    "pull_request": 118,
+    "conclusion": "success"
+  },
+  "local_gates": {
+    "version_coherence": "passed; 0.02.022",
+    "readiness": "current",
+    "content_standards": "passed",
+    "manuscripts": "passed; 2 declared",
+    "frontend_tests": "39 passed",
+    "frontend_format": "passed",
+    "typescript_and_production_build": "passed",
+    "citation_regression": "stable technical-report concept DOI asserted"
+  },
+  "live_evidence": {
+    "manifest_commit": "a892c59d8f708e1223c3f0a6a4d66af5c0d1aa45",
+    "manifest_version": "0.02.022",
+    "manifest_files": 16069,
+    "citation_asset": {
+      "path": "assets/index-BYvadu8z.js",
+      "sha256": "1aaa1bd1952664607e7e593392f299d0fad3d9999e2cf030fdac5383ac245ee2",
+      "stable_concept_doi_present": true,
+      "stale_v0_02_019_doi_absent": true
+    },
+    "routes_http_200": [
+      "/",
+      "/introduction",
+      "/methodology",
+      "/implementation",
+      "/experiments",
+      "/benchmark"
+    ],
+    "public_api_config_status": 404
+  },
+  "scientific_scope": {
+    "methods_changed": false,
+    "data_changed": false,
+    "results_changed": false,
+    "technical_report_version": "0.02.021",
+    "technical_report_doi": "10.5281/zenodo.23875344",
+    "technical_report_concept_doi": "10.5281/zenodo.23765413",
+    "m12_manuscript_version": "0.02",
+    "m12_manuscript_doi": "10.5281/zenodo.23821087"
+  }
+}
