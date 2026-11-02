@@ -279,4 +279,18 @@ export const CITATIONS: Citation[] = [
       'PyO3. Python and Rust interoperability, parallelism and interpreter ownership. Official documentation.',
     url: 'https://pyo3.rs/main/parallelism',
   },
+  {
+    id: 'asyncRbench2026',
+    label: 'Zeng et al. 2026',
+    citation:
+      'Zeng D et al. Async-RBench: Benchmarking Asynchronous Task Execution in LLM Agents. arXiv preprint (2026).',
+    url: 'https://arxiv.org/abs/2610.32429',
+  },
+  {
+    id: 'interruptBench2026',
+    label: 'Zou et al. 2026',
+    citation:
+      'Zou HP et al. When Users Change Their Mind: Evaluating Interruptible Agents in Long-Horizon Web Navigation. arXiv preprint (2026).',
+    url: 'https://arxiv.org/abs/2604.00892',
+  },
 ];

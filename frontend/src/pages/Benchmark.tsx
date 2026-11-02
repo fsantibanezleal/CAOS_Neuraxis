@@ -9,6 +9,7 @@ import { format, Panel } from '../components/Instruments';
 import { ResearchResults } from '../components/ResearchResults';
 import BenchmarkAdequacy from '../components/BenchmarkAdequacy';
 import SemanticTransfer from '../components/SemanticTransfer';
+import { EventResponseEvidence } from '../components/EventResponseEvidence';
 import OverflowTabs, { OverflowSubTabs } from '../components/OverflowTabs';
 type Bin = { lower: number; upper: number; count: number; confidence: number; accuracy: number };
 interface Aggregate {
@@ -261,7 +262,11 @@ export default function Benchmark() {
                 onClick={() => setMethodId(r.method_id)}
               >
                 <th>
-                  <button className="nx-text-button" onClick={() => setMethodId(r.method_id)}>
+                  <button
+                    className="nx-text-button"
+                    data-control={`benchmark-method-${r.method_id}`}
+                    onClick={() => setMethodId(r.method_id)}
+                  >
                     {r.method_id} {METHODS.find((m) => m.id === r.method_id)?.name[lang]}
                   </button>
                 </th>
@@ -485,10 +490,11 @@ export default function Benchmark() {
               area="live"
               refs={['neuraxis2026']}
             >
-              <div className="nx-inline-controls" data-control="benchmark-method">
+              <div className="nx-inline-controls">
                 <label htmlFor="benchmark-method">{t.method}</label>
                 <select
                   id="benchmark-method"
+                  data-control="benchmark-method"
                   value={selected?.method_id ?? methodId}
                   onChange={(e) => setMethodId(e.target.value)}
                 >
@@ -498,6 +504,38 @@ export default function Benchmark() {
                     </option>
                   ))}
                 </select>
+                <button
+                  className="nx-button"
+                  data-control="benchmark-previous-method"
+                  aria-label={
+                    lang === 'en' ? 'Select previous method' : 'Seleccionar método anterior'
+                  }
+                  title={lang === 'en' ? 'Previous method' : 'Método anterior'}
+                  onClick={() => {
+                    const current = results.findIndex(
+                      (result) => result.method_id === selected?.method_id,
+                    );
+                    const previous = results[(current - 1 + results.length) % results.length];
+                    if (previous) setMethodId(previous.method_id);
+                  }}
+                >
+                  ‹
+                </button>
+                <button
+                  className="nx-button"
+                  data-control="benchmark-next-method"
+                  aria-label={lang === 'en' ? 'Select next method' : 'Seleccionar método siguiente'}
+                  title={lang === 'en' ? 'Next method' : 'Método siguiente'}
+                  onClick={() => {
+                    const current = results.findIndex(
+                      (result) => result.method_id === selected?.method_id,
+                    );
+                    const next = results[(current + 1) % results.length];
+                    if (next) setMethodId(next.method_id);
+                  }}
+                >
+                  ›
+                </button>
                 <button
                   className="nx-button"
                   onClick={() => downloadJSON(index, 'neuraxis-evidence-index.json')}
@@ -552,6 +590,24 @@ export default function Benchmark() {
                                   refs={['neuraxis2026']}
                                 >
                                   {table}
+                                </DocSection>
+                              ),
+                            },
+                            {
+                              id: 'event-response',
+                              label: lang === 'en' ? 'Event response' : 'Respuesta a eventos',
+                              content: (
+                                <DocSection
+                                  title={{
+                                    en: 'Responding to asynchronous changes',
+                                    es: 'Respuesta a cambios asíncronos',
+                                  }}
+                                  area="results"
+                                  refs={['neuraxis2026', 'asyncRbench2026', 'interruptBench2026']}
+                                >
+                                  <EventResponseEvidence
+                                    methodId={selected?.method_id ?? methodId}
+                                  />
                                 </DocSection>
                               ),
                             },

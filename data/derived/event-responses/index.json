@@ -1,0 +1,16 @@
+{
+  "schema_version": 1,
+  "study": "event-response-audit",
+  "report": "report.json",
+  "report_sha256": "73f3d02521675af11d86cedad2849ad7f2a371c0081a952ca4a963fb3546477f",
+  "source_episode_count": 4320,
+  "contract_cases": [
+    "C07",
+    "C11",
+    "C13",
+    "C15",
+    "C18",
+    "C20"
+  ],
+  "status": "exploratory_posthoc"
+}

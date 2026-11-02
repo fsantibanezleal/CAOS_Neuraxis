@@ -80,6 +80,18 @@ export default function Operations() {
   const result = run?.result;
   const displayNodes = run?.nodes ?? nodes;
   const selectedNode = displayNodes.find((n) => n.id === selected) ?? displayNodes[0];
+  function operationErrorMessage(reason: unknown) {
+    if (reason instanceof OperationError && [502, 503].includes(reason.status))
+      return c(
+        'The execution service did not provide registered task inputs. Connect the local operations service, then refresh to retry.',
+        'El servicio de ejecución no entregó las entradas registradas. Conecta el servicio local de operaciones y actualiza para reintentar.',
+      );
+    if (reason instanceof OperationError) return reason.message;
+    return c(
+      'The execution service could not be reached. Connect the local operations service, then refresh to retry.',
+      'No se pudo contactar el servicio de ejecución. Conecta el servicio local de operaciones y actualiza para reintentar.',
+    );
+  }
   function resetSelection() {
     setRun(null);
     setUnavailable(false);
@@ -172,7 +184,7 @@ export default function Operations() {
       })
       .catch((e) => {
         if (alive) {
-          setError(String(e));
+          setError(operationErrorMessage(e));
           setOnline(false);
         }
       })

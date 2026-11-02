@@ -1,6 +1,12 @@
 import { afterEach, describe, expect, it, vi } from 'vitest';
 import { createHash, webcrypto } from 'node:crypto';
-import { loadEpisode, loadVerifiedIndex, type EpisodeReference } from '../api/artifacts';
+import {
+  loadEpisode,
+  loadVerifiedIndex,
+  loadVerifiedJSON,
+  type EpisodeReference,
+} from '../api/artifacts';
+import { eventResponseScopeCopy } from '../components/EventResponseEvidence';
 
 const episode = {
   schema_version: 1,
@@ -45,6 +51,36 @@ describe('canonical artifact integrity', () => {
       'SHA-256 mismatch',
     );
   });
+  it('hash-checks a separate report artifact before parsing its contents', async () => {
+    const report = serialize({ study: 'event-response-audit', episodes: 4320 });
+    serve(report);
+    await expect(
+      loadVerifiedJSON('event-responses/report.json', sha256(report)),
+    ).resolves.toMatchObject({
+      study: 'event-response-audit',
+      episodes: 4320,
+    });
+    serve(report.replace('4320', '4319'));
+    await expect(loadVerifiedJSON('event-responses/report.json', sha256(report))).rejects.toThrow(
+      'SHA-256 mismatch',
+    );
+  });
+  it('adversarial: rejects absolute and escaping paths for separately hashed artifacts', async () => {
+    const fetcher = serve('{}');
+    await expect(loadVerifiedJSON('../report.json', sha256('{}'))).rejects.toThrow('relative');
+    await expect(loadVerifiedJSON('/report.json', sha256('{}'))).rejects.toThrow('relative');
+    expect(fetcher).not.toHaveBeenCalled();
+  });
+
+  it('adversarial: bilingual audit scope remains separate from the core denominator', () => {
+    const en = eventResponseScopeCopy('en', '4,320', '3,915', '405');
+    const es = eventResponseScopeCopy('es', '4.320', '3.915', '405');
+    expect(en).toContain('does not add episodes to the 14,400 core total');
+    expect(es).toContain('no agrega episodios al total central de 14.400');
+    expect(en).toContain('405 eligible episodes ended without exposing their event');
+    expect(es).toContain('405 episodios elegibles terminaron sin exponer su evento');
+  });
+
   it('verifies the exact serialized bytes, including whitespace, before normalization', async () => {
     serve(serialize(episode));
     expect(await loadEpisode(reference())).toMatchObject(episode);

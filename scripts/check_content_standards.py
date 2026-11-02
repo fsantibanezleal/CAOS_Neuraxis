@@ -39,11 +39,7 @@ ALLOW_REL = "scripts/.content_standards_allow"
 _SHA256 = re.compile(r"^[0-9a-f]{64}$")
 
 BANNED_DASHES = {0x2014, 0x2015}  # em dash, horizontal bar
-EMOJI_SELECTOR = 0xFE0F
-
-
-def is_emoji(cp: int) -> bool:
-    return 0x1F000 <= cp <= 0x1FAFF or cp == EMOJI_SELECTOR
+CONTENT_VIOLATION = re.compile(r"[\u2014\u2015\uFE0F\U0001F000-\U0001FAFF]")
 
 
 TEXT_SUFFIXES = {
@@ -104,17 +100,20 @@ def main() -> int:
         suffix = Path(rel).suffix.lower()
         if rel == SELF or (suffix != "" and suffix not in TEXT_SUFFIXES):
             continue  # a file with no suffix is read when it decodes as UTF-8 text (below); any other suffix is skipped
+        file_hits: list[str] = []
         try:
-            lines = (ROOT / rel).read_text(encoding="utf-8").splitlines()
+            with (ROOT / rel).open("r", encoding="utf-8") as stream:
+                for lineno, line in enumerate(stream, 1):
+                    for match in CONTENT_VIOLATION.finditer(line):
+                        ch = match.group()
+                        cp = ord(ch)
+                        if cp in BANNED_DASHES:
+                            file_hits.append(f"  {rel}:{lineno}:{match.start() + 1}  em-dash (U+{cp:04X})")
+                        else:
+                            file_hits.append(f"  {rel}:{lineno}:{match.start() + 1}  emoji (U+{cp:04X} {ch!r})")
         except (OSError, UnicodeDecodeError):
             continue
-        for lineno, line in enumerate(lines, 1):
-            for col, ch in enumerate(line, 1):
-                cp = ord(ch)
-                if cp in BANNED_DASHES:
-                    hits.append(f"  {rel}:{lineno}:{col}  em-dash (U+{cp:04X})")
-                elif is_emoji(cp):
-                    hits.append(f"  {rel}:{lineno}:{col}  emoji (U+{cp:04X} {ch!r})")
+        hits.extend(file_hits)
 
     if allow_problems:
         print(f"::error::the content-standards allow file ({ALLOW_REL}) is not sound:")

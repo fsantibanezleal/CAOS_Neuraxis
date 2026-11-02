@@ -30,8 +30,17 @@ describe('operation evidence and recovery', () => {
     localSession.operationToken = 'expired';
     const fetch = vi
       .fn()
-      .mockResolvedValueOnce(new Response(JSON.stringify({ detail: 'expired' }), { status: 401 }))
-      .mockResolvedValueOnce(new Response(JSON.stringify({ token: 'fresh' })));
+      .mockResolvedValueOnce(
+        new Response(JSON.stringify({ detail: 'expired' }), {
+          status: 401,
+          headers: { 'Content-Type': 'application/json' },
+        }),
+      )
+      .mockResolvedValueOnce(
+        new Response(JSON.stringify({ token: 'fresh' }), {
+          headers: { 'Content-Type': 'application/json' },
+        }),
+      );
     vi.stubGlobal('fetch', fetch);
     await ensureOperationSession();
     expect(localSession.operationToken).toBe('fresh');
@@ -45,5 +54,15 @@ describe('operation evidence and recovery', () => {
     vi.stubGlobal('fetch', fetch);
     await expect(operationAPI('runs', {})).rejects.toThrow('Timed out');
     expect(fetch).toHaveBeenCalledTimes(1);
+  });
+  it('treats a static HTML fallback as an unavailable operations service', async () => {
+    const fetch = vi.fn().mockResolvedValue(
+      new Response('<!doctype html><html></html>', {
+        status: 200,
+        headers: { 'Content-Type': 'text/html' },
+      }),
+    );
+    vi.stubGlobal('fetch', fetch);
+    await expect(operationAPI('config')).rejects.toMatchObject({ status: 503 });
   });
 });

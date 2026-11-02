@@ -140,21 +140,29 @@ export async function operationAPI(path: string, body?: unknown, method?: string
     body: body === undefined ? undefined : JSON.stringify(body),
     signal: AbortSignal.timeout(15000),
   });
-  if (!response.ok) {
-    let detail = '';
+  const contentType = response.headers.get('content-type') ?? '';
+  let payload: any;
+  if (contentType.toLowerCase().includes('json')) {
     try {
-      detail = (await response.json()).detail ?? '';
+      payload = await response.json();
     } catch {
-      /* Host may not have an operation service. */
+      if (response.ok) throw new OperationError(502, 'Execution service returned invalid JSON');
     }
+  }
+  if (!response.ok) {
     if (response.status === 401 && localSession.operationToken === token)
       localSession.operationToken = undefined;
+    const detail = typeof payload?.detail === 'string' ? payload.detail : '';
     throw new OperationError(
       response.status,
       `HTTP ${response.status}${detail ? `: ${detail}` : ''}`,
     );
   }
-  return response.json();
+  if (!contentType.toLowerCase().includes('json'))
+    throw new OperationError(503, 'Execution service returned a non-JSON response');
+  if (payload === undefined)
+    throw new OperationError(502, 'Execution service returned invalid JSON');
+  return payload;
 }
 export async function ensureOperationSession() {
   if (localSession.operationToken) {
