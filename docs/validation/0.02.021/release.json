@@ -1,0 +1,66 @@
+{
+  "date": "2026-11-02",
+  "version": "0.02.021",
+  "tag": "v0.02.021",
+  "release_url": "https://github.com/fsantibanezleal/CAOS_Neuraxis/releases/tag/v0.02.021",
+  "pull_request": 117,
+  "deployed_app_commit": "672d2cde9ac30a45b35423aeb0943407065f3a6d",
+  "static_release": "672d2cd9ac3-4c9b868876e1",
+  "static_archive_sha256": "4c9b868876e123929a3f61fc4a397e059dc2ce6f011130dba23c1eab71d24ef3",
+  "static_manifest_files": 16069,
+  "operations_service_commit": "bdaea9480110fbc1d8309d9eb526b905408a26b5",
+  "engine": "reflexmesh 0.1.2",
+  "shell": "@fasl-work/caos-app-shell 0.19.12",
+  "template": "CAOS_PRODUCT_TEMPLATE 0.14.003",
+  "hosted_checks": {
+    "main_ci": 41438567376,
+    "static_release_build": 41438567561,
+    "pull_request": 117,
+    "conclusion": "success"
+  },
+  "local_gates": {
+    "source_gate": "passed",
+    "python_test_suite": "passed; 3 skipped",
+    "frontend_tests": "38 passed",
+    "frontend_format": "passed",
+    "typescript_and_production_build": "passed",
+    "notebooks": "38 bilingual notebooks executed top to bottom in fresh kernels",
+    "core_artifact_integrity": "passed; 14400 episodes, 1440 cells, 12 methods, 20 cases, 10 seeds",
+    "event_response_audit": "passed; 4320 eligible episodes, 3915 observed events, post-hoc exploratory",
+    "zenodo_publication": "passed; 33 publication and public-file checks"
+  },
+  "live_evidence": {
+    "manifest_commit": "672d2cde9ac30a45b35423aeb0943407065f3a6d",
+    "manifest_version": "0.02.021",
+    "static_manifest_files": 16069,
+    "event_response_sha256": "73f3d02521675af11d86cedad2849ad7f2a371c0081a952ca4a963fb3546477f",
+    "direct_routes_http_200": [
+      "/",
+      "/introduction",
+      "/methodology",
+      "/implementation",
+      "/experiments",
+      "/benchmark"
+    ],
+    "operations_service_commit": "bdaea9480110fbc1d8309d9eb526b905408a26b5",
+    "operations_service_active": true,
+    "operations_engine": "reflexmesh 0.1.2",
+    "public_api_config_status": 404,
+    "verification_method": "HTTP, release manifest and SSH host checks; no browser interaction"
+  },
+  "scientific_scope": {
+    "core_episodes_changed": false,
+    "core_results_changed": false,
+    "technical_report_version": "0.02.021",
+    "technical_report_doi": "10.5281/zenodo.23875344",
+    "technical_report_concept_doi": "10.5281/zenodo.23765413",
+    "m12_manuscript_version": "0.02",
+    "m12_manuscript_doi": "10.5281/zenodo.23821087",
+    "m12_core_successes": 1160,
+    "m12_core_episodes": 1200,
+    "m01_core_successes": 1200,
+    "m01_core_episodes": 1200,
+    "event_response_status": "exploratory_posthoc",
+    "conclusion": "The evidence does not establish learned superiority, AGI, or biological equivalence."
+  }
+}

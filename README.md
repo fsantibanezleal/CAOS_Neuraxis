@@ -61,4 +61,4 @@ The M12 method and its negative or partial benchmark evidence are reported in th
 
 ## Technical report
 
-The detailed methods, benchmark results, and operational workbench implementation are published as a [CC BY 4.0 technical report](https://doi.org/10.5281/zenodo.23765413). The current versioned report DOI is [10.5281/zenodo.23843751](https://doi.org/10.5281/zenodo.23843751) (0.02.019).
+The detailed methods, benchmark results, event-response audit, and operational workbench implementation are published as a [CC BY 4.0 technical report](https://doi.org/10.5281/zenodo.23765413). The current versioned report DOI is [10.5281/zenodo.23875344](https://doi.org/10.5281/zenodo.23875344) (0.02.021).
