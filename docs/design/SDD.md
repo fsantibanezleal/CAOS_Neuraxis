@@ -64,7 +64,7 @@ Every Python requirements file is exactly pinned. Frontend ranges are constraine
 | Product runtime | `typing-extensions` | `4.16.0` | pinned dependency | exact environment contract |
 | Product runtime | `typing-inspection` | `0.4.4` | pinned dependency | exact environment contract |
 | Product runtime | `uvicorn` | `0.53.0` | pinned dependency | exact environment contract |
-| Browser build | `@fasl-work/caos-app-shell` | `0.19.12` | locked frontend dependency | exact package-lock version |
+| Browser build | `@fasl-work/caos-app-shell` | `0.23.000` | locked frontend dependency | exact package-lock version |
 | Browser build | `@playwright/test` | `1.63.0` | locked frontend dependency | exact package-lock version |
 | Browser build | `@types/node` | `22.20.0` | locked frontend dependency | exact package-lock version |
 | Browser build | `@types/react` | `19.2.17` | locked frontend dependency | exact package-lock version |
