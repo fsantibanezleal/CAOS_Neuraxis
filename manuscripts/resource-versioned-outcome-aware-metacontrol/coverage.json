@@ -1,0 +1,11 @@
+{
+  "kind": "manuscript",
+  "title_support": [
+    "fig:m12-core-success",
+    "fig:m12-transfer",
+    "fig:m12-transfer-pairs"
+  ],
+  "claims": {
+    "BS-1": "sec:m12"
+  }
+}

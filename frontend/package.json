@@ -1,12 +1,12 @@
 {
   "name": "neuraxis-frontend",
   "private": true,
-  "version": "0.2.22",
+  "version": "0.2.23",
   "type": "module",
   "scripts": {
     "predev": "node copy-data.mjs",
     "dev": "vite",
-    "prebuild": "node copy-data.mjs",
+    "prebuild": "node copy-data.mjs && node build-diagrams.mjs",
     "build": "tsc --noEmit && vite build",
     "preview": "vite preview",
     "test": "vitest run",
@@ -15,7 +15,7 @@
     "format:check": "prettier --check \"src/**/*.{ts,tsx}\" vite.config.ts"
   },
   "dependencies": {
-    "@fasl-work/caos-app-shell": "0.19.12",
+    "@fasl-work/caos-app-shell": "0.26.3",
     "i18next": "^26.4.2",
     "katex": "0.19.0",
     "lucide-react": "^1.47.0",

@@ -1,0 +1,49 @@
+\begin{table}[H]\centering\small
+\begin{tabularx}{.96\linewidth}{lrrX}\toprule
+Lane & Scheduled & M12 & Comparator result\\\midrule
+Core & 1,200 & 1,160 & M01 records 1,200 verified successes\\
+Structural transfer & 24 & 21 & M04 records 24 verified successes\\
+Semantic transfer & 128 & 18 & M09 records 38 verified successes\\\bottomrule
+\end{tabularx}\caption{M12 success by evaluation lane, preserving separate denominators and the strongest measured comparator in each frozen population.}\label{tab:lane-results}\end{table}
+
+\begin{table}[H]\centering\small
+\begin{tabularx}{.96\linewidth}{lrrX}\toprule
+Core method & Successes & p50 ms & p95 ms\\\midrule
+Guarded finite-state & 1,200 & 0.0219 & 0.0394\\
+XGBoost & 1,200 & 2.6327 & 4.0172\\
+Cost-sensitive deferral & 1,200 & 1.8156 & 3.1422\\
+Proposed metacontroller & 1,160 & 18.1303 & 158.9701\\\bottomrule
+\end{tabularx}\caption{Success and recorded policy decision latency for representative core controllers from the same frozen benchmark population.}\label{tab:latency-results}\end{table}
+
+\begin{table}[H]\centering\small
+\begin{tabularx}{.96\linewidth}{lrrX}\toprule
+Core method & Successes & Rate & Contract violations\\\midrule
+Guarded finite-state & 1,200/1,200 & 100.00\% & 0\\
+XGBoost & 1,200/1,200 & 100.00\% & 0\\
+Cost-sensitive deferral & 1,200/1,200 & 100.00\% & 0\\
+Proposed metacontroller & 1,160/1,200 & 96.67\% & 0\\\bottomrule
+\end{tabularx}\caption{Verified task success and contract violations for representative controllers on the full 1,200-episode core population.}\label{tab:core-results}\end{table}
+
+\begin{table}[H]\centering\small
+\begin{tabularx}{.96\linewidth}{lrrX}\toprule
+M12 configuration & Successes & Delta & Evaluation denominator\\\midrule
+Full composite & 1,160 & 0 & Reference method\\
+No memory & 1,160 & +0 & 1,200 scheduled episodes\\
+No effect model & 1,160 & +0 & 1,200 scheduled episodes\\
+No deferral & 1,160 & +0 & 1,200 scheduled episodes\\
+No invalidation & 1,160 & +0 & 1,200 scheduled episodes\\\bottomrule
+\end{tabularx}\caption{Core success totals for the full controller and four one-component ablations, with task-success changes against the same frozen cells.}\label{tab:ablation-results}\end{table}
+
+\begin{table}[H]\centering\small
+\begin{tabularx}{.96\linewidth}{lrrX}\toprule
+Paired comparison & Wins & Ties & Losses\\\midrule
+M12 versus Direct planner & 2 & 104 & 22\\
+M12 versus Boosted policy & 18 & 108 & 2\\\bottomrule
+\end{tabularx}\caption{Paired outcomes for M12 against measured methods on matched semantic-transfer cases, separate from the 14,400-episode core denominator.}\label{tab:semantic-pairs}\end{table}
+
+\begin{table}[H]\centering\small
+\begin{tabularx}{.96\linewidth}{lrrrrr}\toprule
+Method & Eligible & Events & Response passes & Reverified & Goal success\\\midrule
+M01 & 360 & 360 & 300 & 360 & 360\\
+M12 & 360 & 360 & 330 & 320 & 320\\\bottomrule
+\end{tabularx}\caption{Exploratory response checks and verified completion over eligible frozen episodes, with their distinct event and task denominators.}\label{tab:event-response-counts}\end{table}

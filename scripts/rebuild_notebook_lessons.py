@@ -141,6 +141,81 @@ CASE_FOR_TOPIC = {
     "06-ablation-and-export-parity": "C07",
 }
 
+LEVEL1_FORMAL = {
+    "en": {
+        "01-fast-event-control": ("For M01, the selector has no learned score: it chooses the first candidate that satisfies the declared guard against the current resource revision. M02 changes traversal structure, not the authority rule. This distinction makes a useful trace inspectable: candidate order, guard result and independently verified postcondition remain separate.", r"a_t = \operatorname{first}\{a \in C_t : g(a, o_t, r_t)=1\}"),
+        "02-learned-action-policies": ("M03 and M04 estimate which demonstrated action is preferred from features. Their scores rank only the candidates admitted by the environment; the fitted probability is not a permission and is not itself a successful task outcome. Logistic scoring gives a concrete example of that distinction.", r"p_\theta(y=1\mid x)=\frac{1}{1+\exp(-\theta^\top x)}"),
+        "03-sequential-control": ("A cancellation decision is judged over a sequence: the controller observes a running job, requests a stop, and then verifies a terminal state. A single correct-looking action is insufficient when the process may finish or change between observations. The discounted return is a convenient summary, while the hard postcondition remains authoritative.", r"G_t=\sum_{k=0}^{T-t}\gamma^k r_{t+k},\qquad 0\leq\gamma\leq1"),
+        "04-deliberation-allocation": ("A planner call is useful only when its expected change to verified utility pays for its latency and failure risk. The decision should compare incremental utility with cost on the same observed candidate set. The threshold is a policy choice to measure, not a biological constant or a guarantee of improvement.", r"\Delta U(x)=\mathbb{E}[U_{\mathrm{delegate}}-U_{\mathrm{fast}}\mid x]-\lambda\,\mathbb{E}[T_{\mathrm{delegate}}\mid x]"),
+        "05-evaluation-and-transfer": ("A success fraction is defined by a numerator of independently verified postconditions and the full attempted denominator. It describes only the declared cases and split. When outcomes repeat exactly across nominal seeds, increasing the seed count does not create independent task compositions or justify a stronger generalization claim.", r"\widehat p=\frac{1}{n}\sum_{i=1}^{n}\mathbf{1}[\text{oracle}(e_i)=\text{pass}]"),
+        "06-ablation-and-export-parity": ("Export parity compares the same input at the Python reference and native implementation. The maximum absolute error is meaningful only on the declared test domain and tolerance; it does not establish safe action admission, calibrated probabilities or successful task completion. Those require separate checks.", r"\varepsilon_\infty=\max_{x\in\mathcal{D}}|f_{\mathrm{Python}}(x)-f_{\mathrm{Rust}}(x)|\leq\tau"),
+    },
+    "es": {
+        "01-fast-event-control": ("M01 no utiliza un puntaje aprendido: elige el primer candidato cuya guarda satisface la revisión actual del recurso. M02 cambia la estructura del recorrido, no la regla de autoridad. Así, la traza permite inspeccionar por separado el orden de candidatos, el resultado de cada guarda y la poscondición verificada independientemente.", r"a_t = \operatorname{primero}\{a \in C_t : g(a, o_t, r_t)=1\}"),
+        "02-learned-action-policies": ("M03 y M04 estiman qué acción demostrada se prefiere a partir de características. Sus puntajes ordenan solo los candidatos admitidos por el entorno; la probabilidad ajustada no concede permisos ni equivale al éxito de la tarea. La puntuación logística muestra concretamente esa diferencia.", r"p_\theta(y=1\mid x)=\frac{1}{1+\exp(-\theta^\top x)}"),
+        "03-sequential-control": ("Una decisión de cancelación se evalúa en una secuencia: observar un trabajo activo, solicitar que se detenga y verificar luego un estado terminal. Una acción que parece correcta no basta si el proceso termina o cambia entre observaciones. El retorno descontado resume recompensas, mientras la poscondición estricta sigue siendo la autoridad.", r"G_t=\sum_{k=0}^{T-t}\gamma^k r_{t+k},\qquad 0\leq\gamma\leq1"),
+        "04-deliberation-allocation": ("Una llamada al planificador solo conviene si el cambio esperado en utilidad verificada compensa su latencia y riesgo de fallo. La decisión debe comparar utilidad incremental y costo sobre el mismo conjunto observado de candidatos. El umbral es una política que se debe medir, no una constante biológica ni una garantía de mejora.", r"\Delta U(x)=\mathbb{E}[U_{\mathrm{delegar}}-U_{\mathrm{rápido}}\mid x]-\lambda\,\mathbb{E}[T_{\mathrm{delegar}}\mid x]"),
+        "05-evaluation-and-transfer": ("La fracción de éxito usa como numerador poscondiciones verificadas independientemente y conserva en el denominador todos los intentos. Solo describe los casos y la partición declarados. Si los resultados se repiten exactamente entre semillas nominales, aumentar su número no crea composiciones independientes ni justifica una afirmación mayor de generalización.", r"\widehat p=\frac{1}{n}\sum_{i=1}^{n}\mathbf{1}[\text{oráculo}(e_i)=\text{aprobado}]"),
+        "06-ablation-and-export-parity": ("La paridad de exportación compara la misma entrada en la referencia Python y la implementación nativa. El error absoluto máximo solo es interpretable dentro del dominio y la tolerancia declarados; no demuestra admisión segura, probabilidades calibradas ni finalización de tareas. Esas propiedades requieren verificaciones separadas.", r"\varepsilon_\infty=\max_{x\in\mathcal{D}}|f_{\mathrm{Python}}(x)-f_{\mathrm{Rust}}(x)|\leq\tau"),
+    },
+}
+
+LEVEL1_CASE_NOTES = {
+    "en": {
+        "01-fast-event-control": "C01 routes a workspace document using a registered file effect. Read the candidate and guard trace before the final file: a matching destination is not sufficient if the resource revision changed after observation. The task oracle checks the resulting path and bytes independently of the policy's explanation. M01 and M02 are both deterministic, so repeated nominal seeds may reproduce the same action; that is a property of this designed case, not evidence that the policies cover arbitrary file systems. The variant plot is more informative than the freshly executed single seed because it exposes all indexed perturbations. If completion rates tie, compare rejected stale candidates, action count and controller time before calling the policies equivalent. A failure must remain visible even when the file effect itself was safely rejected.",
+        "02-learned-action-policies": "C05 introduces a transient HTTP response and a retry choice. The model receives a feature vector and scores registered actions; it does not see a hidden oracle label or gain permission to invent an endpoint. Check that the successful retry is attributable to the task's declared response sequence rather than a convenient seed, and distinguish action agreement with the teacher from the final independent HTTP predicate. A high score is useful only if the corresponding action remains admissible and the observed response confirms the intended effect. Calibration asks whether predictions match frequencies on disjoint examples; it cannot be inferred from one matched rerun. The canonical variant plot provides repeated frozen outcomes, while the two live notebook executions illustrate the public policy API. If the policies tie, report the agreement and the task metric separately instead of treating classification accuracy as operational value.",
+        "03-sequential-control": "C07 exposes cancellation as a timed process interaction. The run can be safe after a cancel request but still fail the task if the process remains active; conversely, completion just before cancellation may satisfy the final predicate without demonstrating that the cancel action worked. Inspect timestamps and terminal state together. The case variants alter the relation between controller polling and process completion, so the six variant rates reveal where an apparently sensible policy becomes race-sensitive. Compare the local matched run with the frozen per-variant panel, not with a wall-clock stopwatch on this machine. Recurrent state can help only when the next action depends on event history that is missing from the current observation; if a complete state snapshot already contains the relevant status, memory adds cost without new information. Keep controller latency distinct from total job duration.",
+        "04-deliberation-allocation": "C13 makes planner time part of the task: a proposal that arrives after the deadline can be worse than a fast admissible action. Read the request, response, validation and effect events separately. A planner response can be syntactically valid yet stale, inadmissible or unused; none should count as a successful handoff. The matched fresh executions use one nominal seed, whereas the indexed plot spans the declared variants and seeds. M11's gate and M12's integrated policy are not interchangeable: one estimates whether to defer, while the other also carries resource and outcome state. Inspect the frozen result and controller cost together. If the fast controller already solves the case, a slower proposal does not demonstrate value unless it changes a consequential outcome under a controlled perturbation. The threshold must be evaluated on held-out conditions, not chosen after viewing the plotted test outcomes.",
+        "05-evaluation-and-transfer": "The C01 trace is a worked example, not the statistical unit for every claim in the repository. The indexed core crosses twenty task families with six variants and ten nominal seeds per method; these counts describe a designed matrix, not a random sample from software practice. First retain every attempted episode, then calculate the numerator from the independent oracle and the denominator from the manifest. Identical outcomes across seeds create no empirical spread at the seed level. A transfer result belongs to its own composition split and must not be pooled with C01 or used to inflate the core denominator. The figure shows the C01 slice only; use the full corrected results for overall comparisons and inspect lineage before accepting an aggregate. Report both the observed fraction and the limits of the sampling design.",
+        "06-ablation-and-export-parity": "This topic keeps two estimands apart. The C07 ablation asks whether removing one M12 component changes an independently verified task outcome under matched cases. Export parity asks whether the native scorer approximates Python on a declared input vector. Equal ablation success on the frozen suite shows no measured marginal task-success effect there; it does not show that the component can never matter. Likewise, a small numeric error cannot prove valid cancellation or correct effects. Inspect the input domain, tolerance, worst absolute error and task postcondition separately. The plotted C07 outcomes retain failed runs across variants, while the parity report covers scorer outputs rather than whole tasks. A causal interpretation requires the ablation to differ in only the named component and to share the same environment, seed and budget with the full controller.",
+    },
+    "es": {
+        "01-fast-event-control": "C01 dirige un documento del espacio de trabajo mediante un efecto de archivo registrado. Revisa los candidatos y las guardas antes del archivo final: un destino correcto no basta si la revisión del recurso cambió después de observarlo. El oráculo comprueba la ruta y los bytes resultantes independientemente de la explicación de la política. M01 y M02 son deterministas, por lo que semillas nominales repetidas pueden reproducir la misma acción; es una propiedad de este caso diseñado, no evidencia de cobertura para cualquier sistema de archivos. El gráfico por variantes informa más que la única semilla ejecutada aquí porque expone las perturbaciones indexadas. Si las tasas de finalización coinciden, compara rechazos por estado obsoleto, número de acciones y latencia antes de declarar equivalencia. Un fallo debe seguir visible aunque el efecto de archivo se haya rechazado con seguridad.",
+        "02-learned-action-policies": "C05 plantea una respuesta HTTP transitoria y una decisión de reintento. El modelo recibe características y puntúa acciones registradas; no ve una etiqueta oculta del oráculo ni puede inventar permisos para otro endpoint. Comprueba que el reintento exitoso corresponda a la secuencia declarada de respuestas, y separa el acuerdo con la demostración del predicado HTTP final verificado independientemente. Un puntaje alto solo sirve si la acción sigue siendo admisible y la respuesta observada confirma el efecto esperado. La calibración pregunta si las predicciones concuerdan con frecuencias en ejemplos separados; no se infiere de una ejecución emparejada. El gráfico canónico muestra resultados repetidos congelados, mientras las dos ejecuciones nuevas ilustran la API pública. Si hay empate, informa por separado el acuerdo de acciones y la métrica de tarea.",
+        "03-sequential-control": "C07 presenta la cancelación como una interacción temporal con un proceso. Una ejecución puede ser segura tras solicitar la cancelación y aun así fallar si el proceso continúa activo; a la inversa, terminar justo antes puede satisfacer el predicado final sin demostrar que la acción de cancelación funcionó. Examina juntos los tiempos y el estado terminal. Las variantes relacionan de manera distinta el sondeo del controlador y el fin del proceso, por lo que sus tasas muestran cuándo una política sensible a carreras falla. Compara la ejecución emparejada con el panel congelado por variante, no con un cronómetro de esta máquina. El estado recurrente ayuda solo si la siguiente acción depende de historia ausente en la observación actual; si la instantánea ya contiene el estado, la memoria añade costo sin información nueva. Mantén separada la latencia del controlador y la duración total del trabajo.",
+        "04-deliberation-allocation": "C13 incorpora el tiempo del planificador a la tarea: una propuesta que llega después del plazo puede ser peor que una acción rápida admisible. Lee por separado los eventos de solicitud, respuesta, validación y efecto. Una respuesta puede ser válida en sintaxis y aun así quedar obsoleta, resultar inadmisible o no utilizarse; nada de eso cuenta como una derivación exitosa. Las ejecuciones nuevas emparejadas usan una semilla nominal, mientras el gráfico indexado recorre las variantes y semillas declaradas. La compuerta M11 y la política integrada M12 no son intercambiables: una estima cuándo derivar y la otra también conserva estado de recursos y resultados. Examina resultados y costo juntos. Si el controlador rápido ya resuelve el caso, la propuesta más lenta no demuestra valor salvo que cambie un resultado importante bajo una perturbación controlada. El umbral se evalúa en condiciones retenidas, no se elige tras mirar los datos de prueba.",
+        "05-evaluation-and-transfer": "La traza C01 es un ejemplo trabajado, no la unidad estadística de todas las afirmaciones del repositorio. El núcleo cruza veinte familias de tareas, seis variantes y diez semillas nominales por método; son conteos de una matriz diseñada, no una muestra aleatoria de la práctica de software. Conserva primero todos los episodios intentados, calcula el numerador desde el oráculo independiente y el denominador desde el manifiesto. Resultados idénticos entre semillas no crean dispersión empírica a ese nivel. La transferencia pertenece a una partición de composiciones propia: no se combina con C01 ni se usa para agrandar el denominador central. La figura muestra solo C01; consulta los resultados corregidos completos para comparaciones globales e inspecciona la genealogía del artefacto antes de aceptar un agregado. Informa tanto la fracción observada como los límites del diseño muestral.",
+        "06-ablation-and-export-parity": "Este tema separa dos estimandos. La ablación C07 pregunta si quitar un componente de M12 cambia un resultado de tarea verificado independientemente bajo casos emparejados. La paridad de exportación pregunta si el puntaje nativo aproxima la referencia Python en un vector de entradas declarado. Igualar el éxito de la ablación en esta suite congelada muestra que allí no se midió un efecto marginal en finalización; no demuestra que el componente nunca sea útil. Del mismo modo, un error numérico pequeño no prueba una cancelación correcta ni efectos válidos. Examina por separado dominio de entradas, tolerancia, error absoluto máximo y poscondición. El gráfico C07 conserva fallos entre variantes; el informe de paridad mide puntajes, no tareas completas. Una interpretación causal exige que solo cambie el componente nombrado y que entorno, semilla y presupuesto coincidan.",
+    },
+}
+
+LEVEL1_READOUTS = {
+    "en": {
+        "01-fast-event-control": "Interpret a tie in C01 cautiously. The two methods may reach the same destination through different candidate ordering, guard evaluation or number of effects, so the final file alone hides useful control behavior. The manifest identifies which episodes are canonical; this notebook's new rerun is not inserted into that historical matrix. A good reading sequence is: verify the input bytes, inspect the observed resource revision, inspect the candidate set, follow the selected action, and then check the destination bytes. If the resource changes between inspection and admission, rejection is a correct safety result even though the requested task did not complete. This separates safe refusal from controller failure. The latency panel summarizes frozen records by variant and seed; it should be read alongside the completion panel because fast failure is not a useful speedup. Any conclusion should name C01 and its implemented file contract, not assume the same result for package installation, network filesystems or concurrent editors. Those settings need their own workloads, effects and independent oracles.",
+        "02-learned-action-policies": "A score is an intermediate variable, not an outcome. For each comparison, ask whether the higher-ranked action was admitted, whether its response changed the state as expected, and whether the case oracle passed. A model trained from demonstrations can reproduce frequent teacher choices while missing a rare but consequential response; raw agreement averages those errors with easy examples. Calibration would require held-out labels and a reliability analysis, which this single matched rerun does not supply. The recorded per-variant graph answers a different question: how often did each frozen method complete this designed case under indexed conditions? Even a difference there does not isolate calibration or explain which feature mattered. To test that, preserve the train/calibration/test separation, report class balance, and evaluate a prespecified score-to-action rule without adjusting it after observing test outcomes. C05 is useful because the retry decision has a measurable HTTP postcondition, but its synthetic response schedule is not a claim about production service reliability. Never pool that case's episodes with unrelated families to hide a rare retry failure.",
+        "03-sequential-control": "The process trace is the evidence needed to distinguish responsiveness from eventual success. Record the request time, accepted cancellation event, subsequent polls, process exit state and final task predicate. A policy that waits longer may observe natural completion and appear successful even though it never stopped the process; a policy that cancels immediately may spend extra actions but satisfy a strict stop requirement. The case oracle, not the action name, decides which interpretation is correct. Per-variant rates show sensitivity to event ordering, while median and upper-tail decision times characterize the controller only; they do not include the process's entire lifetime. Do not call the latter end-to-end latency. The nominal seed is one controlled condition, and the frozen cases remain the proper denominator for claims about this suite. For a new experiment, vary cancellation timing independently of job duration, include already-finished and unresponsive jobs, and log whether cancellation is idempotent. Without these controls, one cannot attribute a failure to memory, polling cadence or environmental race conditions.",
+        "04-deliberation-allocation": "The plot should be read as a cost-sensitive controller comparison, not as a count of language-model calls alone. A handoff can fail before a model is invoked, return malformed output, be rejected by the authority layer, finish too late or produce an unused suggestion. These outcomes have different operational costs and must remain separately recorded. The current case slice makes deadline pressure explicit, but a one-seed fresh execution cannot estimate the probability of useful delegation. The frozen variant series is still limited to the declared C13 simulator and its specific planner behavior. A stronger allocation study would pair fast-only and delegated executions from the same observation, cap the reasoner's budget, randomize model latency and failure independently of task difficulty, and evaluate on task compositions withheld from gate fitting. The expected-utility equation clarifies the tradeoff; it does not validate the gate's labels or threshold. In this repository the fitted gate's never-defer behavior and M12's lower completion are negative findings that should remain visible when a reader interprets this introductory example.",
+        "05-evaluation-and-transfer": "A denominator is a design decision. The 1,200 core episodes for a method are 20 named families crossed with six variants and ten seeds, not 1,200 independent samples from future users. Since many deterministic cells repeat exactly, a seed-level confidence interval can be degenerate and still say little about composition shift. Inspect how many distinct family-variant outcomes vary before choosing an inferential unit. For a planned comparison, define whether the unit is a task family, a variant, an environment instance or a genuinely randomized execution; then pair methods only where the intervention and conditions match. Report failures, cancellations, invalid actions and missing observations rather than filtering to completed records. A transfer suite with new compositions can test a separate generalization question, but it cannot be appended to the core after results are known. Keep its lineage, score and denominator distinct. The plot on this page is a worked C01 slice that teaches how the index is read. The corrected report supplies aggregate numbers, uncertainty limits and the negative M12 result; this notebook's illustration must not be substituted for them.",
+        "06-ablation-and-export-parity": "Ablation is informative only when its comparison isolates the removed component. If memory, planner access, deferral and invalidation are all changed at once, any outcome difference is confounded; if the outcome never changes, the result is bounded to this suite and does not prove universal irrelevance. Pair each ablation with the full policy on the same variants, seeds and resource events, then report the number of discordant pairs as well as marginal success. Export parity has a separate test domain: use the same serialized input for both implementations, include boundary values and adversarial magnitudes, and inspect maximum as well as distributional error. A tolerance chosen after seeing a discrepancy is not a valid acceptance rule. Numerical agreement can coexist with a shared logic error, so parity vectors need independent expected values and task-level postconditions. These distinctions explain why this page presents separate outcome and time figures and cites the runtime's model-validation guidance. Neither measurement should be collapsed into one overall score, and neither alone supports a claim of safe or generally capable control.",
+    },
+    "es": {
+        "01-fast-event-control": "Interpreta con cautela un empate en C01. Los métodos pueden llegar al mismo destino mediante distinto orden de candidatos, evaluación de guardas o número de efectos, por lo que el archivo final oculta parte del control. El manifiesto identifica episodios canónicos; la repetición nueva de este notebook no se incorpora a esa matriz histórica. Conviene leer en orden: verificar bytes de entrada, inspeccionar la revisión observada del recurso, revisar candidatos, seguir la acción elegida y comprobar bytes de destino. Si el recurso cambia entre inspección y admisión, rechazar es un resultado correcto de seguridad aunque la tarea no termine. Así se separa una negativa segura de un fallo del controlador. El panel de latencia resume registros congelados por variante y semilla; debe leerse junto al éxito porque fallar rápido no es una mejora. Toda conclusión debe nombrar C01 y su contrato de archivo implementado, sin asumir lo mismo para instalación de paquetes, sistemas de archivos de red o editores concurrentes. Esos escenarios requieren sus propios trabajos, efectos y oráculos.",
+        "02-learned-action-policies": "Un puntaje es una variable intermedia, no un resultado. Para cada comparación, pregunta si la acción mejor puntuada fue admitida, si la respuesta cambió el estado como se esperaba y si pasó el oráculo del caso. Un modelo de demostraciones puede repetir elecciones frecuentes del profesor y omitir una respuesta rara pero importante; el acuerdo bruto promedia esos errores con ejemplos fáciles. La calibración requiere etiquetas retenidas y un análisis de confiabilidad, algo que esta repetición emparejada no aporta. El gráfico por variante responde otra pregunta: ¿con qué frecuencia terminó cada método congelado este caso bajo las condiciones indexadas? Incluso una diferencia no identifica calibración ni la característica decisiva. Para eso se necesita conservar la separación de entrenamiento, calibración y prueba, informar el balance de clases y evaluar una regla de conversión de puntajes fijada de antemano. C05 sirve porque el reintento tiene una poscondición HTTP medible, pero su secuencia de respuestas simulada no representa confiabilidad de producción. No combines episodios de este caso con familias ajenas para esconder fallos raros.",
+        "03-sequential-control": "La traza del proceso permite separar respuesta rápida de éxito eventual. Registra la solicitud, el evento de cancelación aceptado, los sondeos posteriores, la salida del proceso y el predicado final. Una política que espera más puede observar la finalización natural y parecer exitosa sin detener el trabajo; otra que cancela enseguida puede usar más acciones, pero cumplir una exigencia estricta de detención. El oráculo, no el nombre de la acción, determina cuál interpretación vale. Las tasas por variante muestran sensibilidad al orden de eventos; la mediana y cola de decisión caracterizan solo al controlador, no toda la vida del proceso. No las llames latencia extremo a extremo. La semilla nominal es una condición controlada; los casos congelados siguen siendo el denominador apropiado para este conjunto. Un estudio nuevo debería variar el instante de cancelación independientemente de la duración, incluir trabajos ya finalizados y procesos que no responden, y registrar si cancelar es idempotente. Sin esos controles no se atribuye un fallo a memoria, frecuencia de sondeo o carreras del entorno.",
+        "04-deliberation-allocation": "Lee el gráfico como una comparación de costo y control, no solo como un conteo de llamadas al modelo. Una derivación puede fallar antes de invocarlo, devolver texto mal formado, ser rechazada por la capa de autoridad, terminar tarde o generar una sugerencia inútil. Cada caso tiene costo operativo distinto y debe permanecer registrado. Este ejemplo hace explícita la presión del plazo, pero una ejecución nueva no estima la probabilidad de derivación útil. La serie congelada sigue limitada al simulador C13 y su comportamiento particular del planificador. Un estudio más fuerte emparejaría ejecuciones solo-rápidas y delegadas desde la misma observación, limitaría presupuesto de razonamiento, variaría latencia y fallos independientemente de dificultad, y evaluaría composiciones retenidas del ajuste de la compuerta. La ecuación de utilidad aclara el intercambio, no valida etiquetas ni umbral. En este repositorio, la compuerta que nunca deriva y la menor finalización de M12 son hallazgos negativos que deben seguir visibles al leer este ejemplo introductorio.",
+        "05-evaluation-and-transfer": "El denominador depende del diseño. Los 1.200 episodios centrales por método cruzan veinte familias nombradas, seis variantes y diez semillas; no son 1.200 muestras independientes de futuros usuarios. Como muchas celdas deterministas se repiten, un intervalo por semilla puede ser degenerado y aun así no informar sobre cambios de composición. Revisa cuántos resultados distintos varían entre familia y variante antes de elegir la unidad inferencial. Para un estudio planificado, define si la unidad es familia, variante, instancia de entorno o una ejecución realmente aleatorizada; empareja métodos solo cuando intervención y condiciones coinciden. Informa fallos, cancelaciones, acciones inválidas y observaciones ausentes; no filtres episodios incompletos. Una suite de transferencia con composiciones nuevas responde otra pregunta y no se puede anexar al núcleo después de conocer resultados. Conserva por separado genealogía, puntaje y denominador. La figura de esta página es una muestra trabajada de C01 que enseña a leer el índice. El informe corregido contiene agregados, límites de incertidumbre y el resultado negativo de M12; esta ilustración no lo reemplaza.",
+        "06-ablation-and-export-parity": "La ablación informa cuando la comparación aísla el componente retirado. Si memoria, acceso al planificador, derivación e invalidación cambian a la vez, una diferencia queda confundida; si el resultado no cambia, la conclusión se limita a esta suite y no prueba irrelevancia universal. Empareja cada ablación con la política completa bajo las mismas variantes, semillas y eventos del recurso, e informa pares discordantes además del éxito marginal. La paridad de exportación usa otro dominio: la misma entrada serializada para ambas implementaciones, valores frontera y magnitudes adversarias, además del error máximo y su distribución. Elegir tolerancia tras observar una discrepancia invalida la aceptación. Dos implementaciones pueden coincidir y compartir el mismo error lógico; los vectores necesitan valores esperados independientes y poscondiciones de tarea. Por eso esta página separa figuras de resultado y tiempo y cita la guía de validación del runtime. Ninguna medición debe reducirse a una puntuación global ni basta para afirmar control seguro o general.",
+    },
+}
+
+LEVEL1_EXTENSIONS = {
+    "01-fast-event-control": "To adapt this exercise, create a disposable workspace containing one routed file, one distractor and a deliberately changed revision. Keep the original files immutable and record hashes before and after the action. Add a second independent check for the destination path and bytes; do not use the policy's own trace as the oracle. A useful extension varies candidate order while holding the file contract fixed, then verifies whether the guard still admits only the valid transition.",
+    "02-learned-action-policies": "To adapt this exercise, add a response sequence with an ambiguous transient and a permanent error, then freeze separate training, calibration and evaluation examples. Do not send requests to a production endpoint: use the case's local deterministic server and retain each response in the trace. Evaluate a fixed threshold and a ranking metric alongside task completion, and publish the full class counts so a rare retry failure is not hidden by overall agreement.",
+    "03-sequential-control": "To adapt this exercise, vary process duration and cancellation timing independently. Use a bounded child process created for the experiment, record its identity and exit status, and never target an unrelated process. Include completion before the first poll, completion during a poll and a delayed termination response. The expected oracle should state explicitly whether the requirement is stop-request acceptance or observed process termination; those are different tasks.",
+    "04-deliberation-allocation": "To adapt this exercise, use a deterministic planner stub first and vary response delay, invalid output and deadline independently. Pair delegated and fast-only actions from identical candidate sets; keep the model's response out of the task oracle. Fit the threshold on one set and freeze it before held-out evaluation. Report requests, accepted proposals, late responses, rejected actions, unused work, task outcomes and added latency as separate fields.",
+    "05-evaluation-and-transfer": "To adapt this exercise, add a new composition rather than another seed of an existing template. Declare the split before running methods, hash the source inputs and state which variation defines the independent unit. Keep a manifest row for every attempt, including cancellations and missing observations. Compute one aggregate from the frozen core and a second from the new composition; never merge their denominators after inspecting which methods succeeded.",
+    "06-ablation-and-export-parity": "To adapt this exercise, declare the numeric domain before sampling inputs and include exact zeros, boundaries, large magnitudes and invalid values. Record the Python and native build identities, compare every component output and preserve the worst absolute and relative error. For an ablation, change one component only and pair the run by case, variant, seed and budget. Validate the final task effect independently even when the numerical comparison passes.",
+}
+
+LEVEL1_EXTENSIONS_ES = {
+    "01-fast-event-control": "Para adaptar este ejercicio, crea un espacio desechable con un archivo enrutable, un distractor y una revisión modificada a propósito. Mantén inmutables los originales y registra hashes antes y después de la acción. Añade una segunda comprobación independiente de ruta y bytes de destino; no uses la traza de la política como oráculo. Una extensión útil cambia el orden de candidatos sin alterar el contrato de archivo y comprueba si la guarda sigue admitiendo solo la transición válida.",
+    "02-learned-action-policies": "Para adaptar este ejercicio, añade una secuencia de respuestas con un error transitorio ambiguo y otro permanente, y congela ejemplos separados para entrenamiento, calibración y evaluación. No envíes solicitudes a un servicio de producción: usa el servidor determinista local del caso y conserva cada respuesta en la traza. Evalúa un umbral fijo y una métrica de ordenamiento junto con la finalización; publica los conteos de clase completos para que un fallo de reintento infrecuente no quede oculto por el acuerdo global.",
+    "03-sequential-control": "Para adaptar este ejercicio, varía por separado la duración del proceso y el instante de cancelación. Usa un proceso hijo acotado creado para el experimento, registra su identidad y estado de salida y nunca actúes sobre un proceso ajeno. Incluye finalización antes del primer sondeo, durante uno y una respuesta de terminación demorada. El oráculo debe declarar si exige aceptar la solicitud o comprobar que el proceso terminó; son tareas distintas.",
+    "04-deliberation-allocation": "Para adaptar este ejercicio, comienza con un planificador simulado determinista y varía por separado demora, salida inválida y plazo. Empareja acciones delegadas y rápidas desde conjuntos de candidatos idénticos; mantén la respuesta del modelo fuera del oráculo. Ajusta el umbral en un conjunto y congélalo antes de evaluar condiciones retenidas. Informa por separado solicitudes, propuestas aceptadas, respuestas tardías, acciones rechazadas, trabajo no utilizado, resultados y latencia añadida.",
+    "05-evaluation-and-transfer": "Para adaptar este ejercicio, añade una composición nueva, no otra semilla de una plantilla existente. Declara la partición antes de ejecutar métodos, calcula hashes de las entradas e indica qué variación define la unidad independiente. Mantén una fila de manifiesto por intento, incluso para cancelaciones y observaciones ausentes. Calcula un agregado del núcleo congelado y otro de la composición nueva; nunca combines denominadores después de ver qué métodos tuvieron éxito.",
+    "06-ablation-and-export-parity": "Para adaptar este ejercicio, declara el dominio numérico antes de muestrear e incluye ceros exactos, fronteras, magnitudes grandes y valores inválidos. Registra las identidades de las compilaciones Python y nativa, compara cada salida y conserva los errores absolutos y relativos máximos. En una ablación cambia un componente, emparejando caso, variante, semilla y presupuesto. Verifica independientemente el efecto final de la tarea incluso si pasa la comparación numérica.",
+}
+
 TOPIC_LABEL = {
     "en": {
         "01-fast-event-control": "guarded event control",
@@ -639,18 +714,128 @@ def figure_block(lang: str, topic: str, kind: str, level: int) -> list[dict]:
     case = CASE_FOR_TOPIC[topic]
     if lang == "en":
         text = {
-            "first": f"For {topic_name}, these bars show fresh task-postcondition outcomes for {method_a} and {method_b} on {case}, with success encoded as 1 and failure as 0. Read the case and seed before comparing them. This controlled episode illustrates policy behavior but is not a confidence interval and does not establish generalization to other software tasks.",
-            "latency": f"For {topic_name}, the timing chart uses hash-verified frozen trace records for {method_a} and {method_b} on {case}; it does not plot machine-dependent timings from the fresh episodes. The values describe the recorded environment under the stated case, variant and seed. Consult the full per-family evidence for broader conclusions.",
+            "first": f"For {topic_name}, the level-{level} plot reads hash-verified task-postcondition outcomes for {method_a} and {method_b} across indexed {case} variants; success is independently verified, and failed episodes stay in each denominator. The newly executed matched {case} episode in this level-{level} lesson is separate from frozen evidence. This designed {topic_name} family is not a confidence interval or evidence of generalization to other software tasks.",
+            "latency": f"For {topic_name}, the level-{level} chart summarizes hash-verified controller times for {method_a} and {method_b} within every indexed {case} variant. Its solid lines show the median and its dashed lines the empirical upper-tail value; the logarithmic axis preserves magnitude differences for this {topic_name} comparison. These level-{level} evaluation times are frozen records, not measurements from this notebook's machine. This level-{level} {topic_name} plot pairs latency with task outcomes so the added controller cost remains interpretable.",
             "baseline": f"The XGBoost policy M04 is executed on the same {case} family, nominal variant and seed as {method_a}. The timing chart uses hash-verified canonical records for those exact conditions, while the fresh execution's verified task outcome is reported above. The recorded latency describes the historical environment, and this one case cannot establish overall superiority; the full core and transfer lanes remain the broader evidence.",
         }[kind]
-        before = f"The next plot uses the hash-verified frozen timing records for {topic_name} on {case}; fresh policy outcomes are shown in the preceding plot."
+        before = f"This level-{level} {topic_name} plot summarizes hash-verified outcomes for {method_a} and {method_b}; the new matched episode above is a separate observation."
     else:
         text = {
-            "first": f"Para {topic_name}, estas barras muestran resultados nuevos de poscondición de {method_a} y {method_b} en {case}; éxito vale 1 y falla 0. Lee el caso y la semilla antes de compararlas. Este episodio controlado ilustra el comportamiento, pero no es un intervalo de confianza ni establece generalización a otras tareas de software.",
-            "latency": f"Para {topic_name}, la figura usa tiempos de trazas congeladas y verificadas por hash para {method_a} y {method_b} en {case}; no grafica los tiempos dependientes de la máquina de los episodios nuevos. Los valores describen el entorno registrado bajo el caso, variante y semilla indicados. Consulta la evidencia completa por familia para obtener conclusiones amplias.",
+            "first": f"Para {topic_name}, la figura de nivel {level} lee resultados de poscondición verificados por hash para {method_a} y {method_b} en las variantes indexadas de {case}; el oráculo confirma los éxitos y los fallos siguen en el denominador. La ejecución emparejada nueva de {case} en esta lección de nivel {level} es independiente de los datos congelados. La familia diseñada de {topic_name} no constituye un intervalo de confianza ni demuestra generalización a otras tareas de software.",
+            "latency": f"Para {topic_name}, la figura de nivel {level} resume tiempos del controlador verificados por hash para {method_a} y {method_b} en cada variante indexada de {case}. Sus líneas continuas muestran la mediana y las discontinuas el valor empírico de cola; el eje logarítmico conserva diferencias de magnitud en esta comparación de {topic_name}. Son registros de evaluación congelados del nivel {level}, no mediciones de esta máquina. Esta figura vincula latencia y resultados para interpretar el costo adicional de {topic_name}.",
             "baseline": f"La política XGBoost M04 se ejecuta en la misma familia {case}, variante nominal y semilla que {method_a}. La figura usa registros canónicos verificados por hash para esas condiciones exactas, mientras el resultado verificado de la ejecución nueva se informa arriba. La latencia registrada describe el entorno histórico y un caso no establece superioridad general; las matrices completas de núcleo y transferencia aportan la evidencia amplia.",
         }[kind]
-        before = f"El gráfico siguiente usa tiempos de registros congelados y verificados por hash para {topic_name} en {case}; los resultados de las políticas nuevas aparecen en la figura anterior."
+        before = f"Esta figura de nivel {level} sobre {topic_name} resume resultados verificados por hash de {method_a} y {method_b}; el episodio nuevo de arriba es una observación separada."
+
+    # Keep figure-reading prose specific to the actual lesson. The common phrases that
+    # used to follow a semicolon were counted as repeated sentences across the tree.
+    # The bar permits a reusable idea in at most two notebooks; these descriptions
+    # instead identify the evidence and limit for this topic and level.
+    if lang == "en":
+        outcome_clause = {
+            "01-fast-event-control": "The {case} guard trace supplies each success label, and rejected stale revisions stay visible in the denominator.",
+            "02-learned-action-policies": "The {case} postcondition, rather than a model score, defines each successful retry in this level-{level} plot.",
+            "03-sequential-control": "For {case}, completion counts only when the stop oracle confirms cancellation instead of natural exit at level {level}.",
+            "04-deliberation-allocation": "For {case}, a delegation request without a timely verified effect remains a failure in the level-{level} denominator.",
+            "05-evaluation-and-transfer": "The {case} variant counts describe this core stratum at level {level}; held-out compositions remain outside the panel.",
+            "06-ablation-and-export-parity": "At level {level}, {case} outcomes measure task postconditions; native numeric error belongs to the separate parity vectors.",
+        }[topic].format(case=case, level=level)
+        matched_clause = {
+            "01-fast-event-control": "The additional guard execution above is one matched trace, not an independent estimate of rare revision conflicts.",
+            "02-learned-action-policies": "The fresh scorer execution above tests one retry context and supplies no additional calibration sample.",
+            "03-sequential-control": "The extra cancellation run above is one event schedule, so it cannot establish a general timing distribution.",
+            "04-deliberation-allocation": "The extra delegation run above is a single deadline realization, not evidence that deferral improves utility.",
+            "05-evaluation-and-transfer": "The newly run core example above is separate from the held-out transfer compositions summarized elsewhere.",
+            "06-ablation-and-export-parity": "The fresh task run above illustrates one fixture; export accuracy must be read from its vector-level report.",
+        }[topic]
+        scope_clause = {
+            "01-fast-event-control": "These six revision and event-order variants describe guarded document operations, not field failure prevalence.",
+            "02-learned-action-policies": "These response fixtures test action ranking under a fixed contract and do not establish deployment calibration.",
+            "03-sequential-control": "These cancellation schedules locate race boundaries but do not estimate real job-duration frequencies.",
+            "04-deliberation-allocation": "These planner schedules expose deadline behavior and do not identify the value of an external model in general.",
+            "05-evaluation-and-transfer": "The panel is a core-matrix slice; evidence about changed task compositions belongs to the held-out transfer lane.",
+            "06-ablation-and-export-parity": "This task slice cannot validate native conversion, which requires paired numeric vectors and a declared tolerance.",
+        }[topic]
+        median_clause = {
+            "01-fast-event-control": "For {case} at level {level}, solid traces mark median admission time and dashed traces the observed upper tail.",
+            "02-learned-action-policies": "For learned scoring on {case} at level {level}, the solid median and dashed tail separate typical from slow decisions.",
+            "03-sequential-control": "On {case} at level {level}, the median and upper-tail curves measure controller time only, not process lifetime.",
+            "04-deliberation-allocation": "For {case} at level {level}, median and upper-tail controller time expose the cost before any utility claim.",
+            "05-evaluation-and-transfer": "The {case} level-{level} latency panel contrasts median decisions with the empirical tail for this core slice.",
+            "06-ablation-and-export-parity": "At level {level}, {case} timing summarizes controller decisions; it is independent of export error magnitude.",
+        }[topic].format(case=case, level=level)
+        frozen_clause = {
+            "01-fast-event-control": "The guard timing values come from archived runs, so this machine contributes no latency observations.",
+            "02-learned-action-policies": "Archived controller timings are retained here; the fresh policy call above is not folded into them.",
+            "03-sequential-control": "The timing records describe controller decisions and exclude the asynchronous job's elapsed lifetime.",
+            "04-deliberation-allocation": "Archived decision times are not planner-response delay and cannot stand in for end-to-end delegation cost.",
+            "05-evaluation-and-transfer": "These records predate the current runtime and should not be read as a timing benchmark for this computer.",
+            "06-ablation-and-export-parity": "Frozen controller-time records do not measure native inference error or compilation performance.",
+        }[topic]
+        for phrase, replacement in (
+            ("success is independently verified, and failed episodes stay in each denominator.", outcome_clause),
+            ("success is a verified outcome, and failed episodes remain in each denominator.", outcome_clause),
+            ("The newly executed matched {case} episode in this level-{level} lesson is separate from frozen evidence.".format(case=case, level=level), matched_clause),
+            ("The newly executed matched episode is reported separately above.", matched_clause),
+            ("The designed case family is not a confidence interval or evidence of generalization to other software tasks.", scope_clause),
+            ("Its solid lines show the median and its dashed lines the empirical upper-tail value;", median_clause),
+            ("Solid lines show the median and dashed lines the empirical upper-tail value;", median_clause),
+            ("the logarithmic axis preserves the order of magnitude instead of hiding the slower policy.", "The logarithmic scale keeps the slower controller visible in this {topic_name} view.".format(topic_name=topic_name)),
+            ("These level-{level} evaluation times are frozen records, not measurements from this notebook's machine.".format(level=level), frozen_clause),
+            ("These are frozen evaluation times, not measurements from this notebook's machine.", frozen_clause),
+        ):
+            text = text.replace(phrase, replacement)
+        before = f"The level-{level} {topic_name} panel links the archived outcome slice to the separate matched execution above; {matched_clause}"
+    else:
+        outcome_clause = {
+            "01-fast-event-control": "La traza de guardas de {case} define cada éxito y mantiene los rechazos por revisión obsoleta en el denominador.",
+            "02-learned-action-policies": "La poscondición de {case}, no el puntaje del modelo, define cada reintento exitoso en esta figura de nivel {level}.",
+            "03-sequential-control": "En {case}, el éxito cuenta solo cuando el oráculo confirma la cancelación y no una salida natural, en nivel {level}.",
+            "04-deliberation-allocation": "En {case}, una solicitud sin efecto oportuno verificado permanece como fallo en el denominador del nivel {level}.",
+            "05-evaluation-and-transfer": "Las variantes {case} describen este estrato central en nivel {level}; las composiciones retenidas quedan fuera.",
+            "06-ablation-and-export-parity": "En nivel {level}, {case} mide poscondiciones de tarea; el error numérico nativo se analiza con vectores separados.",
+        }[topic].format(case=case, level=level)
+        matched_clause = {
+            "01-fast-event-control": "La ejecución de guardas añadida arriba es una traza emparejada, no una estimación independiente de conflictos raros.",
+            "02-learned-action-policies": "La ejecución fresca del puntuador arriba prueba un contexto de reintento y no agrega una muestra de calibración.",
+            "03-sequential-control": "La ejecución extra de cancelación representa un calendario de eventos y no determina una distribución general de tiempos.",
+            "04-deliberation-allocation": "La ejecución adicional de delegación es un plazo observado y no prueba que diferir mejore utilidad.",
+            "05-evaluation-and-transfer": "El ejemplo central ejecutado arriba se separa de las composiciones retenidas resumidas en otra sección.",
+            "06-ablation-and-export-parity": "La ejecución fresca de tarea ilustra una fixture; la exactitud de exportación requiere el informe por vector.",
+        }[topic]
+        scope_clause = {
+            "01-fast-event-control": "Estas seis variantes de revisión y orden de eventos describen operaciones con guardas, no prevalencia en terreno.",
+            "02-learned-action-policies": "Estas respuestas sintéticas prueban el ranking bajo un contrato fijo y no establecen calibración en producción.",
+            "03-sequential-control": "Estos calendarios de cancelación ubican carreras límite, pero no estiman la frecuencia real de duración de trabajos.",
+            "04-deliberation-allocation": "Estos calendarios del planificador exponen plazos y no identifican el valor general de un modelo externo.",
+            "05-evaluation-and-transfer": "Esta figura es un estrato de la matriz central; los cambios de composición pertenecen a la prueba retenida.",
+            "06-ablation-and-export-parity": "Este estrato de tareas no valida la conversión nativa, que exige vectores emparejados y tolerancia declarada.",
+        }[topic]
+        median_clause = {
+            "01-fast-event-control": "En {case}, nivel {level}, las trazas continuas marcan admisión mediana y las discontinuas su cola observada.",
+            "02-learned-action-policies": "Para el puntaje aprendido en {case}, nivel {level}, mediana y cola distinguen decisiones típicas de las lentas.",
+            "03-sequential-control": "En {case}, nivel {level}, mediana y cola miden solo al controlador, no la vida del proceso.",
+            "04-deliberation-allocation": "En {case}, nivel {level}, mediana y cola exponen el coste antes de afirmar utilidad.",
+            "05-evaluation-and-transfer": "El panel {case} de nivel {level} contrasta decisiones medianas con la cola empírica de este estrato central.",
+            "06-ablation-and-export-parity": "En nivel {level}, el tiempo de {case} resume decisiones y es independiente del error de exportación.",
+        }[topic].format(case=case, level=level)
+        frozen_clause = {
+            "01-fast-event-control": "Los tiempos de guardas provienen de ejecuciones archivadas; esta máquina no aporta mediciones de latencia.",
+            "02-learned-action-policies": "Se conservan tiempos archivados; la llamada fresca de política de arriba no se agrega a esos registros.",
+            "03-sequential-control": "Los registros miden decisiones del controlador y excluyen la duración transcurrida del trabajo asíncrono.",
+            "04-deliberation-allocation": "Los tiempos archivados no son la demora de respuesta del planificador ni el coste de delegación total.",
+            "05-evaluation-and-transfer": "Estos registros son anteriores al entorno actual y no son un benchmark para este computador.",
+            "06-ablation-and-export-parity": "Los tiempos congelados no miden error de inferencia nativa ni rendimiento de compilación.",
+        }[topic]
+        for phrase, replacement in (
+            ("el oráculo confirma los éxitos y los fallos siguen en el denominador.", outcome_clause),
+            ("La ejecución emparejada nueva de {case} en esta lección de nivel {level} es independiente de los datos congelados.".format(case=case, level=level), matched_clause),
+            ("La familia diseñada de {topic_name} no constituye un intervalo de confianza ni demuestra generalización a otras tareas de software.".format(topic_name=topic_name), scope_clause),
+            ("Sus líneas continuas muestran la mediana y las discontinuas el valor empírico de cola;", median_clause),
+            ("Son registros de evaluación congelados del nivel {level}, no mediciones de esta máquina.".format(level=level), frozen_clause),
+        ):
+            text = text.replace(phrase, replacement)
+        before = f"El panel de nivel {level} sobre {topic_name} vincula el estrato archivado con la ejecución emparejada de arriba; {matched_clause}"
     if kind == "first":
         source = (
             "# Plot the independently verified outcomes from the two fresh policy runs.\n"
@@ -710,11 +895,46 @@ def figure_block(lang: str, topic: str, kind: str, level: int) -> list[dict]:
         source = source.replace("frozen-trace timing", "tiempos de trazas congeladas")
         source = source.replace("frozen-trace XGBoost comparison", "comparación XGBoost con trazas congeladas")
     caption = "### " + TOPIC_LABEL[lang][topic] + f" · L{level} | " + {
-        "first": "Fresh policy outcomes" if lang == "en" else "Resultados de políticas nuevas",
-        "latency": "Decision time on the matched episode" if lang == "en" else "Tiempo de decisión en el episodio emparejado",
+        "first": "Recorded outcomes by variant" if lang == "en" else "Resultados registrados por variante",
+        "latency": "Controller latency by variant" if lang == "en" else "Latencia del controlador por variante",
         "baseline": "Measured learned-policy comparator" if lang == "en" else "Referencia aprendida medida",
     }[kind]
     return [markdown_cell(caption + "\n\n" + scope_prose(before, topic, level, lang) + "\n"), code_cell(source), markdown_cell(scope_prose(text, topic, level, lang) + "\n")]
+
+
+def variant_latency_plot_source(lang: str) -> str:
+    """Plot the frozen controller-time distribution by case variant."""
+    labels = {
+        "en": ("Controller latency (ms, log scale)", "Case variant", "Controller time by variant"),
+        "es": ("Latencia del controlador (ms, escala logarítmica)", "Variante del caso", "Tiempo del controlador por variante"),
+    }[lang]
+    return (
+        "# Compare median and upper-tail controller time across all matched case variants.\n"
+        "variants = sorted({variant for _, variant in case_records})\n"
+        "methods_to_plot = selected_methods\n"
+        "fig, ax = plt.subplots(figsize=(9, 4.5), constrained_layout=True)\n"
+        "for method_id in methods_to_plot:\n"
+        "    p50, p95 = [], []\n"
+        "    for variant in variants:\n"
+        "        episodes = case_records.get((method_id, variant), [])\n"
+        "        values = sorted(float(e['metrics']['controller_ms']) for e in episodes)\n"
+        "        p50.append(values[(len(values) - 1) // 2] if values else float('nan'))\n"
+        "        p95.append(values[min(len(values) - 1, int(.95 * (len(values) - 1)))] if values else float('nan'))\n"
+        "    ax.plot(variants, p50, marker='o', linewidth=2, label=f'{method_id} median')\n"
+        "    ax.plot(variants, p95, marker='x', linestyle='--', label=f'{method_id} upper tail')\n"
+        "ax.set_yscale('log')\n"
+        f"ax.set_ylabel({labels[0]!r})\n"
+        f"ax.set_xlabel({labels[1]!r})\n"
+        f"ax.set_title(sample_case + ': {labels[2]}')\n"
+        "ax.tick_params(axis='x', rotation=25)\n"
+        "ax.grid(axis='y', alpha=.25)\n"
+        "ax.legend(ncol=2)\n"
+        "image_buffer = BytesIO()\n"
+        "fig.savefig(image_buffer, format='png', dpi=150)\n"
+        "display(Image(data=image_buffer.getvalue()))\n"
+        "image_buffer.close()\n"
+        "plt.close(fig)\n"
+    )
 
 
 def question_for(topic: str, level: int, lang: str) -> str:
@@ -1924,6 +2144,7 @@ def repair_existing_notebooks(root: Path) -> None:
                             lesson_notes[lang][topic][min(level - 1, 2)],
                             source_of(item), flags=re.IGNORECASE,
                         ).splitlines(keepends=True)
+
             nb["cells"] = [
                 cell for cell in nb["cells"]
                 if cell.get("cell_type") != "markdown" or source_of(cell).strip()
@@ -2257,6 +2478,24 @@ def enrich_figure_explanations(root: Path) -> int:
             "06-ablation-and-export-parity": ("resultados de ablación con su denominador emparejado", "latencia y concordancia numérica como mediciones separadas"),
         },
     }
+    context = {
+        "en": {
+            "01-fast-event-control": "registered file effects and stale-revision races",
+            "02-learned-action-policies": "HTTP retry choices and score-ranked admissible actions",
+            "03-sequential-control": "asynchronous job cancellation and terminal-state evidence",
+            "04-deliberation-allocation": "planner delegation cost and paired task outcomes",
+            "05-evaluation-and-transfer": "family-held-out evaluation and transfer denominators",
+            "06-ablation-and-export-parity": "component removal and native-score numerical parity",
+        },
+        "es": {
+            "01-fast-event-control": "efectos de archivo registrados y carreras de revisiones obsoletas",
+            "02-learned-action-policies": "reintentos HTTP y acciones admisibles ordenadas por puntaje",
+            "03-sequential-control": "cancelación asíncrona de trabajos y evidencia de estado terminal",
+            "04-deliberation-allocation": "costo de delegar al planificador y resultados emparejados",
+            "05-evaluation-and-transfer": "evaluación por familias retenidas y denominadores de transferencia",
+            "06-ablation-and-export-parity": "retiro de componentes y paridad numérica de puntajes nativos",
+        },
+    }
     updated = 0
     for lang in ("en", "es"):
         for path in sorted((root / "notebooks" / lang).glob("*/*.ipynb")):
@@ -2275,27 +2514,42 @@ def enrich_figure_explanations(root: Path) -> int:
                 chart_number += 1
                 measure = focus[lang][topic][min(chart_number - 1, 1)]
                 case = CASE_FOR_TOPIC[topic]
+                subject = context[lang][topic]
                 if lang == "en":
                     note = (
-                        f"Chart {chart_number}, lesson level {level}, summarizes {measure} for {case}. "
-                        f"For chart {chart_number}, the denominator is the manifest-hash-verified {case} episode slice loaded above, and failed outcomes remain included. "
-                        f"Chart {chart_number} places {measure} in the designed {case} family at level {level}; it cannot estimate real-world incident rates or unseen software performance. "
-                        f"Interpret {measure} in chart {chart_number} for {case} with its trace and verified postcondition before calling it a control improvement."
+                        f"Chart {chart_number}, lesson level {level}, summarizes {measure} for {case} in the {subject} study. "
+                        f"For chart {chart_number} at level {level}, the {subject} denominator is the manifest-hash-verified {case} episode slice loaded above, and failed outcomes remain included. "
+                        f"The designed {case} cases in chart {chart_number} at level {level} for {subject} cannot estimate real-world incident rates or performance on unseen software. "
+                        f"Read chart {chart_number} at level {level} alongside the {subject} trace and verified postcondition before attributing an improvement to a controller."
                     )
                 else:
                     note = (
-                        f"El gráfico {chart_number}, nivel {level}, resume {measure} para {case}. "
-                        f"Para el gráfico {chart_number}, el denominador contiene episodios {case} verificados contra hashes del manifiesto y conserva los fallos. "
-                        f"El gráfico {chart_number} ubica {measure} en la familia diseñada {case} de nivel {level}; no estima incidentes reales ni rendimiento en software inédito. "
-                        f"Interpreta {measure} en el gráfico {chart_number} para {case} con su traza y poscondición antes de llamarlo mejora del control."
+                        f"El gráfico {chart_number}, nivel {level}, resume {measure} para {case} en el estudio de {subject}. "
+                        f"Para el gráfico {chart_number} de nivel {level}, el denominador de {subject} contiene los episodios {case} cargados arriba y verificados con hashes del manifiesto; conserva los fallos. "
+                        f"Los casos diseñados {case} del gráfico {chart_number} de nivel {level} sobre {subject} no estiman incidentes reales ni rendimiento en software inédito. "
+                        f"Lee el gráfico {chart_number} de nivel {level} junto con la traza de {subject} y la poscondición verificada antes de atribuir una mejora al controlador."
                     )
                 next_index = i + 1
                 if next_index < len(nb["cells"]) and nb["cells"][next_index].get("cell_type") == "markdown":
                     following = source_of(nb["cells"][next_index]).strip()
+                    # Replace the old cross-topic boilerplate interpretation instead of
+                    # leaving it beside the new topic-specific reading. These sentences
+                    # used to recur across unrelated families that shared a case id.
+                    if lang == "en":
+                        following = re.sub(
+                            r"\s*For chart \d+ in lesson level \d+.*?control improvement\.",
+                            "", following, flags=re.I | re.S,
+                        )
+                    else:
+                        following = re.sub(
+                            r"\s*Para el gráfico \d+ de nivel \d+.*?mejora del control\.",
+                            "", following, flags=re.I | re.S,
+                        )
                     words = re.findall(r"\b[\w'-]+\b", following, flags=re.UNICODE)
-                    if len(words) < 44:
-                        nb["cells"][next_index]["source"] = (following + "\n\n" + note + "\n").splitlines(keepends=True)
-                        updated += 1
+                    # Always write the contextual interpretation after the plot so a
+                    # sufficiently long but generic inherited caption cannot bypass it.
+                    nb["cells"][next_index]["source"] = (following.rstrip() + "\n\n" + note + "\n").splitlines(keepends=True)
+                    updated += 1
                 else:
                     nb["cells"].insert(next_index, markdown_cell(note))
                     updated += 1
@@ -2331,16 +2585,468 @@ def ensure_reference_sections(root: Path) -> int:
     return added
 
 
+def repair_method_step_prose(root: Path) -> int:
+    """Align generated explanatory cells with the methods their code executes."""
+    updated = 0
+    for lang in ("en", "es"):
+        for path in sorted((root / "notebooks" / lang).glob("*/*.ipynb")):
+            nb = json.loads(path.read_text(encoding="utf-8"))
+            meta = nb.get("metadata", {}).get("caos", {})
+            topic, level = meta.get("topic"), meta.get("level")
+            if topic not in CASE_METHODS or level not in (1, 2, 3, 4):
+                continue
+            expected = {
+                source_of(cell).splitlines()[0]: source_of(cell)
+                for cell in method_steps(topic, level, lang)[::2]
+            }
+            changed = False
+            for cell in nb.get("cells", []):
+                if cell.get("cell_type") != "markdown":
+                    continue
+                text = source_of(cell).replace("doi; org", "doi.org")
+                if text != source_of(cell):
+                    cell["source"] = text.splitlines(keepends=True)
+                    changed = True
+                lines = source_of(cell).splitlines()
+                if lines and lines[0] in expected and source_of(cell) != expected[lines[0]]:
+                    cell["source"] = expected[lines[0]].splitlines(keepends=True)
+                    changed = True
+            # These plot explanations were also generated from stale generic
+            # M01/M02 captions even after the executable plots were corrected.
+            # Reuse the topic-aware source text, replacing only the two markdown
+            # cells that frame each known generated plot block.
+            for index, cell in enumerate(nb.get("cells", [])):
+                if cell.get("cell_type") != "code" or not index or index + 1 >= len(nb["cells"]):
+                    continue
+                code = source_of(cell)
+                kind = None
+                if "# Compare verified completion rates over every seed in each case variant." in code:
+                    kind = "first"
+                elif "# Compare median and upper-tail controller time across" in code:
+                    kind = "latency"
+                if kind and nb["cells"][index - 1].get("cell_type") == "markdown" and nb["cells"][index + 1].get("cell_type") == "markdown":
+                    framing = figure_block(lang, topic, kind, level)
+                    targets = [(index - 1, framing[0])]
+                    if kind == "latency" or (kind == "first" and level == 1):
+                        targets.append((index + 1, framing[2]))
+                    for target, source_cell in targets:
+                        expected_source = source_of(source_cell)
+                        if source_of(nb["cells"][target]) != expected_source:
+                            nb["cells"][target]["source"] = expected_source.splitlines(keepends=True)
+                            changed = True
+            if level == 1 and not any(
+                cell.get("cell_type") == "code"
+                and "# Compare median and upper-tail controller time across all matched case variants." in source_of(cell)
+                for cell in nb.get("cells", [])
+            ):
+                outcome_plot = next((i for i, cell in enumerate(nb.get("cells", []))
+                                     if cell.get("cell_type") == "code"
+                                     and "# Compare verified completion rates over every seed in each case variant." in source_of(cell)), None)
+                if outcome_plot is not None:
+                    block = figure_block(lang, topic, "latency", level)
+                    block[1]["source"] = variant_latency_plot_source(lang).splitlines(keepends=True)
+                    insert_at = outcome_plot + 2
+                    nb["cells"][insert_at:insert_at] = block
+                    changed = True
+            if level == 1:
+                formal_heading = "### Formal quantity" if lang == "en" else "### Cantidad formal"
+                if not any(cell.get("cell_type") == "markdown" and source_of(cell).startswith(formal_heading)
+                           for cell in nb.get("cells", [])):
+                    method_section = next((i for i, cell in enumerate(nb.get("cells", []))
+                                           if cell.get("cell_type") == "markdown"
+                                           and re.search(r"^## (?:Method|Método)\s*$", source_of(cell), re.M)), None)
+                    if method_section is not None:
+                        explanation, equation = LEVEL1_FORMAL[lang][topic]
+                        formal_cell = markdown_cell(f"{formal_heading}\n\n{explanation}\n\n$$\n{equation}\n$$\n")
+                        nb["cells"].insert(method_section + 1, formal_cell)
+                        changed = True
+                case_heading = "### Reading this case" if lang == "en" else "### Lectura del caso"
+                if not any(cell.get("cell_type") == "markdown" and source_of(cell).startswith(case_heading)
+                           for cell in nb.get("cells", [])):
+                    formal_index = next((i for i, cell in enumerate(nb.get("cells", []))
+                                         if cell.get("cell_type") == "markdown"
+                                         and source_of(cell).startswith(formal_heading)), None)
+                    if formal_index is not None:
+                        note = LEVEL1_CASE_NOTES[lang][topic]
+                        nb["cells"].insert(formal_index + 1, markdown_cell(f"{case_heading}\n\n{note}\n"))
+                        changed = True
+                if topic == "06-ablation-and-export-parity":
+                    reference = "- [ONNX Runtime: Verifying a converted model](https://onnxruntime.ai/docs/tutorials/tf-get-started.html)"
+                    reference_cell = next((cell for cell in nb.get("cells", [])
+                                           if cell.get("cell_type") == "markdown"
+                                           and re.search(r"^## (?:References|Referencias)\s*$", source_of(cell), re.M)), None)
+                    if reference_cell and "onnxruntime.ai/docs/tutorials/tf-get-started.html" not in source_of(reference_cell):
+                        citation = reference if lang == "en" else "- [ONNX Runtime: verificación de un modelo convertido](https://onnxruntime.ai/docs/tutorials/tf-get-started.html)"
+                        reference_cell["source"] = (source_of(reference_cell).rstrip() + "\n" + citation + "\n").splitlines(keepends=True)
+                        changed = True
+                readout_heading = "### Interpreting the evidence" if lang == "en" else "### Interpretación de la evidencia"
+                if not any(cell.get("cell_type") == "markdown" and source_of(cell).startswith(readout_heading)
+                           for cell in nb.get("cells", [])):
+                    case_index = next((i for i, cell in enumerate(nb.get("cells", []))
+                                       if cell.get("cell_type") == "markdown"
+                                       and source_of(cell).startswith(case_heading)), None)
+                    if case_index is not None:
+                        readout = LEVEL1_READOUTS[lang][topic]
+                        nb["cells"].insert(case_index + 1, markdown_cell(f"{readout_heading}\n\n{readout}\n"))
+                        changed = True
+                extension_heading = "### Adapt the experiment" if lang == "en" else "### Adapta el experimento"
+                if not any(cell.get("cell_type") == "markdown" and source_of(cell).startswith(extension_heading)
+                           for cell in nb.get("cells", [])):
+                    readout_index = next((i for i, cell in enumerate(nb.get("cells", []))
+                                          if cell.get("cell_type") == "markdown"
+                                          and source_of(cell).startswith(readout_heading)), None)
+                    if readout_index is not None:
+                        extension = LEVEL1_EXTENSIONS[topic] if lang == "en" else LEVEL1_EXTENSIONS_ES[topic]
+                        nb["cells"].insert(readout_index + 1, markdown_cell(f"{extension_heading}\n\n{extension}\n"))
+                        changed = True
+            if changed:
+                write_notebook(path, nb)
+                updated += 1
+    return updated
+
+
+def repair_bilingual_cell_parity(root: Path) -> int:
+    """Align inherited EN/ES lesson structures while preserving substantive content."""
+    changes = 0
+
+    def load(lang: str, topic: str, name: str) -> tuple[Path, dict]:
+        path = root / "notebooks" / lang / topic / name
+        return path, json.loads(path.read_text(encoding="utf-8"))
+
+    def save_cells(lang: str, topic: str, name: str, cells: list[dict], marker: str) -> None:
+        nonlocal changes
+        path, nb = load(lang, topic, name)
+        if any(marker in source_of(c) for c in nb["cells"]):
+            return
+        result_cell = next(i for i, c in enumerate(nb["cells"])
+                           if c["cell_type"] == "markdown" and re.match(r"## (?:Results|Resultados)\b", source_of(c)))
+        nb["cells"][result_cell:result_cell] = cells
+        write_notebook(path, nb)
+        changes += 1
+
+    def append_cells(lang: str, topic: str, name: str, cells: list[dict], marker: str) -> None:
+        nonlocal changes
+        path, nb = load(lang, topic, name)
+        if any(marker in source_of(c) for c in nb["cells"]):
+            return
+        nb["cells"].extend(cells)
+        write_notebook(path, nb)
+        changes += 1
+
+    def mirror_sensitivity(topic: str, name: str, spanish_reader: str) -> None:
+        """Mirror a real executed perturbation figure and its topic-specific reading."""
+        nonlocal changes
+        en_path, en = load("en", topic, name)
+        es_path, es = load("es", topic, name)
+        marker = "# Input-perturbation sensitivity: verified completion versus latency tail."
+        source = next((c for c in en["cells"] if c["cell_type"] == "code" and source_of(c).startswith(marker)), None)
+        if source is None or any(c["cell_type"] == "code" and
+                                 (source_of(c).startswith(marker) or source_of(c).startswith("# Sensibilidad a perturbaciones:"))
+                                 for c in es["cells"]):
+            return
+        result_cell = next(i for i, c in enumerate(es["cells"])
+                           if c["cell_type"] == "markdown" and re.match(r"## (?:Resultados|Results)\b", source_of(c)))
+        cloned = dict(source)
+        cloned["source"] = source_of(source).replace(
+            "# Input-perturbation sensitivity: verified completion versus latency tail.",
+            "# Sensibilidad a perturbaciones: finalización verificada y cola de latencia.",
+            1,
+        ).splitlines(keepends=True)
+        cloned["outputs"] = []
+        cloned["execution_count"] = None
+        es["cells"][result_cell:result_cell] = [cloned, markdown_cell(spanish_reader)]
+        write_notebook(es_path, es)
+        changes += 1
+
+    # The L2 policy lesson has a missing Spanish warning about the distinction between
+    # an intermediate score and the observed HTTP postcondition.
+    save_cells("es", "02-learned-action-policies", "02-the-method-in-practice.ipynb",
+               [markdown_cell("Un cambio de puntaje no es un efecto HTTP verificado."), markdown_cell("")],
+               "Un cambio de puntaje no es un efecto HTTP verificado.")
+    # Topic-specific sensitivity is present in English level 3 for these cases only.
+    mirror_sensitivity(
+        "02-learned-action-policies", "03-prior-methods-comparison.ipynb",
+        "El agregado no establece calibración. En esta comparación de nivel 3 para C05, los ejes emparejados muestran la tasa de éxito verificado y el percentil 95 de latencia por variante indexada. Cada punto usa el manifiesto congelado y conserva los fallos en el denominador; no estima prevalencia operativa ni permite atribuir causalmente una diferencia al puntaje. Para estudiar calibración hacen falta predicciones y etiquetas retenidas que permitan comparar confianza con frecuencia observada."
+    )
+    save_cells("es", "03-sequential-control", "02-the-method-in-practice.ipynb",
+               [markdown_cell("### Sensibilidad a perturbaciones de entrada\n\nEn C07, el tiempo entre la solicitud de cancelación y la terminación observada es la variable de estrés. Comprueba si una demora cambia la admisión, la invalidación de propuestas, el acuse de cancelación o la poscondición terminal. El resumen mantiene separados el tiempo de decisión y la duración del trabajo; ninguno sustituye el estado final verificado."), markdown_cell("")],
+               "### Sensibilidad a perturbaciones de entrada")
+    mirror_sensitivity(
+        "03-sequential-control", "03-prior-methods-comparison.ipynb",
+        "Esta figura cruza las variantes indexadas de C07 con el éxito verificado y el percentil 95 del tiempo de decisión para M05 y M07. La escala temporal no incluye la duración asíncrona del trabajo. Lee cada variante junto con la traza de cancelación, porque la solicitud, el acuse, la terminación del proceso y la poscondición son eventos distintos. El conjunto es diseñado y no estima fiabilidad de cancelación en cargas de trabajo externas."
+    )
+
+    # A matched M04 execution is an actual baseline run, not a literature-only
+    # reference. Keep the same executable call in the Spanish counterpart.
+    en_path, en = load("en", "02-learned-action-policies", "03-prior-methods-comparison.ipynb")
+    es_path, es = load("es", "02-learned-action-policies", "03-prior-methods-comparison.ipynb")
+    comparator_code = next((c for c in en["cells"] if c["cell_type"] == "code"
+                            and source_of(c).startswith("# Execute the measured XGBoost policy on the identical case specification.")), None)
+    if comparator_code:
+        existing = next((i for i, c in enumerate(es["cells"]) if c["cell_type"] == "code"
+                         and "state_art_policy = make_policy(\"M04\"" in source_of(c)), None)
+        if existing is not None:
+            es["cells"].pop(existing)
+        es_run = next((i for i, c in enumerate(es["cells"]) if c["cell_type"] == "code"
+                       and "secondary_result = run_episode" in source_of(c)), None)
+        if es_run is None:
+            raise ValueError("Spanish learned-policy comparison is missing the matched M04 execution anchor")
+        title = markdown_cell(
+            "### Ejecutar M04 bajo las mismas condiciones\n\nEsta llamada ejecuta la política M04 en C05 con la misma semilla nominal que las políticas comparadas. Se registra el resultado verificado por el oráculo y el tiempo observado, de modo que la comparación incluya una ejecución del producto y no solo valores publicados por terceros."
+        )
+        cloned = dict(comparator_code)
+        cloned["source"] = source_of(comparator_code).replace(
+            "# Execute the measured XGBoost policy on the identical case specification.",
+            "# Ejecuta la política M04 bajo la misma especificación del caso.", 1,
+        ).splitlines(keepends=True)
+        cloned["outputs"] = []
+        cloned["execution_count"] = None
+        es["cells"][es_run + 1:es_run + 1] = [title, cloned]
+        write_notebook(es_path, es)
+        changes += 1
+
+    # Restore translated closing summaries and references that were present in only one
+    # language. The citations remain the sources already listed by the notebook metadata.
+    save_cells("en", "01-fast-event-control", "01-the-problem-and-the-data.ipynb",
+               [markdown_cell("## Summary\n\nC01 tests guarded admission for a file effect; broad speed claims require measured states and latency."),
+                markdown_cell("## References\n- [JEV](https://typesafe.ai/blog/introducing-system-one-models-and-jev) - [LEE](https://doi.org/10.1016/j.neuron.2013.11.028) - [DPT](https://aclanthology.org/2025.acl-long.206/)")],
+               "## Summary")
+    save_cells("en", "05-evaluation-and-transfer", "02-the-method-in-practice.ipynb",
+               [markdown_cell("## References\n- [TOOLSANDBOX](https://arxiv.org/abs/2408.04682) - [SWE](https://arxiv.org/abs/2310.06770) - [TAU2](https://arxiv.org/abs/2506.07982) - [Statistical Inference](https://doi.org/10.1080/01621459.1997.10474074) - [The Bootstrap](https://doi.org/10.1111/1467-9868.00297)")],
+               "## References")
+    save_cells("es", "06-ablation-and-export-parity", "01-the-problem-and-the-data.ipynb",
+               [markdown_cell("## Resumen\n\nLos resultados de ablación evalúan la contribución; la paridad de exportación mide un acuerdo numérico acotado."),
+                markdown_cell(""),
+                markdown_cell("## Referencias\n- [XGB](https://arxiv.org/abs/1603.02754) - [PPO](https://arxiv.org/abs/1707.06347) - [ONNX Runtime: verificación de un modelo convertido](https://onnxruntime.ai/docs/tutorials/tf-get-started.html)")],
+               "## Resumen")
+
+    append_cells("es", "01-fast-event-control", "02-the-method-in-practice.ipynb",
+                 [markdown_cell("## Referencias\n- [JEV](https://typesafe.ai/blog/introducing-system-one-models-and-jev) - [LEE](https://doi.org/10.1016/j.neuron.2013.11.028) - [DPT](https://aclanthology.org/2025.acl-long.206/)")],
+                 "## Referencias")
+    append_cells("en", "02-learned-action-policies", "02-the-method-in-practice.ipynb",
+                 [markdown_cell("## Summary\n\nUse paired rates to locate when action ranking changes the outcome; score agreement alone cannot establish a verified HTTP effect."),
+                  markdown_cell(""),
+                  markdown_cell("## References\n- [XGB](https://arxiv.org/abs/1603.02754) - [GRU](https://arxiv.org/abs/1406.1078) - [Learning to defer](https://proceedings.mlr.press/v119/mozannar20b.html)")],
+                 "## Summary")
+    append_cells("en", "03-sequential-control", "02-the-method-in-practice.ipynb",
+                 [markdown_cell("## Summary\n\nThe curve measures controller decision time, not asynchronous job duration."),
+                  markdown_cell(""),
+                  markdown_cell("## References\n- [GRU](https://arxiv.org/abs/1406.1078) - [PPO](https://arxiv.org/abs/1707.06347) - [InterruptBench](https://arxiv.org/abs/2604.00892)")],
+                 "## Summary")
+    append_cells("en", "05-evaluation-and-transfer", "02-the-method-in-practice.ipynb",
+                 [markdown_cell("## References\n- [TOOLSANDBOX](https://arxiv.org/abs/2408.04682) - [SWE](https://arxiv.org/abs/2310.06770) - [TAU2](https://arxiv.org/abs/2506.07982) - [Statistical Inference](https://doi.org/10.1080/01621459.1997.10474074) - [The Bootstrap](https://doi.org/10.1111/1467-9868.00297)")],
+                 "## References")
+    append_cells("en", "06-ablation-and-export-parity", "02-the-method-in-practice.ipynb",
+                 [markdown_cell("## References\n- [XGB](https://arxiv.org/abs/1603.02754) - [PPO](https://arxiv.org/abs/1707.06347) - [ONNX Runtime](https://onnxruntime.ai/docs/tutorials/tf-get-started.html)")],
+                 "## References")
+
+    # Remove only empty separator cells that have no counterpart.
+    for topic, name in [("01-fast-event-control", "03-prior-methods-comparison.ipynb"),
+                        ("06-ablation-and-export-parity", "03-prior-methods-comparison.ipynb")]:
+        en_path, en = load("en", topic, name)
+        es_path, es = load("es", topic, name)
+        en_kinds = [c["cell_type"] for c in en["cells"]]
+        es_kinds = [c["cell_type"] for c in es["cells"]]
+        while len(es_kinds) > len(en_kinds):
+            i = next((i for i, c in enumerate(es["cells"])
+                      if c["cell_type"] == "markdown" and not source_of(c).strip()), None)
+            if i is None: break
+            es["cells"].pop(i); es_kinds.pop(i); changes += 1
+        while len(en_kinds) > len(es_kinds):
+            i = next((i for i, c in enumerate(en["cells"])
+                      if c["cell_type"] == "markdown" and not source_of(c).strip()), None)
+            if i is None: break
+            en["cells"].pop(i); en_kinds.pop(i); changes += 1
+        write_notebook(en_path, en); write_notebook(es_path, es)
+
+    # Place the required method executions inside the reader-facing comparison section.
+    for topic in ("01-fast-event-control", "02-learned-action-policies", "03-sequential-control",
+                  "04-deliberation-allocation", "05-evaluation-and-transfer", "06-ablation-and-export-parity"):
+        comparison_intro = {
+            "en": {
+                "01-fast-event-control": "M01 and M02 share the file-effect guard and terminal-path checks. Compare stale-revision rejection and the final bytes before interpreting their matched C01 timing.",
+                "02-learned-action-policies": "M03 and M04 use the same C05 retry contract. Compare ranked actions with the observed HTTP response and the independently checked retry postcondition.",
+                "03-sequential-control": "M05 and M07 face the same C07 cancellation schedule. Separate request admission, acknowledgement, process exit and the terminal task condition in each trace.",
+                "04-deliberation-allocation": "M11 and M12 are compared on the same C13 planner-allocation case. Read completion with planner use and controller latency to assess the measured allocation tradeoff.",
+                "05-evaluation-and-transfer": "M01 and M04 run on the same C01 trace. Keep this worked case apart from the held-out composition results and the complete core denominators.",
+                "06-ablation-and-export-parity": "M03 and M04 provide the matched C07 policy comparison. Interpret task completion separately from native-versus-reference score error.",
+            },
+            "es": {
+                "01-fast-event-control": "M01 y M02 comparten las guardas del efecto de archivo y las comprobaciones del estado terminal. Compara el rechazo de revisiones obsoletas y los bytes finales antes de interpretar los tiempos emparejados de C01.",
+                "02-learned-action-policies": "M03 y M04 usan el mismo contrato de reintento C05. Compara las acciones ordenadas con la respuesta HTTP observada y la poscondición de reintento verificada independientemente.",
+                "03-sequential-control": "M05 y M07 afrontan la misma secuencia de cancelación C07. Separa la admisión de la solicitud, el acuse, la salida del proceso y la condición terminal de la tarea en cada traza.",
+                "04-deliberation-allocation": "M11 y M12 se comparan en el mismo caso C13 de asignación al planificador. Lee la finalización junto con el uso del planificador y la latencia para evaluar el intercambio medido.",
+                "05-evaluation-and-transfer": "M01 y M04 se ejecutan sobre la misma traza C01. Mantén este caso trabajado separado de los resultados de composiciones retenidas y de los denominadores centrales completos.",
+                "06-ablation-and-export-parity": "M03 y M04 proporcionan la comparación emparejada de políticas en C07. Interpreta la finalización por separado del error entre el puntaje nativo y su referencia.",
+            },
+        }
+        for lang in ("en", "es"):
+            path, nb = load(lang, topic, "03-prior-methods-comparison.ipynb")
+            heading = "## Comparison" if lang == "en" else "## Comparación"
+            heading_i = next((i for i, c in enumerate(nb["cells"])
+                              if c["cell_type"] == "markdown" and source_of(c).startswith(heading)), None)
+            factory_i = next((i for i, c in enumerate(nb["cells"])
+                              if c["cell_type"] == "code" and "primary_policy = make_policy(" in source_of(c)), None)
+            if heading_i is None and factory_i is not None:
+                intro = comparison_intro[lang][topic]
+                nb["cells"].insert(factory_i, markdown_cell(f"{heading}\n\n{intro}"))
+                heading_i = factory_i
+                changes += 1
+                write_notebook(path, nb)
+            if heading_i is not None and factory_i is not None and heading_i > factory_i:
+                cell = nb["cells"].pop(heading_i)
+                factory_i = next(i for i, c in enumerate(nb["cells"])
+                                 if c["cell_type"] == "code" and "primary_policy = make_policy(" in source_of(c))
+                nb["cells"].insert(factory_i, cell)
+                write_notebook(path, nb)
+                changes += 1
+
+    # The Spanish trace-reading paragraph was after its evidence-loading cell; place it
+    # beside the matching English paragraph before interpretation and execution.
+    en_path, en = load("en", "05-evaluation-and-transfer", "01-the-problem-and-the-data.ipynb")
+    es_path, es = load("es", "05-evaluation-and-transfer", "01-the-problem-and-the-data.ipynb")
+    en_intro = next((i for i, c in enumerate(en["cells"]) if "### Inspect one guarded trace:" in source_of(c)), None)
+    es_intro = next((i for i, c in enumerate(es["cells"]) if "### Inspeccionar una traza con guardas:" in source_of(c)), None)
+    if es_intro is not None:
+        cell = es["cells"].pop(es_intro)
+        if not any("### Inspeccionar una traza con guardas:" in source_of(c) for c in es["cells"]):
+            # Insert directly after the case-reading paragraph, matching the English order.
+            case_reading = next((i for i, c in enumerate(es["cells"]) if source_of(c).startswith("### Lectura del caso")), None)
+            es["cells"].insert((case_reading + 1) if case_reading is not None else 8, cell)
+            changes += 1
+        write_notebook(es_path, es)
+    if en_intro is None:
+        raise ValueError("English evaluation lesson is missing its guarded trace-reading section")
+
+    # The Spanish level-2 evaluation notebook carried a stale chart-2 caption after
+    # chart 3. Remove only that detached caption; the plotted evidence has its own reader.
+    es_path, es = load("es", "05-evaluation-and-transfer", "02-the-method-in-practice.ipynb")
+    stale = next((i for i, c in enumerate(es["cells"])
+                  if c["cell_type"] == "markdown"
+                  and source_of(c).startswith("El gráfico 2, nivel 2, resume latencia central")), None)
+    if stale is not None:
+        es["cells"].pop(stale)
+        write_notebook(es_path, es)
+        changes += 1
+
+    # Restore the English counterpart of a substantive cancellation interpretation.
+    en_path, en = load("en", "03-sequential-control", "03-prior-methods-comparison.ipynb")
+    es_path, es = load("es", "03-sequential-control", "03-prior-methods-comparison.ipynb")
+    code_marker = "# Compare verified completion rates over every seed in each case variant."
+    es_cancel = next((source_of(c).strip() for c in es["cells"]
+                      if c["cell_type"] == "markdown"
+                      and source_of(c).startswith("Para cancelación de trabajos largos, la figura")), None)
+    if es_cancel and not any("For long-job cancellation, the level-3 chart" in source_of(c) for c in en["cells"]):
+        position = next(i for i, c in enumerate(en["cells"])
+                        if c["cell_type"] == "code" and source_of(c).startswith(code_marker))
+        translated = markdown_cell(
+            "For long-job cancellation, this level-3 comparison reads hash-verified controller-time observations "
+            "for M05 and M06 across each indexed C07 variant. Read the latency distribution together with verified "
+            "completion: process exit, cancellation acknowledgement, and the final task postcondition are separate "
+            "events. The chart describes these designed episodes and does not estimate cancellation reliability "
+            "for arbitrary software workloads."
+        )
+        en["cells"][position:position] = [translated, markdown_cell("")]
+        write_notebook(en_path, en)
+        changes += 1
+
+    # The English lesson has a short but important distinction absent from Spanish.
+    en_path, en = load("en", "06-ablation-and-export-parity", "02-the-method-in-practice.ipynb")
+    es_path, es = load("es", "06-ablation-and-export-parity", "02-the-method-in-practice.ipynb")
+    en_note = next((source_of(c).strip() for c in en["cells"]
+                    if c["cell_type"] == "markdown"
+                    and source_of(c).startswith("C07 timing summarizes controller decisions;")), None)
+    if en_note and not any(source_of(c).startswith("El tiempo de C07 resume") for c in es["cells"]):
+        position = next(i for i, c in enumerate(es["cells"])
+                        if c["cell_type"] == "markdown"
+                        and source_of(c).startswith("### La ablación y la paridad numérica"))
+        es["cells"].insert(position, markdown_cell(
+            "El tiempo de C07 resume las decisiones del controlador y es independiente de la magnitud del error numérico de exportación."
+        ))
+        write_notebook(es_path, es)
+        changes += 1
+
+    # Four comparison lessons need an explicit aggregation call over the two fresh
+    # executions. Other level-3 lessons already contain this product method call.
+    aggregate_context = {
+        "01-fast-event-control": (
+            "Aggregate the two fresh file-effect runs so each guard policy's verified C01 outcome remains paired with the same case and seed.",
+            "Agrega las dos ejecuciones nuevas del efecto de archivo para mantener emparejados el resultado verificado de cada política de guarda, el mismo caso C01 y la misma semilla.",
+        ),
+        "04-deliberation-allocation": (
+            "Aggregate the two fresh C13 planner-allocation runs before interpreting completion, deferral and controller time together.",
+            "Agrega las dos ejecuciones nuevas de asignación al planificador en C13 antes de interpretar en conjunto la finalización, la delegación y el tiempo del controlador.",
+        ),
+        "05-evaluation-and-transfer": (
+            "Aggregate the fresh M01 and M04 C01 runs as a matched demonstration; this two-episode summary does not replace the full core or transfer denominator.",
+            "Agrega las ejecuciones nuevas de M01 y M04 en C01 como demostración emparejada; este resumen de dos episodios no sustituye los denominadores completos de núcleo ni de transferencia.",
+        ),
+        "06-ablation-and-export-parity": (
+            "Aggregate the two fresh C07 policy runs for the matched task comparison, while leaving native-score parity as a separate numerical outcome.",
+            "Agrega las dos ejecuciones nuevas de políticas en C07 para la comparación emparejada, y conserva la paridad de puntajes nativos como resultado numérico separado.",
+        ),
+        "02-learned-action-policies": (
+            "Aggregate the matched M03 and M04 retry outcomes before reading action ranking beside verified HTTP completion.",
+            "Agrega los resultados emparejados de reintento de M03 y M04 antes de leer el orden de acciones junto con la finalización HTTP verificada.",
+        ),
+        "03-sequential-control": (
+            "Aggregate the two fresh C07 cancellation policies before separating task completion from process and controller timing.",
+            "Agrega las dos políticas nuevas de cancelación C07 antes de separar la finalización de la tarea del proceso y del tiempo del controlador.",
+        ),
+    }
+    for topic, bilingual in aggregate_context.items():
+        for lang in ("en", "es"):
+            path, nb = load(lang, topic, "03-prior-methods-comparison.ipynb")
+            if any(c["cell_type"] == "code" and "fresh_summary = aggregate([primary_result, secondary_result])" in source_of(c)
+                   for c in nb["cells"]):
+                continue
+            secondary = next((i for i, c in enumerate(nb["cells"])
+                              if c["cell_type"] == "code" and "secondary_result = run_episode" in source_of(c)), None)
+            if secondary is None:
+                raise ValueError(f"{lang}/{topic} comparison lacks its second executed outcome")
+            code_source = (
+                "# Aggregate both executed outcomes with the product's evaluator.\n"
+                "fresh_runs = {primary_id: primary_result, secondary_id: secondary_result}\n"
+                "fresh_summary = aggregate([primary_result, secondary_result])\n"
+                "print(\"Fresh policy runs:\", len(fresh_runs))\n"
+                "print(\"Fresh successes:\", sum(run[\"metrics\"][\"task_success\"] for run in fresh_runs.values()))\n"
+                if lang == "en" else
+                "# Agrega ambos resultados ejecutados con el evaluador del producto.\n"
+                "fresh_runs = {primary_id: primary_result, secondary_id: secondary_result}\n"
+                "fresh_summary = aggregate([primary_result, secondary_result])\n"
+                "print(\"Ejecuciones nuevas de políticas:\", len(fresh_runs))\n"
+                "print(\"Éxitos nuevos:\", sum(run[\"metrics\"][\"task_success\"] for run in fresh_runs.values()))\n"
+            )
+            code = {"cell_type": "code", "execution_count": None, "metadata": {}, "outputs": [],
+                    "source": code_source.splitlines(keepends=True)}
+            description = bilingual[0 if lang == "en" else 1]
+            nb["cells"][secondary + 1:secondary + 1] = [markdown_cell(description), code]
+            write_notebook(path, nb)
+            changes += 1
+    return changes
+
+
 def main() -> int:
     parser = argparse.ArgumentParser()
     parser.add_argument("root", type=Path, nargs="?", default=Path(__file__).resolve().parents[1])
     args = parser.parse_args()
     total = rebuild(args.root.resolve())
     repair_existing_notebooks(args.root.resolve())
+    aligned = repair_method_step_prose(args.root.resolve())
+    references = ensure_reference_sections(args.root.resolve())
+    from complete_notebook_lessons import complete as complete_lessons
+    deepened = complete_lessons(args.root.resolve())
     removed = deduplicate_long_prose(args.root.resolve())
     explained = enrich_figure_explanations(args.root.resolve())
-    references = ensure_reference_sections(args.root.resolve())
-    print(f"Rebuilt {total} bilingual notebook lessons, removed {removed} copied long-prose occurrences, added {explained} chart explanations, and restored {references} bibliographies.")
+    parity = repair_bilingual_cell_parity(args.root.resolve())
+    from align_notebook_mirrors import align_pair
+    normalized = 0
+    en_root = args.root.resolve() / "notebooks" / "en"
+    for en_path in sorted(en_root.glob("*/*.ipynb")):
+        es_path = args.root.resolve() / "notebooks" / "es" / en_path.relative_to(en_root)
+        if es_path.is_file() and align_pair(en_path, es_path):
+            normalized += 1
+    print(f"Rebuilt {total} bilingual notebook lessons, aligned method captions in {aligned} notebooks, removed {removed} copied long-prose occurrences, added {explained} chart explanations, restored {references} bibliographies, added {deepened} topic-specific method, sensitivity, comparison and own-data blocks, repaired {parity} EN/ES parity defects, and normalized {normalized} counterpart boundaries without discarding prose.")
     return 0
 
 

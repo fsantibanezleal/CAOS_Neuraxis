@@ -1,0 +1,58 @@
+{
+  "methods": {
+    "M01": ["01-fast-event-control/02-the-method-in-practice.ipynb", "01-fast-event-control/03-prior-methods-comparison.ipynb"],
+    "M02": ["01-fast-event-control/02-the-method-in-practice.ipynb", "01-fast-event-control/03-prior-methods-comparison.ipynb"],
+    "M03": ["02-learned-action-policies/02-the-method-in-practice.ipynb", "02-learned-action-policies/03-prior-methods-comparison.ipynb"],
+    "M04": ["02-learned-action-policies/02-the-method-in-practice.ipynb", "02-learned-action-policies/03-prior-methods-comparison.ipynb"],
+    "M05": ["03-sequential-control/02-the-method-in-practice.ipynb", "03-sequential-control/03-prior-methods-comparison.ipynb"],
+    "M06": ["03-sequential-control/02-the-method-in-practice.ipynb", "03-sequential-control/03-prior-methods-comparison.ipynb"],
+    "M07": ["03-sequential-control/02-the-method-in-practice.ipynb", "03-sequential-control/03-prior-methods-comparison.ipynb"],
+    "M08": ["03-sequential-control/02-the-method-in-practice.ipynb", "03-sequential-control/03-prior-methods-comparison.ipynb"],
+    "M09": ["04-deliberation-allocation/02-the-method-in-practice.ipynb", "04-deliberation-allocation/03-prior-methods-comparison.ipynb"],
+    "M10": ["04-deliberation-allocation/02-the-method-in-practice.ipynb", "04-deliberation-allocation/03-prior-methods-comparison.ipynb"],
+    "M11": ["04-deliberation-allocation/02-the-method-in-practice.ipynb", "04-deliberation-allocation/03-prior-methods-comparison.ipynb"],
+    "BS-1": ["04-deliberation-allocation/04-resource-versioned-metacontrol.ipynb"]
+  },
+  "contracts": {
+    "product-metadata": ["05-evaluation-and-transfer/02-the-method-in-practice.ipynb"],
+    "canonical-index": ["05-evaluation-and-transfer/02-the-method-in-practice.ipynb", "05-evaluation-and-transfer/03-prior-methods-comparison.ipynb"],
+    "canonical-episode": ["05-evaluation-and-transfer/02-the-method-in-practice.ipynb", "05-evaluation-and-transfer/03-prior-methods-comparison.ipynb"],
+    "semantic-transfer": ["05-evaluation-and-transfer/02-the-method-in-practice.ipynb", "05-evaluation-and-transfer/03-prior-methods-comparison.ipynb"],
+    "semantic-transfer-episode": ["05-evaluation-and-transfer/02-the-method-in-practice.ipynb"],
+    "semantic-transfer-report": ["05-evaluation-and-transfer/02-the-method-in-practice.ipynb"],
+    "semantic-transfer-lineage": ["05-evaluation-and-transfer/02-the-method-in-practice.ipynb"],
+    "benchmark-adequacy": ["05-evaluation-and-transfer/02-the-method-in-practice.ipynb", "05-evaluation-and-transfer/03-prior-methods-comparison.ipynb"],
+    "core-experiment-lineage": ["05-evaluation-and-transfer/02-the-method-in-practice.ipynb"],
+    "research-report": ["05-evaluation-and-transfer/02-the-method-in-practice.ipynb"],
+    "semantic-routing": ["02-learned-action-policies/03-prior-methods-comparison.ipynb"],
+    "model-checkpoint-metadata": ["02-learned-action-policies/02-the-method-in-practice.ipynb"],
+    "event-response-audit": ["03-sequential-control/03-prior-methods-comparison.ipynb"],
+    "event-response-index": ["03-sequential-control/03-prior-methods-comparison.ipynb"],
+    "operation-study-index": ["01-fast-event-control/02-the-method-in-practice.ipynb"],
+    "operation-study-detail": ["01-fast-event-control/02-the-method-in-practice.ipynb"],
+    "operations-api": ["01-fast-event-control/02-the-method-in-practice.ipynb"],
+    "workspace-authority": ["01-fast-event-control/02-the-method-in-practice.ipynb"],
+    "product-readiness": ["05-evaluation-and-transfer/02-the-method-in-practice.ipynb"],
+    "static-release": ["05-evaluation-and-transfer/02-the-method-in-practice.ipynb"],
+    "template-adoption": ["05-evaluation-and-transfer/02-the-method-in-practice.ipynb"]
+  },
+  "stages": {
+    "collect": ["05-evaluation-and-transfer/02-the-method-in-practice.ipynb"],
+    "train": ["02-learned-action-policies/02-the-method-in-practice.ipynb"],
+    "ppo": ["03-sequential-control/02-the-method-in-practice.ipynb"],
+    "gates": ["04-deliberation-allocation/02-the-method-in-practice.ipynb"],
+    "evaluate": ["05-evaluation-and-transfer/02-the-method-in-practice.ipynb"],
+    "export": ["06-ablation-and-export-parity/02-the-method-in-practice.ipynb"],
+    "readiness": ["05-evaluation-and-transfer/02-the-method-in-practice.ipynb"]
+  },
+  "packages": {
+    "reflexmesh": [
+      "01-fast-event-control/02-the-method-in-practice.ipynb",
+      "02-learned-action-policies/02-the-method-in-practice.ipynb",
+      "03-sequential-control/02-the-method-in-practice.ipynb",
+      "04-deliberation-allocation/02-the-method-in-practice.ipynb",
+      "05-evaluation-and-transfer/02-the-method-in-practice.ipynb",
+      "06-ablation-and-export-parity/02-the-method-in-practice.ipynb"
+    ]
+  }
+}

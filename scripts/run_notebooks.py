@@ -234,7 +234,7 @@ def main() -> int:
                 # The lessons load the exact, locally fetched checkpoint release as well as frozen research data.
                 # Keep model bytes inside the isolated input copy so a clean-kernel check proves that dependency
                 # instead of accidentally reading the developer's workspace.
-                for item in ("data", "data-pipeline", "docs", "content", "models", "notebooks"):
+                for item in ("data", "data-pipeline", "docs", "content", "models", "manuscripts", "notebooks"):
                     if (ROOT / item).exists() and not (work / item).exists():
                         shutil.copytree(ROOT / item, work / item, ignore=shutil.ignore_patterns("__pycache__", ".ipynb_checkpoints"))
                 work.mkdir(parents=True, exist_ok=True)

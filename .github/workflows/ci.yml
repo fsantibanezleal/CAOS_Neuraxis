@@ -30,6 +30,7 @@ jobs:
       - run: python scripts/check_deploy_place.py
       - run: python scripts/check_sdd.py
       - run: python scripts/check_manuscripts.py
+      - run: python scripts/check_manuscript_depth.py .
       - run: python scripts/check_contract_versions.py
       - run: python scripts/check_contracts.py docs/contracts/catalog.md --repo-root .
       - run: python scripts/check_documents.py
@@ -38,11 +39,13 @@ jobs:
       - run: python scripts/check_base_integrity.py
       - run: python scripts/check_doc_paths.py
       - run: python scripts/check_web_baseline.py
+      - run: python scripts/check_architecture.py
       - run: python scripts/check_svg_animation.py
       - run: python scripts/check_skeleton.py docs/contracts/catalog.md
       - run: python scripts/check_template_adoption.py
       - run: python scripts/check_tech_matrix.py
       - run: python scripts/check_notebooks.py
+      - run: python scripts/check_notebook_depth.py .
       - run: python scripts/check_internal_names.py
       - run: python scripts/check_readme_areas.py
       - run: python scripts/check_artifacts.py
