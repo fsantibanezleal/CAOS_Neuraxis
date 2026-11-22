@@ -13,7 +13,7 @@ const expectedGroups = {
   methodology: [4, 2],
   implementation: [2, 3, 3],
   experiments: [3, 2, 2],
-  benchmark: [5, 2, 0],
+  benchmark: [6, 2, 0],
 };
 try {
   for (const width of [1600, 360]) for (const theme of ['light', 'dark']) for (const lang of ['en', 'es']) {

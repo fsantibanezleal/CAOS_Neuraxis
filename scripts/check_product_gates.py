@@ -31,6 +31,7 @@ def main() -> int:
         temp_path = Path(notebook_temp).resolve()
         if temp_path == ROOT or ROOT in temp_path.parents:
             parser.error("CAOS_TEMP_ROOT must be outside the repository")
+        temp_path.mkdir(parents=True, exist_ok=True)
     source_checks = [
         ("content rules", [PY, "scripts/check_content_standards.py"]),
         ("CI budget", [PY, "scripts/check_ci_budget.py"]),
@@ -47,6 +48,7 @@ def main() -> int:
         ("base integrity", [PY, "scripts/check_base_integrity.py"]),
         ("documentation paths", [PY, "scripts/check_doc_paths.py"]),
         ("shell and web baseline", [PY, "scripts/check_web_baseline.py"]),
+        ("architecture diagram quality and bilingual copy", [PY, "scripts/check_architecture.py"]),
         ("SVG motion accessibility", [PY, "scripts/check_svg_animation.py"]),
         ("provider skeleton", [PY, "scripts/check_skeleton.py", "docs/contracts/catalog.md"]),
         ("template residue", [PY, "scripts/check_template_residue.py"]),
@@ -78,7 +80,8 @@ def main() -> int:
     run("frontend tests", [NPM, "test", "--", "--reporter=dot"], frontend)
     run("frontend production build", [NPM, "run", "build"], frontend)
     if args.scope == "release":
-        run("audited static package", [PY, "scripts/package_static.py"])
+        release_archive = str(Path(notebook_temp) / "neuraxis-static-candidate.tar.gz")
+        run("audited static package", [PY, "scripts/package_static.py", "--output", release_archive])
         if args.live_url:
             run("live shell interaction gate", ["node", "scripts/gate.mjs", "--require-focus"], frontend, live_env)
             run("live scientific content gate", ["node", "verify-content.mjs"], frontend, live_env)

@@ -1,8 +1,10 @@
 # Changelog
 
-## Unreleased
+## [0.02.023] - 2026-11-22
 
-- Adopt CAOS App Shell 0.26.000 and CAOS Product Template 0.15.009 on the Neuraxis branch for issue #120. The frontend build, 39 frontend tests and the shell's 997-state interaction gate pass on this candidate. The template's manuscript and notebook depth gates are active; scientific content remediation remains in progress, so this is not a release or deployment claim.
+- Release candidate: adopt CAOS App Shell 0.26.003 and CAOS Product Template 0.15.014; align the SDD and exact dependency lock with those releases.
+- Expand both scientific manuscripts with audited coverage, detailed method and contract descriptions, and data-derived result tables. Preserve all frozen outcomes, including M12's 1,160/1,200 core result, M01's 1,200/1,200, the degenerate learned gate, and the negative transfer comparison.
+- Enforce printed abstract lengths and include the manuscript sources in fresh-kernel notebook workspaces. Full source, research, notebook, frontend and static-package gates pass; deployment and publication evidence are recorded separately.
 
 ## [0.02.022] - 2026-11-02
 

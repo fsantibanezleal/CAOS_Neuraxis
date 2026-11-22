@@ -1,5 +1,5 @@
 # CAOS Neuraxis software design
-Date: 2026-11-02. Candidate display release: 0.02.021; deployment evidence is recorded separately.
+Date: 2026-11-22. Candidate display release: 0.02.023; deployment evidence is recorded separately.
 
 ## Problem and non-goals
 Provide an inspectable software-control workbench, scientific explanation, complete measured comparison and authenticated local workspace operation. The public companion replays evidence; actual user tools run on the user's loopback service. A browser simulation is visibly labeled and never substituted for native effect evidence.
@@ -64,7 +64,7 @@ Every Python requirements file is exactly pinned. Frontend ranges are constraine
 | Product runtime | `typing-extensions` | `4.16.0` | pinned dependency | exact environment contract |
 | Product runtime | `typing-inspection` | `0.4.4` | pinned dependency | exact environment contract |
 | Product runtime | `uvicorn` | `0.53.0` | pinned dependency | exact environment contract |
-| Browser build | `@fasl-work/caos-app-shell` | `0.26.0` | locked frontend dependency | exact package-lock version |
+| Browser build | `@fasl-work/caos-app-shell` | `0.26.3` | locked frontend dependency | exact package-lock version |
 | Browser build | `@playwright/test` | `1.63.0` | locked frontend dependency | exact package-lock version |
 | Browser build | `@types/node` | `22.20.0` | locked frontend dependency | exact package-lock version |
 | Browser build | `@types/react` | `19.2.17` | locked frontend dependency | exact package-lock version |
@@ -173,8 +173,8 @@ acceptance until the live surfaces are reviewed by Felipe.
 
 ### Current base adoption candidate
 
-Issue #120 updates the candidate to CAOS Product Template 0.15.009 and shared shell 0.26.000. The template's native LaTeX
-manuscript and whole-tool notebook depth checks are included in `scripts/`; they currently fail for the authored product
-content and are being treated as release blockers. The shell pin compiles with the current frontend, but the full shell
-interaction gate passes across 997 measured states, and the frontend suite passes 39 tests. This section describes an
-in-progress candidate, not a released or deployed version.
+Issue #120 adopts CAOS Product Template 0.15.014 and shared shell 0.26.003. The template's native LaTeX manuscript and
+whole-tool notebook depth checks are included in `scripts/`. The product manuscripts meet the measured content floors,
+pass the scientific-voice check, and build without unresolved references or overfull boxes. All 38 bilingual notebooks
+execute in fresh kernels. The remaining release evidence is the deployed-source receipt and live review; manuscript
+publication has its own independent-reader gate. This section describes a release candidate until those records land.
