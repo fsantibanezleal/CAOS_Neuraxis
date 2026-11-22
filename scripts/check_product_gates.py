@@ -31,6 +31,7 @@ def main() -> int:
         temp_path = Path(notebook_temp).resolve()
         if temp_path == ROOT or ROOT in temp_path.parents:
             parser.error("CAOS_TEMP_ROOT must be outside the repository")
+        temp_path.mkdir(parents=True, exist_ok=True)
     source_checks = [
         ("content rules", [PY, "scripts/check_content_standards.py"]),
         ("CI budget", [PY, "scripts/check_ci_budget.py"]),
@@ -38,6 +39,7 @@ def main() -> int:
         ("deployment place", [PY, "scripts/check_deploy_place.py"]),
         ("software design", [PY, "scripts/check_sdd.py"]),
         ("manuscripts", [PY, "scripts/check_manuscripts.py"]),
+        ("manuscript content depth and coverage", [PY, "scripts/check_manuscript_depth.py", "."]),
         ("schema contract versions", [PY, "scripts/check_contract_versions.py"]),
         ("contract declarations", [PY, "scripts/check_contracts.py", "docs/contracts/catalog.md", "--repo-root", "."]),
         ("persisted document schemas", [PY, "scripts/check_documents.py"]),
@@ -46,11 +48,13 @@ def main() -> int:
         ("base integrity", [PY, "scripts/check_base_integrity.py"]),
         ("documentation paths", [PY, "scripts/check_doc_paths.py"]),
         ("shell and web baseline", [PY, "scripts/check_web_baseline.py"]),
+        ("architecture diagram quality and bilingual copy", [PY, "scripts/check_architecture.py"]),
         ("SVG motion accessibility", [PY, "scripts/check_svg_animation.py"]),
         ("provider skeleton", [PY, "scripts/check_skeleton.py", "docs/contracts/catalog.md"]),
         ("template residue", [PY, "scripts/check_template_residue.py"]),
         ("contract and adversarial tests", [PY, "-m", "pytest", "tests/contracts", "tests/adversarial", "-q"]),
         ("notebook structure", [PY, "scripts/check_notebooks.py"]),
+        ("notebook content depth and coverage", [PY, "scripts/check_notebook_depth.py", "."]),
         ("reader-facing method names", [PY, "scripts/check_internal_names.py"]),
         ("notebook execution and output freshness", [PY, "scripts/run_notebooks.py", "--check", "--tmp", notebook_temp]),
         ("README repository areas", [PY, "scripts/check_readme_areas.py"]),
@@ -63,8 +67,9 @@ def main() -> int:
         ("native operation study", [PY, "scripts/check_operations.py"]),
         ("complete Python test suite", [PY, "-m", "pytest", "tests", "-q"]),
     ]
-    for label, command in source_checks:
-        run(label, command)
+    if args.scope in {"source", "release"}:
+        for label, command in source_checks:
+            run(label, command)
     if args.scope == "source":
         return 0
     frontend = ROOT / "frontend"
@@ -75,7 +80,8 @@ def main() -> int:
     run("frontend tests", [NPM, "test", "--", "--reporter=dot"], frontend)
     run("frontend production build", [NPM, "run", "build"], frontend)
     if args.scope == "release":
-        run("audited static package", [PY, "scripts/package_static.py"])
+        release_archive = str(Path(notebook_temp) / "neuraxis-static-candidate.tar.gz")
+        run("audited static package", [PY, "scripts/package_static.py", "--output", release_archive])
         if args.live_url:
             run("live shell interaction gate", ["node", "scripts/gate.mjs", "--require-focus"], frontend, live_env)
             run("live scientific content gate", ["node", "verify-content.mjs"], frontend, live_env)

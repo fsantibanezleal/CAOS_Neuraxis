@@ -1,0 +1,46 @@
+{
+  "kind": "technical-report",
+  "title_support": [
+    "fig:core-success",
+    "fig:core-latency",
+    "tab:core-results"
+  ],
+  "methods": {
+    "M01": "sec:method-m01",
+    "M02": "sec:method-m02",
+    "M03": "sec:method-m03",
+    "M04": "sec:method-m04",
+    "M05": "sec:method-m05",
+    "M06": "sec:method-m06",
+    "M07": "sec:method-m07",
+    "M08": "sec:method-m08",
+    "M09": "sec:method-m09",
+    "M10": "sec:method-m10",
+    "M11": "sec:method-m11",
+    "BS-1": "sec:method-m12"
+  },
+  "contracts": {
+    "product-metadata": "sec:contract-product_metadata",
+    "canonical-index": "sec:contract-canonical_index",
+    "canonical-episode": "sec:contract-canonical_episode",
+    "semantic-transfer": "sec:contract-semantic_transfer",
+    "semantic-transfer-episode": "sec:contract-semantic_transfer_episode",
+    "semantic-transfer-report": "sec:contract-semantic_transfer_report",
+    "semantic-transfer-lineage": "sec:contract-semantic_transfer_lineage",
+    "semantic-routing": "sec:contract-semantic_routing",
+    "operation-study-index": "sec:contract-operation_study_index",
+    "operation-study-detail": "sec:contract-operation_study_detail",
+    "operations-api": "sec:contract-operations_api",
+    "workspace-authority": "sec:contract-workspace_authority",
+    "product-readiness": "sec:contract-product_readiness",
+    "static-release": "sec:contract-static_release",
+    "template-adoption": "sec:contract-template_adoption",
+    "model-checkpoint-metadata": "sec:contract-model_checkpoint_metadata",
+    "benchmark-adequacy": "sec:contract-benchmark_adequacy",
+    "core-experiment-lineage": "sec:contract-core_experiment_lineage",
+    "research-report": "sec:contract-research_report",
+    "event-response-audit": "sec:contract-event_response_audit",
+    "event-response-index": "sec:contract-event_response_index"
+  },
+  "claims": {}
+}

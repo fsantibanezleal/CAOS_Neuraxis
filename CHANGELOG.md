@@ -1,5 +1,11 @@
 # Changelog
 
+## [0.02.023] - 2026-11-22
+
+- Release candidate: adopt CAOS App Shell 0.26.003 and CAOS Product Template 0.15.014; align the SDD and exact dependency lock with those releases.
+- Expand both scientific manuscripts with audited coverage, detailed method and contract descriptions, and data-derived result tables. Preserve all frozen outcomes, including M12's 1,160/1,200 core result, M01's 1,200/1,200, the degenerate learned gate, and the negative transfer comparison.
+- Enforce printed abstract lengths and include the manuscript sources in fresh-kernel notebook workspaces. Full source, research, notebook, frontend and static-package gates pass; deployment and publication evidence are recorded separately.
+
 ## [0.02.022] - 2026-11-02
 
 - Point the app citation at the stable technical-report concept DOI and update the README to the published 0.02.021 record; add a regression test for the citation. Research methods, data, experiment results, and conclusions are unchanged.

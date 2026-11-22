@@ -1,0 +1,107 @@
+\subsection{Direct deliberative planner}\label{sec:method-m09}
+M09 delegates each decision to a configured language-model planner. The planner receives the current bounded observation and candidate set, returns a structured decision referring to a registered candidate, and the adapter validates that response against the observation before returning it to the runtime. The benchmark configuration identifies the planner as `qwen3.5:4b`; the method records model identity and measured call duration. Free-form prose is not an executable command. Tool selection remains limited to typed candidates, and the native broker performs the final independent authority and resource checks.
+
+Let $\mathcal{C}_t$ be the prompt-visible candidates and $Z_t$ the planner response. The adapter parses and validates a choice using
+\begin{equation}
+\hat a_t=\operatorname{Parse}(Z_t),\qquad
+\operatorname{Valid}(\hat a_t,o_t)=\mathbf{1}[\hat a_t\in\mathcal{C}_t]
+\mathbf{1}[\operatorname{Schema}(Z_t)=1].
+\end{equation}
+An invalid result is rejected rather than coerced to a different candidate. Planner latency is recorded as
+\begin{equation}
+T_{\mathrm{plan}}=(t_{\mathrm{return}}-t_{\mathrm{request}})\times10^3\ \mathrm{ms},
+\end{equation}
+while episode latency and broker admission remain separate measures. The baseline is synchronous: the next decision cannot use the planner result until it returns.
+
+M09 can use broad language context to interpret combinations not encoded in a local score, but the model may return a plausible yet wrong candidate, exceed a deadline, or misread a tool description. Its output is therefore a proposal, not a verified effect. The method has no recurrent state beyond information reintroduced in each observation and prompt. Prompt length, endpoint model, decoding configuration, timeout, and candidate serialization are part of experiment identity; changing them changes the method. The prompt template and configuration should be versioned with run lineage. Candidate-ID validation cannot independently verify that semantic reasoning was correct.
+
+The direct planner is the slow-side comparison for fixed and learned routing. In the semantic-transfer lane it solves 38 of 128 episodes in its matched comparison with M12's 18, but this sample does not define general planner quality. Its cost includes calls that time out or return invalid choices. A complete evaluation records token or equivalent provider cost, queue delay, retries, cancellation semantics, proposal admission, and whether the returned proposal was used. The system should retain a deterministic fallback for unavailable endpoints; provider failure is not a reason to relax effect authority. This direct planner is one concrete deliberative baseline, not a universal estimate for language models.
+
+
+
+\paragraph{Additional implementation analysis.} The direct planner receives a serialized observation, task goal, budget context, and candidate list, then returns a candidate reference. A deterministic validator rejects an answer that does not identify a currently offered candidate. This protects the interface from invented operation names but cannot establish semantic correctness. The planner can choose a valid yet harmful candidate, misunderstand a precondition, or return after its answer is useful. Endpoint model, prompt, decoding, timeout, retry rule, and candidate ordering therefore belong in lineage. For the benchmark's synchronous mode, the planner call is on the critical path; latency must include request queueing and response parsing as observed by the runner.
+
+The recorded semantic-transfer lane gives M09 38 verified successes among 128 cases, compared with 18 for M12 and two for M04. That result is bounded to the opaque-operation transfer tasks and to the pinned planner configuration. It does not show a broad advantage over every fast controller. Provider availability, output validity, and task success are separate denominators; an unavailable provider must be recorded as such and not silently replaced by a different model. Planner cost should include tokens or equivalent provider billing when available, plus wall-clock time and failed attempts. The direct planner is a useful slow-policy comparator precisely because its success and cost are visible; it is not an authority source and cannot bypass the broker.
+
+
+\paragraph{Decision path and complexity.} This synchronous call has no fast fallback on its critical path: the returned choice is available only after provider completion or timeout. Local future cancellation does not prove remote inference stopped. Every attempt, invalid answer, timeout, and unused response belongs in cost accounting. Candidate-reference validation bounds the interface but does not prove semantic correctness. A valid choice must still be checked against the current resource revision and broker authority before effect execution. The implementation is a deliberative proposer behind a deterministic safety boundary, not an autonomous executor. Provider model, prompt, decoding, timeout, retry rule, and candidate order are part of method identity and should be content-addressed with each run.
+
+\subsection{Fixed asynchronous delegation}\label{sec:method-m10}
+M10 starts a planner request at the first eligible decision and concurrently uses a guarded finite-state fallback while the request is pending. A single-worker executor bounds concurrent calls for one policy instance. The request is bound to canonical fields: goal ID, observation revision, visible state, capabilities, remaining budget and deadline, and candidate records including arguments, effects, capability requirements, resource versions, and admission flags. When a result completes, it may be used only when the current binding equals the request binding and the returned action validates against the current observation. Otherwise the response is discarded and the FSM supplies the action. Background work is collected at episode end, so completed but unused reasoning is not omitted from accounting.
+
+For canonicalized binding record $B_t$, its digest is
+\begin{equation}
+\beta_t=\operatorname{SHA256}(\operatorname{JSON}_{\mathrm{sorted}}(B_t)).
+\end{equation}
+A completed proposal $z_t$ is eligible only if
+\begin{equation}
+V_t(z_t)=\mathbf{1}[\beta_t=\beta_{\mathrm{request}}]
+\mathbf{1}[\operatorname{ValidateDecision}(z_t,o_t)=1].
+\end{equation}
+This detects a change to declared fields; it does not prove usefulness or that the binding is complete. Broker admission remains authoritative at effect time.
+
+The lifecycle is submit, continue with fallback, receive, validate, apply or discard, and account. The first call records origin and submits a planner request, then returns the FSM decision. On a later call, a ready result is returned only when its binding remains current. Otherwise staleness is recorded and the fallback continues. Reset waits for pending work so an independent episode cannot inherit unaccounted compute. Shutdown waits for the worker and cancels futures that have not started. These are local lifecycle controls; they do not guarantee that a remote provider stopped after cancellation.
+
+Asynchrony can reduce critical-path delay when fallback actions make useful progress, but it still consumes compute and may return too late. Reporting only fallback decision time would hide background work and unused completions. M10 records call count, completion, origin binding and an accounting flag. It is fixed delegation: the request rule does not learn if each call is worth its cost. It tests overlap and stale-result rejection as baselines before adding a learned gate. If a fast action changes the state while the request is pending, the result may be unusable; operation-specific holding and cancellation behavior therefore matter. Current core outcomes do not show M10 outperforming the strong deterministic baseline.
+
+
+
+\paragraph{Additional implementation analysis.} M10 submits a planner request at the first eligible state and continues with a guarded finite-state fallback while a single worker processes the request. The request digest uses sorted canonical JSON over goal identity, revision, visible state, capability set, budget, deadline, and candidate records. When the result completes, the controller compares the digest with the current binding and validates the returned candidate identifier. A stale result is discarded. Completed work is accounted at reset, so a result that arrives too late still contributes to planner-use and cost records. This design separates critical-path progress from total computation, but it cannot guarantee that a remote provider has stopped when a local future is cancelled.
+
+The binding is only as complete as its declared fields. An omitted dependency can produce a matching hash while the real world has changed; the runtime broker's final admission check is therefore still required. Asynchronous execution also creates scheduling nondeterminism: whether the response is ready at a polling boundary can change the selected action. Reproduction requires recording poll cadence, thread model, completion timestamp, timeout, and fallback transitions. A fair latency comparison reports both policy decision time and total episode wall time, including unused planner work. M10 demonstrates fixed overlap, not learned allocation. Its success on a deterministic suite cannot show whether concurrency helps when fallback and planner actions compete for mutable resources.
+
+
+\paragraph{Decision path and complexity.} Asynchronous execution helps only when fallback work makes useful progress during planner delay. If a fast action changes a resource bound into the request, the planner result can become stale despite being valid for the earlier state. Canonicalization needs stable field ordering and explicit treatment of missing values; otherwise the digest is not a reliable binding check. Digest cost is linear in serialized request size, and the single-worker limit bounds local concurrency. Poll timing can change whether a response is ready at a decision boundary, so both decision latency and episode wall time matter. The controller never relaxes broker admission to consume a late answer.
+
+\subsection{Cost-sensitive learned deferral}\label{sec:method-m11}
+M11 combines a fast scorer, paired-outcome benefit classifier, gain regressor, probability calibrator, threshold, and real planner. Gate features include fast confidence, margin between leading scores, budget, normalized deadline, uncertainty and stale flags, previous action failure, and history length. Paired branches begin from the same candidate feature matrix and causal history; the pipeline checks the start signature before using a pair. It explicitly does not claim cloned hidden operating-system state. Branches execute in fresh disposable environments and share a guarded continuation. This isolates the first routing decision but is not a whole-policy causal effect.
+
+For paired outcome $i$, let $U_i^P$ and $U_i^F$ be verified utility under planner and fast branches, and $c_i^P$ the measured planner cost. The target is
+\begin{equation}
+\delta_i=U_i^P-c_i^P-U_i^F,\qquad y_i=\mathbf{1}[\delta_i>0].
+\end{equation}
+The policy delegates only when calibrated benefit exceeds threshold and predicted gain is positive, subject to budget:
+\begin{equation}
+\operatorname{delegate}(x)=\mathbf{1}[\hat p(y=1\mid x)>\tau]
+\mathbf{1}[\hat g(x)>0]\mathbf{1}[B_t>0.1].
+\end{equation}
+The fit uses logistic regression ($C=1$), ridge gain regression ($\alpha=1$), and distinct fit, calibration, and threshold-selection seed groups 50000, 60000, and 70000.
+
+The recorded M11 fit contains 228 states and seven positive incremental-utility labels; calibration also has seven positives. The selected threshold is 1.01, above observed probability support, producing never-defer behavior. Measured calibration net incremental utility is zero. This is a negative empirical result: on these records the gate does not request a planner and has not demonstrated delegation benefit. It does not show that every task population has zero planner value. The fit is small and skewed, so it does not support a robust population risk estimate.
+
+An unexecuted alternative has no realized reward; the pipeline does not infer its outcome from planner confidence or teacher agreement. Shared continuation reduces some post-decision differences but makes the target local to one routing decision. It may miss longer-horizon interaction and hidden-state differences after reset. A stronger evaluation needs positive and negative pairs across independently sampled families, fixed threshold selection, calibrated reliability, complete cost accounting, and an untouched final test. Core task success alone is not evidence that M11's gate improves policy outcomes when the fitted gate never delegates.
+
+
+
+\paragraph{Additional implementation analysis.} The paired target compares verified utility from a planner branch against a fast branch and subtracts measured planner cost. This is intended to make delegation depend on incremental value rather than planner confidence alone. The feature vector includes confidence, score margin, budget, normalized deadline, uncertainty and staleness flags, prior failure, and history length. The fitting and calibration branches share a canonical start signature and causal history but do not clone hidden operating-system state. They then execute in fresh disposable environments with shared guarded continuation. The estimate is thus a local first-routing-decision contrast, not the full counterfactual value of a policy over an entire episode.
+
+The gate uses logistic classification with $C=1$, ridge gain estimation with penalty one, and separate seed groups for fitting, calibration, and threshold choice. Each group has 228 records; the positive count is seven. The selected threshold 1.01 lies above observed support and yields no planner requests. That behavior is conservative with respect to the measured cost target, but it provides no positive evidence that the learned gate can identify valuable delegation. Calibration net incremental utility is zero on its measured sample. Before retraining, the target definition, branch reset, continuation, and positive-label provenance must be audited; adding duplicated deterministic episodes would inflate counts without adding independent cases. A valid follow-up needs independently sampled task families, planner successes and harms, and an untouched test set. The current benchmark does not establish the gate's reliability or population-level cost effectiveness.
+
+
+\paragraph{Decision path and complexity.} Classifier fitting, gain regression, probability calibration, and threshold selection are separate estimation stages. Their data splits must remain grouped by task identity, or paired branches from one scenario can leak across stages. The selected threshold 1.01 is a valid output of the stated objective but lies above observed probability support, making deployment degenerate to the fast route. Reporting a gate score without its call rate would conceal this behavior. Inference cost is a feature transform plus linear model evaluation; planner cost is incurred only when a branch actually runs. Since the benchmark records no gate delegation, it does not estimate the outcome or cost of a positive learned decision.
+
+\subsection{Resource-versioned outcome-aware metacontroller}\label{sec:method-m12}
+M12 composes a recurrent fast-action scorer, learned effect model, cost-sensitive benefit gate, planner, exact prerequisite handling, asynchronous request state, and revision invalidation. The fast scorer blends recurrent preference with predicted effect utility at weight 0.15. It compares predicted state features with the next observation and updates a residual exponential moving average using 0.8 for the prior residual and 0.2 for the new error. The configured surprise threshold is 0.25. Deliberation is requested when predicted incremental benefit exceeds the selected threshold and predicted gain is positive, or when the residual is surprising, or when the observation explicitly marks insufficient evidence. These are different mechanisms and should not be collapsed into an undocumented confidence score.
+
+Before the learned choice, M12 handles exact observation prerequisites: stale state triggers refresh, duplicate events trigger acknowledgement, and missing dependencies trigger wait. Urgent cancellation can preempt pending planner work only after these checks. This ordering was corrected after review found that an urgent branch could otherwise repeat cancellation without first refreshing or acknowledging an event. For candidate $a$, the fast score and residual are
+\begin{equation}
+S_t(a)=p_{\mathrm{GRU}}(a\mid o_t,h_t)+0.15U_{\mathrm{effect}}(a\mid o_t),\qquad
+r_t=\operatorname{mean}|x_t-\widehat x_t|.
+\end{equation}
+The request predicate is
+\begin{equation}
+D_t=\mathbf{1}[(\hat p_t>\tau\land\hat g_t>0)\lor(r_t>0.25)\lor\operatorname{uncertain}(o_t)]
+\mathbf{1}[n_t<3]\mathbf{1}[B_t>0.1].
+\end{equation}
+The method permits at most three planner requests per episode, expires a request after at most 10 seconds or the remaining deadline, polls no longer than every 150 ms, and uses a single worker. A proposal with a changed canonical binding is discarded; the broker rechecks admission at effect time.
+
+Four ablations independently disable memory, effect information, deferral, or invalidation. Each records 1,160/1,200 core successes, matching full M12. The fit has the same limitation as M11: 228 states, seven positive labels, and threshold 1.01, so the learned gate never defers. The implementation includes surprise and insufficient-evidence request routes, but their presence does not show that learned allocation works. In the core evaluation M12 solves 1,160/1,200; all 40 failures are long-job cancellation. Its p50 decision latency is 18.1303 ms and p95 158.9701 ms, compared with M01 at 0.0219 and 0.0394 ms. It solves 21 of 24 structural-transfer episodes, below M04's 24. In the separate semantic-transfer lane it loses 22, wins two, and ties 104 against M09 in 128 matched cases.
+
+The performance hypothesis is unsupported by present evidence. A new evaluation must vary tasks and transitions so planner information can change verified outcomes, include harmful and late responses, and preserve competent fixed baselines. Report success, full critical-path latency, resource cost, cancellation termination, stale-proposal attempts, invalidation, and postconditions separately. These results do not support general-intelligence or biological-equivalence claims.
+
+
+\paragraph{Additional implementation analysis.} M12's state includes recurrent action history, an effect prediction residual, pending planner metadata, a resource binding, and a per-episode request count. These state variables have separate reset and invalidation conditions. Episode reset clears recurrent and residual state; a resource-revision mismatch invalidates a pending planner answer; expiry discards a response after the configured timeout or remaining deadline. The design caps requests at three per episode, uses one worker, polls at intervals no longer than 150 milliseconds, and limits the request lifetime to ten seconds. Those bounds control resource consumption but do not establish that a request will return before it matters or that a provider terminates remote work after expiry.
+
+The effect score is a weighted addition to the recurrent candidate preference, not a calibrated probability of success. The residual is an average absolute feature prediction error; its 0.25 trigger is fixed in the evaluated configuration. A high residual can signal a surprising observation, but it can also reflect expected stochasticity or poor feature scaling. The gate trigger and explicit uncertainty flag can request planning independently, so an evaluation must report which route caused each call. The observed allocation fit never delegates at its selected threshold; therefore the system's planner requests arise from the residual or explicit-uncertainty branches, not from a demonstrated learned benefit estimate. The request count and planner use should be reported alongside outcome changes.
+
+The cancellation precondition order is operationally consequential: refresh stale state, acknowledge duplicate events, resolve missing dependencies, then choose an urgent cancellation candidate. This avoids acting on an obsolete event, but the final external termination still needs a provider effect record and independent process-state check. M12 currently selects cancellation in all 60 audited C07 traces yet verifies only 20 successes; action choice is not execution. Because component ablations retain 1,160/1,200 core successes, the core evidence does not attribute success to the recurrent state, effect score, deferral, or invalidation components. M12 should consequently be described as an implemented composite whose performance hypothesis remains unsupported, not as a validated improvement.

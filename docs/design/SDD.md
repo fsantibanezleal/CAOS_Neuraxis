@@ -1,5 +1,5 @@
 # CAOS Neuraxis software design
-Date: 2026-11-02. Candidate display release: 0.02.021; deployment evidence is recorded separately.
+Date: 2026-11-22. Candidate display release: 0.02.023; deployment evidence is recorded separately.
 
 ## Problem and non-goals
 Provide an inspectable software-control workbench, scientific explanation, complete measured comparison and authenticated local workspace operation. The public companion replays evidence; actual user tools run on the user's loopback service. A browser simulation is visibly labeled and never substituted for native effect evidence.
@@ -64,7 +64,7 @@ Every Python requirements file is exactly pinned. Frontend ranges are constraine
 | Product runtime | `typing-extensions` | `4.16.0` | pinned dependency | exact environment contract |
 | Product runtime | `typing-inspection` | `0.4.4` | pinned dependency | exact environment contract |
 | Product runtime | `uvicorn` | `0.53.0` | pinned dependency | exact environment contract |
-| Browser build | `@fasl-work/caos-app-shell` | `0.19.12` | locked frontend dependency | exact package-lock version |
+| Browser build | `@fasl-work/caos-app-shell` | `0.26.3` | locked frontend dependency | exact package-lock version |
 | Browser build | `@playwright/test` | `1.63.0` | locked frontend dependency | exact package-lock version |
 | Browser build | `@types/node` | `22.20.0` | locked frontend dependency | exact package-lock version |
 | Browser build | `@types/react` | `19.2.17` | locked frontend dependency | exact package-lock version |
@@ -162,7 +162,7 @@ The repository declares product identity and deployment topology, catalogs persi
 
 
 
-The release candidate adopts the currently tagged `CAOS_PRODUCT_TEMPLATE` 0.12.000 and the published
+The historical release candidate adopted the then-current `CAOS_PRODUCT_TEMPLATE` 0.12.000 and the published
 `@fasl-work/caos-app-shell` 0.19.5. The template adoption adds the measured notebook lesson floors, the example-residue
 guard data, adversarial notebook-bar tests, the exact technology matrix, the user-facing notebook guide and product-specific validation requirements. Neuraxis
 declares `reflexmesh.pipeline.make_policy` as the callable policy factory and `reflexmesh.evaluation.runner.run_episode`
@@ -170,3 +170,11 @@ as the executed evaluation method. Its bilingual notebook set is rebuilt to meet
 traces remain immutable evidence, not substitutes for executed methods. The shell upgrade is checked against the actual
 Neuraxis `/` document route and `/app` surface route. The candidate does not claim that UI or scientific design has user
 acceptance until the live surfaces are reviewed by Felipe.
+
+### Current base adoption candidate
+
+Issue #120 adopts CAOS Product Template 0.15.014 and shared shell 0.26.003. The template's native LaTeX manuscript and
+whole-tool notebook depth checks are included in `scripts/`. The product manuscripts meet the measured content floors,
+pass the scientific-voice check, and build without unresolved references or overfull boxes. All 38 bilingual notebooks
+execute in fresh kernels. The remaining release evidence is the deployed-source receipt and live review; manuscript
+publication has its own independent-reader gate. This section describes a release candidate until those records land.
