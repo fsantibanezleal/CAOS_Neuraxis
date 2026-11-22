@@ -1,1 +1,88 @@
-<svg xmlns="http://www.w3.org/2000/svg" width="880" class="arch-svg" viewBox="0 0 880 525" role="img"><title>From research contract to observable operation / Del contrato de investigación a la operación observable</title><style>svg .l-es{display:none}svg .l-en{display:block}[data-arch-lang="es"] svg .l-en{display:none}[data-arch-lang="es"] svg .l-es{display:block}.band{fill:var(--color-surface-2);fill-opacity:.48;stroke:var(--color-border);stroke-width:1}.card{fill:var(--color-surface-2);stroke:var(--color-border);stroke-width:1}.left{stroke:var(--color-accent-2)}.right{stroke:var(--color-accent)}.title{font-family:var(--font-sans);font-size:16px;font-weight:700;fill:var(--color-fg)}.sub{font-family:var(--font-sans);font-size:10px;fill:var(--color-fg-subtle)}.lane{font-family:var(--font-sans);font-size:8.5px;font-weight:700;letter-spacing:.8px;fill:var(--color-fg-subtle)}.ttl{font-family:var(--font-sans);font-size:12px;font-weight:650;fill:var(--color-fg)}.path{font-family:var(--font-mono);font-size:9px;fill:var(--color-fg-subtle)}.detail{font-family:var(--font-sans);font-size:9.5px;fill:var(--color-fg)}.mu{font-family:var(--font-sans);font-size:9px;fill:var(--color-fg-subtle)}.flow{stroke:var(--color-accent);stroke-width:1.5;fill:none}.lbl{font-family:var(--font-sans);font-size:8.5px;font-weight:650;fill:var(--color-fg-faint);paint-order:stroke;stroke:var(--color-surface-2);stroke-width:4px;stroke-linejoin:round}</style><defs><marker id="arr-01-the-app" markerWidth="8" markerHeight="8" refX="7" refY="4" orient="auto-start-reverse"><path d="M0,0 L8,4 L0,8" fill="var(--color-accent)"/></marker></defs><text class="title l-en" x="20" y="27">From research contract to observable operation</text><text class="title l-es" x="20" y="27">Del contrato de investigación a la operación observable</text><text class="sub l-en" x="20" y="46">The build pipeline and deployed runtime have separate responsibilities</text><text class="sub l-es" x="20" y="46">La construcción y el sistema desplegado tienen responsabilidades distintas</text><rect class="band" x="10" y="63" width="860" height="144" rx="10"/><text class="lane l-en" x="22" y="76">DESIGN AND IMPLEMENTATION</text><text class="lane l-es" x="22" y="76">DISEÑO E IMPLEMENTACIÓN</text><rect class="card left" x="20" y="87" width="260" height="108" rx="8"/><text class="ttl l-en" x="32" y="108">Research contract</text><text class="ttl l-es" x="32" y="108">Contrato de investigación</text><text class="path" x="32" y="128">docs/sdd/requirements.yaml</text><text class="detail l-en" x="32" y="152">task · safety · evidence criteria</text><text class="detail l-es" x="32" y="152">tarea · seguridad · evidencia</text><text class="mu l-en" x="32" y="175">requirements are reviewed before implementation</text><text class="mu l-es" x="32" y="175">los criterios se revisan antes de implementar</text><rect class="card right" x="600" y="87" width="260" height="108" rx="8"/><text class="ttl l-en" x="612" y="108">Runtime components</text><text class="ttl l-es" x="612" y="108">Componentes de ejecución</text><text class="path" x="612" y="128">app/main.py · reflexmesh 0.1.2</text><text class="detail l-en" x="612" y="152">policies propose; broker admits</text><text class="detail l-es" x="612" y="152">políticas proponen; intermediario admite</text><text class="mu l-en" x="612" y="175">model artifacts are versioned apart from the app</text><text class="mu l-es" x="612" y="175">los modelos se versionan aparte de la app</text><path class="flow" d="M280,141 L596,141" marker-end="url(#arr-01-the-app)"/><text class="lbl l-en" text-anchor="middle" x="438" y="134">source + constraints</text><text class="lbl l-es" text-anchor="middle" x="438" y="134">código + restricciones</text><rect class="band" x="10" y="214" width="860" height="144" rx="10"/><text class="lane l-en" x="22" y="227">TRAIN, VALIDATE, FREEZE</text><text class="lane l-es" x="22" y="227">ENTRENAR, VALIDAR, CONGELAR</text><rect class="card left" x="20" y="238" width="260" height="108" rx="8"/><text class="ttl l-en" x="32" y="259">Fitting and calibration</text><text class="ttl l-es" x="32" y="259">Ajuste y calibración</text><text class="path" x="32" y="279">data-pipeline/pipeline/runner.py</text><text class="detail l-en" x="32" y="303">group splits · calibrated gate</text><text class="detail l-es" x="32" y="303">particiones · umbral calibrado</text><text class="mu l-en" x="32" y="326">evaluation keeps failed episodes in its denominator</text><text class="mu l-es" x="32" y="326">la evaluación conserva los fallos en el denominador</text><rect class="card right" x="600" y="238" width="260" height="108" rx="8"/><text class="ttl l-en" x="612" y="259">Frozen evaluation</text><text class="ttl l-es" x="612" y="259">Evaluación congelada</text><text class="path" x="612" y="279">data-pipeline/pipeline/runner.py</text><text class="detail l-en" x="612" y="303">paired tasks · independent outcomes</text><text class="detail l-es" x="612" y="303">tareas emparejadas · resultados</text><text class="mu l-en" x="612" y="326">UI cannot grant host-tool authority</text><text class="mu l-es" x="612" y="326">la UI no concede autoridad sobre el host</text><path class="flow" d="M280,292 L596,292" marker-end="url(#arr-01-the-app)"/><text class="lbl l-en" text-anchor="middle" x="438" y="285">model + gate artifact</text><text class="lbl l-es" text-anchor="middle" x="438" y="285">modelo + umbral</text><rect class="band" x="10" y="365" width="860" height="144" rx="10"/><text class="lane l-en" x="22" y="378">DEPLOYED CONTROL AND EVIDENCE</text><text class="lane l-es" x="22" y="378">CONTROL DESPLEGADO Y EVIDENCIA</text><rect class="card left" x="20" y="389" width="260" height="108" rx="8"/><text class="ttl l-en" x="32" y="410">Web workbench</text><text class="ttl l-es" x="32" y="410">Banco web</text><text class="path" x="32" y="430">frontend/src/ · app/operations_api.py</text><text class="detail l-en" x="32" y="454">same-origin UI and bounded API</text><text class="detail l-es" x="32" y="454">UI y API acotada del mismo origen</text><text class="mu l-en" x="32" y="477">revisions are checked before external effects</text><text class="mu l-es" x="32" y="477">las revisiones se verifican antes del efecto</text><rect class="card right" x="600" y="389" width="260" height="108" rx="8"/><text class="ttl l-en" x="612" y="410">Effect receipts</text><text class="ttl l-es" x="612" y="410">Recibos de efectos</text><text class="path" x="612" y="430">reflexmesh 0.1.2 · effects · journal</text><text class="detail l-en" x="612" y="454">verified effects · failures · replay</text><text class="detail l-es" x="612" y="454">efectos verificados · fallos · reproducción</text><text class="mu l-en" x="612" y="477">the journal records verified and unresolved results</text><text class="mu l-es" x="612" y="477">el diario conserva resultados verificados y pendientes</text><path class="flow" d="M280,443 L596,443" marker-end="url(#arr-01-the-app)"/><text class="lbl l-en" text-anchor="middle" x="438" y="436">actions + outcomes</text><text class="lbl l-es" text-anchor="middle" x="438" y="436">acciones + resultados</text></svg>
+<svg xmlns="http://www.w3.org/2000/svg" width="880" class="arch-svg" viewBox="0 0 880 650" role="img">
+  <title>Neuraxis software-control loop / Ciclo de control de software de Neuraxis</title>
+  <style>
+    svg .l-es{display:none} svg .l-en{display:block}
+    [data-arch-lang="es"] svg .l-en{display:none} [data-arch-lang="es"] svg .l-es{display:block}
+    .bx{fill:var(--color-surface-2);stroke:var(--color-border);stroke-width:1.4}
+    .bx-hi{fill:var(--color-accent-soft);stroke:var(--color-accent);stroke-width:2}
+    .bx-eng{stroke:var(--color-good);stroke-width:1.7}
+    .bx-gate{fill:var(--color-accent-soft);stroke:var(--color-warn);stroke-width:1.8}
+    .bx-store{stroke:var(--color-accent-2);stroke-width:1.7}
+    .lane{fill:var(--color-surface);stroke:var(--color-border);stroke-width:1}
+    text{font-family:var(--font-sans);fill:var(--color-fg)}
+    .head{font-size:18px;font-weight:700}.lane-title{font-size:11px;font-weight:700;letter-spacing:.08em;fill:var(--color-fg-subtle)}
+    .sub{font-size:11px;fill:var(--color-fg-subtle)}.ttl{font-size:14px;font-weight:650}.it{font-size:12px}.cd,.mono{font-family:var(--font-mono);font-size:10.5px;fill:var(--color-accent)}
+    .mu{font-size:11px;fill:var(--color-fg-subtle)}.flow{fill:none;stroke:var(--color-fg-subtle);stroke-width:1.7}
+    .flow-accent{stroke:var(--color-accent)}.flow-gate{stroke:var(--color-warn)}.lbl{font-size:10.5px;fill:var(--color-fg-subtle)}
+  </style>
+  <defs><marker id="app-flow" markerWidth="8" markerHeight="8" refX="7" refY="4" orient="auto-start-reverse"><path d="M0 0 L8 4 L0 8 Z" fill="var(--color-accent)"/></marker></defs>
+  <text class="head l-en" x="24" y="34">A closed loop with a separate authority boundary</text>
+  <text class="head l-es" x="24" y="34">Un ciclo cerrado con un límite de autoridad independiente</text>
+  <text class="mu l-en" x="24" y="57">Every action begins with current observations and returns through verified outcome evidence.</text>
+  <text class="mu l-es" x="24" y="57">Cada acción parte de observaciones vigentes y vuelve mediante evidencia de resultados verificados.</text>
+  <rect class="lane" x="18" y="76" width="844" height="184" rx="12"/>
+  <text class="lane-title l-en" x="34" y="99">OBSERVE · MAINTAIN STATE · SELECT A POLICY</text>
+  <text class="lane-title l-es" x="34" y="99">OBSERVAR · MANTENER ESTADO · ELEGIR POLÍTICA</text>
+  <g>
+    <rect class="bx bx-hi" x="34" y="116" width="248" height="118" rx="9"/>
+    <text class="ttl l-en" x="49" y="142">Observed workspace</text><text class="ttl l-es" x="49" y="142">Espacio de trabajo observado</text>
+    <text class="cd l-neutral" x="49" y="164">environments/software.py</text>
+    <text class="it l-en" x="49" y="190">files · processes · local HTTP</text><text class="it l-es" x="49" y="190">archivos · procesos · HTTP local</text>
+    <text class="mu l-en" x="49" y="214">Observed bytes and process state</text><text class="mu l-es" x="49" y="214">Bytes y procesos observados</text>
+  </g>
+  <g>
+    <rect class="bx bx-eng" x="316" y="116" width="248" height="118" rx="9"/>
+    <text class="ttl l-en" x="331" y="142">Persistent causal state</text><text class="ttl l-es" x="331" y="142">Estado causal persistente</text>
+    <text class="cd l-neutral" x="331" y="164">controller.py · runtime.py</text>
+    <text class="it l-en" x="331" y="190">resource revisions · pending effects</text><text class="it l-es" x="331" y="190">revisiones · efectos pendientes</text>
+    <text class="mu l-en" x="331" y="214">Unknown remains unresolved</text><text class="mu l-es" x="331" y="214">Lo desconocido sigue sin resolver</text>
+  </g>
+  <g>
+    <rect class="bx bx-eng" x="598" y="116" width="248" height="118" rx="9"/>
+    <text class="ttl l-en" x="613" y="142">Policy arbitration</text><text class="ttl l-es" x="613" y="142">Arbitraje de políticas</text>
+    <text class="cd l-neutral" x="613" y="164">policies/ · learning/gate.py</text>
+    <text class="it l-en" x="613" y="190">act · observe · wait · delegate</text><text class="it l-es" x="613" y="190">actuar · observar · esperar · delegar</text>
+    <text class="mu l-en" x="613" y="214">Scores rank; they never authorize</text><text class="mu l-es" x="613" y="214">Los puntajes ordenan, no autorizan</text>
+  </g>
+  <path class="flow flow-accent" d="M282 175 H312" marker-end="url(#app-flow)"/>
+  <text class="lbl l-en" x="284" y="111">typed events</text><text class="lbl l-es" x="284" y="111">eventos tipados</text>
+  <path class="flow flow-accent" d="M564 175 H594" marker-end="url(#app-flow)"/>
+  <text class="lbl l-en" x="565" y="111">state + budget</text><text class="lbl l-es" x="565" y="111">estado + presupuesto</text>
+
+  <rect class="lane" x="18" y="282" width="844" height="184" rx="12"/>
+  <text class="lane-title l-en" x="34" y="305">ADMIT · EXECUTE · VERIFY</text><text class="lane-title l-es" x="34" y="305">ADMITIR · EJECUTAR · VERIFICAR</text>
+  <g>
+    <rect class="bx bx-store" x="34" y="322" width="248" height="118" rx="9"/>
+    <text class="ttl l-en" x="49" y="348">Outcome evidence</text><text class="ttl l-es" x="49" y="348">Evidencia del resultado</text>
+    <text class="cd l-neutral" x="49" y="370">evaluation/runner.py</text>
+    <text class="it l-en" x="49" y="396">predicate · duration · status</text><text class="it l-es" x="49" y="396">predicado · duración · estado</text>
+    <text class="mu l-en" x="49" y="420">Success requires observed postconditions</text><text class="mu l-es" x="49" y="420">El éxito exige postcondiciones observadas</text>
+  </g>
+  <g>
+    <rect class="bx bx-eng" x="316" y="322" width="248" height="118" rx="9"/>
+    <text class="ttl l-en" x="331" y="348">Registered effectors</text><text class="ttl l-es" x="331" y="348">Ejecutores registrados</text>
+    <text class="cd l-neutral" x="331" y="370">runtime.py · effectors.py</text>
+    <text class="it l-en" x="331" y="396">typed args · idempotency · receipts</text><text class="it l-es" x="331" y="396">argumentos · idempotencia · recibos</text>
+    <text class="mu l-en" x="331" y="420">Uncertain effects require reconciliation</text><text class="mu l-es" x="331" y="420">Efectos inciertos requieren conciliación</text>
+  </g>
+  <g>
+    <rect class="bx bx-gate" x="598" y="322" width="248" height="118" rx="9"/>
+    <text class="ttl l-en" x="613" y="348">Native admission broker</text><text class="ttl l-es" x="613" y="348">Intermediario de admisión nativo</text>
+    <text class="cd l-neutral" x="613" y="370">rust/core.rs · contracts.rs</text>
+    <text class="it l-en" x="613" y="396">capability · revision · cancellation</text><text class="it l-es" x="613" y="396">capacidad · revisión · cancelación</text>
+    <text class="mu l-en" x="613" y="420">Rechecks before each mutation</text><text class="mu l-es" x="613" y="420">Revalida antes de cada mutación</text>
+  </g>
+  <path class="flow flow-accent" d="M722 234 V318" marker-end="url(#app-flow)"/>
+  <text class="lbl l-en" x="732" y="277">candidate + binding</text><text class="lbl l-es" x="732" y="277">candidato + vínculo</text>
+  <path class="flow flow-gate" d="M598 381 H568" marker-end="url(#app-flow)"/>
+  <text class="lbl l-en" x="565" y="317">admitted effect</text><text class="lbl l-es" x="565" y="317">efecto admitido</text>
+  <path class="flow" d="M316 381 H286" marker-end="url(#app-flow)"/>
+  <text class="lbl l-en" x="286" y="317">observed result</text><text class="lbl l-es" x="286" y="317">resultado observado</text>
+
+  <path class="flow flow-accent" d="M34 450 V548 H158 V238" marker-end="url(#app-flow)"/>
+  <text class="lbl l-en" x="174" y="528">verified outcome and fresh resource revisions start the next cycle</text>
+  <text class="lbl l-es" x="174" y="528">el resultado y las revisiones vigentes inician el ciclo siguiente</text>
+  <rect class="bx" x="174" y="568" width="532" height="48" rx="8"/>
+  <text class="it l-en" x="194" y="598">Authority is enforced at execution; learning only changes which admissible proposal is preferred.</text>
+  <text class="it l-es" x="194" y="598">La autoridad se aplica al ejecutar; el aprendizaje solo cambia la preferencia entre propuestas permitidas.</text>
+</svg>

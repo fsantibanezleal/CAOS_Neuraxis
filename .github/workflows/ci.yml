@@ -39,6 +39,7 @@ jobs:
       - run: python scripts/check_base_integrity.py
       - run: python scripts/check_doc_paths.py
       - run: python scripts/check_web_baseline.py
+      - run: python scripts/check_architecture.py
       - run: python scripts/check_svg_animation.py
       - run: python scripts/check_skeleton.py docs/contracts/catalog.md
       - run: python scripts/check_template_adoption.py

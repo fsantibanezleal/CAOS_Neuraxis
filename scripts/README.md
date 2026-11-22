@@ -10,5 +10,6 @@
 - `check_semantic_routing.py`: binds the exploratory 32-case held-out arm-selection study to hashed M04/M09 execution traces and recomputes every comparator.
 - `check_template_residue.py`: inherited archetype-residue guard.
 - `check_content_standards.py`: source/content typography guard.
+- `check_architecture.py`: five bilingual, theme-aware architecture diagrams with labelled flows, real code paths, and mirrored documentation assets.
 
 No script uploads secrets or trains during deployment. Use explicit pipeline stages for research and checked canonical export for release.
