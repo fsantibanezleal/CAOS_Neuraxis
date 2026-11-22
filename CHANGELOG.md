@@ -2,7 +2,7 @@
 
 ## Unreleased
 
-- Adopt CAOS App Shell 0.23.000 and CAOS Product Template 0.15.000 on the Neuraxis branch for issue #120. The shell adds the bounded mobile story-stage height API; the template adds manuscript and notebook depth gates and a deeper worked numerical-method example. Neuraxis has no guided story route requiring the new stage option. Manuscript and notebook remediation remains in progress; this is not a release or deployment claim.
+- Adopt CAOS App Shell 0.26.000 and CAOS Product Template 0.15.009 on the Neuraxis branch for issue #120. The frontend build, 39 frontend tests and the shell's 997-state interaction gate pass on this candidate. The template's manuscript and notebook depth gates are active; scientific content remediation remains in progress, so this is not a release or deployment claim.
 
 ## [0.02.022] - 2026-11-02
 

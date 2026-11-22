@@ -64,7 +64,7 @@ Every Python requirements file is exactly pinned. Frontend ranges are constraine
 | Product runtime | `typing-extensions` | `4.16.0` | pinned dependency | exact environment contract |
 | Product runtime | `typing-inspection` | `0.4.4` | pinned dependency | exact environment contract |
 | Product runtime | `uvicorn` | `0.53.0` | pinned dependency | exact environment contract |
-| Browser build | `@fasl-work/caos-app-shell` | `0.23.000` | locked frontend dependency | exact package-lock version |
+| Browser build | `@fasl-work/caos-app-shell` | `0.26.000` | locked frontend dependency | exact package-lock version |
 | Browser build | `@playwright/test` | `1.63.0` | locked frontend dependency | exact package-lock version |
 | Browser build | `@types/node` | `22.20.0` | locked frontend dependency | exact package-lock version |
 | Browser build | `@types/react` | `19.2.17` | locked frontend dependency | exact package-lock version |
@@ -162,7 +162,7 @@ The repository declares product identity and deployment topology, catalogs persi
 
 
 
-The release candidate adopts the currently tagged `CAOS_PRODUCT_TEMPLATE` 0.12.000 and the published
+The historical release candidate adopted the then-current `CAOS_PRODUCT_TEMPLATE` 0.12.000 and the published
 `@fasl-work/caos-app-shell` 0.19.5. The template adoption adds the measured notebook lesson floors, the example-residue
 guard data, adversarial notebook-bar tests, the exact technology matrix, the user-facing notebook guide and product-specific validation requirements. Neuraxis
 declares `reflexmesh.pipeline.make_policy` as the callable policy factory and `reflexmesh.evaluation.runner.run_episode`
@@ -170,3 +170,11 @@ as the executed evaluation method. Its bilingual notebook set is rebuilt to meet
 traces remain immutable evidence, not substitutes for executed methods. The shell upgrade is checked against the actual
 Neuraxis `/` document route and `/app` surface route. The candidate does not claim that UI or scientific design has user
 acceptance until the live surfaces are reviewed by Felipe.
+
+### Current base adoption candidate
+
+Issue #120 updates the candidate to CAOS Product Template 0.15.009 and shared shell 0.26.000. The template's native LaTeX
+manuscript and whole-tool notebook depth checks are included in `scripts/`; they currently fail for the authored product
+content and are being treated as release blockers. The shell pin compiles with the current frontend, but the full shell
+interaction gate passes across 997 measured states, and the frontend suite passes 39 tests. This section describes an
+in-progress candidate, not a released or deployed version.
