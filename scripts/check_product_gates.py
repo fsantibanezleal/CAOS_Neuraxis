@@ -38,6 +38,7 @@ def main() -> int:
         ("deployment place", [PY, "scripts/check_deploy_place.py"]),
         ("software design", [PY, "scripts/check_sdd.py"]),
         ("manuscripts", [PY, "scripts/check_manuscripts.py"]),
+        ("manuscript content depth and coverage", [PY, "scripts/check_manuscript_depth.py", "."]),
         ("schema contract versions", [PY, "scripts/check_contract_versions.py"]),
         ("contract declarations", [PY, "scripts/check_contracts.py", "docs/contracts/catalog.md", "--repo-root", "."]),
         ("persisted document schemas", [PY, "scripts/check_documents.py"]),
@@ -51,6 +52,7 @@ def main() -> int:
         ("template residue", [PY, "scripts/check_template_residue.py"]),
         ("contract and adversarial tests", [PY, "-m", "pytest", "tests/contracts", "tests/adversarial", "-q"]),
         ("notebook structure", [PY, "scripts/check_notebooks.py"]),
+        ("notebook content depth and coverage", [PY, "scripts/check_notebook_depth.py", "."]),
         ("reader-facing method names", [PY, "scripts/check_internal_names.py"]),
         ("notebook execution and output freshness", [PY, "scripts/run_notebooks.py", "--check", "--tmp", notebook_temp]),
         ("README repository areas", [PY, "scripts/check_readme_areas.py"]),
@@ -63,8 +65,9 @@ def main() -> int:
         ("native operation study", [PY, "scripts/check_operations.py"]),
         ("complete Python test suite", [PY, "-m", "pytest", "tests", "-q"]),
     ]
-    for label, command in source_checks:
-        run(label, command)
+    if args.scope in {"source", "release"}:
+        for label, command in source_checks:
+            run(label, command)
     if args.scope == "source":
         return 0
     frontend = ROOT / "frontend"
