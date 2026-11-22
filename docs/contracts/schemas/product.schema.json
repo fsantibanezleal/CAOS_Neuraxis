@@ -75,6 +75,20 @@
         "pattern": "^[A-Za-z_][A-Za-z0-9_.]*$"
       }
     },
+    "pipeline_stage_sources": {
+      "type": "object",
+      "required": ["collect", "train", "ppo", "gates", "evaluate", "export", "readiness"],
+      "properties": {
+        "collect": {"type": "string", "minLength": 1},
+        "train": {"type": "string", "minLength": 1},
+        "ppo": {"type": "string", "minLength": 1},
+        "gates": {"type": "string", "minLength": 1},
+        "evaluate": {"type": "string", "minLength": 1},
+        "export": {"type": "string", "minLength": 1},
+        "readiness": {"type": "string", "minLength": 1}
+      },
+      "additionalProperties": false
+    },
     "model_artifacts": {
       "type": "object",
       "required": ["checkpoint_release"],

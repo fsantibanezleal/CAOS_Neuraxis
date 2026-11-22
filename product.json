@@ -19,6 +19,15 @@
     "reflexmesh.evaluation.runner.run_episode",
     "reflexmesh.evaluation.runner.aggregate"
   ],
+  "pipeline_stage_sources": {
+    "collect": "data-pipeline/pipeline/runner.py",
+    "train": "data-pipeline/pipeline/runner.py",
+    "ppo": "data-pipeline/pipeline/runner.py",
+    "gates": "data-pipeline/pipeline/runner.py",
+    "evaluate": "data-pipeline/pipeline/runner.py",
+    "export": "data-pipeline/pipeline/export.py",
+    "readiness": "data-pipeline/pipeline/readiness.py"
+  },
   "model_artifacts": {
     "checkpoint_release": "v0.01.000"
   },

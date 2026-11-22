@@ -1,8 +1,8 @@
 {
   "product-metadata": {
-    "version": "1.2.0",
+    "version": "1.3.0",
     "schema": "docs/contracts/schemas/product.schema.json",
-    "sha256": "2f71ea3688b7682edd8402b762f2793438318781b4732a0141a9d7e38b99670e"
+    "sha256": "3a09ad1c5d490ba1989f99ead12c9f719ba68a4e72562255d9104df4b74b3a28"
   },
   "canonical-index": {
     "version": "1.0.0",
