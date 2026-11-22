@@ -1,0 +1,578 @@
+\subsection{Contract boundary: product-metadata}\label{sec:contract-product_metadata}
+The product-metadata boundary uses schema revision 1.3.0 and is owned by Neuraxis maintainers. Its purpose is Public product identity, license, package provenance, pinned checkpoint, manuscript records, and explicit pipeline-stage sources. The schema at \texttt{product.schema.json} governs the persisted representation; its source document is \texttt{product.json}, produced by \texttt{product.json} and consumed by \texttt{check\_\allowbreak{}contract\_\allowbreak{}catalog.py}. The executable validator is \texttt{test\_\allowbreak{}catalog.py}. Producer and consumer coverage is exercised by \texttt{test\_\allowbreak{}contract\_\allowbreak{}boundaries.py} and \texttt{test\_\allowbreak{}contract\_\allowbreak{}boundaries.py}; provider substitution is checked by \texttt{test\_\allowbreak{}contract\_\allowbreak{}boundaries.py}. These checks exercise the declared boundary but do not establish the truth of scientific outcomes.
+
+This boundary establishes the identity a reader sees and binds that identity to the code that produced each pipeline artifact. The stage map is consequential: a release must name collection, fitting, policy optimization, gate fitting, evaluation, export, and readiness owners instead of implying that one undifferentiated pipeline performs them. Manuscript declarations and checkpoint references are part of the same identity, so stale publication metadata cannot silently describe a newer executable. The schema can verify that the fields exist and have the declared forms; the product and release gates must still compare their values with the checked-out source.
+
+Table~\ref{tab:contract-fields-product_metadata} enumerates the schema's top-level fields, requiredness, JSON types, and explicit format, range, or enumeration constraints. Units are stated only where the schema or scientific definition supplies them; metadata and identifiers have no physical unit. A JSON type is not itself a scientific measurement. The catalog's unavailable-data rule is: missing: fail metadata validation; never infer public identity or stage ownership. For status \texttt{real}, that rule is applied at the named consumer so missing evidence remains unavailable rather than being imputed. The boundary is traceable from source artifact through producer, validator, and its actual consumer.
+
+\small
+\begin{longtable}{p{.18\linewidth}p{.16\linewidth}p{.09\linewidth}p{.43\linewidth}}
+\caption{Schema fields and declared constraints for the product-metadata boundary, as defined by the product's versioned contract catalog.}\label{tab:contract-fields-product_metadata}\\
+\toprule Field & JSON type & Presence & Constraint or unit\\\midrule
+\endfirsthead
+\caption*{product-metadata schema fields continued}\\\toprule Field & JSON type & Presence & Constraint or unit\\\midrule
+\endhead
+\texttt{name} & constant string & required & equals Neuraxis \\
+\texttt{slug} & constant string & required & equals neuraxis \\
+\texttt{version} & schema-defined & required & pattern pattern-constrained \\
+\texttt{tagline} & object & required & No unit or numeric range is imposed at this field; structural checks apply. \\
+\texttt{repo} & constant string & required & equals fixed value \\
+\texttt{visibility} & constant string & required & equals public \\
+\texttt{license} & constant string & required & equals Apache-2.0 \\
+\texttt{holder} & string & required & minimum length 1 \\
+\texttt{year} & integer & required & minimum 2026 \\
+\texttt{method\_\allowbreak{}packages} & array of string & required & No unit or numeric range is imposed at this field; structural checks apply. \\
+\texttt{method\_\allowbreak{}entrypoints} & array of string & required & minimum items 1 \\
+\texttt{pipeline\_\allowbreak{}stage\_\allowbreak{}sources} & object & optional & No unit or numeric range is imposed at this field; structural checks apply. \\
+\texttt{model\_\allowbreak{}artifacts} & object & optional & No unit or numeric range is imposed at this field; structural checks apply. \\
+\texttt{manuscripts} & array of object & optional & No unit or numeric range is imposed at this field; structural checks apply. \\
+\bottomrule
+\end{longtable}
+\normalsize
+
+
+\subsection{Contract boundary: canonical-index}\label{sec:contract-canonical_index}
+The canonical-index boundary uses schema revision 1.0.0 and is owned by Research maintainers. Its purpose is Frozen 12-method, 20-family, six-variant, ten-seed core index and lineage references. The schema at \texttt{canonical-index.schema.json} governs the persisted representation; its source document is \texttt{index.json}, produced by \texttt{run.py} and consumed by \texttt{check\_\allowbreak{}artifacts.py}. The executable validator is \texttt{test\_\allowbreak{}catalog.py}. Producer and consumer coverage is exercised by \texttt{test\_\allowbreak{}contract\_\allowbreak{}boundaries.py} and \texttt{test\_\allowbreak{}contract\_\allowbreak{}boundaries.py}; provider substitution is checked by \texttt{test\_\allowbreak{}contract\_\allowbreak{}boundaries.py}. These checks exercise the declared boundary but do not establish the truth of scientific outcomes.
+
+The index is the closed-world inventory for the core experiment. Its method, case, episode, and aggregate lists define which records the evaluator expects; a missing cell is a coverage defect rather than an implicit failure or success. Provenance digests bind the inventory to its generated source. The artifact checker recomputes identifiers, counts, hashes, and aggregate outcomes before the browser renders a scientific summary. This contract therefore preserves the 14,400 scheduled denominator while preventing a partial directory from masquerading as a complete comparison.
+
+Table~\ref{tab:contract-fields-canonical_index} enumerates the schema's top-level fields, requiredness, JSON types, and explicit format, range, or enumeration constraints. Units are stated only where the schema or scientific definition supplies them; metadata and identifiers have no physical unit. A JSON type is not itself a scientific measurement. The catalog's unavailable-data rule is: missing: block evidence views and fail closed. For status \texttt{real}, that rule is applied at the named consumer so missing evidence remains unavailable rather than being imputed. The boundary is traceable from source artifact through producer, validator, and its actual consumer.
+
+\small
+\begin{longtable}{p{.18\linewidth}p{.16\linewidth}p{.09\linewidth}p{.43\linewidth}}
+\caption{Schema fields and declared constraints for the canonical-index boundary, as defined by the product's versioned contract catalog.}\label{tab:contract-fields-canonical_index}\\
+\toprule Field & JSON type & Presence & Constraint or unit\\\midrule
+\endfirsthead
+\caption*{canonical-index schema fields continued}\\\toprule Field & JSON type & Presence & Constraint or unit\\\midrule
+\endhead
+\texttt{schema\_\allowbreak{}version} & constant int & required & equals 1 \\
+\texttt{generated\_\allowbreak{}at} & string & optional & format date-time \\
+\texttt{provenance} & object & required & No unit or numeric range is imposed at this field; structural checks apply. \\
+\texttt{methods} & array of object & required & minimum items 12 \\
+\texttt{cases} & array of object & required & minimum items 20 \\
+\texttt{episodes} & array of object; episodeReference & required & minimum items 14400 \\
+\texttt{aggregate\_\allowbreak{}results} & array of object & required & minimum items 12 \\
+\bottomrule
+\end{longtable}
+\normalsize
+
+
+\subsection{Contract boundary: canonical-episode}\label{sec:contract-canonical_episode}
+The canonical-episode boundary uses schema revision 1.0.0 and is owned by Research maintainers. Its purpose is Executed episode decisions, outcomes, effect records, split and source lineage. The schema at \texttt{episode.schema.json} governs the persisted representation; its source document is \texttt{*.json}, produced by \texttt{external:reflexmesh==0.1.2} and consumed by \texttt{artifacts.ts}. The executable validator is \texttt{check\_\allowbreak{}artifacts.py}. Producer and consumer coverage is exercised by \texttt{test\_\allowbreak{}contract\_\allowbreak{}boundaries.py} and \texttt{test\_\allowbreak{}contract\_\allowbreak{}boundaries.py}; provider substitution is checked by \texttt{test\_\allowbreak{}contract\_\allowbreak{}boundaries.py}. These checks exercise the declared boundary but do not establish the truth of scientific outcomes.
+
+An episode is the smallest persisted unit that connects a task identity to decisions, events, metrics, an outcome, and source lineage. The evaluator reads the final postcondition independently of the policy's chosen action. A valid episode may still fail the task; schema validity is not success. The index retains the scheduled identity when an episode is absent or malformed, and the evidence view distinguishes those cases from a completed episode whose postcondition is false. This separation is necessary for cancellation, retries, and crash recovery, where an action decision and the external effect can diverge.
+
+Table~\ref{tab:contract-fields-canonical_episode} enumerates the schema's top-level fields, requiredness, JSON types, and explicit format, range, or enumeration constraints. Units are stated only where the schema or scientific definition supplies them; metadata and identifiers have no physical unit. A JSON type is not itself a scientific measurement. The catalog's unavailable-data rule is: missing: preserve denominator and report unavailable evidence. For status \texttt{real}, that rule is applied at the named consumer so missing evidence remains unavailable rather than being imputed. The boundary is traceable from source artifact through producer, validator, and its actual consumer.
+
+\small
+\begin{longtable}{p{.18\linewidth}p{.16\linewidth}p{.09\linewidth}p{.43\linewidth}}
+\caption{Schema fields and declared constraints for the canonical-episode boundary, as defined by the product's versioned contract catalog.}\label{tab:contract-fields-canonical_episode}\\
+\toprule Field & JSON type & Presence & Constraint or unit\\\midrule
+\endfirsthead
+\caption*{canonical-episode schema fields continued}\\\toprule Field & JSON type & Presence & Constraint or unit\\\midrule
+\endhead
+\texttt{schema\_\allowbreak{}version} & constant int & required & equals 1 \\
+\texttt{run\_\allowbreak{}id} & string & required & minimum length 1 \\
+\texttt{case\_\allowbreak{}id} & string & required & minimum length 1 \\
+\texttt{method\_\allowbreak{}id} & string & required & pattern pattern-constrained \\
+\texttt{variant} & string & required & minimum length 1 \\
+\texttt{seed} & integer & required & No unit or numeric range is imposed at this field; structural checks apply. \\
+\texttt{status} & string enum: succeeded, failed, cancelled & required & one of succeeded, failed, cancelled \\
+\texttt{events} & array of schema-defined & required & minimum items 1 \\
+\texttt{decisions} & array of schema-defined & required & minimum items 1 \\
+\texttt{metrics} & object & required & No unit or numeric range is imposed at this field; structural checks apply. \\
+\texttt{provenance} & object & required & No unit or numeric range is imposed at this field; structural checks apply. \\
+\bottomrule
+\end{longtable}
+\normalsize
+
+
+\subsection{Contract boundary: semantic-transfer}\label{sec:contract-semantic_transfer}
+The semantic-transfer boundary uses schema revision 1.0.0 and is owned by Research maintainers. Its purpose is Held-out semantic transfer index, kept separate from core. The schema at \texttt{semantic-index.schema.json} governs the persisted representation; its source document is \texttt{index.json}, produced by \texttt{external:reflexmesh==0.1.2} and consumed by \texttt{Scientific\allowbreak{}Evidence.tsx}. The executable validator is \texttt{check\_\allowbreak{}semantic\_\allowbreak{}transfer.py}. Producer and consumer coverage is exercised by \texttt{test\_\allowbreak{}contract\_\allowbreak{}boundaries.py} and \texttt{test\_\allowbreak{}contract\_\allowbreak{}boundaries.py}; provider substitution is checked by \texttt{test\_\allowbreak{}contract\_\allowbreak{}boundaries.py}. These checks exercise the declared boundary but do not establish the truth of scientific outcomes.
+
+This index defines a held-out composition lane whose operation names and task arrangements differ from the core suite. Its explicit identity and lineage keep the 1,536 transfer episodes separate from the 14,400 core episodes. The separation prevents a pooled success rate from concealing a performance drop on opaque operations. The validator checks every listed case and episode against source hashes and the lane's method matrix; an absent lane disables the transfer summary instead of borrowing core outcomes.
+
+Table~\ref{tab:contract-fields-semantic_transfer} enumerates the schema's top-level fields, requiredness, JSON types, and explicit format, range, or enumeration constraints. Units are stated only where the schema or scientific definition supplies them; metadata and identifiers have no physical unit. A JSON type is not itself a scientific measurement. The catalog's unavailable-data rule is: missing: show transfer as unavailable and never pool it. For status \texttt{real}, that rule is applied at the named consumer so missing evidence remains unavailable rather than being imputed. The boundary is traceable from source artifact through producer, validator, and its actual consumer.
+
+\small
+\begin{longtable}{p{.18\linewidth}p{.16\linewidth}p{.09\linewidth}p{.43\linewidth}}
+\caption{Schema fields and declared constraints for the semantic-transfer boundary, as defined by the product's versioned contract catalog.}\label{tab:contract-fields-semantic_transfer}\\
+\toprule Field & JSON type & Presence & Constraint or unit\\\midrule
+\endfirsthead
+\caption*{semantic-transfer schema fields continued}\\\toprule Field & JSON type & Presence & Constraint or unit\\\midrule
+\endhead
+\texttt{schema\_\allowbreak{}version} & constant int & required & equals 1 \\
+\texttt{provenance} & object & required & No unit or numeric range is imposed at this field; structural checks apply. \\
+\texttt{methods} & array of schema-defined & required & minimum items 12 \\
+\texttt{cases} & array of schema-defined & required & minimum items 8 \\
+\texttt{episodes} & array of object; episodeReference & required & minimum items 1536 \\
+\texttt{aggregate\_\allowbreak{}results} & array of schema-defined & required & minimum items 12 \\
+\bottomrule
+\end{longtable}
+\normalsize
+
+
+\subsection{Contract boundary: semantic-transfer-episode}\label{sec:contract-semantic_transfer_episode}
+The semantic-transfer-episode boundary uses schema revision 1.0.0 and is owned by Research maintainers. Its purpose is Individually executed held-out transfer episode with provenance and observed outcomes. The schema at \texttt{episode.schema.json} governs the persisted representation; its source document is \texttt{*.json}, produced by \texttt{external:reflexmesh==0.1.2} and consumed by \texttt{artifacts.ts}. The executable validator is \texttt{check\_\allowbreak{}semantic\_\allowbreak{}transfer.py}. Producer and consumer coverage is exercised by \texttt{check\_\allowbreak{}semantic\_\allowbreak{}transfer.py} and \texttt{Scientific\allowbreak{}Evidence.tsx}; provider substitution is checked by \texttt{test\_\allowbreak{}contract\_\allowbreak{}boundaries.py}. These checks exercise the declared boundary but do not establish the truth of scientific outcomes.
+
+Each record represents one executed held-out composition case under the transfer lane. It reuses the episode envelope while preserving the transfer case identity, variant, seed, decision trace, measured outcome, and provenance. Reusing a schema does not collapse the experiment populations: the parent index and path determine the lane, and validators reject a record whose method or case does not belong to that index. This enables matched comparisons without treating the episode as a core observation.
+
+Table~\ref{tab:contract-fields-semantic_transfer_episode} enumerates the schema's top-level fields, requiredness, JSON types, and explicit format, range, or enumeration constraints. Units are stated only where the schema or scientific definition supplies them; metadata and identifiers have no physical unit. A JSON type is not itself a scientific measurement. The catalog's unavailable-data rule is: missing: mark the episode unavailable and preserve index denominator. For status \texttt{real}, that rule is applied at the named consumer so missing evidence remains unavailable rather than being imputed. The boundary is traceable from source artifact through producer, validator, and its actual consumer.
+
+\small
+\begin{longtable}{p{.18\linewidth}p{.16\linewidth}p{.09\linewidth}p{.43\linewidth}}
+\caption{Schema fields and declared constraints for the semantic-transfer-episode boundary, as defined by the product's versioned contract catalog.}\label{tab:contract-fields-semantic_transfer_episode}\\
+\toprule Field & JSON type & Presence & Constraint or unit\\\midrule
+\endfirsthead
+\caption*{semantic-transfer-episode schema fields continued}\\\toprule Field & JSON type & Presence & Constraint or unit\\\midrule
+\endhead
+\texttt{schema\_\allowbreak{}version} & constant int & required & equals 1 \\
+\texttt{run\_\allowbreak{}id} & string & required & minimum length 1 \\
+\texttt{case\_\allowbreak{}id} & string & required & minimum length 1 \\
+\texttt{method\_\allowbreak{}id} & string & required & pattern pattern-constrained \\
+\texttt{variant} & string & required & minimum length 1 \\
+\texttt{seed} & integer & required & No unit or numeric range is imposed at this field; structural checks apply. \\
+\texttt{status} & string enum: succeeded, failed, cancelled & required & one of succeeded, failed, cancelled \\
+\texttt{events} & array of schema-defined & required & minimum items 1 \\
+\texttt{decisions} & array of schema-defined & required & minimum items 1 \\
+\texttt{metrics} & object & required & No unit or numeric range is imposed at this field; structural checks apply. \\
+\texttt{provenance} & object & required & No unit or numeric range is imposed at this field; structural checks apply. \\
+\bottomrule
+\end{longtable}
+\normalsize
+
+
+\subsection{Contract boundary: semantic-transfer-report}\label{sec:contract-semantic_transfer_report}
+The semantic-transfer-report boundary uses schema revision 1.0.0 and is owned by Research maintainers. Its purpose is Hash-bound aggregate report for the held-out semantic-transfer index. The schema at \texttt{semantic-transfer-report.schema.json} governs the persisted representation; its source document is \texttt{report.json}, produced by \texttt{check\_\allowbreak{}semantic\_\allowbreak{}transfer.py} and consumed by \texttt{Scientific\allowbreak{}Evidence.tsx}. The executable validator is \texttt{check\_\allowbreak{}semantic\_\allowbreak{}transfer.py}. Producer and consumer coverage is exercised by \texttt{check\_\allowbreak{}semantic\_\allowbreak{}transfer.py} and \texttt{Scientific\allowbreak{}Evidence.tsx}; provider substitution is checked by \texttt{test\_\allowbreak{}contract\_\allowbreak{}boundaries.py}. These checks exercise the declared boundary but do not establish the truth of scientific outcomes.
+
+This aggregate is recomputed from the separately indexed transfer episodes and carries the index digest that defines its input population. Per-method counts, family breakdowns, and paired M12 comparisons remain tied to that digest. A report whose digest no longer matches is stale even if its JSON parses. The interface suppresses the conclusion when the report is absent or inconsistent; it never substitutes core performance. The 128 matched outcomes per method and the reported wins, ties, and losses can therefore be interpreted against a known transfer denominator.
+
+Table~\ref{tab:contract-fields-semantic_transfer_report} enumerates the schema's top-level fields, requiredness, JSON types, and explicit format, range, or enumeration constraints. Units are stated only where the schema or scientific definition supplies them; metadata and identifiers have no physical unit. A JSON type is not itself a scientific measurement. The catalog's unavailable-data rule is: missing: suppress aggregate claims and mark transfer unavailable. For status \texttt{real}, that rule is applied at the named consumer so missing evidence remains unavailable rather than being imputed. The boundary is traceable from source artifact through producer, validator, and its actual consumer.
+
+\small
+\begin{longtable}{p{.18\linewidth}p{.16\linewidth}p{.09\linewidth}p{.43\linewidth}}
+\caption{Schema fields and declared constraints for the semantic-transfer-report boundary, as defined by the product's versioned contract catalog.}\label{tab:contract-fields-semantic_transfer_report}\\
+\toprule Field & JSON type & Presence & Constraint or unit\\\midrule
+\endfirsthead
+\caption*{semantic-transfer-report schema fields continued}\\\toprule Field & JSON type & Presence & Constraint or unit\\\midrule
+\endhead
+\texttt{schema\_\allowbreak{}version} & constant int & required & equals 1 \\
+\texttt{scope} & string & required & minimum length 1 \\
+\texttt{episodes\_\allowbreak{}checked} & integer & required & minimum 1 \\
+\texttt{index\_\allowbreak{}sha256} & string & required & pattern pattern-constrained \\
+\texttt{lineage\_\allowbreak{}signature} & string & required & pattern pattern-constrained \\
+\texttt{methods} & array of object & required & minimum items 12 \\
+\texttt{perfect\_\allowbreak{}methods} & array of string & required & No unit or numeric range is imposed at this field; structural checks apply. \\
+\texttt{by\_\allowbreak{}family} & array of object & required & No unit or numeric range is imposed at this field; structural checks apply. \\
+\texttt{m12\_\allowbreak{}paired} & object & required & No unit or numeric range is imposed at this field; structural checks apply. \\
+\texttt{seed\_\allowbreak{}variable\_\allowbreak{}cells} & integer & required & minimum 0 \\
+\bottomrule
+\end{longtable}
+\normalsize
+
+
+\subsection{Contract boundary: semantic-transfer-lineage}\label{sec:contract-semantic_transfer_lineage}
+The semantic-transfer-lineage boundary uses schema revision 1.0.0 and is owned by Research maintainers. Its purpose is Source, binary, checkpoint, package and platform lineage for transfer runs. The schema at \texttt{semantic-transfer-lineage.schema.json} governs the persisted representation; its source document is \texttt{lineage.json}, produced by \texttt{check\_\allowbreak{}semantic\_\allowbreak{}transfer.py} and consumed by \texttt{check\_\allowbreak{}semantic\_\allowbreak{}transfer.py}. The executable validator is \texttt{check\_\allowbreak{}semantic\_\allowbreak{}transfer.py}. Producer and consumer coverage is exercised by \texttt{check\_\allowbreak{}semantic\_\allowbreak{}transfer.py} and \texttt{Scientific\allowbreak{}Evidence.tsx}; provider substitution is checked by \texttt{test\_\allowbreak{}contract\_\allowbreak{}boundaries.py}. These checks exercise the declared boundary but do not establish the truth of scientific outcomes.
+
+The lineage record identifies source code, native binary, model checkpoint, experiment specification, packages, planner configuration, operating platform, Python runtime, device, and inference thread count. Those values distinguish policy behavior from changes in the executable or compute environment. A digest mismatch means the recorded transfer result cannot be reproduced from the declared inputs, so the validator marks it unverified. Hardware and package identity do not establish scientific validity by themselves, but they are prerequisites for comparing measured latency and model outputs.
+
+Table~\ref{tab:contract-fields-semantic_transfer_lineage} enumerates the schema's top-level fields, requiredness, JSON types, and explicit format, range, or enumeration constraints. Units are stated only where the schema or scientific definition supplies them; metadata and identifiers have no physical unit. A JSON type is not itself a scientific measurement. The catalog's unavailable-data rule is: missing: fail lineage verification; mark the run unverified; do not present it as reproducible. For status \texttt{real}, that rule is applied at the named consumer so missing evidence remains unavailable rather than being imputed. The boundary is traceable from source artifact through producer, validator, and its actual consumer.
+
+\small
+\begin{longtable}{p{.18\linewidth}p{.16\linewidth}p{.09\linewidth}p{.43\linewidth}}
+\caption{Schema fields and declared constraints for the semantic-transfer-lineage boundary, as defined by the product's versioned contract catalog.}\label{tab:contract-fields-semantic_transfer_lineage}\\
+\toprule Field & JSON type & Presence & Constraint or unit\\\midrule
+\endfirsthead
+\caption*{semantic-transfer-lineage schema fields continued}\\\toprule Field & JSON type & Presence & Constraint or unit\\\midrule
+\endhead
+\texttt{source\_\allowbreak{}sha256} & object; hashMap & required & No unit or numeric range is imposed at this field; structural checks apply. \\
+\texttt{native\_\allowbreak{}source\_\allowbreak{}sha256} & object; hashMap & required & No unit or numeric range is imposed at this field; structural checks apply. \\
+\texttt{checkpoint\_\allowbreak{}sha256} & object; hashMap & required & No unit or numeric range is imposed at this field; structural checks apply. \\
+\texttt{spec\_\allowbreak{}sha256} & string & required & pattern pattern-constrained \\
+\texttt{native\_\allowbreak{}binary} & object & required & No unit or numeric range is imposed at this field; structural checks apply. \\
+\texttt{packages} & object & required & minimum properties 1 \\
+\texttt{planner} & object & required & No unit or numeric range is imposed at this field; structural checks apply. \\
+\texttt{platform} & string & required & minimum length 1 \\
+\texttt{python} & string & required & minimum length 1 \\
+\texttt{inference\_\allowbreak{}device} & string & required & minimum length 1 \\
+\texttt{torch\_\allowbreak{}inference\_\allowbreak{}threads} & integer & optional & minimum 1 \\
+\bottomrule
+\end{longtable}
+\normalsize
+
+
+\subsection{Contract boundary: semantic-routing}\label{sec:contract-semantic_routing}
+The semantic-routing boundary uses schema revision 2.0.0 and is owned by Research maintainers. Its purpose is Held-out routing predictions and comparator analysis. The schema at \texttt{semantic-routing.schema.json} governs the persisted representation; its source document is \texttt{*.json}, produced by \texttt{external:reflexmesh==0.1.2} and consumed by \texttt{Scientific\allowbreak{}Evidence.tsx}. The executable validator is \texttt{check\_\allowbreak{}semantic\_\allowbreak{}routing.py}. Producer and consumer coverage is exercised by \texttt{check\_\allowbreak{}semantic\_\allowbreak{}routing.py} and \texttt{Scientific\allowbreak{}Evidence.tsx}; provider substitution is checked by \texttt{test\_\allowbreak{}contract\_\allowbreak{}boundaries.py}. These checks exercise the declared boundary but do not establish the truth of scientific outcomes.
+
+The persisted artifact stores held-out routing predictions and their split definition, feature description, algorithm, and evaluation status. It lets the routing analysis be recomputed without conflating training rows with the predictions used to evaluate allocation. The feature field is a description, not a numeric vector; the schema version change records that distinction. A missing routing record disables claims about learned allocation. In the measured fit, the selected threshold was 1.01 and produced never-defer behavior, so this contract preserves evidence of a fitted but non-delegating gate rather than implying useful delegation.
+
+Table~\ref{tab:contract-fields-semantic_routing} enumerates the schema's top-level fields, requiredness, JSON types, and explicit format, range, or enumeration constraints. Units are stated only where the schema or scientific definition supplies them; metadata and identifiers have no physical unit. A JSON type is not itself a scientific measurement. The catalog's unavailable-data rule is: missing: disable routing claims and show unavailable. For status \texttt{real}, that rule is applied at the named consumer so missing evidence remains unavailable rather than being imputed. The boundary is traceable from source artifact through producer, validator, and its actual consumer.
+
+\small
+\begin{longtable}{p{.18\linewidth}p{.16\linewidth}p{.09\linewidth}p{.43\linewidth}}
+\caption{Schema fields and declared constraints for the semantic-routing boundary, as defined by the product's versioned contract catalog.}\label{tab:contract-fields-semantic_routing}\\
+\toprule Field & JSON type & Presence & Constraint or unit\\\midrule
+\endfirsthead
+\caption*{semantic-routing schema fields continued}\\\toprule Field & JSON type & Presence & Constraint or unit\\\midrule
+\endhead
+\texttt{schema\_\allowbreak{}version} & integer & required & minimum 1 \\
+\texttt{algorithm} & string & required & minimum length 1 \\
+\texttt{scope} & string & required & minimum length 1 \\
+\texttt{split} & object & required & No unit or numeric range is imposed at this field; structural checks apply. \\
+\texttt{features} & string & required & minimum length 1 \\
+\texttt{held\_\allowbreak{}out\_\allowbreak{}predictions} & array of schema-defined & required & No unit or numeric range is imposed at this field; structural checks apply. \\
+\texttt{status} & string & required & minimum length 1 \\
+\bottomrule
+\end{longtable}
+\normalsize
+
+
+\subsection{Contract boundary: operation-study-index}\label{sec:contract-operation_study_index}
+The operation-study-index boundary uses schema revision 1.0.0 and is owned by Operations maintainers. Its purpose is Index of native operation runs, policy, faults, findings and latency. The schema at \texttt{operation-index.schema.json} governs the persisted representation; its source document is \texttt{index.json}, produced by \texttt{check\_\allowbreak{}operations.py} and consumed by \texttt{Scientific\allowbreak{}Evidence.tsx}. The executable validator is \texttt{check\_\allowbreak{}operations.py}. Producer and consumer coverage is exercised by \texttt{test\_\allowbreak{}contract\_\allowbreak{}boundaries.py} and \texttt{test\_\allowbreak{}contract\_\allowbreak{}boundaries.py}; provider substitution is checked by \texttt{test\_\allowbreak{}contract\_\allowbreak{}boundaries.py}. These checks exercise the declared boundary but do not establish the truth of scientific outcomes.
+
+The index names each bounded native operation run and the engine and policy under which it was executed. Its run list is the sampling frame for the accompanying detail files; the summary must not invent runs when a detail artifact is missing. The operations page validates the index and loads only the selected detail. This creates a visible distinction between a run that is not present, one that failed, and one whose recorded checks passed. It also keeps this operational evaluation separate from replayed benchmark episodes.
+
+Table~\ref{tab:contract-fields-operation_study_index} enumerates the schema's top-level fields, requiredness, JSON types, and explicit format, range, or enumeration constraints. Units are stated only where the schema or scientific definition supplies them; metadata and identifiers have no physical unit. A JSON type is not itself a scientific measurement. The catalog's unavailable-data rule is: missing: disable study summary; do not synthesize runs. For status \texttt{real}, that rule is applied at the named consumer so missing evidence remains unavailable rather than being imputed. The boundary is traceable from source artifact through producer, validator, and its actual consumer.
+
+\small
+\begin{longtable}{p{.18\linewidth}p{.16\linewidth}p{.09\linewidth}p{.43\linewidth}}
+\caption{Schema fields and declared constraints for the operation-study-index boundary, as defined by the product's versioned contract catalog.}\label{tab:contract-fields-operation_study_index}\\
+\toprule Field & JSON type & Presence & Constraint or unit\\\midrule
+\endfirsthead
+\caption*{operation-study-index schema fields continued}\\\toprule Field & JSON type & Presence & Constraint or unit\\\midrule
+\endhead
+\texttt{schema\_\allowbreak{}version} & constant int & required & equals 1 \\
+\texttt{boundary} & string & required & minimum length 1 \\
+\texttt{engine} & string & required & minimum length 1 \\
+\texttt{policy} & string & required & minimum length 1 \\
+\texttt{runs} & array of object & required & minimum items 1 \\
+\bottomrule
+\end{longtable}
+\normalsize
+
+
+\subsection{Contract boundary: operation-study-detail}\label{sec:contract-operation_study_detail}
+The operation-study-detail boundary uses schema revision 2.2.0 and is owned by Operations maintainers. Its purpose is Measured operation detail including graph, effect records, findings and outputs. The schema at \texttt{operation-detail.schema.json} governs the persisted representation; its source document is \texttt{*-*.json}, produced by \texttt{check\_\allowbreak{}operations.py} and consumed by \texttt{Scientific\allowbreak{}Evidence.tsx}. The executable validator is \texttt{artifact-integrity.test.ts}. Producer and consumer coverage is exercised by \texttt{check\_\allowbreak{}operations.py} and \texttt{Scientific\allowbreak{}Evidence.tsx}; provider substitution is checked by \texttt{test\_\allowbreak{}contract\_\allowbreak{}boundaries.py}. These checks exercise the declared boundary but do not establish the truth of scientific outcomes.
+
+A detail file contains the task scope, engine, policy, status, disposition, input identities, artifacts, events, nodes, findings, metrics, and source digest for one native run. The schema was narrowed to fields present across all persisted run families, while optional output sections remain conditional on the task. Findings and metrics are observations of the declared checks, not a general safety certification. The browser checks the detail bytes against the index before rendering it, and a missing detail affects only that run rather than invalidating unrelated records.
+
+Table~\ref{tab:contract-fields-operation_study_detail} enumerates the schema's top-level fields, requiredness, JSON types, and explicit format, range, or enumeration constraints. Units are stated only where the schema or scientific definition supplies them; metadata and identifiers have no physical unit. A JSON type is not itself a scientific measurement. The catalog's unavailable-data rule is: missing: mark that run unavailable; preserve other run evidence. For status \texttt{real}, that rule is applied at the named consumer so missing evidence remains unavailable rather than being imputed. The boundary is traceable from source artifact through producer, validator, and its actual consumer.
+
+\small
+\begin{longtable}{p{.18\linewidth}p{.16\linewidth}p{.09\linewidth}p{.43\linewidth}}
+\caption{Schema fields and declared constraints for the operation-study-detail boundary, as defined by the product's versioned contract catalog.}\label{tab:contract-fields-operation_study_detail}\\
+\toprule Field & JSON type & Presence & Constraint or unit\\\midrule
+\endfirsthead
+\caption*{operation-study-detail schema fields continued}\\\toprule Field & JSON type & Presence & Constraint or unit\\\midrule
+\endhead
+\texttt{schema\_\allowbreak{}version} & integer & required & minimum 1 \\
+\texttt{task} & string & required & No unit or numeric range is imposed at this field; structural checks apply. \\
+\texttt{scope} & string & required & minimum length 1 \\
+\texttt{engine} & string & required & minimum length 1 \\
+\texttt{policy} & string & required & minimum length 1 \\
+\texttt{status} & string & required & No unit or numeric range is imposed at this field; structural checks apply. \\
+\texttt{disposition} & string & required & No unit or numeric range is imposed at this field; structural checks apply. \\
+\texttt{inputs} & array of schema-defined & required & No unit or numeric range is imposed at this field; structural checks apply. \\
+\texttt{artifacts} & object & required & No unit or numeric range is imposed at this field; structural checks apply. \\
+\texttt{events} & array of schema-defined & required & No unit or numeric range is imposed at this field; structural checks apply. \\
+\texttt{nodes} & array of schema-defined & required & No unit or numeric range is imposed at this field; structural checks apply. \\
+\texttt{findings} & array of schema-defined & required & No unit or numeric range is imposed at this field; structural checks apply. \\
+\texttt{metrics} & object & required & No unit or numeric range is imposed at this field; structural checks apply. \\
+\texttt{input\_\allowbreak{}sha256} & string & required & pattern pattern-constrained \\
+\bottomrule
+\end{longtable}
+\normalsize
+
+
+\subsection{Contract boundary: operations-api}\label{sec:contract-operations_api}
+The operations-api boundary uses schema revision 1.0.0 and is owned by Operations maintainers. Its purpose is Bounded local native operation service lifecycle lifecycle, cancellation, export and ownership. The schema at \texttt{operations-api.schema.json} governs the persisted representation; its source document is \texttt{operations\_\allowbreak{}api.py}; \texttt{operations.ts}; \texttt{test\_\allowbreak{}operations\_\allowbreak{}api.py}, produced by \texttt{operations\_\allowbreak{}api.py} and consumed by \texttt{Operations.tsx}. The executable validator is \texttt{test\_\allowbreak{}operations\_\allowbreak{}api.py}. Producer and consumer coverage is exercised by \texttt{test\_\allowbreak{}contract\_\allowbreak{}boundaries.py} and \texttt{test\_\allowbreak{}contract\_\allowbreak{}boundaries.py}; provider substitution is checked by \texttt{test\_\allowbreak{}contract\_\allowbreak{}boundaries.py}. These checks exercise the declared boundary but do not establish the truth of scientific outcomes.
+
+This response envelope distinguishes accepted, running, completed, failed, cancelled, and unavailable states. A nullable run identifier and reason let the service report a rejection or unavailable provider without fabricating a run. The optional result carries the typed endpoint payload, while authentication, ownership, request bounds, and effect authorization are enforced by service logic beyond this permissive envelope. In particular, a completed HTTP response is not by itself proof that the task postcondition holds; the client must inspect the run result and its verification evidence.
+
+Table~\ref{tab:contract-fields-operations_api} enumerates the schema's top-level fields, requiredness, JSON types, and explicit format, range, or enumeration constraints. Units are stated only where the schema or scientific definition supplies them; metadata and identifiers have no physical unit. A JSON type is not itself a scientific measurement. The catalog's unavailable-data rule is: missing: return typed unavailable response; no implicit retry/effect. For status \texttt{real}, that rule is applied at the named consumer so missing evidence remains unavailable rather than being imputed. The boundary is traceable from source artifact through producer, validator, and its actual consumer.
+
+\small
+\begin{longtable}{p{.18\linewidth}p{.16\linewidth}p{.09\linewidth}p{.43\linewidth}}
+\caption{Schema fields and declared constraints for the operations-api boundary, as defined by the product's versioned contract catalog.}\label{tab:contract-fields-operations_api}\\
+\toprule Field & JSON type & Presence & Constraint or unit\\\midrule
+\endfirsthead
+\caption*{operations-api schema fields continued}\\\toprule Field & JSON type & Presence & Constraint or unit\\\midrule
+\endhead
+\texttt{status} & string enum: accepted, running, completed, failed, cancelled, unavailable & required & one of accepted, running, completed, failed, cancelled, unavailable \\
+\texttt{run\_\allowbreak{}id} & string or null & optional & No unit or numeric range is imposed at this field; structural checks apply. \\
+\texttt{reason} & string or null & optional & No unit or numeric range is imposed at this field; structural checks apply. \\
+\texttt{result} & object or array or string or number or boolean or null & optional & No unit or numeric range is imposed at this field; structural checks apply. \\
+\bottomrule
+\end{longtable}
+\normalsize
+
+
+\subsection{Contract boundary: workspace-authority}\label{sec:contract-workspace_authority}
+The workspace-authority boundary uses schema revision 1.0.0 and is owned by Operations maintainers. Its purpose is Authenticated workspace registrations, previews, effects and recovery. The schema at \texttt{workspace-authority.schema.json} governs the persisted representation; its source document is \texttt{Workspace.tsx}; \texttt{test\_\allowbreak{}application.py}, produced by \texttt{main.py} and consumed by \texttt{Workspace.tsx}. The executable validator is \texttt{test\_\allowbreak{}application.py}. Producer and consumer coverage is exercised by \texttt{test\_\allowbreak{}contract\_\allowbreak{}boundaries.py} and \texttt{test\_\allowbreak{}contract\_\allowbreak{}boundaries.py}; provider substitution is checked by \texttt{test\_\allowbreak{}contract\_\allowbreak{}boundaries.py}. These checks exercise the declared boundary but do not establish the truth of scientific outcomes.
+
+This boundary binds an authenticated workspace identity to an explicit registration and authority record, with an optional preview token and expiry. A missing registration denies effect authority; it does not select a default directory. Preview identity is time-limited and consumed by the service under the current workspace state. The schema describes the envelope, while application checks validate the permitted root, current file hashes, ownership, and single-use lifecycle. A public replay artifact cannot satisfy this contract and therefore cannot gain access to a visitor's local files.
+
+Table~\ref{tab:contract-fields-workspace_authority} enumerates the schema's top-level fields, requiredness, JSON types, and explicit format, range, or enumeration constraints. Units are stated only where the schema or scientific definition supplies them; metadata and identifiers have no physical unit. A JSON type is not itself a scientific measurement. The catalog's unavailable-data rule is: missing: deny authority and require explicit registration. For status \texttt{real}, that rule is applied at the named consumer so missing evidence remains unavailable rather than being imputed. The boundary is traceable from source artifact through producer, validator, and its actual consumer.
+
+\small
+\begin{longtable}{p{.18\linewidth}p{.16\linewidth}p{.09\linewidth}p{.43\linewidth}}
+\caption{Schema fields and declared constraints for the workspace-authority boundary, as defined by the product's versioned contract catalog.}\label{tab:contract-fields-workspace_authority}\\
+\toprule Field & JSON type & Presence & Constraint or unit\\\midrule
+\endfirsthead
+\caption*{workspace-authority schema fields continued}\\\toprule Field & JSON type & Presence & Constraint or unit\\\midrule
+\endhead
+\texttt{workspace\_\allowbreak{}id} & string & required & minimum length 1 \\
+\texttt{registered} & boolean & required & No unit or numeric range is imposed at this field; structural checks apply. \\
+\texttt{authority} & string enum: read, write, none & required & one of read, write, none \\
+\texttt{preview\_\allowbreak{}token} & string or null & optional & No unit or numeric range is imposed at this field; structural checks apply. \\
+\texttt{expires\_\allowbreak{}at} & string or null & optional & format date-time \\
+\bottomrule
+\end{longtable}
+\normalsize
+
+
+\subsection{Contract boundary: product-readiness}\label{sec:contract-product_readiness}
+The product-readiness boundary uses schema revision 2.0.0 and is owned by Neuraxis maintainers. Its purpose is Deterministic availability calculated from catalog and repository evidence. The schema at \texttt{readiness.schema.json} governs the persisted representation; its source document is \texttt{readiness.json}, produced by \texttt{readiness.py} and consumed by \texttt{check\_\allowbreak{}readiness.py}. The executable validator is \texttt{test\_\allowbreak{}catalog.py}. Producer and consumer coverage is exercised by \texttt{test\_\allowbreak{}contract\_\allowbreak{}boundaries.py} and \texttt{test\_\allowbreak{}contract\_\allowbreak{}boundaries.py}; provider substitution is checked by \texttt{test\_\allowbreak{}contract\_\allowbreak{}boundaries.py}. These checks exercise the declared boundary but do not establish the truth of scientific outcomes.
+
+Readiness is derived from the contract catalog and repository paths rather than maintained as a manually optimistic status. The catalog digest lets the checker detect when the evidence inventory changed after readiness was generated. Every contract row keeps its availability state and evidence path; absent code or artifacts are reported as missing instead of receiving a default pass. The result informs release checks but does not certify scientific adequacy, user acceptance, deployment, or successful external effects.
+
+Table~\ref{tab:contract-fields-product_readiness} enumerates the schema's top-level fields, requiredness, JSON types, and explicit format, range, or enumeration constraints. Units are stated only where the schema or scientific definition supplies them; metadata and identifiers have no physical unit. A JSON type is not itself a scientific measurement. The catalog's unavailable-data rule is: missing: fail release gate; no readiness defaults. For status \texttt{real}, that rule is applied at the named consumer so missing evidence remains unavailable rather than being imputed. The boundary is traceable from source artifact through producer, validator, and its actual consumer.
+
+\small
+\begin{longtable}{p{.18\linewidth}p{.16\linewidth}p{.09\linewidth}p{.43\linewidth}}
+\caption{Schema fields and declared constraints for the product-readiness boundary, as defined by the product's versioned contract catalog.}\label{tab:contract-fields-product_readiness}\\
+\toprule Field & JSON type & Presence & Constraint or unit\\\midrule
+\endfirsthead
+\caption*{product-readiness schema fields continued}\\\toprule Field & JSON type & Presence & Constraint or unit\\\midrule
+\endhead
+\texttt{schema} & constant string & required & equals neuraxis.readiness/v1 \\
+\texttt{schema\_\allowbreak{}version} & constant int & required & equals 1 \\
+\texttt{product\_\allowbreak{}version} & string & required & pattern pattern-constrained \\
+\texttt{catalog\_\allowbreak{}sha256} & string & required & pattern pattern-constrained \\
+\texttt{contracts} & array of object & required & No unit or numeric range is imposed at this field; structural checks apply. \\
+\bottomrule
+\end{longtable}
+\normalsize
+
+
+\subsection{Contract boundary: static-release}\label{sec:contract-static_release}
+The static-release boundary uses schema revision 1.0.0 and is owned by Release maintainers. Its purpose is Exact static release file set, hashes, product version and source revision. The schema at \texttt{static-release.schema.json} governs the persisted representation; its source document is \texttt{package\_\allowbreak{}static.py}; \texttt{deploy\_\allowbreak{}static.py}; \texttt{test\_\allowbreak{}static\_\allowbreak{}deploy.py}, produced by \texttt{package\_\allowbreak{}static.py} and consumed by \texttt{deploy\_\allowbreak{}static.py}. The executable validator is \texttt{test\_\allowbreak{}static\_\allowbreak{}deploy.py}. Producer and consumer coverage is exercised by \texttt{test\_\allowbreak{}contract\_\allowbreak{}boundaries.py} and \texttt{test\_\allowbreak{}contract\_\allowbreak{}boundaries.py}; provider substitution is checked by \texttt{test\_\allowbreak{}contract\_\allowbreak{}boundaries.py}. These checks exercise the declared boundary but do not establish the truth of scientific outcomes.
+
+The release manifest binds a product version and source revision to the exact set of published files and their hashes. Packaging verifies that set before deployment, and the installer checks it before atomically switching the current release. A missing or altered file blocks the new release while leaving the prior known release intact. This boundary is distinct from the research index: static packaging proves byte identity and release coherence, not that the scientific outcomes are correct.
+
+Table~\ref{tab:contract-fields-static_release} enumerates the schema's top-level fields, requiredness, JSON types, and explicit format, range, or enumeration constraints. Units are stated only where the schema or scientific definition supplies them; metadata and identifiers have no physical unit. A JSON type is not itself a scientific measurement. The catalog's unavailable-data rule is: missing: refuse publish and preserve last known release. For status \texttt{real}, that rule is applied at the named consumer so missing evidence remains unavailable rather than being imputed. The boundary is traceable from source artifact through producer, validator, and its actual consumer.
+
+\small
+\begin{longtable}{p{.18\linewidth}p{.16\linewidth}p{.09\linewidth}p{.43\linewidth}}
+\caption{Schema fields and declared constraints for the static-release boundary, as defined by the product's versioned contract catalog.}\label{tab:contract-fields-static_release}\\
+\toprule Field & JSON type & Presence & Constraint or unit\\\midrule
+\endfirsthead
+\caption*{static-release schema fields continued}\\\toprule Field & JSON type & Presence & Constraint or unit\\\midrule
+\endhead
+\texttt{product} & constant string & required & equals neuraxis \\
+\texttt{version} & string & required & pattern pattern-constrained \\
+\texttt{source\_\allowbreak{}revision} & string & required & minimum length 7 \\
+\texttt{files} & array of object & required & minimum items 1 \\
+\bottomrule
+\end{longtable}
+\normalsize
+
+
+\subsection{Contract boundary: template-adoption}\label{sec:contract-template_adoption}
+The template-adoption boundary uses schema revision 1.0.0 and is owned by Neuraxis maintainers. Its purpose is Product metadata, features, architecture, notebooks, target and adversarial gates. The schema at \texttt{template-adoption.schema.json} governs the persisted representation; its source document is \texttt{.template-version}; \texttt{check\_\allowbreak{}template\_\allowbreak{}adoption.py}, produced by \texttt{.template-version} and consumed by \texttt{check\_\allowbreak{}template\_\allowbreak{}adoption.py}. The executable validator is \texttt{test\_\allowbreak{}catalog.py}. Producer and consumer coverage is exercised by \texttt{test\_\allowbreak{}contract\_\allowbreak{}boundaries.py} and \texttt{test\_\allowbreak{}contract\_\allowbreak{}boundaries.py}; provider substitution is checked by \texttt{test\_\allowbreak{}contract\_\allowbreak{}boundaries.py}. These checks exercise the declared boundary but do not establish the truth of scientific outcomes.
+
+The persisted artifact captures the adopted template version together with required feature entries, architecture pages, notebook inventory, and deployment target. The template checker derives those values from the repository and reports missing adoption evidence. It prevents a version pin alone from being treated as complete adoption: product-specific pages and validations must also exist. Updating the template version requires re-running the installed package and content gates, because the new base may add checks that the product has not yet satisfied.
+
+Table~\ref{tab:contract-fields-template_adoption} enumerates the schema's top-level fields, requiredness, JSON types, and explicit format, range, or enumeration constraints. Units are stated only where the schema or scientific definition supplies them; metadata and identifiers have no physical unit. A JSON type is not itself a scientific measurement. The catalog's unavailable-data rule is: missing: fail adoption gate and report exact missing evidence. For status \texttt{real}, that rule is applied at the named consumer so missing evidence remains unavailable rather than being imputed. The boundary is traceable from source artifact through producer, validator, and its actual consumer.
+
+\small
+\begin{longtable}{p{.18\linewidth}p{.16\linewidth}p{.09\linewidth}p{.43\linewidth}}
+\caption{Schema fields and declared constraints for the template-adoption boundary, as defined by the product's versioned contract catalog.}\label{tab:contract-fields-template_adoption}\\
+\toprule Field & JSON type & Presence & Constraint or unit\\\midrule
+\endfirsthead
+\caption*{template-adoption schema fields continued}\\\toprule Field & JSON type & Presence & Constraint or unit\\\midrule
+\endhead
+\texttt{template\_\allowbreak{}version} & string & required & pattern pattern-constrained \\
+\texttt{features} & array of string & required & No unit or numeric range is imposed at this field; structural checks apply. \\
+\texttt{architecture} & array of string & required & No unit or numeric range is imposed at this field; structural checks apply. \\
+\texttt{deployment\_\allowbreak{}target} & string & required & minimum length 1 \\
+\bottomrule
+\end{longtable}
+\normalsize
+
+
+\subsection{Contract boundary: model-checkpoint-metadata}\label{sec:contract-model_checkpoint_metadata}
+The model-checkpoint-metadata boundary uses schema revision 1.1.0 and is owned by Research maintainers. Its purpose is Method checkpoint manifests and training metadata; not the binary checkpoint payloads. The schema at \texttt{model-checkpoints.schema.json} governs the persisted representation; its source document is \texttt{*.json}, produced by \texttt{check\_\allowbreak{}artifacts.py} and consumed by \texttt{pipeline}. The executable validator is \texttt{check\_\allowbreak{}artifacts.py}. Producer and consumer coverage is exercised by \texttt{check\_\allowbreak{}artifacts.py} and \texttt{pipeline}; provider substitution is checked by \texttt{test\_\allowbreak{}contract\_\allowbreak{}boundaries.py}. These checks exercise the declared boundary but do not establish the truth of scientific outcomes.
+
+This schema accepts several declared checkpoint and training-record shapes because linear, tree, recurrent, transition, and policy-gradient models do not share one parameter layout. The allowed variants preserve the method-specific fields needed to load or audit each model. Feature names and ordered state keys are compatibility data: a shape-compatible tensor with a different feature order is not the same model. The checker verifies referenced artifacts and lineage; missing metadata disables the affected learned method instead of falling back to an undocumented checkpoint.
+
+Table~\ref{tab:contract-fields-model_checkpoint_metadata} enumerates the schema's top-level fields, requiredness, JSON types, and explicit format, range, or enumeration constraints. Units are stated only where the schema or scientific definition supplies them; metadata and identifiers have no physical unit. A JSON type is not itself a scientific measurement. The catalog's unavailable-data rule is: missing: disable the affected learned method and report its absent checkpoint metadata. For status \texttt{real}, that rule is applied at the named consumer so missing evidence remains unavailable rather than being imputed. The boundary is traceable from source artifact through producer, validator, and its actual consumer.
+
+\small
+\begin{longtable}{p{.18\linewidth}p{.16\linewidth}p{.09\linewidth}p{.43\linewidth}}
+\caption{Schema fields and declared constraints for the model-checkpoint-metadata boundary, as defined by the product's versioned contract catalog.}\label{tab:contract-fields-model_checkpoint_metadata}\\
+\toprule Field & JSON type & Presence & Constraint or unit\\\midrule
+\endfirsthead
+\caption*{model-checkpoint-metadata schema fields continued}\\\toprule Field & JSON type & Presence & Constraint or unit\\\midrule
+\endhead
+\texttt{alternative: methodBundle} & object & oneOf & Required fields: shape-specific fields \\
+\texttt{alternative: linear} & object & oneOf & Required fields: schema\_version, feature\_names, coef, intercept, calibration \\
+\texttt{alternative: trees} & object & oneOf & Required fields: schema\_version, feature\_names, base\_margin, trees, calibration \\
+\texttt{alternative: xgboost} & object & oneOf & Required fields: learner, version \\
+\texttt{alternative: recurrent} & object & oneOf & Required fields: epochs, seed, device, training\_seconds, losses, temperature, hidden\_size, feature\_names, state\_keys, onnx\_max\_abs\_error \\
+\texttt{alternative: transition} & object & oneOf & Required fields: epochs, losses, device, seed, optimizer, learning\_rate, batch\_size, validation\_mse, validation\_state\_mse, validation\_reward\_mse, validation\_terminal\_mse, last\_head\_target \\
+\texttt{alternative: training} & object & oneOf & Required fields: seed, device, training\_seconds \\
+\texttt{alternative: metadata} & object & oneOf & Required fields: hidden\_size, temperature, feature\_names, state\_keys, onnx\_max\_abs\_error \\
+\bottomrule
+\end{longtable}
+\normalsize
+
+
+\subsection{Contract boundary: benchmark-adequacy}\label{sec:contract-benchmark_adequacy}
+The benchmark-adequacy boundary uses schema revision 1.0.0 and is owned by Research maintainers. Its purpose is Hash-bound audit of saturation, seed sensitivity and per-method core outcomes. The schema at \texttt{benchmark-adequacy.schema.json} governs the persisted representation; its source document is \texttt{benchmark-adequacy.json}, produced by \texttt{check\_\allowbreak{}artifacts.py} and consumed by \texttt{Benchmark\allowbreak{}Adequacy.tsx}. The executable validator is \texttt{check\_\allowbreak{}research.py}. Producer and consumer coverage is exercised by \texttt{check\_\allowbreak{}research.py} and \texttt{Benchmark\allowbreak{}Adequacy.tsx}; provider substitution is checked by \texttt{test\_\allowbreak{}contract\_\allowbreak{}boundaries.py}. These checks exercise the declared boundary but do not establish the truth of scientific outcomes.
+
+The adequacy record quantifies whether repeated benchmark cells provide varying outcomes and binds that calculation to the core index digest. It retains the count of scheduled episodes, the 1,440 method-case-variant cells, seed-variable cells, perfect methods, and localized M12 failures. In the frozen data, 71 cells vary by seed and five methods solve all core cases. Those values diagnose saturation and limited independent variation; they do not alter episode outcomes or establish that the benchmark represents future tasks.
+
+Table~\ref{tab:contract-fields-benchmark_adequacy} enumerates the schema's top-level fields, requiredness, JSON types, and explicit format, range, or enumeration constraints. Units are stated only where the schema or scientific definition supplies them; metadata and identifiers have no physical unit. A JSON type is not itself a scientific measurement. The catalog's unavailable-data rule is: missing: mark benchmark-adequacy evidence unavailable. For status \texttt{real}, that rule is applied at the named consumer so missing evidence remains unavailable rather than being imputed. The boundary is traceable from source artifact through producer, validator, and its actual consumer.
+
+\small
+\begin{longtable}{p{.18\linewidth}p{.16\linewidth}p{.09\linewidth}p{.43\linewidth}}
+\caption{Schema fields and declared constraints for the benchmark-adequacy boundary, as defined by the product's versioned contract catalog.}\label{tab:contract-fields-benchmark_adequacy}\\
+\toprule Field & JSON type & Presence & Constraint or unit\\\midrule
+\endfirsthead
+\caption*{benchmark-adequacy schema fields continued}\\\toprule Field & JSON type & Presence & Constraint or unit\\\midrule
+\endhead
+\texttt{schema\_\allowbreak{}version} & constant int & required & equals 1 \\
+\texttt{scope} & string & required & minimum length 1 \\
+\texttt{episodes\_\allowbreak{}checked} & constant int & required & equals 14400 \\
+\texttt{case\_\allowbreak{}variant\_\allowbreak{}method\_\allowbreak{}cells} & integer & required & minimum 1 \\
+\texttt{seed\_\allowbreak{}variable\_\allowbreak{}cells} & integer & required & minimum 0 \\
+\texttt{index\_\allowbreak{}sha256} & string & required & pattern pattern-constrained \\
+\texttt{perfect\_\allowbreak{}methods} & array of string & required & No unit or numeric range is imposed at this field; structural checks apply. \\
+\texttt{m12\_\allowbreak{}failures} & array of object & required & No unit or numeric range is imposed at this field; structural checks apply. \\
+\texttt{methods} & array of object & required & minimum items 12; maximum items 12 \\
+\texttt{interpretation} & string & required & minimum length 1 \\
+\bottomrule
+\end{longtable}
+\normalsize
+
+
+\subsection{Contract boundary: core-experiment-lineage}\label{sec:contract-core_experiment_lineage}
+The core-experiment-lineage boundary uses schema revision 1.0.0 and is owned by Research maintainers. Its purpose is Source, binary, checkpoint, package and platform lineage for frozen core results. The schema at \texttt{core-lineage.schema.json} governs the persisted representation; its source document is \texttt{lineage.json}, produced by \texttt{check\_\allowbreak{}artifacts.py} and consumed by \texttt{Scientific\allowbreak{}Evidence.tsx}. The executable validator is \texttt{check\_\allowbreak{}artifacts.py}. Producer and consumer coverage is exercised by \texttt{check\_\allowbreak{}artifacts.py} and \texttt{Scientific\allowbreak{}Evidence.tsx}; provider substitution is checked by \texttt{test\_\allowbreak{}contract\_\allowbreak{}boundaries.py}. These checks exercise the declared boundary but do not establish the truth of scientific outcomes.
+
+The persisted artifact identifies the code and native executable, checkpoint set, experiment specification, packages, planner, operating system, Python runtime, device, and inference thread count used for core results. It allows a reviewer to distinguish an unchanged data index from a changed implementation. The artifact checker validates the declared lineage signature against source artifacts before trusting the aggregate. A missing or mismatched lineage record disables reproducibility claims but does not delete the underlying failure episodes.
+
+Table~\ref{tab:contract-fields-core_experiment_lineage} enumerates the schema's top-level fields, requiredness, JSON types, and explicit format, range, or enumeration constraints. Units are stated only where the schema or scientific definition supplies them; metadata and identifiers have no physical unit. A JSON type is not itself a scientific measurement. The catalog's unavailable-data rule is: missing: mark lineage unverified and disable reproducibility claims. For status \texttt{real}, that rule is applied at the named consumer so missing evidence remains unavailable rather than being imputed. The boundary is traceable from source artifact through producer, validator, and its actual consumer.
+
+\small
+\begin{longtable}{p{.18\linewidth}p{.16\linewidth}p{.09\linewidth}p{.43\linewidth}}
+\caption{Schema fields and declared constraints for the core-experiment-lineage boundary, as defined by the product's versioned contract catalog.}\label{tab:contract-fields-core_experiment_lineage}\\
+\toprule Field & JSON type & Presence & Constraint or unit\\\midrule
+\endfirsthead
+\caption*{core-experiment-lineage schema fields continued}\\\toprule Field & JSON type & Presence & Constraint or unit\\\midrule
+\endhead
+\texttt{source\_\allowbreak{}sha256} & object; hashMap & required & No unit or numeric range is imposed at this field; structural checks apply. \\
+\texttt{native\_\allowbreak{}source\_\allowbreak{}sha256} & object; hashMap & required & No unit or numeric range is imposed at this field; structural checks apply. \\
+\texttt{checkpoint\_\allowbreak{}sha256} & object & required & minimum properties 1 \\
+\texttt{spec\_\allowbreak{}sha256} & string & required & pattern pattern-constrained \\
+\texttt{native\_\allowbreak{}binary} & object & required & No unit or numeric range is imposed at this field; structural checks apply. \\
+\texttt{packages} & object & required & minimum properties 1 \\
+\texttt{planner} & object & required & No unit or numeric range is imposed at this field; structural checks apply. \\
+\texttt{platform} & string & required & minimum length 1 \\
+\texttt{python} & string & required & minimum length 1 \\
+\texttt{inference\_\allowbreak{}device} & string & required & minimum length 1 \\
+\texttt{torch\_\allowbreak{}inference\_\allowbreak{}threads} & integer & optional & minimum 1 \\
+\bottomrule
+\end{longtable}
+\normalsize
+
+
+\subsection{Contract boundary: research-report}\label{sec:contract-research_report}
+The research-report boundary uses schema revision 1.0.0 and is owned by Research maintainers. Its purpose is Corrected aggregate report, paired comparisons, ablations, transfer and explicit limitations. The schema at \texttt{research-report.schema.json} governs the persisted representation; its source document is \texttt{research.json}, produced by \texttt{check\_\allowbreak{}research.py} and consumed by \texttt{Research\allowbreak{}Results.tsx}. The executable validator is \texttt{check\_\allowbreak{}research.py}. Producer and consumer coverage is exercised by \texttt{check\_\allowbreak{}research.py} and \texttt{Research\allowbreak{}Results.tsx}; provider substitution is checked by \texttt{test\_\allowbreak{}contract\_\allowbreak{}boundaries.py}. These checks exercise the declared boundary but do not establish the truth of scientific outcomes.
+
+The aggregate report joins the core and transfer lanes with ablations, paired method differences, training details, routing, transition prediction, native parity, external comparisons, a summary conclusion, and explicit limits. Its completed count is fixed by the available source inventory and its audit digest binds the result to those inputs. The report is generated from episode-level records, not edited to improve a headline. Its limitations travel with the numbers so the M12 shortfall, saturated core suite, and separate transfer result remain visible wherever the aggregate is consumed.
+
+Table~\ref{tab:contract-fields-research_report} enumerates the schema's top-level fields, requiredness, JSON types, and explicit format, range, or enumeration constraints. Units are stated only where the schema or scientific definition supplies them; metadata and identifiers have no physical unit. A JSON type is not itself a scientific measurement. The catalog's unavailable-data rule is: missing: hide aggregate conclusions and show evidence unavailable. For status \texttt{real}, that rule is applied at the named consumer so missing evidence remains unavailable rather than being imputed. The boundary is traceable from source artifact through producer, validator, and its actual consumer.
+
+\small
+\begin{longtable}{p{.18\linewidth}p{.16\linewidth}p{.09\linewidth}p{.43\linewidth}}
+\caption{Schema fields and declared constraints for the research-report boundary, as defined by the product's versioned contract catalog.}\label{tab:contract-fields-research_report}\\
+\toprule Field & JSON type & Presence & Constraint or unit\\\midrule
+\endfirsthead
+\caption*{research-report schema fields continued}\\\toprule Field & JSON type & Presence & Constraint or unit\\\midrule
+\endhead
+\texttt{schema\_\allowbreak{}version} & constant int & required & equals 1 \\
+\texttt{kind} & constant string & required & equals reflexmesh-corrected-science \\
+\texttt{generated\_\allowbreak{}at} & string & required & format date-time \\
+\texttt{audit\_\allowbreak{}sha256} & string & required & pattern pattern-constrained \\
+\texttt{completed\_\allowbreak{}episodes} & constant int & required & equals 19488 \\
+\texttt{core} & object; lane & required & No unit or numeric range is imposed at this field; structural checks apply. \\
+\texttt{transfer} & object; lane & required & No unit or numeric range is imposed at this field; structural checks apply. \\
+\texttt{ablations} & object & required & No unit or numeric range is imposed at this field; structural checks apply. \\
+\texttt{paired\_\allowbreak{}M12\_\allowbreak{}minus\_\allowbreak{}method} & object & required & minimum properties 1 \\
+\texttt{training} & object & required & No unit or numeric range is imposed at this field; structural checks apply. \\
+\texttt{routing} & object & required & No unit or numeric range is imposed at this field; structural checks apply. \\
+\texttt{transition\_\allowbreak{}validation} & object & required & No unit or numeric range is imposed at this field; structural checks apply. \\
+\texttt{native\_\allowbreak{}parity} & object & required & No unit or numeric range is imposed at this field; structural checks apply. \\
+\texttt{external} & object & required & No unit or numeric range is imposed at this field; structural checks apply. \\
+\texttt{ver\textbackslash\{\}-dict} & string & required & minimum length 1 \\
+\texttt{limits} & array of string & required & minimum items 1 \\
+\bottomrule
+\end{longtable}
+\normalsize
+
+
+\subsection{Contract boundary: event-response-audit}\label{sec:contract-event_response_audit}
+The event-response-audit boundary uses schema revision 1.0.0 and is owned by Research maintainers. Its purpose is Separate exploratory scoring of event response, invariants and final verification on frozen test episodes. The schema at \texttt{event-response-report.schema.json} governs the persisted representation; its source document is \texttt{report.json}, produced by \texttt{evaluate\_\allowbreak{}event\_\allowbreak{}responses.py} and consumed by \texttt{Event\allowbreak{}Response\allowbreak{}Evidence.tsx}. The executable validator is \texttt{check\_\allowbreak{}event\_\allowbreak{}responses.py}. Producer and consumer coverage is exercised by \texttt{evaluate\_\allowbreak{}event\_\allowbreak{}responses.py} and \texttt{Event\allowbreak{}Response\allowbreak{}Evidence.tsx}; provider substitution is checked by \texttt{test\_\allowbreak{}event\_\allowbreak{}response.py}. These checks exercise the declared boundary but do not establish the truth of scientific outcomes.
+
+This post-hoc analysis scores response selection, event invariants, re-verification, and final completion on an existing frozen test split. The contract records its source artifact and contract definitions so that the evaluator can recompute the 4,320-episode analysis. Because the event rules were authored after the original benchmark, the result is exploratory rather than a preregistered comparison. Counts for observed events and eligible episodes are kept separate; a missing event does not count as a correct response or as a task failure by itself.
+
+Table~\ref{tab:contract-fields-event_response_audit} enumerates the schema's top-level fields, requiredness, JSON types, and explicit format, range, or enumeration constraints. Units are stated only where the schema or scientific definition supplies them; metadata and identifiers have no physical unit. A JSON type is not itself a scientific measurement. The catalog's unavailable-data rule is: missing: hide the audit and report unavailable evidence. For status \texttt{real}, that rule is applied at the named consumer so missing evidence remains unavailable rather than being imputed. The boundary is traceable from source artifact through producer, validator, and its actual consumer.
+
+\small
+\begin{longtable}{p{.18\linewidth}p{.16\linewidth}p{.09\linewidth}p{.43\linewidth}}
+\caption{Schema fields and declared constraints for the event-response-audit boundary, as defined by the product's versioned contract catalog.}\label{tab:contract-fields-event_response_audit}\\
+\toprule Field & JSON type & Presence & Constraint or unit\\\midrule
+\endfirsthead
+\caption*{event-response-audit schema fields continued}\\\toprule Field & JSON type & Presence & Constraint or unit\\\midrule
+\endhead
+\texttt{schema\_\allowbreak{}version} & constant int & required & equals 1 \\
+\texttt{study} & constant string & required & equals event-response-audit \\
+\texttt{status} & constant string & required & equals exploratory\_posthoc \\
+\texttt{generated\_\allowbreak{}at} & string & required & format date-time \\
+\texttt{source} & string & required & minimum length 1 \\
+\texttt{contract\_\allowbreak{}source} & string & required & minimum length 1 \\
+\texttt{contracts} & array of object & required & minimum items 6; maximum items 6 \\
+\texttt{dimensions} & array of string & required & minimum items 5 \\
+\texttt{coverage} & object & required & No unit or numeric range is imposed at this field; structural checks apply. \\
+\texttt{methods} & object & required & minimum properties 12 \\
+\texttt{limitations} & array of string & required & minimum items 5 \\
+\bottomrule
+\end{longtable}
+\normalsize
+
+
+\subsection{Contract boundary: event-response-index}\label{sec:contract-event_response_index}
+The event-response-index boundary uses schema revision 1.0.0 and is owned by Research maintainers. Its purpose is Source-bound identity, count and digest pointer for the exploratory event-response report. The schema at \texttt{event-response-index.schema.json} governs the persisted representation; its source document is \texttt{index.json}, produced by \texttt{evaluate\_\allowbreak{}event\_\allowbreak{}responses.py} and consumed by \texttt{check\_\allowbreak{}event\_\allowbreak{}responses.py}. The executable validator is \texttt{check\_\allowbreak{}event\_\allowbreak{}responses.py}. Producer and consumer coverage is exercised by \texttt{evaluate\_\allowbreak{}event\_\allowbreak{}responses.py} and \texttt{check\_\allowbreak{}event\_\allowbreak{}responses.py}; provider substitution is checked by \texttt{test\_\allowbreak{}event\_\allowbreak{}response.py}. These checks exercise the declared boundary but do not establish the truth of scientific outcomes.
+
+The index binds the exploratory event-response report to its byte digest, source episode count, case list, and study identity. The checker verifies both the report hash and the frozen source count before showing any result. This prevents a recomputed report from being mistaken for the exact artifact currently referenced by the product. If the index or report is missing, the audit view becomes unavailable instead of displaying an older cached summary as current evidence.
+
+Table~\ref{tab:contract-fields-event_response_index} enumerates the schema's top-level fields, requiredness, JSON types, and explicit format, range, or enumeration constraints. Units are stated only where the schema or scientific definition supplies them; metadata and identifiers have no physical unit. A JSON type is not itself a scientific measurement. The catalog's unavailable-data rule is: missing: hide the audit and report unavailable evidence. For status \texttt{real}, that rule is applied at the named consumer so missing evidence remains unavailable rather than being imputed. The boundary is traceable from source artifact through producer, validator, and its actual consumer.
+
+\small
+\begin{longtable}{p{.18\linewidth}p{.16\linewidth}p{.09\linewidth}p{.43\linewidth}}
+\caption{Schema fields and declared constraints for the event-response-index boundary, as defined by the product's versioned contract catalog.}\label{tab:contract-fields-event_response_index}\\
+\toprule Field & JSON type & Presence & Constraint or unit\\\midrule
+\endfirsthead
+\caption*{event-response-index schema fields continued}\\\toprule Field & JSON type & Presence & Constraint or unit\\\midrule
+\endhead
+\texttt{schema\_\allowbreak{}version} & constant int & required & equals 1 \\
+\texttt{study} & constant string & required & equals event-response-audit \\
+\texttt{report} & constant string & required & equals report.json \\
+\texttt{report\_\allowbreak{}sha256} & string & required & pattern pattern-constrained \\
+\texttt{source\_\allowbreak{}episode\_\allowbreak{}count} & constant int & required & equals 4320 \\
+\texttt{contract\_\allowbreak{}cases} & constant list & required & equals ['C07', 'C11', 'C13', 'C15', 'C18', 'C20'] \\
+\texttt{status} & constant string & required & equals exploratory\_posthoc \\
+\bottomrule
+\end{longtable}
+\normalsize

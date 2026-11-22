@@ -1,0 +1,111 @@
+\begin{table}[H]\centering\small
+\begin{tabularx}{.90\linewidth}{lX}\toprule
+Symbol & Meaning in the controller and evaluation\\\midrule
+$s_t$ & Controller-visible state at decision step $t$\\
+$A_t$ & Candidate actions admitted by current broker authority and resource contract\\
+$a_t$ & Selected proposal; execution remains subject to fresh broker admission\\
+$r_t$ & Resource revision used to bind an asynchronous proposal\\
+$B_t$ & Remaining time or compute budget available to a decision\\
+$Y$ & Independently evaluated binary task postcondition\\
+$U^P,U^F$ & Verified utility of planner and fast-policy branches\\
+$C_P$ & Measured planner computation cost, including unused work where recorded\\
+$\tau$ & Learned or selected delegation threshold\\
+$\delta$ & Incremental utility after planner cost in a paired decision\\
+\bottomrule\end{tabularx}
+\caption{Notation for policy state, broker-admitted candidates, version bindings, utility, and computation cost in the evaluation.}\label{tab:notation}\end{table}
+
+The symbols prevent internal estimates from being confused with observable task outcomes. The state $s_t$ contains only information delivered to the controller; it does not silently include hidden provider state. The admitted set $A_t$ can change when authority, resource revision, or candidate availability changes. Resource identity $r_t$ is compared for equality rather than treated as a similarity score. Success $Y$ is assigned by an independent postcondition evaluator after effects are observed. For paired branches, $U^P-U^F$ estimates local incremental value only to the extent the declared initial state and continuation policy are shared; it is not automatically a full-episode counterfactual. The episode rate is computed as $\widehat p=\sum_iY_i/N$, where $N$ remains the scheduled denominator and failed or cancelled runs are retained. Latency percentiles use controller decisions rather than episodes, and paired comparisons require identical case, variant, and seed identities. The ten repetitions in a template-shared cell do not create ten independent task families. The adequacy audit therefore reports seed-varying cells and constrains statistical interpretation. Resource revision is an identity checked for equality, while the M12 prediction residual is a separate state statistic; the two meanings must not be merged when interpreting a trace. Gate threshold $\tau$ can lie above observed probability support, producing a valid never-defer policy but no learned delegation evidence.
+
+The episode success rate is $\widehat p=\sum_iY_i/N$, where $N$ is the scheduled denominator. Failed and cancelled episodes remain counted. Latency percentiles are computed over policy decisions and cannot be substituted for total episode wall time. Paired comparisons use the same case, variant, and seed. The sampling unit matters: ten deterministic repetitions of one template-shared cell do not create ten independent task families. The adequacy audit therefore reports the observed seed-varying cells rather than presenting all repeated episodes as independent evidence.
+
+\section{Data and data contracts}
+Neuraxis binds evidence to versioned JSON contracts rather than informal filenames. Each catalog row names a schema, producer, consumer, validator, provider, source artifact, and unavailable-data behavior. An absent trace, a malformed trace, and a valid trace with a failed outcome have different meanings. Missing scheduled evidence remains visible in the denominator; it is not replaced with presumed success or removed from an aggregate. Frozen indexes and per-episode digests support audit, while reports are recomputed from their declared sources. Table~\ref{tab:contract-families} groups the 21 contracts by the evidence boundary they govern. The individual contract subsections state the identity fields, producer and consumer path, and failure behavior that make each boundary operational.
+
+These contracts form a dependency chain rather than 21 independent scientific findings. An episode is referenced by an index, validated against a schema, checked against lineage, and then aggregated into a report. The UI renders an evidence view only after the supporting artifacts pass their own checks. Schema validity establishes structure and required keys; producer tests show that code writes the boundary; consumer tests and provider-swap tests exercise the named reader and an alternate implementation. None proves that an outcome value is true. Scientific claims still require source digests and an independent outcome evaluator.
+\begin{table}[H]\centering\small
+\begin{tabularx}{.95\linewidth}{lrlX}\toprule
+Evidence group & Contracts & Primary identity & Consumer-facing use\\\midrule
+Product identity and release & 4 & Product version and catalog digest & Determine declared identity and release availability\\
+Core experiment & 5 & Index, run, episode and lineage & Reproduce and audit the 14,400-episode core denominator\\
+Transfer & 5 & Separate split and source digest & Keep semantic-transfer evidence outside the core denominator\\
+Operations & 4 & Run ID, authority and input digest & Inspect bounded local operation evidence\\
+Model and event audits & 3 & Checkpoint or report digest & Inspect model lineage and exploratory event-response records\\\bottomrule
+\end{tabularx}
+\caption{Contract groups in the versioned Neuraxis catalog and the evidence boundaries each group supplies to application views.}\label{tab:contract-families}\end{table}
+\input{contracts.tex}
+
+\section{System architecture}
+The runtime separates a proposal path from an effect path. A method receives an observation and candidate records and emits a candidate decision, planner request, or typed stop. The broker validates the proposal against the current candidate set and policy contract, then rechecks authority and resource revision immediately before effect execution. The provider returns an effect record or typed failure. A journal records accepted transitions for replay and crash recovery. A separate verifier evaluates the task postcondition. The policy cannot grant itself workspace authority by naming a tool, supplying arguments, or returning a high confidence score.
+
+The application service adds ownership and resource boundaries around local operations. Workspace registration establishes which paths are in scope; previews expose intended effects; service lifecycles have bounded lifecycle, cancellation, export, and retention controls. Research artifacts use a separate path: indexes and lineage records point to immutable episode files, while the UI renders validated summaries. A replayed benchmark action therefore has no local filesystem authority, and a local file task is not a scientific episode unless the benchmark runner executes it under its protocol.
+
+The architecture accommodates asynchronous reasoning without making it authoritative. A planner request binds goal identity, observation revision, candidates, budget, and deadline. While the request is pending, the fast policy can make progress. When a response arrives, its binding and candidate identity are checked; the broker then rechecks admission at effect time. A changed binding makes the response stale and causes discard. A digest protects the listed canonical fields from accidental mismatch, but cannot prove that all causal dependencies were included. Stale-result rejection, action admission, and postcondition verification remain separate checks. Resource versioning is a consistency mechanism, not evidence of better outcomes.
+
+Operational guarantees are scoped to declared providers and tested contracts. They do not imply that an arbitrary remote service obeyed cancellation, that an effect record proves business completion, or that a local journal reproduces unobserved external state. Such cases need provider-specific evidence and explicit statuses such as pending, unknown, rejected, and verified. This is consistent with transaction and safe-control principles, while the concrete acceptance evidence must come from the Neuraxis integration tests and operation records \cite{lamport1998,schulman2017,suttonbarto2018,amodei2016,leike2018}.
+
+\subsection{Runtime and action authority}
+Reflexmesh represents an action as a typed candidate with a tool name, validated arguments, resource revision, and policy provenance. Policies rank or nominate candidates; the broker admits only those satisfying current contracts. Effects produce effect records and append to a journal. An effect record establishes that the runtime recorded an effect under its contract; it does not establish optimality or final task success. Policy confidence, broker admission, effect execution, and independent postcondition are distinct facts. For local file operations, registration defines the authorized root, the service validates requests against it, and export or deletion is scoped to an owned run identifier. The service and broker check different boundaries: ownership is verified at service lifecycle inspection, whereas candidate authority is rechecked immediately before an effect. A preview is an intent record, not an effect record. Unknown provider state remains unknown instead of being converted into a completion flag, and a typed timeout cannot be treated as a successful cancellation. These distinctions support accurate records during concurrent file and process operations.
+
+\subsection{Operational workbench}
+The task interface supports release verification, source auditing, and data reconciliation. Workflows parse structured inputs, check tabular shape and references, compare file digests to a supplied manifest, and verify generated artifacts. Each workflow is a registered dependency graph. Its operational controller is a fixed prerequisite policy that selects the first action admitted by the current graph. Uploaded text is parsed as data and is not executed. This task interface does not invoke the twelve research controllers or the learned routing gate. The Investigations view replays committed evidence; it does not turn a replay into fresh task execution. The workbench demonstrates bounded operation records, not learned metacontrol performance. Its file parsers, CSV shape checks, duplicate-identifier checks, foreign-key checks, and release-manifest digest comparisons are deterministic validators. They produce actionable findings about supplied artifacts but do not call an LLM or infer a research policy. An operator can inspect actual verification results without attributing a decision to a learned controller that did not make it. Successful validation means the declared checks passed for the supplied files; it does not certify the source as safe, prove that an external system accepted an upload, or establish that an operation succeeded beyond its recorded effect and postcondition.
+
+\section{Methods}
+The comparison uses twelve distinct implementations through the same broker-facing candidate interface. The set spans ordered guards, behavior-tree traversal, supervised action rankers, recurrent sequence scoring, contextual reward learning, masked policy gradients, learned transition lookahead, direct planning, fixed asynchronous delegation, and cost-sensitive deferral. A common interface controls one source of variation but does not equalize training data, labels, model size, fitting compute, provider latency, or total resource cost. Therefore the results are empirical points under a recorded protocol, not a compute-equivalent tournament. Supervised rankers target demonstrated choices, bandit updates use local reward, PPO optimizes an environment reward, and model-based lookahead depends on transition accuracy; those targets are not interchangeable.
+
+The guarded controller scans ordered predicates over admitted actions; the behavior tree composes conditions and action leaves with success, failure, and running statuses. M03 through M08 provide the learned and model-based alternatives. M09 is a direct planner on the critical path, M10 overlaps a fixed planner request with fallback control, and M11 fits a threshold over paired incremental utility. The separate method subsections specify source, equations, assumptions, parameter values, complexity, and observed performance. Algorithm~\ref{alg:guarded} gives the guard selection procedure; Algorithm~\ref{alg:async} gives asynchronous binding and accounting; Algorithm~\ref{alg:m12} gives resource-versioned request and stale-response handling.
+
+M12 combines recurrent action preference, an effect estimate, persistent controller state, resource-version invalidation, and planner allocation. Its prediction is that under matched compute constraints and independent postconditions it improves the success-cost frontier over strong fixed and asynchronous baselines without admitting stale or unauthorized effects. The existing evaluation does not confirm this prediction. M12's implemented form and the negative result are retained in its dedicated manuscript; this report covers the method alongside its comparators and the full contract catalog.
+\input{methods-detailed.tex}
+\input{methods-extended.tex}
+
+\begin{algorithm}[H]\caption{Ordered guarded selection with broker-admitted candidates}\label{alg:guarded}
+\begin{algorithmic}[1]\Require Observation $o_t$, candidates $A_t$, admission predicate $G$
+\State Refresh stale observation; acknowledge duplicate events
+\State Resolve missing dependency and cancellation preconditions
+\For{each operation guard $R_q$ in declared priority order}
+  \If{$R_q(o_t)$ and an admitted candidate has operation $q$}
+    \State Return the first such candidate
+  \EndIf
+\EndFor
+\State Return typed stop with reason no-supported-rule
+\end{algorithmic}\end{algorithm}
+\begin{algorithm}[H]\caption{Asynchronous planning with binding validation and fallback accounting}\label{alg:async}
+\begin{algorithmic}[1]\Require Observation $o_t$, binding $b_t$, fallback policy $F$
+\If{no request is pending and the decision is eligible}
+  \State Submit planner request bound to $H(\operatorname{canonical}(b_t))$
+\EndIf
+\State Continue with $F(o_t)$ while the request is pending
+\If{planner result is ready}
+  \If{binding digest matches and candidate validates}
+    \State Return planner proposal for fresh broker admission
+  \Else
+    \State Discard stale result and record unused computation
+  \EndIf
+\EndIf
+\State Return fallback; account outstanding work at episode close
+\end{algorithmic}\end{algorithm}
+\begin{algorithm}[H]\caption{Resource-versioned metacontrol and stale-response handling}\label{alg:m12}
+\begin{algorithmic}[1]\Require Observation $o_t$, history $h_t$, candidates $A_t$, budget $B_t$
+\State Refresh, acknowledge duplicates, and resolve dependencies
+\State Score admitted actions using recurrent preference and effect estimate
+\State Update prediction residual $e_t$ from the next observable state
+\If{benefit gate, surprise, or explicit uncertainty requests deliberation}
+  \If{request budget remains and $B_t$ exceeds minimum}
+    \State Submit request bound to current resource revision and candidates
+  \EndIf
+\EndIf
+\If{pending answer is ready and its resource binding remains current}
+  \State Validate candidate and submit it to broker
+\Else
+  \State Discard stale or expired response; choose highest-scoring admitted action
+\EndIf
+\end{algorithmic}\end{algorithm}
+
+\section{Experimental protocol}
+The core matrix has twelve methods, twenty families, six variants, and ten seeds per method-family-variant cell: $12\times20\times6\times10=14{,}400$ episodes. Families cover file routing, builds, dependencies, HTTP retries, process control, conflicts, planner use, untrusted text, long-job cancellation, and crash recovery. Canonical traces bind method, case, variant, seed, decisions, metrics, postcondition, and source lineage. The derived index includes source digests. Figure~\ref{fig:seed-variation} reports the adequacy result: only 71 of 1,440 method-case-variant cells vary across seeds, so these repetitions chiefly test deterministic replay rather than independent environment sampling.
+\begin{equation}\label{eq:scheduled-core}N_{\mathrm{core}}=|\mathcal M|\,|\mathcal C|\,|\mathcal V|\,|\mathcal S|=12\cdot20\cdot6\cdot10=14{,}400.\end{equation}
+\begin{figure}[H]\centering\includegraphics[width=.82\linewidth]{seed-variation.pdf}\caption{Case-by-variant cells with invariant and seed-varying binary outcomes show why repeated episodes do not imply independent evidence.}\label{fig:seed-variation}\end{figure}
+
+Failures stay in denominators. Success is the count of true independent postconditions divided by scheduled episodes. Decision latency is measured per controller decision; total wall time includes additional work and is reported separately. Paired comparisons match case, variant, and seed. Bootstrap intervals over seed groups can be degenerate when outcomes do not vary, and cannot establish generalization from repeated deterministic episodes. Figure~\ref{fig:core-success} shows the ceiling effect directly: several methods solve every core episode, including a deterministic baseline.
+
+Structural-transfer compositions and semantic-transfer analyses are separate populations, not part of the core count. Four ablations remove memory, effect information, deferral, or invalidation, each over 1,200 matched core episodes. Their outcomes are paired against full M12. Planner cost, policy latency, and task completion are distinct. The frozen protocol and source hashes identify these populations; they do not turn seed relabeling into additional environmental variation. Future experiments must split by task family before fitting and keep final labels inaccessible until evaluation \cite{efron1993,demsar2006,nadeau2003,toolsandbox,swebench,taubench}. Training, calibration, threshold selection, and final evaluation use separate records where available; no held-out outcome should tune a request threshold. For asynchronous planners, request count and applied-decision count are both recorded, because a request may complete too late or be discarded after invalidation. Transfer lane indices preserve the split boundary, and report digests identify the exact artifact snapshot. This protocol supports replay of the archived evaluation but its low seed variability limits inferential resolution. For transfer and routing, the index digest and lineage signature are checked independently before the outcome table is generated. The resulting comparisons describe the declared held-out population, not unrestricted tool use or deployed user workloads. The counts are reviewed in the context of family overlap and the saturated fixed-policy baseline before any generalization language is used.
